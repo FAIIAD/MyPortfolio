@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,9 +8,21 @@
     <!-- خط ثمانية والأيقونات -->
     <link href="https://cdn.jsdelivr.net/npm/@dawod/thmanyah-font-web/index.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- 1. قراءة المظهر المحفوظ من الصفحة الرئيسية فور فتح الصفحة -->
+    <script>
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+        } else {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+
+    <!-- 2. إعدادات Tailwind مع تفعيل darkMode: 'class' -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -23,8 +35,12 @@
             }
         }
     </script>
+
     <style>
-        body { font-family: 'Thmanyah Sans', sans-serif; }
+        body { 
+            font-family: 'Thmanyah Sans', sans-serif; 
+            transition: background-color 0.3s ease, color 0.3s ease; 
+        }
         h1, h2, h3, h4 { font-family: 'Thmanyah Serif Display', serif; }
         .option-btn { transition: all 0.2s ease; }
         .option-btn:hover:not(:disabled) {
@@ -33,21 +49,43 @@
             transform: translateX(-4px);
         }
         .filter-btn.active, .limit-btn.active {
-            background: linear-gradient(to right, #06b6d4, #3b82f6);
-            color: white;
-            border-color: transparent;
+            background: linear-gradient(to right, #06b6d4, #3b82f6) !important;
+            color: white !important;
+            border-color: transparent !important;
         }
+
+        /* 3. تنسيقات الوضع الفاتح (Light Mode) التلقائية لصفحة الاختبار */
+        html:not(.dark) body { background-color: #f8fafc; color: #1e293b; }
+        html:not(.dark) header, html:not(.dark) footer { background-color: rgba(255, 255, 255, 0.85); border-color: #e2e8f0; }
+        html:not(.dark) .bg-card, html:not(.dark) .bg-card\/60, html:not(.dark) .bg-card\/40 { background-color: #ffffff; border-color: #cbd5e1; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        html:not(.dark) .bg-gray-900\/60, html:not(.dark) .bg-gray-900\/40 { background-color: #f8fafc; border-color: #cbd5e1; color: #1e293b; }
+        html:not(.dark) .bg-gray-800, html:not(.dark) .bg-gray-800\/80, html:not(.dark) .bg-gray-800\/60 { background-color: #f1f5f9; border-color: #cbd5e1; color: #334155; }
+        html:not(.dark) .text-white { color: #0f172a; }
+        html:not(.dark) .text-gray-200, html:not(.dark) .text-gray-300 { color: #1e293b; }
+        html:not(.dark) .text-gray-400, html:not(.dark) .text-gray-500, html:not(.dark) .text-gray-600 { color: #475569; }
+        html:not(.dark) .border-gray-700, html:not(.dark) .border-gray-800, html:not(.dark) .border-gray-800\/80 { border-color: #e2e8f0; }
     </style>
 </head>
 <body class="bg-dark text-gray-200 min-h-screen flex flex-col justify-between relative overflow-x-hidden">
 
-    <!-- شريط علوي للعودة -->
-    <header class="bg-dark/70 backdrop-blur-md border-b border-gray-800 py-4 px-6 sticky top-0 z-50">
+    <!-- شريط علوي للعودة وتبديل المظهر -->
+    <header class="bg-dark/70 backdrop-blur-md border-b border-gray-800 py-4 px-6 sticky top-0 z-50 transition-colors duration-300">
         <div class="container mx-auto flex justify-between items-center">
             <a href="index.html" class="text-gray-400 hover:text-cyan transition-colors font-semibold flex items-center gap-2">
                 <i class="fa-solid fa-arrow-right"></i> العودة للرئيسية
             </a>
-            <h1 class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan to-blue">IT354 - Mock Exam (Ch 17–21)</h1>
+            <div class="flex items-center gap-4">
+                <h1 class="text-lg md:text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan to-blue">IT354 - Mock Exam</h1>
+                
+                <!-- زر تبديل المظهر المنزلق -->
+                <button id="theme-toggle" onclick="toggleTheme()" aria-label="تبديل المظهر" dir="ltr" class="relative w-16 h-8 rounded-full bg-slate-200 dark:bg-gray-800 border border-slate-300 dark:border-gray-700 flex items-center justify-between px-2 transition-colors duration-300 focus:outline-none shrink-0 cursor-pointer">
+                    <i class="fa-solid fa-sun text-amber-500 text-xs"></i>
+                    <i class="fa-solid fa-moon text-cyan text-xs"></i>
+                    <span class="absolute top-1 left-1 w-6 h-6 rounded-full bg-white dark:bg-card border border-slate-200 dark:border-gray-600 shadow-md transform transition-transform duration-300 translate-x-0 dark:translate-x-8 flex items-center justify-center">
+                        <i id="theme-icon" class="fa-solid fa-moon text-cyan text-xs"></i>
+                    </span>
+                </button>
+            </div>
         </div>
     </header>
 
@@ -89,7 +127,7 @@
                         <span id="status-badge" class="hidden text-xs px-2.5 py-0.5 rounded-full font-bold"></span>
                     </div>
                     <div class="flex items-center gap-4">
-                        <span id="score-tracker" class="font-bold text-emerald-400">الصحيحة: 0</span>
+                        <span id="score-tracker" class="font-bold text-emerald-500">الصحيحة: 0</span>
                         <button onclick="shuffleCurrentPool()" title="خلط الأسئلة الحالية والبدء من جديد" class="text-gray-400 hover:text-cyan transition-colors text-xs bg-gray-800 px-3 py-1.5 rounded-lg border border-gray-700">
                             <i class="fa-solid fa-shuffle ml-1"></i> خلط الأسئلة
                         </button>
@@ -154,11 +192,29 @@
     </main>
 
     <footer class="text-center py-6 text-gray-600 text-sm border-t border-gray-800">
-        &copy; 2026 فهد الزعبي — IT354 Study Hub
+        &copy; 2026 FZ3 — IT354 Study Hub
     </footer>
 
     <!-- برمجة الاختبار وقاعدة بيانات الـ 80 سؤال -->
     <script>
+        // دالة تحديث ومزامنة المظهر بين الصفحات
+        const themeIcon = document.getElementById('theme-icon');
+        function updateThemeIcon() {
+            if (document.documentElement.classList.contains('dark')) {
+                themeIcon.className = 'fa-solid fa-moon text-cyan text-xs';
+            } else {
+                themeIcon.className = 'fa-solid fa-sun text-amber-500 text-xs';
+            }
+        }
+        updateThemeIcon();
+
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+            const isDark = document.documentElement.classList.contains('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            updateThemeIcon();
+        }
+
         const allQuestions = [
             // ================= CHAPTER 17 (16 Questions) =================
             {
@@ -1197,11 +1253,11 @@
                 statusBadge.classList.remove('hidden');
                 explanationBox.classList.add('hidden');
             } else if (savedAnswer === q.correct) {
-                statusBadge.className = "bg-emerald-500/20 text-emerald-400 text-xs px-2.5 py-0.5 rounded-full font-bold";
+                statusBadge.className = "bg-emerald-500/20 text-emerald-500 text-xs px-2.5 py-0.5 rounded-full font-bold";
                 statusBadge.innerText = "إجابة صحيحة";
                 statusBadge.classList.remove('hidden');
             } else {
-                statusBadge.className = "bg-rose-500/20 text-rose-400 text-xs px-2.5 py-0.5 rounded-full font-bold";
+                statusBadge.className = "bg-rose-500/20 text-rose-500 text-xs px-2.5 py-0.5 rounded-full font-bold";
                 statusBadge.innerText = "إجابة خاطئة";
                 statusBadge.classList.remove('hidden');
             }
@@ -1219,10 +1275,10 @@
                     btn.disabled = true;
                     if (index === q.correct) {
                         btn.className = "w-full text-left p-4 rounded-xl border border-emerald-500 bg-emerald-500/20 text-white font-bold flex justify-between items-center gap-3";
-                        btn.innerHTML = `<span>${opt}</span> <i class="fa-solid fa-circle-check text-emerald-400 shrink-0"></i>`;
+                        btn.innerHTML = `<span>${opt}</span> <i class="fa-solid fa-circle-check text-emerald-500 shrink-0"></i>`;
                     } else if (index === savedAnswer && savedAnswer !== q.correct) {
                         btn.className = "w-full text-left p-4 rounded-xl border border-rose-500 bg-rose-500/20 text-white font-bold flex justify-between items-center gap-3";
-                        btn.innerHTML = `<span>${opt}</span> <i class="fa-solid fa-circle-xmark text-rose-400 shrink-0"></i>`;
+                        btn.innerHTML = `<span>${opt}</span> <i class="fa-solid fa-circle-xmark text-rose-500 shrink-0"></i>`;
                     } else {
                         btn.className = "w-full text-left p-4 rounded-xl border border-gray-800 bg-gray-900/40 text-gray-500 font-medium flex justify-between items-center gap-3 opacity-60";
                         btn.innerHTML = `<span>${opt}</span> <i class="fa-regular fa-circle text-gray-600 shrink-0"></i>`;
