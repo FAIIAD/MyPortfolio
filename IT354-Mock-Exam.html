@@ -1,16 +1,28 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اختبار تجريبي IT354 (80 سؤال) </title>
+    <title>اختبار تجريبي IT354 (80 سؤال)</title>
     
     <!-- خط ثمانية والأيقونات -->
     <link href="https://cdn.jsdelivr.net/npm/@dawod/thmanyah-font-web/index.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- 1. قراءة المظهر المحفوظ من الصفحة الرئيسية فور فتح الصفحة -->
+    <script>
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+        } else {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+
+    <!-- 2. تفعيل darkMode: 'class' في Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -23,8 +35,9 @@
             }
         }
     </script>
+
     <style>
-        body { font-family: 'Thmanyah Sans', sans-serif; }
+        body { font-family: 'Thmanyah Sans', sans-serif; transition: background-color 0.3s ease, color 0.3s ease; }
         h1, h2, h3, h4 { font-family: 'Thmanyah Serif Display', serif; }
         .option-btn { transition: all 0.2s ease; }
         .option-btn:hover:not(:disabled) {
@@ -33,10 +46,21 @@
             transform: translateX(-4px);
         }
         .filter-btn.active, .limit-btn.active {
-            background: linear-gradient(to right, #06b6d4, #3b82f6);
-            color: white;
-            border-color: transparent;
+            background: linear-gradient(to right, #06b6d4, #3b82f6) !important;
+            color: white !important;
+            border-color: transparent !important;
         }
+
+        /* 3. تنسيقات الوضع الفاتح (Light Mode) التلقائية لصفحة الاختبار */
+        html:not(.dark) body { background-color: #f8fafc; color: #1e293b; }
+        html:not(.dark) header, html:not(.dark) footer { background-color: rgba(255, 255, 255, 0.85); border-color: #e2e8f0; }
+        html:not(.dark) .bg-card, html:not(.dark) .bg-card\/60, html:not(.dark) .bg-card\/40 { background-color: #ffffff; border-color: #cbd5e1; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        html:not(.dark) .bg-gray-900\/60, html:not(.dark) .bg-gray-900\/40 { background-color: #f8fafc; border-color: #cbd5e1; color: #1e293b; }
+        html:not(.dark) .bg-gray-800, html:not(.dark) .bg-gray-800\/80, html:not(.dark) .bg-gray-800\/60 { background-color: #f1f5f9; border-color: #cbd5e1; color: #334155; }
+        html:not(.dark) .text-white { color: #0f172a; }
+        html:not(.dark) .text-gray-200, html:not(.dark) .text-gray-300 { color: #1e293b; }
+        html:not(.dark) .text-gray-400, html:not(.dark) .text-gray-500, html:not(.dark) .text-gray-600 { color: #475569; }
+        html:not(.dark) .border-gray-700, html:not(.dark) .border-gray-800, html:not(.dark) .border-gray-800\/80 { border-color: #e2e8f0; }
     </style>
 </head>
 <body class="bg-dark text-gray-200 min-h-screen flex flex-col justify-between relative overflow-x-hidden">
