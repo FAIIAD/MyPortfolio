@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اختبار تجريبي IT354 | فهد الزعبي</title>
+    <title>اختبار تجريبي IT354 (80 سؤال) | فهد الزعبي</title>
     
     <!-- خط ثمانية والأيقونات -->
     <link href="https://cdn.jsdelivr.net/npm/@dawod/thmanyah-font-web/index.css" rel="stylesheet">
@@ -32,6 +32,11 @@
             background-color: rgba(6, 182, 212, 0.1);
             transform: translateX(-4px);
         }
+        .filter-btn.active {
+            background: linear-gradient(to right, #06b6d4, #3b82f6);
+            color: white;
+            border-color: transparent;
+        }
     </style>
 </head>
 <body class="bg-dark text-gray-200 min-h-screen flex flex-col justify-between relative overflow-x-hidden">
@@ -42,27 +47,47 @@
             <a href="index.html" class="text-gray-400 hover:text-cyan transition-colors font-semibold flex items-center gap-2">
                 <i class="fa-solid fa-arrow-right"></i> العودة للرئيسية
             </a>
-            <h1 class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan to-blue">IT354 - Mock Exam</h1>
+            <h1 class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan to-blue">IT354 - Mock Exam (Ch 17–21)</h1>
         </div>
     </header>
 
     <!-- حاوية الاختبار -->
-    <main class="container mx-auto px-4 py-12 flex-grow flex items-center justify-center">
-        <div class="w-full max-w-2xl bg-card/60 backdrop-blur-md border border-gray-800 rounded-2xl p-6 md:p-8 shadow-xl">
+    <main class="container mx-auto px-4 py-8 flex-grow flex flex-col items-center justify-center">
+        
+        <!-- أزرار تصفية الفصول -->
+        <div class="w-full max-w-3xl mb-6 flex flex-wrap justify-center gap-2">
+            <button onclick="filterChapter('ALL')" id="btn-ALL" class="filter-btn active text-xs md:text-sm px-4 py-2 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">الكل (80)</button>
+            <button onclick="filterChapter('Ch17')" id="btn-Ch17" class="filter-btn text-xs md:text-sm px-4 py-2 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Ch 17: Disk & Hashing (16)</button>
+            <button onclick="filterChapter('Ch18')" id="btn-Ch18" class="filter-btn text-xs md:text-sm px-4 py-2 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Ch 18: Indexing & B-Trees (16)</button>
+            <button onclick="filterChapter('Ch19')" id="btn-Ch19" class="filter-btn text-xs md:text-sm px-4 py-2 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Ch 19: Query Processing (16)</button>
+            <button onclick="filterChapter('Ch20')" id="btn-Ch20" class="filter-btn text-xs md:text-sm px-4 py-2 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Ch 20: Physical Design (16)</button>
+            <button onclick="filterChapter('Ch21')" id="btn-Ch21" class="filter-btn text-xs md:text-sm px-4 py-2 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Ch 21: Transactions (16)</button>
+        </div>
+
+        <div class="w-full max-w-3xl bg-card/60 backdrop-blur-md border border-gray-800 rounded-2xl p-6 md:p-8 shadow-xl">
             
             <!-- شاشة الأسئلة -->
             <div id="quiz-container">
                 <!-- شريط التقدم والعداد -->
-                <div class="flex justify-between items-center mb-4 text-sm text-gray-400">
-                    <span id="question-counter" class="font-bold text-cyan">السؤال 1 من 5</span>
-                    <span id="score-tracker">النقاط: 0</span>
-                </div>
-                <div class="w-full bg-gray-800 h-2 rounded-full mb-8 overflow-hidden">
-                    <div id="progress-bar" class="bg-gradient-to-r from-cyan to-blue h-full transition-all duration-300" style="width: 20%"></div>
+                <div class="flex justify-between items-center mb-3 text-sm text-gray-400">
+                    <div class="flex items-center gap-3">
+                        <span id="question-counter" class="font-bold text-cyan">السؤال 1 من 80</span>
+                        <span id="chapter-badge" class="bg-gray-800 text-gray-300 text-xs px-3 py-1 rounded-full border border-gray-700">Ch17</span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span id="score-tracker" class="font-bold text-emerald-400">النقاط: 0</span>
+                        <button onclick="shuffleAndRestart()" title="خلط الأسئلة والبدء من جديد" class="text-gray-400 hover:text-cyan transition-colors">
+                            <i class="fa-solid fa-shuffle"></i> خلط
+                        </button>
+                    </div>
                 </div>
 
-                <!-- نص السؤال (من اليسار لليمين لأن مصطلحات الـ IT بالإنجليزية) -->
-                <h2 id="question-text" dir="ltr" class="text-xl md:text-2xl font-bold text-white mb-6 text-left leading-relaxed"></h2>
+                <div class="w-full bg-gray-800 h-2 rounded-full mb-8 overflow-hidden">
+                    <div id="progress-bar" class="bg-gradient-to-r from-cyan to-blue h-full transition-all duration-300" style="width: 1%"></div>
+                </div>
+
+                <!-- نص السؤال -->
+                <h2 id="question-text" dir="ltr" class="text-lg md:text-2xl font-bold text-white mb-6 text-left leading-relaxed"></h2>
 
                 <!-- الخيارات -->
                 <div id="options-container" dir="ltr" class="space-y-3 text-left mb-6"></div>
@@ -70,13 +95,15 @@
                 <!-- صندوق الشرح بعد الإجابة -->
                 <div id="explanation-box" class="hidden p-4 rounded-xl bg-gray-800/80 border border-gray-700 text-sm text-gray-300 mb-6 leading-relaxed"></div>
 
-                <!-- زر السؤال التالي -->
-                <button id="next-btn" onclick="nextQuestion()" class="hidden w-full bg-gradient-to-r from-cyan to-blue hover:from-blue hover:to-cyan text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg">
-                    السؤال التالي <i class="fa-solid fa-arrow-left mr-2"></i>
-                </button>
+                <!-- أزرار التنقل -->
+                <div class="flex gap-3">
+                    <button id="next-btn" onclick="nextQuestion()" class="hidden flex-1 bg-gradient-to-r from-cyan to-blue hover:from-blue hover:to-cyan text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg">
+                        السؤال التالي <i class="fa-solid fa-arrow-left mr-2"></i>
+                    </button>
+                </div>
             </div>
 
-            <!-- شاشة النتيجة النهائية (مخفية افتراضياً) -->
+            <!-- شاشة النتيجة النهائية -->
             <div id="result-container" class="hidden text-center py-8">
                 <div class="w-20 h-20 bg-cyan/20 rounded-full flex items-center justify-center mx-auto mb-6 text-cyan text-4xl">
                     <i class="fa-solid fa-trophy"></i>
@@ -84,9 +111,12 @@
                 <h2 class="text-3xl font-bold text-white mb-2">انتهى الاختبار!</h2>
                 <p id="final-score-text" class="text-xl text-gray-400 mb-8"></p>
                 
-                <div class="flex justify-center gap-4">
+                <div class="flex flex-wrap justify-center gap-4">
                     <button onclick="restartQuiz()" class="bg-gradient-to-r from-cyan to-blue text-white font-bold py-3 px-8 rounded-full hover:shadow-[0_0_20px_rgba(6,182,212,0.5)] transition-all">
                         <i class="fa-solid fa-rotate-right ml-2"></i> إعادة الاختبار
+                    </button>
+                    <button onclick="shuffleAndRestart()" class="border border-cyan text-cyan hover:bg-cyan/10 font-bold py-3 px-8 rounded-full transition-all">
+                        <i class="fa-solid fa-shuffle ml-2"></i> خلط الأسئلة والبدء
                     </button>
                     <a href="index.html" class="border border-gray-600 hover:border-cyan hover:text-cyan text-gray-300 font-bold py-3 px-8 rounded-full transition-all">
                         الرئيسية
@@ -98,74 +128,945 @@
     </main>
 
     <footer class="text-center py-6 text-gray-600 text-sm border-t border-gray-800">
-        &copy; 2026 فهد الزعبي — IT Study Hub
+        &copy; 2026 فهد الزعبي — IT354 Study Hub
     </footer>
 
-    <!-- برمجة الاختبار وإضافة الأسئلة -->
+    <!-- برمجة الاختبار وقاعدة بيانات الـ 80 سؤال -->
     <script>
-        // مصفوفة الأسئلة - يمكنك إضافة أو تعديل الأسئلة هنا بسهولة
-        const questions = [
+        const allQuestions = [
+            // ================= CHAPTER 17 (16 Questions) =================
             {
-                question: "Which SQL category is used to define and modify the database structure itself (such as CREATE, ALTER, DROP)?",
-                options: [
-                    "DML (Data Manipulation Language)",
-                    "DDL (Data Definition Language)",
-                    "DCL (Data Control Language)",
-                    "TCL (Transaction Control Language)"
-                ],
-                correct: 1, // رقم الإجابة الصحيحة (تبدأ من 0)
-                explanation: "أوامر DDL (لغة تعريف البيانات) هي المسؤولة عن إنشاء وتعديل هيكلة الجداول وقواعد البيانات مثل CREATE و DROP."
+                chapter: "Ch17",
+                question: "1. What is the typical range of block sizes (B) on magnetic disks?",
+                options: ["10 to 100 bytes", "512 to 4096 bytes", "1 to 10 Mbytes", "50 to 100 Kbytes"],
+                correct: 1,
+                explanation: "يتراوح حجم الكتلة (Block size B) النموذجي في الأقراص المغناطيسية بين 512 بايت و 4096 بايت، ويتم نقل الكتل بالكامل بين القرص والذاكرة الرئيسية."
             },
             {
-                question: "In a relational database, what uniquely identifies each record (row) in a table and cannot contain NULL values?",
+                chapter: "Ch17",
+                question: "2. A physical disk block (hardware) address consists of which three components?",
                 options: [
-                    "Foreign Key",
-                    "Super Key",
-                    "Primary Key",
-                    "Secondary Index"
-                ],
-                correct: 2,
-                explanation: "المفتاح الأساسي (Primary Key) يضمن عدم تكرار السجلات ولا يقبل القيم الفارغة (NULL)."
-            },
-            {
-                question: "A table is in Second Normal Form (2NF) if it is in 1NF and contains no:",
-                options: [
-                    "Partial Dependencies",
-                    "Transitive Dependencies",
-                    "Multi-valued Attributes",
-                    "Foreign Keys"
-                ],
-                correct: 0,
-                explanation: "لتحقيق الصيغة المعيارية الثانية (2NF)، يجب أن يكون الجدول في 1NF مع إزالة أي اعتماد جزئي (Partial Dependency) على المفتاح المركب."
-            },
-            {
-                question: "Which ACID property ensures that a database transaction is treated as a single 'all or nothing' unit?",
-                options: [
-                    "Consistency",
-                    "Isolation",
-                    "Durability",
-                    "Atomicity"
-                ],
-                correct: 3,
-                explanation: "الذرية (Atomicity) تضمن تنفيذ كافة عمليات الـ Transaction بالكامل أو إلغاءها بالكامل في حال حدوث أي خطأ."
-            },
-            {
-                question: "Which database object automatically executes a specified action when an INSERT, UPDATE, or DELETE event occurs on a table?",
-                options: [
-                    "View",
-                    "Trigger",
-                    "Cursor",
-                    "Sequence"
+                    "File name, record number, and field name",
+                    "Cylinder number, track (or surface) number, and block number",
+                    "Spindle speed, seek time, and latency",
+                    "Sector angle, buffer ID, and cluster number"
                 ],
                 correct: 1,
-                explanation: "الـ Trigger هو كود مخزن يعمل تلقائياً عند وقوع حدث معين (إضافة، تحديث، أو حذف) على الجدول."
+                explanation: "يتكون العنوان الفيزيائي للكتلة على القرص من رقم الأسطوانة (Cylinder number)، ورقم المسار أو السطح (Track/Surface number)، ورقم الكتلة (Block number)."
+            },
+            {
+                chapter: "Ch17",
+                question: "3. Which technique is used to speed up the transfer of contiguous disk blocks by allowing continuous reading/writing?",
+                options: ["Single indexing", "Double buffering", "Open addressing", "Spanned blocking"],
+                correct: 1,
+                explanation: "يُستخدم التخزين المؤقت المزدوج (Double buffering) لتسريع نقل الكتل المتجاورة بحيث يقوم المعالج بمعالجة كتلة بينما يتم قراءة الكتلة التالية من القرص."
+            },
+            {
+                chapter: "Ch17",
+                question: "4. What does the blocking factor (bfr) of a file represent?",
+                options: [
+                    "The number of blocks in a cylinder",
+                    "The average number of file records stored in a single disk block",
+                    "The number of empty bytes left in a block",
+                    "The maximum number of tracks on a disk pack"
+                ],
+                correct: 1,
+                explanation: "معامل التكتيل (Blocking factor - bfr) يمثل متوسط عدد السجلات المخزنة داخل كتلة واحدة (Block) على القرص."
+            },
+            {
+                chapter: "Ch17",
+                question: "5. When records exceed the size of a block or are allowed to be split across two or more blocks, the organization is called:",
+                options: ["Unspanned records", "Spanned records", "Heap records", "Contiguous records"],
+                correct: 1,
+                explanation: "السجلات الممتدة (Spanned records) هي السجلات التي يمكن تخزين أجزاء منها في أكثر من كتلة واحدة لتجنب إهدار المساحة أو لأن حجمها أكبر من حجم الكتلة."
+            },
+            {
+                chapter: "Ch17",
+                question: "6. In a file of fixed-length records, which blocking type is usually used?",
+                options: ["Spanned blocking", "Unspanned blocking", "Dynamic hashing", "Chained blocking"],
+                correct: 1,
+                explanation: "في الملفات ذات السجلات ثابتة الطول (Fixed-length records)، يُستخدم عادة التكتيل غير الممتد (Unspanned blocking) حيث لا ينقسم السجل بين كتلتين."
+            },
+            {
+                chapter: "Ch17",
+                question: "7. Which file operation removes the deleted records physically from the file or creates a new organization of the file records?",
+                options: ["DELETE", "MODIFY", "REORGANIZE", "CLOSE"],
+                correct: 2,
+                explanation: "عملية DELETE تقوم عادة بوضع علامة حذف فقط، بينما عملية REORGANIZE تقوم بإزالة السجلات المحذوفة فعلياً وإعادة تنظيم الملف."
+            },
+            {
+                chapter: "Ch17",
+                question: "8. In an unordered file (Heap or Pile file), how are new records inserted and what is the average block access cost to search for a record in a file of 'b' blocks?",
+                options: [
+                    "Inserted in sorted order; average search cost is log2(b)",
+                    "Inserted at the end of the file; average search cost is b/2",
+                    "Inserted using a hash function; average search cost is 1",
+                    "Inserted at the beginning of the file; average search cost is b"
+                ],
+                correct: 1,
+                explanation: "في الملفات غير المرتبة (Heap files)، تُضاف السجلات الجديدة في نهاية الملف مما يجعل الإدخال سريعاً جداً، بينما يتطلب البحث مسحاً خطياً يكلف في المتوسط b/2 كتلة."
+            },
+            {
+                chapter: "Ch17",
+                question: "9. For an ordered (sequential) file of 'b' blocks, what is the average number of blocks accessed when using binary search on the ordering field?",
+                options: ["b / 2", "b", "log2(b)", "b * log2(b)"],
+                correct: 2,
+                explanation: "البحث الثنائي (Binary search) على ملف مرتب مكون من b كتلة يتطلب الوصول إلى log2(b) كتلة في المتوسط."
+            },
+            {
+                chapter: "Ch17",
+                question: "10. Why do ordered files commonly maintain a separate unordered overflow (or transaction) file?",
+                options: [
+                    "To speed up binary search operations",
+                    "To improve record insertion efficiency before periodically merging with the main file",
+                    "To store backup copies in case of disk crash",
+                    "To eliminate the need for primary keys"
+                ],
+                correct: 1,
+                explanation: "الإدخال في الملف المرتب مكلف جداً لأنه يتطلب إزاحة السجلات؛ لذلك يُستخدم ملف فائض غير مرتب (Overflow file) لتسريع الإضافات الجديدة ثم يُدمج دورياً مع الملف الرئيسي."
+            },
+            {
+                chapter: "Ch17",
+                question: "11. Which collision resolution method in hashing checks subsequent positions in order from the occupied hash address until an empty position is found?",
+                options: ["Chaining", "Multiple hashing", "Open addressing", "Extendible splitting"],
+                correct: 2,
+                explanation: "العنونة المفتوحة (Open addressing) تقوم بفحص المواقع التالية بالترتيب بدءاً من الموقع المشغول حتى تجد موقعاً فارغاً."
+            },
+            {
+                chapter: "Ch17",
+                question: "12. To reduce overflow records in static external hashing, what percentage of capacity is a hash file typically kept full, and what is its main disadvantage?",
+                options: [
+                    "50% full; cannot search on exact match",
+                    "70-80% full; fixed number of buckets M does not adapt well if the file grows or shrinks",
+                    "95-100% full; requires a binary tree directory",
+                    "20-30% full; cannot handle numeric keys"
+                ],
+                correct: 1,
+                explanation: "يُحفظ ملف التجزئة ممتلئاً بنسبة 70-80% لتقليل التصادمات، وأكبر عيوب التجزئة الثابتة أن عدد الدلاء (M) ثابت ولا يتكيف مع نمو أو تقلص حجم الملف، كما أن الوصول المرتب غير فعال."
+            },
+            {
+                chapter: "Ch17",
+                question: "13. How do Dynamic Hashing, Extendible Hashing, and Linear Hashing differ regarding directory structures and overflow areas?",
+                options: [
+                    "All three use a binary tree directory and require overflow areas",
+                    "Dynamic uses a binary tree directory, Extendible uses a 2^d array directory (neither requires overflow), while Linear hashing uses no directory and requires an overflow area",
+                    "Extendible hashing does not use a directory, whereas Linear hashing uses an array of size 2^d",
+                    "Dynamic hashing splits blocks in linear order without a directory"
+                ],
+                correct: 1,
+                explanation: "التجزئة الديناميكية تستخدم شجرة ثنائية، والقابلة للتوسع (Extendible) تستخدم مصفوفة بحجم 2^d (ولا يحتاجان لمنطقة فائض)، بينما التجزئة الخطية (Linear) لا تستخدم دليلاً وتحتاج لمنطقة فائض."
+            },
+            {
+                chapter: "Ch17",
+                question: "14. Which RAID level has NO redundant data, offering the best write performance at the risk of data loss?",
+                options: ["RAID Level 0", "RAID Level 1", "RAID Level 5", "RAID Level 6"],
+                correct: 0,
+                explanation: "المستوى RAID 0 يعتمد على توزيع البيانات (Striping) فقط دون أي تكرار (No redundancy)، مما يعطي أفضل أداء للكتابة ولكن مع خطر فقدان البيانات إذا تعطل قرص."
+            },
+            {
+                chapter: "Ch17",
+                question: "15. Which RAID level uses block-level data striping and distributes both data and parity information across all disks?",
+                options: ["RAID Level 1", "RAID Level 2", "RAID Level 3", "RAID Level 5"],
+                correct: 3,
+                explanation: "المستوى RAID 5 يستخدم التوزيع على مستوى الكتل (Block-level striping) ويوزع بيانات التكافؤ (Parity) عبر جميع الأقراص."
+            },
+            {
+                chapter: "Ch17",
+                question: "16. What is a key advantage of Storage Area Networks (SANs)?",
+                options: [
+                    "They permanently solder storage disks directly to a single CPU",
+                    "Flexible many-to-many connectivity between servers and storage devices with up to 10km separation using fiber optic cables",
+                    "They eliminate the need for secondary storage entirely",
+                    "They restrict servers to connecting with only one vendor's hardware"
+                ],
+                correct: 1,
+                explanation: "تتميز شبكات SAN بمرونة التوصيل (Many-to-many) بين الخوادم وأجهزة التخزين عبر القنوات الليفية، وتسمح بمسافة تصل إلى 10 كم، مع سهولة إضافة أجهزة جديدة دون تعطيل النظام."
+            },
+
+            // ================= CHAPTER 18 (16 Questions) =================
+            {
+                chapter: "Ch18",
+                question: "17. A Primary Index is defined on which type of file and field?",
+                options: [
+                    "An unordered file on a non-key field",
+                    "An ordered data file on its ordering key field (primary key)",
+                    "An ordered data file on a non-key ordering field",
+                    "Any hashed file on a foreign key field"
+                ],
+                correct: 1,
+                explanation: "يُعرّف الفهرس الأساسي (Primary Index) على ملف بيانات مرتب فيزيائياً بناءً على حقل مفتاح الترتيب الفريد (Ordering key field)."
+            },
+            {
+                chapter: "Ch18",
+                question: "18. In a Primary Index, what does each index entry consist of, and how many entries exist in the index?",
+                options: [
+                    "Every record's key value and record pointer; equals the number of records",
+                    "The primary key value of the first record in a block (block anchor) and a pointer to that block; equals the number of disk blocks in the data file",
+                    "Distinct non-key values and pointers to overflow buckets",
+                    "Hash values and bit vectors"
+                ],
+                correct: 1,
+                explanation: "يتكون كل مدخل في الفهرس الأساسي من قيمة المفتاح الأساسي لأول سجل في الكتلة (Block anchor) ومؤشر لتلك الكتلة، ويكون عدد مدخلات الفهرس مساوياً لعدد كتل ملف البيانات."
+            },
+            {
+                chapter: "Ch18",
+                question: "19. What is the difference between a Dense index and a Sparse (Nondense) index?",
+                options: [
+                    "A dense index has an entry for every search key value (every record) in the data file, whereas a sparse index has entries for only some search values",
+                    "A dense index is smaller in size than a sparse index",
+                    "A sparse index has an entry for every record, whereas a dense index has one entry per block",
+                    "A dense index can only be used on ordered files"
+                ],
+                correct: 0,
+                explanation: "الفهرس الكثيف (Dense) يحتوي على مدخل لكل سجل في ملف البيانات، بينما الفهرس المتناثر (Sparse/Nondense) يحتوي على مدخلات لبعض القيم فقط (مثل أول سجل في كل كتلة)."
+            },
+            {
+                chapter: "Ch18",
+                question: "20. Given a data file with r = 30,000 records, block size B = 512 bytes, and record size R = 150 bytes (unspanned), what are the blocking factor (Bfr) and total number of file blocks (b)?",
+                options: [
+                    "Bfr = 4 records/block, b = 7,500 blocks",
+                    "Bfr = 3 records/block, b = 10,000 blocks",
+                    "Bfr = 3.4 records/block, b = 8,823 blocks",
+                    "Bfr = 150 records/block, b = 200 blocks"
+                ],
+                correct: 1,
+                explanation: "حساب معامل التكتيل: Bfr = floor(512 / 150) = 3 سجلات لكل كتلة. وعدد الكتل: b = 30000 / 3 = 10,000 كتلة (كما في مثال الكتاب ص 13)."
+            },
+            {
+                chapter: "Ch18",
+                question: "21. Continuing the previous example: if we build an index with entry size RI = 16 bytes on block size B = 512 bytes for 30,000 entries, how many index blocks (bI) are needed, and how many block accesses does a binary search on the index take?",
+                options: [
+                    "bI = 938 blocks; binary search takes ceil(log2(938)) = 10 block accesses",
+                    "bI = 1000 blocks; binary search takes 15 block accesses",
+                    "bI = 32 blocks; binary search takes 5 block accesses",
+                    "bI = 15000 blocks; binary search takes 14 block accesses"
+                ],
+                correct: 0,
+                explanation: "معامل تكتيل الفهرس BfrI = 512 / 16 = 32 مدخل/كتلة. عدد كتل الفهرس bI = ceil(30000 / 32) = 938 كتلة. البحث الثنائي يكلف log2(938) ≈ 10 وصولات للكتل."
+            },
+            {
+                chapter: "Ch18",
+                question: "22. When is a Clustering Index used, and is it dense or nondense?",
+                options: [
+                    "When the data file is ordered on a non-key field (with duplicate values); it is a nondense index",
+                    "When the data file is unordered; it is a dense index",
+                    "When the data file is ordered on a primary key; it is a dense index",
+                    "When hashing collisions occur; it is a dense index"
+                ],
+                correct: 0,
+                explanation: "يُستخدم الفهرس التجميعي (Clustering Index) عندما يكون ملف البيانات مرتباً على حقل غير مفتاحي (يتكرر فيه نفس الرقم كرقم القسم)، وهو فهرس غير كثيف (Nondense) يحتوي على مدخل واحد لكل قيمة مميزة."
+            },
+            {
+                chapter: "Ch18",
+                question: "23. Which of the following statements is TRUE regarding a Secondary Index on a candidate key field?",
+                options: [
+                    "It is a nondense (sparse) index with block anchors",
+                    "It is a dense index with one entry for each record in the data file, and a file can have several secondary indexes",
+                    "There can be at most one secondary index per data file",
+                    "It requires the data file to be physically sorted on that field"
+                ],
+                correct: 1,
+                explanation: "الفهرس الثانوي (Secondary Index) يُنشأ على حقل غير مرتب، ويكون كثيفاً (Dense) لأنه يحتوي على مدخل لكل سجل، ويمكن للملف الواحد أن يمتلك عدة فهارس ثانوية."
+            },
+            {
+                chapter: "Ch18",
+                question: "24. How does a Secondary Index compare to a Primary Index in terms of storage space and arbitrary record search time improvement?",
+                options: [
+                    "Needs less storage space and gives less improvement in search time",
+                    "Needs more storage space and longer index search time (because it is dense), but provides a much greater improvement in search time for an arbitrary record",
+                    "Needs the exact same storage space because both have one entry per block",
+                    "Eliminates disk accesses completely"
+                ],
+                correct: 1,
+                explanation: "يحتاج الفهرس الثانوي مساحة أكبر ووقت بحث أطول قليلاً داخل الفهرس نفسه لكثرة مدخلاته، لكنه يحقق تحسناً هائلاً في وقت البحث عن سجل عشوائي (بدل المسح الخطي المكلف b/2)."
+            },
+            {
+                chapter: "Ch18",
+                question: "25. When a Secondary Index is created on a non-key field with duplicate values using one level of indirection (Option 3), what do the index entries point to?",
+                options: [
+                    "Directly to the disk actuator",
+                    "To blocks of record pointers, where each block holds pointers to all data records sharing that same field value",
+                    "Only to the first record in the file",
+                    "To a B-tree root node"
+                ],
+                correct: 1,
+                explanation: "لتجنب تكرار القيم أو جعل مدخلات الفهرس متغيرة الطول، يشير مدخل الفهرس الثانوي إلى كتلة تحتوي على مؤشرات السجلات (Blocks of record pointers) التي تشترك في نفس القيمة."
+            },
+            {
+                chapter: "Ch18",
+                question: "26. According to Table 18.2 (Properties of Index Types), which index types are Nondense (Sparse) and which is always Dense?",
+                options: [
+                    "Primary and Clustering are Nondense; Secondary (key) is Dense",
+                    "Primary is Dense; Clustering and Secondary are Nondense",
+                    "All three are Dense",
+                    "Secondary (key) is Nondense; Primary is Dense"
+                ],
+                correct: 0,
+                explanation: "الفهرس الأساسي (Primary) والتجميعي (Clustering) كلاهما غير كثيف (Nondense)، بينما الفهرس الثانوي على حقل مفتاحي (Secondary key) يكون دائماً كثيفاً (Dense)."
+            },
+            {
+                chapter: "Ch18",
+                question: "27. What is the main purpose of a Multilevel Index (such as ISAM), and what is its main problem?",
+                options: [
+                    "Purpose: increase index size; Problem: binary search is impossible",
+                    "Purpose: reduce the searched index space faster by the index blocking factor (fan-out fo); Problem: insertions and deletions are severe because every level is an ordered file",
+                    "Purpose: sort the data file automatically; Problem: requires hashing",
+                    "Purpose: eliminate primary keys; Problem: leaf nodes are not on the same level"
+                ],
+                correct: 1,
+                explanation: "الفهرس متعدد المستويات يقلل فضاء البحث بمعامل التفرع (bfrI / fan-out) بدلاً من 2 في البحث الثنائي، لكن مشكلته الأساسية هي صعوبة الإضافة والحذف لأن كل مستوى عبارة عن ملف مرتب."
+            },
+            {
+                chapter: "Ch18",
+                question: "28. In a B-tree of order m, which of the following conditions must hold?",
+                options: [
+                    "Every node has at most m/2 children, and leaves can be at different levels",
+                    "Nodes have at most m children, internal nodes have at least ceil(m/2) children, a non-leaf node with k children has k-1 keys, and all leaves appear on the same level",
+                    "Data pointers are stored only at the leaf nodes",
+                    "The root node must always have at least m children"
+                ],
+                correct: 1,
+                explanation: "من خصائص شجرة B-tree من الدرجة m: أقصى عدد للأبناء m، وأقل عدد للأبناء في العقد الداخلية ceil(m/2)، والعقدة التي لها k أبناء تحتوي على k-1 مفاتيح، وجميع الأوراق (Leaves) في نفس المستوى."
+            },
+            {
+                chapter: "Ch18",
+                question: "29. What is the primary structural difference between a B-tree and a B+-tree?",
+                options: [
+                    "In a B-tree, data pointers are stored in both internal and leaf nodes; in a B+-tree, data pointers are stored ONLY at the leaf nodes, and leaf nodes are linked together",
+                    "In a B+-tree, internal nodes store data records while leaf nodes store only keys",
+                    "A B-tree links all leaf nodes sequentially, whereas a B+-tree does not",
+                    "B-trees are balanced, whereas B+-trees are unbalanced"
+                ],
+                correct: 0,
+                explanation: "في شجرة B-tree تُخزن مؤشرات البيانات في جميع العقد، بينما في B+-tree تُخزن مؤشرات البيانات في العقد الورقية (Leaf nodes) فقط، وتكون الأوراق مرتبطة ببعضها لتسهيل الوصول المتسلسل."
+            },
+            {
+                chapter: "Ch18",
+                question: "30. Why is a B+-tree generally preferred over a B-tree as an index access structure?",
+                options: [
+                    "Because B+-tree internal nodes do not store data pointers, they can hold more keys/entries per node (higher fan-out), resulting in fewer tree levels and linked leaves for ordered access",
+                    "Because B+-trees never require node splitting during insertion",
+                    "Because B+-trees do not require keys to be sorted",
+                    "Because deletion in a B+-tree is simpler than search"
+                ],
+                correct: 0,
+                explanation: "نظراً لعدم وجود مؤشرات بيانات في العقد الداخلية لشجرة B+-tree، فإنها تستوعب عدداً أكبر من المفاتيح في الكتلة الواحدة، مما يقلل عدد مستويات الشجرة ويسرع البحث، فضلاً عن ترابط الأوراق."
+            },
+            {
+                chapter: "Ch18",
+                question: "31. In a B+-tree, what are 'fill factor', 'overflow page', and 'underflow'?",
+                options: [
+                    "Fill factor is the percentage up to which nodes are filled; reaching the limit causes an overflow page, and being too empty causes underflow",
+                    "Fill factor is the disk rotation speed; overflow is a network error",
+                    "Fill factor is the number of levels in the tree",
+                    "Underflow occurs when a node exceeds 100% capacity"
+                ],
+                correct: 0,
+                explanation: "معامل الامتلاء (Fill factor) هو النسبة المئوية المحددة لامتلاء العقد؛ فإذا وصلت العقدة للحد الأقصى تُسمى صفحة فائضة (Overflow)، وإذا أصبحت فارغة أكثر من اللازم تُسمى (Underflow)."
+            },
+            {
+                chapter: "Ch18",
+                question: "32. During an insertion into a full leaf node in a B+-tree, what happens to the elements?",
+                options: [
+                    "All elements are deleted and the tree is rebuilt",
+                    "50 percent of the elements are moved to a new leaf node, and the parent is linked with the minimum/center key value",
+                    "The new element is discarded and an error is returned",
+                    "The element is placed in an unordered heap file"
+                ],
+                correct: 1,
+                explanation: "عند امتلاء عقدة ورقية في B+-tree أثناء الإضافة، يتم نقل 50% من العناصر إلى ورقة جديدة (انقسام)، ويتم رفع مفتاح للربط مع العقدة الأب (Parent node)."
+            },
+
+            // ================= CHAPTER 19 (16 Questions) =================
+            {
+                chapter: "Ch19",
+                question: "33. What is 'Query Optimization', and what are the two internal representations of a query?",
+                options: [
+                    "Writing SQL queries manually; represented by ER diagrams and schemas",
+                    "The process of choosing a suitable execution strategy for processing a query; represented internally by a Query Tree or a Query Graph",
+                    "Compressing database files on disk; represented by B-trees and Hash tables",
+                    "Checking SQL syntax errors; represented by parse strings and logs"
+                ],
+                correct: 1,
+                explanation: "تحسين الاستعلام (Query optimization) هو عملية اختيار استراتيجية التنفيذ الأنسب لمعالجة الاستعلام، ويُمثل داخلياً بواسطة شجرة الاستعلام (Query Tree) أو رسم الاستعلام (Query Graph)."
+            },
+            {
+                chapter: "Ch19",
+                question: "34. In translating SQL queries into Relational Algebra, what constitutes a single 'Query Block'?",
+                options: [
+                    "An entire SQL script with multiple nested queries combined",
+                    "A single SELECT-FROM-WHERE expression, along with its GROUP BY and HAVING clauses if present (nested queries form separate query blocks)",
+                    "A single disk block of 4096 bytes",
+                    "Only the FROM clause of a query"
+                ],
+                correct: 1,
+                explanation: "كتلة الاستعلام (Query block) هي الوحدة الأساسية للترجمة والتحسين، وتتكون من عبارة SELECT-FROM-WHERE واحدة مع عبارتي GROUP BY و HAVING التابعة لها، بينما تُفصل الاستعلامات المتداخلة في كتل مستقلة."
+            },
+            {
+                chapter: "Ch19",
+                question: "35. In External Sorting (Sort-Merge strategy), given 'b' file blocks and 'nB' available memory buffer blocks, what are the formulas for the number of initial sorted runs (nR) and the degree of merging (dM)?",
+                options: [
+                    "nR = b * nB ; dM = nB + 1",
+                    "nR = ceil(b / nB) ; dM = Min(nB - 1, nR)",
+                    "nR = log2(b) ; dM = nB / 2",
+                    "nR = b - nB ; dM = nR"
+                ],
+                correct: 1,
+                explanation: "في الفرز الخارجي (External Sorting): عدد الجولات الأولية nR = ceil(b / nB)، ودرجة الدمج dM = Min(nB - 1, nR) حيث يُحجز مخزن واحد للمخرجات."
+            },
+            {
+                chapter: "Ch19",
+                question: "36. Which SELECT search method is best suited for retrieving multiple records on a range condition (>, >=, <, <=) when the file is NOT ordered on that attribute?",
+                options: [
+                    "S1: Linear search",
+                    "S3: Using a hash key",
+                    "S6: Using a secondary (B+-tree) index",
+                    "S9: Intersection of record pointers"
+                ],
+                correct: 2,
+                explanation: "الطريقة S6 التي تستخدم فهرساً ثانوياً من نوع (B+-tree) ممتازة لاسترجاع السجلات في استعلامات النطاق (Range queries: >, >=, <, <=) بفضل ترابط العقد الورقية."
+            },
+            {
+                chapter: "Ch19",
+                question: "37. How does SELECT method S9 (Conjunctive selection by intersection of record pointers) work?",
+                options: [
+                    "It scans the entire table twice and merges the results",
+                    "It uses secondary indexes (with record pointers) on the fields in the conjunctive condition, intersects the sets of record pointers in memory, and retrieves the matching records",
+                    "It hashes all attributes into a single bucket",
+                    "It converts AND conditions into OR conditions"
+                ],
+                correct: 1,
+                explanation: "تعتمد الطريقة S9 على استخدام الفهارس الثانوية التي تحتوي على مؤشرات سجلات (Record pointers) لكل شرط فرعي، ثم إيجاد التقاطع (Intersection) بين هذه المؤشرات للوصول للسجلات التي تحقق جميع الشروط معاً."
+            },
+            {
+                chapter: "Ch19",
+                question: "38. Compare Join methods J1, J2, J3, and J4: which method is most efficient when both relations R and S are already physically sorted by their join attributes?",
+                options: [
+                    "J1: Nested-loop join",
+                    "J2: Single-loop join",
+                    "J3: Sort-merge join",
+                    "J4: Hash-join"
+                ],
+                correct: 2,
+                explanation: "خوارزمية الدمج والفرز (J3: Sort-merge join) هي الأكثر كفاءة على الإطلاق إذا كان كلا الجدولين مرتبين فيزيائياً على حقل الربط، حيث يتم مسح كل ملف مرة واحدة."
+            },
+            {
+                chapter: "Ch19",
+                question: "39. In a Partition Hash Join that partitions files R and S into M partitions, what is the minimum number of in-memory buffers required during the partitioning phase, and what is the total I/O cost (excluding result writing bRES)?",
+                options: [
+                    "M + 1 buffers; cost is 3 * (bR + bS) + bRES",
+                    "2 * M buffers; cost is (bR * bS)",
+                    "M - 1 buffers; cost is (bR + bS)",
+                    "1 buffer; cost is log2(bR + bS)"
+                ],
+                correct: 0,
+                explanation: "تحتاج مرحلة التقسيم إلى M+1 من المخازن المؤقتة على الأقل (M للمخرجات و 1 للمدخلات)، وتكلفتها الإجمالية هي 3*(bR + bS) + bRES (قراءة وكتابة في التقسيم ثم قراءة في الربط)."
+            },
+            {
+                chapter: "Ch19",
+                question: "40. How does Hybrid Hash Join improve upon Partition Hash Join?",
+                options: [
+                    "It sorts the partitions using B-trees instead of hashing",
+                    "It keeps the first partition (R1) in memory buffers during the partitioning phase so that R1 and S1 are joined immediately during the partitioning of S, saving disk I/O",
+                    "It requires zero memory buffers",
+                    "It only works on non-equijoins"
+                ],
+                correct: 1,
+                explanation: "في الـ Hybrid Hash Join، يتم الاحتفاظ بالقسم الأول R1 في الذاكرة ودمجه مباشرة مع S1 أثناء مرحلة التقسيم، مما يوفر تكلفة كتابة وقراءة القسم الأول من وإلى القرص."
+            },
+            {
+                chapter: "Ch19",
+                question: "41. When executing a PROJECT operation π_<attribute list>(R), when is duplicate elimination NOT required, and what two methods are used when it IS required?",
+                options: [
+                    "Not required when the attribute list includes a key of R; otherwise duplicates are removed using Sorting or Hashing",
+                    "Never required in SQL or Relational Algebra",
+                    "Not required when R has fewer than 100 tuples; otherwise removed using Binary Search",
+                    "Not required when using a Cartesian Product"
+                ],
+                correct: 0,
+                explanation: "إذا تضمنت قائمة الخصائص في عملية الإسقاط (PROJECT) مفتاحاً (Key) للجدول R، فلن توجد تكرارات أصلاً. أما إذا لم تتضمن مفتاحاً، فيجب إزالة التكرارات باستخدام الفرز (Sorting) أو التجزئة (Hashing)."
+            },
+            {
+                chapter: "Ch19",
+                question: "42. If relation R has 'n' records and 'j' attributes, and relation S has 'm' records and 'k' attributes, what will the result of the CARTESIAN PRODUCT (R × S) contain?",
+                options: [
+                    "n + m records and j * k attributes",
+                    "n * m records and j + k attributes",
+                    "Min(n, m) records and Max(j, k) attributes",
+                    "n - m records and j - k attributes"
+                ],
+                correct: 1,
+                explanation: "الجداء الديكارتي (Cartesian Product) ينتج عنه n * m سجلاً و j + k عموداً (خاصية)، ولذلك فهو عملية مكلفة جداً يجب تجنبها قدر الإمكان."
+            },
+            {
+                chapter: "Ch19",
+                question: "43. How can an ascending index on SALARY be used to compute SELECT MAX(SALARY) FROM EMPLOYEE, and what is required if a non-dense index is used for COUNT/AVG?",
+                options: [
+                    "Follow the leftmost pointer for MAX; non-dense indexes cannot be used at all",
+                    "Follow the rightmost pointer in each index node from root to leaf for MAX; for non-dense indexes, the actual number of records associated with each index entry must be accounted for",
+                    "Scan all leaf nodes from left to right; non-dense indexes require hashing",
+                    "Drop the index and perform a full table scan"
+                ],
+                correct: 1,
+                explanation: "لإيجاد MAX باستخدام فهرس تصاعدي، نتبع المؤشر الأيمن (Rightmost pointer) من الجذر للورقة. وفي الفهرس غير الكثيف عند حساب SUM أو AVG، يجب حساب العدد الفعلي للسجلات المرتبطة بكل مدخل فهرس."
+            },
+            {
+                chapter: "Ch19",
+                question: "44. What is the main motivation for combining operations using Pipelining (stream-based processing) instead of Materialized evaluation?",
+                options: [
+                    "To store every intermediate table permanently on disk",
+                    "To avoid the time-consuming and expensive process of generating, saving, and reading temporary result files on disk by passing tuples directly from one operator to the next",
+                    "To force the query optimizer to use Cartesian products",
+                    "To encrypt intermediate query results"
+                ],
+                correct: 1,
+                explanation: "التقييم المادي (Materialized) يحفظ النتائج المؤقتة على القرص وهو مكلف، بينما التدفق (Pipelining) يمرر نتائج العملية الأولى مباشرة للعملية التالية في الذاكرة دون حفظ ملفات مؤقتة على القرص."
+            },
+            {
+                chapter: "Ch19",
+                question: "45. What is the difference between a Query Tree and a Query Graph, and what is the main heuristic rule in algebraic query optimization?",
+                options: [
+                    "Query tree specifies an execution order (leaves are input relations, internal nodes are operators); Query graph does not specify an order. Main heuristic: apply SELECT and PROJECT first to reduce intermediate result sizes",
+                    "Query graph specifies execution order; Query tree does not. Main heuristic: apply JOIN first",
+                    "Both are identical and require executing Cartesian products before selections",
+                    "Query trees only represent SQL INSERT statements"
+                ],
+                correct: 0,
+                explanation: "شجرة الاستعلام تحدد ترتيب تنفيذ العمليات بينما رسم الاستعلام لا يحدد ترتيباً. والقاعدة الإرشادية الأهم (Main Heuristic) هي تنفيذ عمليات SELECT و PROJECT في أسرع وقت ممكن (أسفل الشجرة) لتقليص حجم النتائج الوسيطة قبل عمليات الربط (JOIN)."
+            },
+            {
+                chapter: "Ch19",
+                question: "46. Which of the following relational algebra operations is NOT commutative?",
+                options: [
+                    "Select (σ) and Join (⋈)",
+                    "Cartesian Product (×) and Union (∪)",
+                    "Intersection (∩)",
+                    "Set Difference (R − S)"
+                ],
+                correct: 3,
+                explanation: "عمليات الاختيار والربط والاتحاد والتقاطع والجداء الديكارتي كلها تبديلية (Commutative)، بينما عملية فرق المجموعات (Set Difference: R - S) ليست تبديلية."
+            },
+            {
+                chapter: "Ch19",
+                question: "47. In Cost-Based Query Optimization, what is the 'Selection Cardinality (s)' of an attribute, and what is a 'Left-Deep Join Tree'?",
+                options: [
+                    "s = sl * r (selectivity multiplied by number of records); a Left-Deep tree is a binary tree where the right child of each non-leaf node is always a base relation (amenable to pipelining)",
+                    "s = r / bfr; a Left-Deep tree has base relations only as left children",
+                    "s = number of blocks; a Left-Deep tree cannot use indexes",
+                    "s = d * b; a Left-Deep tree requires materializing every right child"
+                ],
+                correct: 0,
+                explanation: "عدد سجلات الاختيار المتوقع هو s = sl * r. والشجرة اليسرى العميقة (Left-deep tree) يكون فيها الابن الأيمن لكل عقدة داخلية دائماً جدولاً أساسياً (Base relation)، مما يجعلها مثالية للـ Pipelining واستخدام مسارات الوصول."
+            },
+            {
+                chapter: "Ch19",
+                question: "48. What is 'Semantic Query Optimization'?",
+                options: [
+                    "Using hints in Oracle to force index usage",
+                    "Using constraints specified on the database schema (e.g., no employee earns more than their supervisor) to modify a query into a more efficient one or determine immediately that the result is empty",
+                    "Translating SQL queries into C++ code",
+                    "Sorting tables alphabetically by column name"
+                ],
+                correct: 1,
+                explanation: "تحسين الاستعلام الدلالي (Semantic Query Optimization) يستخدم القيود المعرفة في مخطط قاعدة البيانات لتبسيط الاستعلام أو معرفة أن نتيجته فارغة مسبقاً دون الحاجة لتنفيذه."
+            },
+
+            // ================= CHAPTER 20 (16 Questions) =================
+            {
+                chapter: "Ch20",
+                question: "49. When analyzing database queries for Physical Database Design, attributes specified in which clauses are primary candidates for defining access structures (indexes)?",
+                options: [
+                    "Attributes whose values are merely retrieved in the SELECT list",
+                    "Attributes specified in selection conditions (WHERE) and join conditions",
+                    "Attributes that are frequently changed by UPDATE operations",
+                    "Attributes that contain only NULL values"
+                ],
+                correct: 1,
+                explanation: "الخصائص (الأعمدة) التي تُستخدم في شروط الاختيار (Selection conditions) وشروط الربط (Join conditions) هي المرشح الأساسي لإنشاء مسارات الوصول (الفهارس)."
+            },
+            {
+                chapter: "Ch20",
+                question: "50. When analyzing UPDATE transactions for physical design, which attributes are candidates for AVOIDING an access structure (index)?",
+                options: [
+                    "Attributes used in the WHERE clause of an UPDATE or DELETE",
+                    "Attributes whose values will be frequently changed (modified) by an UPDATE operation",
+                    "Primary key attributes",
+                    "Foreign key attributes used in joins"
+                ],
+                correct: 1,
+                explanation: "الخصائص التي تتغير قيمها باستمرار بواسطة عمليات UPDATE يُفضل تجنب وضع فهارس عليها لأن كل تعديل في القيمة سيتطلب تحديث الفهرس أيضاً مما يسبب عبئاً إضافياً (Overhead)."
+            },
+            {
+                chapter: "Ch20",
+                question: "51. What does the '80-20 rule' state in the context of analyzing expected frequency of queries and transactions?",
+                options: [
+                    "80% of indexes are unused and 20% are used",
+                    "Approximately 20% of the data is accessed 80% of the time",
+                    "80% of transactions are writes and 20% are reads",
+                    "Database buffers should be 80% full and 20% empty"
+                ],
+                correct: 1,
+                explanation: "تنص قاعدة 80-20 في تصميم قواعد البيانات على أن حوالي 20% من البيانات يتم الوصول إليها في 80% من الوقت."
+            },
+            {
+                chapter: "Ch20",
+                question: "52. How do time constraints on queries and high update frequencies on files affect physical design decisions?",
+                options: [
+                    "Selection attributes in time-constrained queries become higher-priority candidates for primary access structures; frequently updated files should have a minimum number of access paths",
+                    "Frequently updated files should have as many secondary indexes as possible",
+                    "Time-constrained queries should use linear scans instead of indexes",
+                    "Uniqueness constraints should be removed from primary keys"
+                ],
+                correct: 0,
+                explanation: "الاستعلامات المقيدة بوقت استجابة سريع تعطي أولوية قصوى لوضع فهارس أساسية على حقول الاختيار فيها، بينما الملفات التي تتعرض لتحديثات متكررة جداً يجب تقليل عدد الفهارس عليها للحد الأدنى."
+            },
+            {
+                chapter: "Ch20",
+                question: "53. On which attributes should access paths (indexes) always be specified to enforce uniqueness constraints?",
+                options: [
+                    "All candidate key attributes (or sets of attributes) that are either the primary key or constrained to be UNIQUE",
+                    "Only on descriptive text attributes",
+                    "On attributes with very low cardinality (such as Sex)",
+                    "Only on unindexed heap files"
+                ],
+                correct: 0,
+                explanation: "يجب تحديد مسارات وصول (فهارس) على جميع خصائص المفاتيح المرشحة (Candidate keys) سواء كانت مفتاحاً أساسياً (Primary key) أو مقيدة بقيد التفرد (UNIQUE)."
+            },
+            {
+                chapter: "Ch20",
+                question: "54. What is the goal of 'Denormalization' in physical database design, and what trade-off does it introduce?",
+                options: [
+                    "Goal: minimize redundancy; Trade-off: slower queries",
+                    "Goal: improve performance of frequently occurring queries by adding attributes or joining tables to avoid runtime joins; Trade-off: introduces redundancy and extra overhead for updates",
+                    "Goal: convert 1NF tables into BCNF; Trade-off: uses less disk space",
+                    "Goal: encrypt sensitive columns; Trade-off: requires public keys"
+                ],
+                correct: 1,
+                explanation: "تهدف إلغاء التطبيع (Denormalization) إلى تسريع الاستعلامات المتكررة عبر دمج الجداول أو تكرار بعض الأعمدة لتجنب عمليات الـ JOIN المكلفة، وذلك كحل وسط (Trade-off) بين سرعة الاستعلام وتكلفة التحديث."
+            },
+            {
+                chapter: "Ch20",
+                question: "55. What are the main goals of Database Tuning in relational systems?",
+                options: [
+                    "To make applications run faster, lower response time of queries/transactions, and improve overall transaction throughput by monitoring and revising physical design",
+                    "To rewrite the application into assembly language",
+                    "To increase lock contention among concurrent users",
+                    "To convert relational databases into flat text files"
+                ],
+                correct: 0,
+                explanation: "يهدف ضبط الأداء (Database Tuning) إلى تسريع التطبيقات، وتقليل زمن الاستجابة، وزيادة الإنتاجية الكلية للمعاملات (Throughput) عبر المراقبة المستمرة وإزالة نقاط الاختناق."
+            },
+            {
+                chapter: "Ch20",
+                question: "56. Which of the following statistics are internally collected by DBMSs to aid in optimization and tuning?",
+                options: [
+                    "Size of individual tables, number of distinct values in a column, execution frequency of queries, and times required for processing phases",
+                    "Employee home addresses and personal passwords",
+                    "The physical weight and dimensions of the hard drive",
+                    "Only the names of dropped tables"
+                ],
+                correct: 0,
+                explanation: "تجمع أنظمة إدارة قواعد البيانات إحصائيات داخلية تشمل أحجام الجداول، وعدد القيم المميزة في كل عمود، وعدد مرات تنفيذ الاستعلامات، والأوقات المستغرقة في مراحل المعالجة."
+            },
+            {
+                chapter: "Ch20",
+                question: "57. Which of the following is a common problem considered during database system tuning?",
+                options: [
+                    "How to avoid excessive lock contention and minimize the overhead of logging and unnecessary data dumping",
+                    "How to increase seek time on magnetic disks",
+                    "How to force every transaction to run serially",
+                    "How to disable the buffer manager"
+                ],
+                correct: 0,
+                explanation: "من أهم المشاكل التي يعالجها ضبط الأداء: تجنب التزاحم المفرط على الأقفال (Lock contention)، وتقليل عبء التسجيل (Logging)، وتحسين حجم المخازن المؤقتة وتخصيص الموارد."
+            },
+            {
+                chapter: "Ch20",
+                question: "58. What are valid reasons and options for Tuning Indexes?",
+                options: [
+                    "Reasons: queries run too slow due to lack of index, indexes go unused, or indexes on frequently changed attributes cause overhead; Options: drop/build indexes, switch between clustered/non-clustered, or rebuild indexes",
+                    "Indexes can never be dropped or rebuilt once created",
+                    "Index tuning only involves renaming the index in the catalog",
+                    "Replacing all B+-trees with linear scans"
+                ],
+                correct: 0,
+                explanation: "يتم ضبط الفهارس إذا كانت بعض الاستعلامات بطيئة لغياب فهرس، أو كانت هناك فهارس غير مستخدمة، أو فهارس تسبب عبئاً بسبب كثرة التحديثات. وتشمل الخيارات حذف أو بناء الفهارس، تحويلها لتجميعية أو العكس، أو إعادة بنائها."
+            },
+            {
+                chapter: "Ch20",
+                question: "59. How can a relation R(K, A, B, C, D, ...) that is in BCNF be vertically partitioned during database design tuning?",
+                options: [
+                    "By storing it into multiple tables that are also in BCNF by replicating the primary key K in each table",
+                    "By removing the primary key K from all resulting tables",
+                    "By placing all rows with ID > 100 in another table",
+                    "By converting all attributes into a single text string"
+                ],
+                correct: 0,
+                explanation: "التقسيم العمودي (Vertical partitioning) لجدول في BCNF يتم عبر تقسيم أعمدته إلى عدة جداول أصغر (جميعها في BCNF أيضاً) مع تكرار المفتاح الأساسي K في كل جدول لإمكانية إعادة ربطها."
+            },
+            {
+                chapter: "Ch20",
+                question: "60. What are the two main indications that a specific query needs tuning?",
+                options: [
+                    "The query issues too many disk accesses, or the query execution plan shows that relevant indexes are not being used",
+                    "The query returns zero rows",
+                    "The query uses the SELECT keyword",
+                    "The query is executed more than once a week"
+                ],
+                correct: 0,
+                explanation: "أبرز مؤشرين للحاجة إلى ضبط الاستعلام هما: أن الاستعلام يقوم بعدد كبير جداً من الوصولات للقرص، أو أن خطة التنفيذ (Query plan) تُظهر عدم استخدام الفهارس المتاحة."
+            },
+            {
+                chapter: "Ch20",
+                question: "61. If multiple options for a join condition are possible when tuning a query, which option should be preferred?",
+                options: [
+                    "Choose one that uses a clustering index and avoid join conditions that contain string comparisons (prefer numeric keys)",
+                    "Choose string comparisons over numeric comparisons",
+                    "Avoid clustering indexes and use unindexed text fields",
+                    "Always use a Cartesian product followed by a NOT condition"
+                ],
+                correct: 0,
+                explanation: "عند توفر عدة خيارات لشرط الربط، يُفضل اختيار الشرط الذي يستخدم فهرساً تجميعياً (Clustering index) وتجنب الشروط التي تتضمن مقارنات نصية (String comparisons)."
+            },
+            {
+                chapter: "Ch20",
+                question: "62. Why might a query with multiple selection conditions connected via 'OR' perform poorly, and how can it be tuned?",
+                options: [
+                    "OR conditions may prevent the optimizer from using any index; the query can be split and expressed as a UNION of queries, each using an index on its attribute",
+                    "OR conditions cause syntax errors; they must be deleted",
+                    "OR conditions always lock the entire database; replace them with GROUP BY",
+                    "OR conditions can only be tuned by dropping all indexes"
+                ],
+                correct: 0,
+                explanation: "الشروط المرتبطة بـ OR قد تدفع المحسن لعدم استخدام أي فهرس واللجوء للمسح الشامل؛ ولضبطها يتم تقسيم الاستعلام إلى اتحاد (UNION) عدة استعلامات يستخدم كل منها الفهرس الخاص به."
+            },
+            {
+                chapter: "Ch20",
+                question: "63. Which query transformation guidelines help the query optimizer utilize indexes more effectively?",
+                options: [
+                    "Transform NOT conditions into positive expressions, and replace embedded (nested) SELECT blocks with joins where appropriate",
+                    "Replace all positive expressions with NOT conditions, and convert all joins into nested correlated subqueries",
+                    "Wrap all indexed columns in arithmetic functions inside the WHERE clause",
+                    "Always create multiple overlapping views for every query"
+                ],
+                correct: 0,
+                explanation: "من إرشادات ضبط الاستعلامات: تحويل شروط النفي (NOT) إلى عبارات إيجابية، واستبدال الاستعلامات الفرعية المتداخلة بعمليات ربط (Joins) لأن بعض المحسنات تتعامل معها بكفاءة أعلى."
+            },
+            {
+                chapter: "Ch20",
+                question: "64. What is the difference between Horizontal Partitioning and Vertical Partitioning in tuning database design?",
+                options: [
+                    "Horizontal partitioning splits a table into subsets of rows (tuples), whereas Vertical partitioning splits a table into subsets of columns (attributes) sharing the key",
+                    "Horizontal partitioning splits columns, whereas Vertical partitioning splits rows",
+                    "Both delete 50% of the data permanently",
+                    "Horizontal partitioning is only used for indexes"
+                ],
+                correct: 0,
+                explanation: "التقسيم الأفقي يفصل الصفوف (Tuples) إلى مجموعات بناءً على شرط معين، بينما التقسيم العمودي يفصل الأعمدة (Attributes) مع تكرار المفتاح الأساسي."
+            },
+
+            // ================= CHAPTER 21 (16 Questions) =================
+            {
+                chapter: "Ch21",
+                question: "65. What is the difference between 'Interleaved processing' and 'Parallel processing' of concurrent transactions?",
+                options: [
+                    "Interleaved processing switches execution of processes on a single CPU; Parallel processing executes processes concurrently on multiple CPUs",
+                    "Interleaved processing uses multiple CPUs; Parallel processing uses a single CPU",
+                    "Interleaved processing only allows one user at a time (Single-user system)",
+                    "Parallel processing requires transactions to run strictly one after another with no overlap"
+                ],
+                correct: 0,
+                explanation: "المعالجة المتداخلة (Interleaved) تنفذ أوامر من عملية ثم تعلقها لتنفذ من عملية أخرى على معالج واحد (Single CPU)، بينما المعالجة المتوازية (Parallel) تنفذ العمليات في نفس اللحظة على عدة معالجات (Multiple CPUs)."
+            },
+            {
+                chapter: "Ch21",
+                question: "66. What are the exact steps performed by the `read_item(X)` operation?",
+                options: [
+                    "1. Find the address of the disk block containing X; 2. Copy that disk block into a main memory buffer (if not already there); 3. Copy item X from the buffer to the program variable X",
+                    "1. Copy X from the program variable to the buffer; 2. Write the buffer to disk",
+                    "1. Delete X from disk; 2. Recreate X in main memory",
+                    "1. Lock the entire database; 2. Flush the system log"
+                ],
+                correct: 0,
+                explanation: "تتضمن عملية `read_item(X)` تحديد عنوان كتلة القرص التي تحتوي على العنصر X، ونسخ الكتلة إلى مخزن مؤقت في الذاكرة الرئيسية (إن لم تكن موجودة)، ثم نسخ X إلى متغير البرنامج."
+            },
+            {
+                chapter: "Ch21",
+                question: "67. Which concurrency problem occurs when two transactions access the same database item and have their operations interleaved in a way that overwrites and loses one of the updates?",
+                options: [
+                    "The Dirty Read (Temporary Update) Problem",
+                    "The Lost Update Problem",
+                    "The Incorrect Summary Problem",
+                    "The Phantom Read Problem"
+                ],
+                correct: 1,
+                explanation: "مشكلة التحديث المفقود (Lost Update Problem) تحدث عندما تتداخل عمليتان تحدثان نفس العنصر بحيث تقوم إحداهما بالكتابة فوق قيمة الأخرى فيضيع التحديث الأول."
+            },
+            {
+                chapter: "Ch21",
+                question: "68. What is the 'Temporary Update (Dirty Read) Problem'?",
+                options: [
+                    "A transaction updates an item and then fails/aborts, but another transaction reads the updated item before it is changed back to its original value",
+                    "An aggregate function calculates some values before they are updated and others after they are updated",
+                    "Two transactions deadlock on the same item",
+                    "A read-only transaction reads a committed value twice"
+                ],
+                correct: 0,
+                explanation: "مشكلة التحديث المؤقت أو القراءة القذرة (Dirty Read) تحدث عندما تعدل معاملة قيمة عنصر ثم تفشل، ولكن تكون معاملة أخرى قد قرأت تلك القيمة المؤقتة غير الصحيحة قبل التراجع عنها."
+            },
+            {
+                chapter: "Ch21",
+                question: "69. Which concurrency problem occurs when one transaction calculates an aggregate function on several records while other transactions are updating some of those records?",
+                options: [
+                    "The Lost Update Problem",
+                    "The Incorrect Summary Problem",
+                    "The Unrepeatable Read Problem",
+                    "Disk Head Crash"
+                ],
+                correct: 1,
+                explanation: "مشكلة الملخص غير الصحيح (Incorrect Summary Problem) تحدث عندما تقوم معاملة بحساب دالة تجميعية (مثل SUM) بينما تقوم معاملات أخرى بتحديث بعض السجلات في نفس الوقت، فتُحسب بعض القيم قبل التحديث وبعضها بعده."
+            },
+            {
+                chapter: "Ch21",
+                question: "70. What are the five states in the Transaction State Transition Diagram?",
+                options: [
+                    "New, Running, Waiting, Blocked, Dead",
+                    "Active, Partially committed, Committed, Failed, and Terminated",
+                    "Open, Find, Read, Modify, Close",
+                    "Parse, Optimize, Generate, Execute, Flush"
+                ],
+                correct: 1,
+                explanation: "حالات المعاملة الخمس هي: نشطة (Active)، ملتزمة جزئياً (Partially committed)، ملتزمة (Committed)، فاشلة (Failed)، ومنتهية (Terminated)."
+            },
+            {
+                chapter: "Ch21",
+                question: "71. How does the system log support `undo` and `redo` operations during recovery?",
+                options: [
+                    "Undo traces backward through the log resetting items to their old_values; Redo traces forward through the log setting items of committed transactions to their new_values",
+                    "Undo traces forward setting new_values; Redo traces backward setting old_values",
+                    "Both Undo and Redo delete the system log from disk",
+                    "Undo only applies to read operations"
+                ],
+                correct: 0,
+                explanation: "عملية التراجع (Undo) تتتبع السجل للخلف لإعادة العناصر إلى قيمها القديمة (old_values)، بينما الإعادة (Redo) تتتبع السجل للأمام لضبط العناصر على قيمها الجديدة (new_values)."
+            },
+            {
+                chapter: "Ch21",
+                question: "72. When does a transaction reach its 'Commit Point', and what does 'Force-writing the log' mean?",
+                options: [
+                    "When begin_transaction is executed; force-writing deletes the buffer",
+                    "When all its database operations have executed successfully and their effects (plus [commit, T]) are recorded in the log; force-writing means writing any buffered log portions to disk before committing",
+                    "When the user closes the application window",
+                    "When the database administrator backs up the tape"
+                ],
+                correct: 1,
+                explanation: "تصل المعاملة لنقطة الالتزام (Commit point) عند إتمام جميع عملياتها وتسجيل آثارها في السجل (Log). والكتابة القسرية للسجل (Force-writing) تعني كتابة أي جزء من السجل موجود في الذاكرة إلى القرص الصلب قبل إعلان التزام المعاملة."
+            },
+            {
+                chapter: "Ch21",
+                question: "73. Which of the four ACID properties ensures that a transaction's updates are not visible to other transactions until it commits, and which ensures committed changes are never lost?",
+                options: [
+                    "Atomicity and Consistency",
+                    "Isolation and Durability (Permanency)",
+                    "Consistency and Isolation",
+                    "Durability and Atomicity"
+                ],
+                correct: 1,
+                explanation: "العزل (Isolation) يضمن عدم ظهور تحديثات المعاملة للمعاملات الأخرى حتى تلتزم، بينما الديمومة (Durability) تضمن عدم ضياع التغييرات الملتزم بها حتى لو حدث عطل لاحق."
+            },
+            {
+                chapter: "Ch21",
+                question: "74. Compare Recoverable, Cascadeless, and Strict schedules:",
+                options: [
+                    "In a Strict schedule, a transaction can neither read nor write an item X until the last transaction that wrote X has committed (or aborted)",
+                    "In a Recoverable schedule, transactions can commit before the transactions they read from commit",
+                    "A Cascadeless schedule allows reading uncommitted data",
+                    "Strict schedules require cascading rollbacks"
+                ],
+                correct: 0,
+                explanation: "في الجدول الصارم (Strict Schedule)، لا يُسمح لأي معاملة بقراءة أو كتابة العنصر X حتى تلتزم (أو تُلغى) آخر معاملة قامت بالكتابة على X، وهو يضمن عدم حدوث تراجع متسلسل (Cascadeless) وكون الجدول قابلاً للاسترداد."
+            },
+            {
+                chapter: "Ch21",
+                question: "75. What is the difference between a 'Serial Schedule' and a 'Serializable Schedule'?",
+                options: [
+                    "A serial schedule executes all operations of each transaction consecutively with no interleaving; a serializable schedule is an interleaved (nonserial) schedule that is equivalent to some serial schedule",
+                    "A serial schedule allows interleaving; a serializable schedule does not",
+                    "Serializable schedules leave the database in an inconsistent state",
+                    "There is no difference; they are identical"
+                ],
+                correct: 0,
+                explanation: "الجدول التسلسلي (Serial) ينفذ كل معاملة بالكامل تلو الأخرى دون تداخل، بينما الجدول القابل للتسلسل (Serializable) يسمح بتداخل العمليات لتحقيق الكفاءة ولكنه يعطي نتيجة مكافئة لأحد الجداول التسلسلية."
+            },
+            {
+                chapter: "Ch21",
+                question: "76. How does Algorithm 21.1 test a schedule for 'Conflict Serializability'?",
+                options: [
+                    "By counting the number of read operations",
+                    "By constructing a precedence (serialization) graph with directed edges between transactions having conflicting operations; the schedule is conflict serializable if and only if the graph has NO cycles",
+                    "By checking if the precedence graph has at least two cycles",
+                    "By sorting the transactions alphabetically"
+                ],
+                correct: 1,
+                explanation: "يتم فحص القابلية للتسلسل التضاربي ببناء رسم الأسبقية (Precedence graph)؛ ويكون الجدول قابلاً للتسلسل التضاربي إذا وفقط إذا كان الرسم خالياً تماماً من الدورات (No cycles)."
+            },
+            {
+                chapter: "Ch21",
+                question: "77. What is the relationship between Conflict Serializability and View Serializability?",
+                options: [
+                    "Any conflict serializable schedule is also view serializable, but not vice versa (a view serializable schedule with blind writes may not be conflict serializable)",
+                    "Any view serializable schedule is also conflict serializable, but not vice versa",
+                    "View serializability is stricter than conflict serializability",
+                    "They are completely unrelated"
+                ],
+                correct: 0,
+                explanation: "القابلية للتسلسل التضاربي (Conflict serializability) أكثر صرامة؛ فكل جدول قابل للتسلسل تضاربياً هو أيضاً قابل للتسلسل ظاهرياً (View serializable)، ولكن العكس غير صحيح عند وجود كتابات عمياء (Blind writes)."
+            },
+            {
+                chapter: "Ch21",
+                question: "78. In SQL2 transaction support, how does a transaction begin and end, and what is the default access mode when `READ UNCOMMITTED` isolation level is specified?",
+                options: [
+                    "Begins with an explicit BEGIN statement; default access mode is READ WRITE for all levels",
+                    "Begins implicitly when particular SQL statements are encountered and ends explicitly with COMMIT or ROLLBACK; default access mode is READ WRITE unless isolation level is READ UNCOMMITTED (where READ ONLY is assumed)",
+                    "Ends implicitly without COMMIT or ROLLBACK",
+                    "Default isolation level is READ UNCOMMITTED"
+                ],
+                correct: 1,
+                explanation: "في SQL لا توجد عبارة Begin صريحة بل تبدأ المعاملة ضمنياً وتنتهي صراحةً بـ COMMIT أو ROLLBACK. الوضع الافتراضي للوصول هو READ WRITE إلا إذا حُدد مستوى العزل READ UNCOMMITTED فيُفترض READ ONLY."
+            },
+            {
+                chapter: "Ch21",
+                question: "79. What are the four isolation levels specified in SQL2 `SET TRANSACTION`, and which one is the default?",
+                options: [
+                    "READ UNCOMMITTED, READ COMMITTED, REPEATABLE READ, and SERIALIZABLE (Default is SERIALIZABLE)",
+                    "ACTIVE, PARTIAL, COMMITTED, and FAILED (Default is ACTIVE)",
+                    "SHARED, EXCLUSIVE, BINARY, and CERTIFY",
+                    "LOW, MEDIUM, HIGH, and STRICT"
+                ],
+                correct: 0,
+                explanation: "مستويات العزل الأربعة في SQL هي: READ UNCOMMITTED, READ COMMITTED, REPEATABLE READ, و SERIALIZABLE (وهو المستوى الافتراضي والأعلى أماناً)."
+            },
+            {
+                chapter: "Ch21",
+                question: "80. What is the difference between a 'Nonrepeatable Read' and a 'Phantom' in lower SQL isolation levels?",
+                options: [
+                    "Nonrepeatable read: T1 reads an existing value, T2 updates it, and T1 reads the same item again seeing a different value; Phantom: T1 reads a set of rows based on a WHERE condition, T2 inserts a new row satisfying that condition, and T1 repeats the query seeing a new row that did not exist before",
+                    "Nonrepeatable read involves inserting new rows; Phantom involves deleting tables",
+                    "Both refer to hardware disk failures",
+                    "Phantoms only occur at the SERIALIZABLE isolation level"
+                ],
+                correct: 0,
+                explanation: "القراءة غير القابلة للتكرار (Nonrepeatable read) تحدث عندما تعدل معاملة أخرى قيمة سجل موجود بين قراءتين لنفس المعاملة، بينما الشبح (Phantom) يحدث عندما تضيف معاملة أخرى صفوفاً جديدة تحقق شرط WHERE فتظهر في القراءة الثانية."
             }
         ];
 
+        let questions = [...allQuestions];
         let currentIdx = 0;
         let score = 0;
+        let currentFilter = 'ALL';
 
         const questionCounter = document.getElementById('question-counter');
+        const chapterBadge = document.getElementById('chapter-badge');
         const scoreTracker = document.getElementById('score-tracker');
         const progressBar = document.getElementById('progress-bar');
         const questionText = document.getElementById('question-text');
@@ -176,9 +1077,31 @@
         const resultContainer = document.getElementById('result-container');
         const finalScoreText = document.getElementById('final-score-text');
 
+        function filterChapter(ch) {
+            currentFilter = ch;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`btn-${ch}`).classList.add('active');
+
+            if (ch === 'ALL') {
+                questions = [...allQuestions];
+            } else {
+                questions = allQuestions.filter(q => q.chapter === ch);
+            }
+            restartQuiz();
+        }
+
+        function shuffleAndRestart() {
+            for (let i = questions.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [questions[i], questions[j]] = [questions[j], questions[i]];
+            }
+            restartQuiz();
+        }
+
         function loadQuestion() {
             const q = questions[currentIdx];
             questionCounter.innerText = `السؤال ${currentIdx + 1} من ${questions.length}`;
+            chapterBadge.innerText = q.chapter;
             progressBar.style.width = `${((currentIdx + 1) / questions.length) * 100}%`;
             questionText.innerText = q.question;
             
@@ -188,8 +1111,8 @@
 
             q.options.forEach((opt, index) => {
                 const btn = document.createElement('button');
-                btn.className = "option-btn w-full text-left p-4 rounded-xl border border-gray-700 bg-gray-900/60 text-gray-200 font-medium flex justify-between items-center";
-                btn.innerHTML = `<span>${opt}</span> <i class="fa-regular fa-circle text-gray-500"></i>`;
+                btn.className = "option-btn w-full text-left p-4 rounded-xl border border-gray-700 bg-gray-900/60 text-gray-200 font-medium flex justify-between items-center gap-3";
+                btn.innerHTML = `<span>${opt}</span> <i class="fa-regular fa-circle text-gray-500 shrink-0"></i>`;
                 btn.onclick = () => selectAnswer(index, btn);
                 optionsContainer.appendChild(btn);
             });
@@ -199,30 +1122,28 @@
             const q = questions[currentIdx];
             const allButtons = optionsContainer.querySelectorAll('button');
             
-            // تعطيل الأزرار بعد اختيار إجابة
             allButtons.forEach(btn => btn.disabled = true);
 
             if (selectedIdx === q.correct) {
                 score++;
                 scoreTracker.innerText = `النقاط: ${score}`;
-                selectedBtn.className = "w-full text-left p-4 rounded-xl border border-emerald-500 bg-emerald-500/20 text-white font-bold flex justify-between items-center";
-                selectedBtn.querySelector('i').className = "fa-solid fa-circle-check text-emerald-400";
+                selectedBtn.className = "w-full text-left p-4 rounded-xl border border-emerald-500 bg-emerald-500/20 text-white font-bold flex justify-between items-center gap-3";
+                selectedBtn.querySelector('i').className = "fa-solid fa-circle-check text-emerald-400 shrink-0";
             } else {
-                selectedBtn.className = "w-full text-left p-4 rounded-xl border border-rose-500 bg-rose-500/20 text-white font-bold flex justify-between items-center";
-                selectedBtn.querySelector('i').className = "fa-solid fa-circle-xmark text-rose-400";
+                selectedBtn.className = "w-full text-left p-4 rounded-xl border border-rose-500 bg-rose-500/20 text-white font-bold flex justify-between items-center gap-3";
+                selectedBtn.querySelector('i').className = "fa-solid fa-circle-xmark text-rose-400 shrink-0";
                 
-                // إظهار الإجابة الصحيحة باللون الأخضر
                 const correctBtn = allButtons[q.correct];
-                correctBtn.className = "w-full text-left p-4 rounded-xl border border-emerald-500 bg-emerald-500/20 text-white font-bold flex justify-between items-center";
-                correctBtn.querySelector('i').className = "fa-solid fa-circle-check text-emerald-400";
+                correctBtn.className = "w-full text-left p-4 rounded-xl border border-emerald-500 bg-emerald-500/20 text-white font-bold flex justify-between items-center gap-3";
+                correctBtn.querySelector('i').className = "fa-solid fa-circle-check text-emerald-400 shrink-0";
             }
 
-            // عرض الشرح
             explanationBox.innerHTML = `<strong class="text-cyan">توضيح:</strong> ${q.explanation}`;
             explanationBox.classList.remove('hidden');
 
-            // إظهار زر التالي
-            nextBtn.innerText = (currentIdx === questions.length - 1) ? "عرض النتيجة النهائية" : "السؤال التالي";
+            nextBtn.innerHTML = (currentIdx === questions.length - 1) 
+                ? `عرض النتيجة النهائية <i class="fa-solid fa-flag-checkered mr-2"></i>` 
+                : `السؤال التالي <i class="fa-solid fa-arrow-left mr-2"></i>`;
             nextBtn.classList.remove('hidden');
         }
 
