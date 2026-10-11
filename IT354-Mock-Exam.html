@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اختبار تجريبي IT354 (80 سؤال) | فهد الزعبي</title>
+    <title>اختبار تجريبي IT354 (80 سؤال) </title>
     
     <!-- خط ثمانية والأيقونات -->
     <link href="https://cdn.jsdelivr.net/npm/@dawod/thmanyah-font-web/index.css" rel="stylesheet">
@@ -32,7 +32,7 @@
             background-color: rgba(6, 182, 212, 0.1);
             transform: translateX(-4px);
         }
-        .filter-btn.active {
+        .filter-btn.active, .limit-btn.active {
             background: linear-gradient(to right, #06b6d4, #3b82f6);
             color: white;
             border-color: transparent;
@@ -54,14 +54,27 @@
     <!-- حاوية الاختبار -->
     <main class="container mx-auto px-4 py-8 flex-grow flex flex-col items-center justify-center">
         
-        <!-- أزرار تصفية الفصول -->
-        <div class="w-full max-w-3xl mb-6 flex flex-wrap justify-center gap-2">
-            <button onclick="filterChapter('ALL')" id="btn-ALL" class="filter-btn active text-xs md:text-sm px-4 py-2 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">الكل (80)</button>
-            <button onclick="filterChapter('Ch17')" id="btn-Ch17" class="filter-btn text-xs md:text-sm px-4 py-2 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Ch 17: Disk & Hashing (16)</button>
-            <button onclick="filterChapter('Ch18')" id="btn-Ch18" class="filter-btn text-xs md:text-sm px-4 py-2 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Ch 18: Indexing & B-Trees (16)</button>
-            <button onclick="filterChapter('Ch19')" id="btn-Ch19" class="filter-btn text-xs md:text-sm px-4 py-2 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Ch 19: Query Processing (16)</button>
-            <button onclick="filterChapter('Ch20')" id="btn-Ch20" class="filter-btn text-xs md:text-sm px-4 py-2 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Ch 20: Physical Design (16)</button>
-            <button onclick="filterChapter('Ch21')" id="btn-Ch21" class="filter-btn text-xs md:text-sm px-4 py-2 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Ch 21: Transactions (16)</button>
+        <!-- لوحة التحكم: تصفية الفصول + تحديد عدد الأسئلة -->
+        <div class="w-full max-w-3xl mb-6 space-y-4 bg-card/40 p-4 rounded-2xl border border-gray-800">
+            <!-- أزرار الفصول -->
+            <div class="flex flex-wrap items-center justify-center gap-2">
+                <span class="text-xs text-gray-400 font-bold ml-2">الفصل:</span>
+                <button onclick="filterChapter('ALL')" id="btn-ALL" class="filter-btn active text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">الكل (80)</button>
+                <button onclick="filterChapter('Ch17')" id="btn-Ch17" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Ch 17 (16)</button>
+                <button onclick="filterChapter('Ch18')" id="btn-Ch18" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Ch 18 (16)</button>
+                <button onclick="filterChapter('Ch19')" id="btn-Ch19" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Ch 19 (16)</button>
+                <button onclick="filterChapter('Ch20')" id="btn-Ch20" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Ch 20 (16)</button>
+                <button onclick="filterChapter('Ch21')" id="btn-Ch21" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Ch 21 (16)</button>
+            </div>
+
+            <!-- أزرار عدد الأسئلة -->
+            <div class="flex flex-wrap items-center justify-center gap-2 pt-2 border-t border-gray-800/80">
+                <span class="text-xs text-gray-400 font-bold ml-2">عدد الأسئلة:</span>
+                <button onclick="setQuestionLimit(20)" id="limit-20" class="limit-btn text-xs px-4 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">20 سؤال</button>
+                <button onclick="setQuestionLimit(40)" id="limit-40" class="limit-btn text-xs px-4 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">40 سؤال</button>
+                <button onclick="setQuestionLimit(60)" id="limit-60" class="limit-btn text-xs px-4 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">60 سؤال</button>
+                <button onclick="setQuestionLimit(80)" id="limit-80" class="limit-btn active text-xs px-4 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">80 (الكل)</button>
+            </div>
         </div>
 
         <div class="w-full max-w-3xl bg-card/60 backdrop-blur-md border border-gray-800 rounded-2xl p-6 md:p-8 shadow-xl">
@@ -69,15 +82,16 @@
             <!-- شاشة الأسئلة -->
             <div id="quiz-container">
                 <!-- شريط التقدم والعداد -->
-                <div class="flex justify-between items-center mb-3 text-sm text-gray-400">
-                    <div class="flex items-center gap-3">
+                <div class="flex flex-wrap justify-between items-center mb-3 text-sm text-gray-400 gap-2">
+                    <div class="flex items-center gap-2">
                         <span id="question-counter" class="font-bold text-cyan">السؤال 1 من 80</span>
                         <span id="chapter-badge" class="bg-gray-800 text-gray-300 text-xs px-3 py-1 rounded-full border border-gray-700">Ch17</span>
+                        <span id="status-badge" class="hidden text-xs px-2.5 py-0.5 rounded-full font-bold"></span>
                     </div>
                     <div class="flex items-center gap-4">
-                        <span id="score-tracker" class="font-bold text-emerald-400">النقاط: 0</span>
-                        <button onclick="shuffleAndRestart()" title="خلط الأسئلة والبدء من جديد" class="text-gray-400 hover:text-cyan transition-colors">
-                            <i class="fa-solid fa-shuffle"></i> خلط
+                        <span id="score-tracker" class="font-bold text-emerald-400">الصحيحة: 0</span>
+                        <button onclick="shuffleCurrentPool()" title="خلط الأسئلة الحالية والبدء من جديد" class="text-gray-400 hover:text-cyan transition-colors text-xs bg-gray-800 px-3 py-1.5 rounded-lg border border-gray-700">
+                            <i class="fa-solid fa-shuffle ml-1"></i> خلط الأسئلة
                         </button>
                     </div>
                 </div>
@@ -95,10 +109,18 @@
                 <!-- صندوق الشرح بعد الإجابة -->
                 <div id="explanation-box" class="hidden p-4 rounded-xl bg-gray-800/80 border border-gray-700 text-sm text-gray-300 mb-6 leading-relaxed"></div>
 
-                <!-- أزرار التنقل -->
-                <div class="flex gap-3">
-                    <button id="next-btn" onclick="nextQuestion()" class="hidden flex-1 bg-gradient-to-r from-cyan to-blue hover:from-blue hover:to-cyan text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg">
-                        السؤال التالي <i class="fa-solid fa-arrow-left mr-2"></i>
+                <!-- أزرار التنقل (السابق / التالي بدون إجبار على الإجابة / إنهاء) -->
+                <div class="flex items-center justify-between gap-3 pt-4 border-t border-gray-800">
+                    <button id="prev-btn" onclick="prevQuestion()" class="px-5 py-3 rounded-xl border border-gray-700 bg-gray-800/60 hover:border-cyan hover:text-cyan text-gray-300 font-bold transition-all disabled:opacity-40 disabled:pointer-events-none">
+                        <i class="fa-solid fa-arrow-right ml-2"></i> السابق
+                    </button>
+
+                    <button onclick="showResults()" class="px-4 py-3 rounded-xl border border-gray-700 hover:border-rose-500/60 hover:text-rose-400 text-gray-400 text-sm font-bold transition-all">
+                        إنهاء الاختبار
+                    </button>
+
+                    <button id="next-btn" onclick="nextQuestion()" class="flex-1 max-w-[220px] bg-gradient-to-r from-cyan to-blue hover:from-blue hover:to-cyan text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg">
+                        التالي <i class="fa-solid fa-arrow-left mr-2"></i>
                     </button>
                 </div>
             </div>
@@ -108,19 +130,23 @@
                 <div class="w-20 h-20 bg-cyan/20 rounded-full flex items-center justify-center mx-auto mb-6 text-cyan text-4xl">
                     <i class="fa-solid fa-trophy"></i>
                 </div>
-                <h2 class="text-3xl font-bold text-white mb-2">انتهى الاختبار!</h2>
-                <p id="final-score-text" class="text-xl text-gray-400 mb-8"></p>
+                <h2 class="text-3xl font-bold text-white mb-3">انتهى الاختبار!</h2>
+                <p id="final-score-text" class="text-xl text-gray-300 font-bold mb-2"></p>
+                <p id="final-details-text" class="text-sm text-gray-400 mb-8"></p>
                 
                 <div class="flex flex-wrap justify-center gap-4">
-                    <button onclick="restartQuiz()" class="bg-gradient-to-r from-cyan to-blue text-white font-bold py-3 px-8 rounded-full hover:shadow-[0_0_20px_rgba(6,182,212,0.5)] transition-all">
-                        <i class="fa-solid fa-rotate-right ml-2"></i> إعادة الاختبار
+                    <!-- زر إعادة الأسئلة الخاطئة فقط -->
+                    <button id="retry-wrong-btn" onclick="retryWrongQuestions()" class="hidden bg-rose-600 hover:bg-rose-500 text-white font-bold py-3 px-8 rounded-full shadow-[0_0_20px_rgba(225,29,72,0.4)] transition-all">
+                        <i class="fa-solid fa-triangle-exclamation ml-2"></i> إعادة الأسئلة الخاطئة فقط (<span id="wrong-count-num">0</span>)
                     </button>
-                    <button onclick="shuffleAndRestart()" class="border border-cyan text-cyan hover:bg-cyan/10 font-bold py-3 px-8 rounded-full transition-all">
-                        <i class="fa-solid fa-shuffle ml-2"></i> خلط الأسئلة والبدء
+
+                    <button onclick="applyFilterAndLimit(false)" class="bg-gradient-to-r from-cyan to-blue text-white font-bold py-3 px-8 rounded-full hover:shadow-[0_0_20px_rgba(6,182,212,0.5)] transition-all">
+                        <i class="fa-solid fa-rotate-right ml-2"></i> اختبار جديد
                     </button>
-                    <a href="index.html" class="border border-gray-600 hover:border-cyan hover:text-cyan text-gray-300 font-bold py-3 px-8 rounded-full transition-all">
-                        الرئيسية
-                    </a>
+
+                    <button onclick="applyFilterAndLimit(true)" class="border border-cyan text-cyan hover:bg-cyan/10 font-bold py-3 px-8 rounded-full transition-all">
+                        <i class="fa-solid fa-shuffle ml-2"></i> خلط والبدء من جديد
+                    </button>
                 </div>
             </div>
 
@@ -128,7 +154,7 @@
     </main>
 
     <footer class="text-center py-6 text-gray-600 text-sm border-t border-gray-800">
-        &copy; 2026 فهد الزعبي — IT354 Study Hub
+        &copy; 2026 FZ3 — IT354 Study Hub
     </footer>
 
     <!-- برمجة الاختبار وقاعدة بيانات الـ 80 سؤال -->
@@ -330,7 +356,7 @@
                     "Bfr = 150 records/block, b = 200 blocks"
                 ],
                 correct: 1,
-                explanation: "حساب معامل التكتيل: Bfr = floor(512 / 150) = 3 سجلات لكل كتلة. وعدد الكتل: b = 30000 / 3 = 10,000 كتلة (كما في مثال الكتاب ص 13)."
+                explanation: "حساب معامل التكتيل: Bfr = floor(512 / 150) = 3 سجلات لكل كتلة. وعدد الكتل: b = 30000 / 3 = 10,000 كتلة."
             },
             {
                 chapter: "Ch18",
@@ -1060,120 +1086,223 @@
             }
         ];
 
-        let questions = [...allQuestions];
+        let questions = [];
+        let userAnswers = []; // لحفظ إجابة المستخدم لكل سؤال (null إذا لم يجب)
         let currentIdx = 0;
-        let score = 0;
         let currentFilter = 'ALL';
+        let currentLimit = 80;
 
         const questionCounter = document.getElementById('question-counter');
         const chapterBadge = document.getElementById('chapter-badge');
+        const statusBadge = document.getElementById('status-badge');
         const scoreTracker = document.getElementById('score-tracker');
         const progressBar = document.getElementById('progress-bar');
         const questionText = document.getElementById('question-text');
         const optionsContainer = document.getElementById('options-container');
         const explanationBox = document.getElementById('explanation-box');
+        const prevBtn = document.getElementById('prev-btn');
         const nextBtn = document.getElementById('next-btn');
         const quizContainer = document.getElementById('quiz-container');
         const resultContainer = document.getElementById('result-container');
         const finalScoreText = document.getElementById('final-score-text');
+        const finalDetailsText = document.getElementById('final-details-text');
+        const retryWrongBtn = document.getElementById('retry-wrong-btn');
+        const wrongCountNum = document.getElementById('wrong-count-num');
 
+        // اختيار الفصل
         function filterChapter(ch) {
             currentFilter = ch;
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById(`btn-${ch}`).classList.add('active');
-
-            if (ch === 'ALL') {
-                questions = [...allQuestions];
-            } else {
-                questions = allQuestions.filter(q => q.chapter === ch);
-            }
-            restartQuiz();
+            applyFilterAndLimit(false);
         }
 
-        function shuffleAndRestart() {
+        // اختيار عدد الأسئلة (20, 40, 60, 80)
+        function setQuestionLimit(limit) {
+            currentLimit = limit;
+            document.querySelectorAll('.limit-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`limit-${limit}`).classList.add('active');
+            applyFilterAndLimit(true); // نقوم بخلط الأسئلة عند اختيار عدد فرعي لتنويع الاختبار
+        }
+
+        // تطبيق الفلتر والعدد المحدد
+        function applyFilterAndLimit(shouldShuffle = false) {
+            let pool = (currentFilter === 'ALL') 
+                ? [...allQuestions] 
+                : allQuestions.filter(q => q.chapter === currentFilter);
+
+            if (shouldShuffle) {
+                for (let i = pool.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [pool[i], pool[j]] = [pool[j], pool[i]];
+                }
+            }
+
+            questions = pool.slice(0, Math.min(currentLimit, pool.length));
+            startQuizSession();
+        }
+
+        // خلط الأسئلة الحالية فقط
+        function shuffleCurrentPool() {
             for (let i = questions.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [questions[i], questions[j]] = [questions[j], questions[i]];
             }
-            restartQuiz();
+            startQuizSession();
         }
 
+        // بدء جلسة الاختبار
+        function startQuizSession() {
+            currentIdx = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            updateScoreTracker();
+            resultContainer.classList.add('hidden');
+            quizContainer.classList.remove('hidden');
+            loadQuestion();
+        }
+
+        // حساب النقاط الحالية
+        function getCurrentScore() {
+            return userAnswers.reduce((acc, ans, idx) => {
+                return acc + (ans === questions[idx].correct ? 1 : 0);
+            }, 0);
+        }
+
+        function updateScoreTracker() {
+            scoreTracker.innerText = `الصحيحة: ${getCurrentScore()}`;
+        }
+
+        // عرض السؤال الحالي (مع استرجاع حالة الإجابة إن وجدت)
         function loadQuestion() {
             const q = questions[currentIdx];
+            const savedAnswer = userAnswers[currentIdx];
+
             questionCounter.innerText = `السؤال ${currentIdx + 1} من ${questions.length}`;
             chapterBadge.innerText = q.chapter;
             progressBar.style.width = `${((currentIdx + 1) / questions.length) * 100}%`;
             questionText.innerText = q.question;
             
+            // تحديث حالة زر السابق والتالي
+            prevBtn.disabled = (currentIdx === 0);
+            nextBtn.innerHTML = (currentIdx === questions.length - 1) 
+                ? `النتيجة النهائية <i class="fa-solid fa-flag-checkered mr-2"></i>` 
+                : `التالي <i class="fa-solid fa-arrow-left mr-2"></i>`;
+
             optionsContainer.innerHTML = '';
-            explanationBox.classList.add('hidden');
-            nextBtn.classList.add('hidden');
+
+            // شارة حالة السؤال (تمت الإجابة / متروك)
+            if (savedAnswer === null) {
+                statusBadge.className = "bg-gray-800 text-gray-400 text-xs px-2.5 py-0.5 rounded-full";
+                statusBadge.innerText = "لم تتم الإجابة";
+                statusBadge.classList.remove('hidden');
+                explanationBox.classList.add('hidden');
+            } else if (savedAnswer === q.correct) {
+                statusBadge.className = "bg-emerald-500/20 text-emerald-400 text-xs px-2.5 py-0.5 rounded-full font-bold";
+                statusBadge.innerText = "إجابة صحيحة";
+                statusBadge.classList.remove('hidden');
+            } else {
+                statusBadge.className = "bg-rose-500/20 text-rose-400 text-xs px-2.5 py-0.5 rounded-full font-bold";
+                statusBadge.innerText = "إجابة خاطئة";
+                statusBadge.classList.remove('hidden');
+            }
 
             q.options.forEach((opt, index) => {
                 const btn = document.createElement('button');
-                btn.className = "option-btn w-full text-left p-4 rounded-xl border border-gray-700 bg-gray-900/60 text-gray-200 font-medium flex justify-between items-center gap-3";
-                btn.innerHTML = `<span>${opt}</span> <i class="fa-regular fa-circle text-gray-500 shrink-0"></i>`;
-                btn.onclick = () => selectAnswer(index, btn);
+                
+                // إذا لم يُجب المستخدم بعد على هذا السؤال
+                if (savedAnswer === null) {
+                    btn.className = "option-btn w-full text-left p-4 rounded-xl border border-gray-700 bg-gray-900/60 text-gray-200 font-medium flex justify-between items-center gap-3";
+                    btn.innerHTML = `<span>${opt}</span> <i class="fa-regular fa-circle text-gray-500 shrink-0"></i>`;
+                    btn.onclick = () => selectAnswer(index);
+                } else {
+                    // إذا كان قد أجاب مسبقاً، نعرض الإجابة المحفوظة والتصحيح
+                    btn.disabled = true;
+                    if (index === q.correct) {
+                        btn.className = "w-full text-left p-4 rounded-xl border border-emerald-500 bg-emerald-500/20 text-white font-bold flex justify-between items-center gap-3";
+                        btn.innerHTML = `<span>${opt}</span> <i class="fa-solid fa-circle-check text-emerald-400 shrink-0"></i>`;
+                    } else if (index === savedAnswer && savedAnswer !== q.correct) {
+                        btn.className = "w-full text-left p-4 rounded-xl border border-rose-500 bg-rose-500/20 text-white font-bold flex justify-between items-center gap-3";
+                        btn.innerHTML = `<span>${opt}</span> <i class="fa-solid fa-circle-xmark text-rose-400 shrink-0"></i>`;
+                    } else {
+                        btn.className = "w-full text-left p-4 rounded-xl border border-gray-800 bg-gray-900/40 text-gray-500 font-medium flex justify-between items-center gap-3 opacity-60";
+                        btn.innerHTML = `<span>${opt}</span> <i class="fa-regular fa-circle text-gray-600 shrink-0"></i>`;
+                    }
+                }
                 optionsContainer.appendChild(btn);
             });
+
+            if (savedAnswer !== null) {
+                explanationBox.innerHTML = `<strong class="text-cyan">توضيح:</strong> ${q.explanation}`;
+                explanationBox.classList.remove('hidden');
+            }
         }
 
-        function selectAnswer(selectedIdx, selectedBtn) {
-            const q = questions[currentIdx];
-            const allButtons = optionsContainer.querySelectorAll('button');
-            
-            allButtons.forEach(btn => btn.disabled = true);
-
-            if (selectedIdx === q.correct) {
-                score++;
-                scoreTracker.innerText = `النقاط: ${score}`;
-                selectedBtn.className = "w-full text-left p-4 rounded-xl border border-emerald-500 bg-emerald-500/20 text-white font-bold flex justify-between items-center gap-3";
-                selectedBtn.querySelector('i').className = "fa-solid fa-circle-check text-emerald-400 shrink-0";
-            } else {
-                selectedBtn.className = "w-full text-left p-4 rounded-xl border border-rose-500 bg-rose-500/20 text-white font-bold flex justify-between items-center gap-3";
-                selectedBtn.querySelector('i').className = "fa-solid fa-circle-xmark text-rose-400 shrink-0";
-                
-                const correctBtn = allButtons[q.correct];
-                correctBtn.className = "w-full text-left p-4 rounded-xl border border-emerald-500 bg-emerald-500/20 text-white font-bold flex justify-between items-center gap-3";
-                correctBtn.querySelector('i').className = "fa-solid fa-circle-check text-emerald-400 shrink-0";
-            }
-
-            explanationBox.innerHTML = `<strong class="text-cyan">توضيح:</strong> ${q.explanation}`;
-            explanationBox.classList.remove('hidden');
-
-            nextBtn.innerHTML = (currentIdx === questions.length - 1) 
-                ? `عرض النتيجة النهائية <i class="fa-solid fa-flag-checkered mr-2"></i>` 
-                : `السؤال التالي <i class="fa-solid fa-arrow-left mr-2"></i>`;
-            nextBtn.classList.remove('hidden');
+        function selectAnswer(selectedIdx) {
+            userAnswers[currentIdx] = selectedIdx;
+            updateScoreTracker();
+            loadQuestion(); // إعادة رسم السؤال لإظهار التصحيح والشرح فوراً
         }
 
         function nextQuestion() {
-            currentIdx++;
-            if (currentIdx < questions.length) {
+            if (currentIdx < questions.length - 1) {
+                currentIdx++;
                 loadQuestion();
             } else {
                 showResults();
             }
         }
 
+        function prevQuestion() {
+            if (currentIdx > 0) {
+                currentIdx--;
+                loadQuestion();
+            }
+        }
+
         function showResults() {
             quizContainer.classList.add('hidden');
             resultContainer.classList.remove('hidden');
-            const percentage = Math.round((score / questions.length) * 100);
-            finalScoreText.innerText = `حصلت على ${score} من ${questions.length} (${percentage}%)`;
+            
+            const finalScore = getCurrentScore();
+            const total = questions.length;
+            const percentage = Math.round((finalScore / total) * 100);
+            
+            // حساب الأسئلة الخاطئة والأسئلة المتروكة بدون إجابة
+            let wrongOnlyCount = 0;
+            let unansweredCount = 0;
+            
+            questions.forEach((q, idx) => {
+                if (userAnswers[idx] === null) {
+                    unansweredCount++;
+                } else if (userAnswers[idx] !== q.correct) {
+                    wrongOnlyCount++;
+                }
+            });
+
+            finalScoreText.innerText = `حصلت على ${finalScore} من ${total} (${percentage}%)`;
+            finalDetailsText.innerText = `إجابات صحيحة: ${finalScore} | إجابات خاطئة: ${wrongOnlyCount} | لم تتم الإجابة: ${unansweredCount}`;
+
+            // إظهار زر إعادة الأسئلة الخاطئة (أو غير المجاب عليها) إذا وُجدت
+            const reviewPoolCount = wrongOnlyCount + unansweredCount;
+            if (reviewPoolCount > 0) {
+                wrongCountNum.innerText = reviewPoolCount;
+                retryWrongBtn.classList.remove('hidden');
+            } else {
+                retryWrongBtn.classList.add('hidden');
+            }
         }
 
-        function restartQuiz() {
-            currentIdx = 0;
-            score = 0;
-            scoreTracker.innerText = `النقاط: 0`;
-            resultContainer.classList.add('hidden');
-            quizContainer.classList.remove('hidden');
-            loadQuestion();
+        // إعادة اختبار الأسئلة الخاطئة (والمتروكة) فقط
+        function retryWrongQuestions() {
+            const wrongQuestions = questions.filter((q, idx) => userAnswers[idx] !== q.correct);
+            if (wrongQuestions.length > 0) {
+                questions = wrongQuestions;
+                startQuizSession();
+            }
         }
 
         // بدء الاختبار عند تحميل الصفحة
-        loadQuestion();
+        applyFilterAndLimit(false);
     </script>
 </body>
 </html>
