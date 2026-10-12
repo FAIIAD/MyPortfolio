@@ -69,23 +69,19 @@
 <body class="bg-dark text-gray-200 min-h-screen flex flex-col justify-between relative overflow-x-hidden">
 
     <!-- شريط علوي للعودة وتبديل المظهر -->
+   <!-- شريط علوي للعنوان وتبديل المظهر -->
     <header class="bg-dark/70 backdrop-blur-md border-b border-gray-800 py-4 px-6 sticky top-0 z-50 transition-colors duration-300">
         <div class="container mx-auto flex justify-between items-center">
-            <a href="index.html" class="text-gray-400 hover:text-cyan transition-colors font-semibold flex items-center gap-2">
-                <i class="fa-solid fa-arrow-right"></i> العودة للرئيسية
-            </a>
-            <div class="flex items-center gap-4">
-                <h1 class="text-lg md:text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan to-blue">IT354 - Mock Exam</h1>
-                
-                <!-- زر تبديل المظهر المنزلق -->
-                <button id="theme-toggle" onclick="toggleTheme()" aria-label="تبديل المظهر" dir="ltr" class="relative w-16 h-8 rounded-full bg-slate-200 dark:bg-gray-800 border border-slate-300 dark:border-gray-700 flex items-center justify-between px-2 transition-colors duration-300 focus:outline-none shrink-0 cursor-pointer">
-                    <i class="fa-solid fa-sun text-amber-500 text-xs"></i>
-                    <i class="fa-solid fa-moon text-cyan text-xs"></i>
-                    <span class="absolute top-1 left-1 w-6 h-6 rounded-full bg-white dark:bg-card border border-slate-200 dark:border-gray-600 shadow-md transform transition-transform duration-300 translate-x-0 dark:translate-x-8 flex items-center justify-center">
-                        <i id="theme-icon" class="fa-solid fa-moon text-cyan text-xs"></i>
-                    </span>
-                </button>
-            </div>
+            <h1 class="text-lg md:text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan to-blue">IT354 - Mock Exam</h1>
+            
+            <!-- زر تبديل المظهر المنزلق -->
+            <button id="theme-toggle" onclick="toggleTheme()" aria-label="تبديل المظهر" dir="ltr" class="relative w-16 h-8 rounded-full bg-slate-200 dark:bg-gray-800 border border-slate-300 dark:border-gray-700 flex items-center justify-between px-2 transition-colors duration-300 focus:outline-none shrink-0 cursor-pointer">
+                <i class="fa-solid fa-sun text-amber-500 text-xs"></i>
+                <i class="fa-solid fa-moon text-cyan text-xs"></i>
+                <span class="absolute top-1 left-1 w-6 h-6 rounded-full bg-white dark:bg-card border border-slate-200 dark:border-gray-600 shadow-md transform transition-transform duration-300 translate-x-0 dark:translate-x-8 flex items-center justify-center">
+                    <i id="theme-icon" class="fa-solid fa-moon text-cyan text-xs"></i>
+                </span>
+            </button>
         </div>
     </header>
 
@@ -126,11 +122,17 @@
                         <span id="chapter-badge" class="bg-gray-800 text-gray-300 text-xs px-3 py-1 rounded-full border border-gray-700">Ch17</span>
                         <span id="status-badge" class="hidden text-xs px-2.5 py-0.5 rounded-full font-bold"></span>
                     </div>
-                    <div class="flex items-center gap-4">
+                   <div class="flex items-center gap-2 md:gap-3">
                         <span id="score-tracker" class="font-bold text-emerald-500">الصحيحة: 0</span>
+                        
                         <button onclick="shuffleCurrentPool()" title="خلط الأسئلة الحالية والبدء من جديد" class="text-gray-400 hover:text-cyan transition-colors text-xs bg-gray-800 px-3 py-1.5 rounded-lg border border-gray-700">
                             <i class="fa-solid fa-shuffle ml-1"></i> خلط الأسئلة
                         </button>
+
+                        <!-- زر الإبلاغ عبر تلجرام -->
+                        <a id="report-btn" href="#" target="_blank" title="الإبلاغ عن خطأ في هذا السؤال عبر تلجرام" class="text-gray-400 hover:text-[#24A1DE] hover:border-[#24A1DE]/50 transition-colors text-xs bg-gray-800 px-3 py-1.5 rounded-lg border border-gray-700 flex items-center gap-1.5">
+                            <i class="fa-brands fa-telegram text-[#24A1DE] text-sm"></i> إبلاغ عن خطأ
+                        </a>
                     </div>
                 </div>
 
@@ -1237,6 +1239,11 @@
             chapterBadge.innerText = q.chapter;
             progressBar.style.width = `${((currentIdx + 1) / questions.length) * 100}%`;
             questionText.innerText = q.question;
+            const telegramUsername = "fahad_m7md"; // <-- استبدل هذه الكلمة بمعرفك في تلجرام بدون @
+            const qNumMatch = q.question.match(/^\d+/);
+            const qOriginalNum = qNumMatch ? qNumMatch[0] : (currentIdx + 1);
+            const reportMessage = `السلام عليكم فهد، عندي ملاحظة/خطأ في اختبار IT354:\n- رقم السؤال الأصلي: (${qOriginalNum})\n- الفصل: (${q.chapter})\n- نص السؤال: "${q.question}"\n\nالملاحظة: `;
+            document.getElementById('report-btn').href = `https://t.me/${telegramUsername}?text=${encodeURIComponent(reportMessage)}`;
             
             // تحديث حالة زر السابق والتالي
             prevBtn.disabled = (currentIdx === 0);
