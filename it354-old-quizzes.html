@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تجميعات كويزات IT354 (Ch 17–21) | FZ</title>
     
-    <!-- خط ثمانية والأيقونات -->
+    <!-- 1. استدعاء خط ثمانية + خط Open Sans + الأيقونات -->
     <link href="https://cdn.jsdelivr.net/npm/@dawod/thmanyah-font-web/index.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- 1. قراءة المظهر المحفوظ فور فتح الصفحة -->
+    <!-- 2. قراءة المظهر المحفوظ فور فتح الصفحة -->
     <script>
         if (localStorage.getItem('theme') === 'light') {
             document.documentElement.classList.remove('dark');
@@ -18,7 +19,7 @@
         }
     </script>
 
-    <!-- 2. إعدادات Tailwind مع تفعيل darkMode: 'class' -->
+    <!-- 3. إعدادات Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -41,7 +42,15 @@
             font-family: 'Thmanyah Sans', sans-serif; 
             transition: background-color 0.3s ease, color 0.3s ease; 
         }
-        h1, h2, h3, h4 { font-family: 'Thmanyah Serif Display', serif; }
+        h1, h2, h3, h4 { 
+            font-family: 'Thmanyah Serif Display', serif; 
+        }
+        
+        /* هنا تم تحديد خط Open Sans لنص السؤال فقط، بينما الخيارات تبقى بخط ثمانية */
+        #question-text {
+            font-family: 'Open Sans', sans-serif !important;
+        }
+
         .option-btn { transition: all 0.2s ease; }
         .option-btn:hover:not(:disabled) {
             border-color: #06b6d4;
@@ -54,7 +63,7 @@
             border-color: transparent !important;
         }
 
-        /* 3. تنسيقات الوضع الفاتح (Light Mode) التلقائية */
+        /* تنسيقات الوضع الفاتح (Light Mode) التلقائية */
         html:not(.dark) body { background-color: #f8fafc; color: #1e293b; }
         html:not(.dark) header, html:not(.dark) footer { background-color: rgba(255, 255, 255, 0.85); border-color: #e2e8f0; }
         html:not(.dark) .bg-card, html:not(.dark) .bg-card\/60, html:not(.dark) .bg-card\/40 { background-color: #ffffff; border-color: #cbd5e1; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
@@ -106,7 +115,7 @@
 
         <script>
             (function() {
-                let timeLeft = 3;
+                let timeLeft = 4;
                 const alertBox = document.getElementById('quiz-alert');
                 const timerSpan = document.getElementById('alert-timer');
                 const countdown = setInterval(() => {
