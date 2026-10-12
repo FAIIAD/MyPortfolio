@@ -93,13 +93,34 @@
 
     <!-- حاوية الاختبار -->
     <main class="container mx-auto px-4 py-8 flex-grow flex flex-col items-center justify-center">
-        <!-- صندوق التنبيه -->
-        <div class="w-full max-w-3xl mb-4 bg-cyan/10 border border-cyan/30 rounded-xl p-3.5 px-4 flex items-center gap-3 text-xs md:text-sm text-gray-200 shadow-sm">
-            <i class="fa-solid fa-circle-info text-cyan text-lg shrink-0"></i>
-            <p class="leading-relaxed">
-                <strong class="text-cyan font-bold">تنبيه:</strong> تم تجميع أسئلة هذا الاختبار من كويزات سابقة للمقرر، وهي تغطي الوحدات الخمس الأولى (الفصول 17 إلى 21).
-            </p>
+       <!-- صندوق التنبيه مع إغلاق تلقائي بعد 3 ثوانٍ -->
+        <div id="quiz-alert" class="w-full max-w-3xl mb-4 bg-cyan/10 border border-cyan/30 rounded-xl p-3.5 px-4 flex items-center justify-between gap-3 text-xs md:text-sm text-gray-200 shadow-sm transition-all duration-500">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-circle-info text-cyan text-lg shrink-0"></i>
+                <p class="leading-relaxed">
+                    <strong class="text-cyan font-bold">تنبيه:</strong> تم تجميع أسئلة هذا الاختبار من كويزات سابقة للمقرر، وهي تغطي الوحدات الخمس الأولى (الفصول 17 إلى 21).
+                </p>
+            </div>
+            <span id="alert-timer" class="text-cyan font-bold text-xs bg-cyan/20 px-2.5 py-1 rounded-full shrink-0">3s</span>
         </div>
+
+        <script>
+            (function() {
+                let timeLeft = 3;
+                const alertBox = document.getElementById('quiz-alert');
+                const timerSpan = document.getElementById('alert-timer');
+                const countdown = setInterval(() => {
+                    timeLeft--;
+                    if (timeLeft > 0) {
+                        timerSpan.innerText = timeLeft + 's';
+                    } else {
+                        clearInterval(countdown);
+                        alertBox.style.opacity = '0';
+                        setTimeout(() => alertBox.style.display = 'none', 500);
+                    }
+                }, 1000);
+            })();
+        </script>
         <!-- لوحة التحكم: تصفية الفصول + تحديد عدد الأسئلة -->
         <div class="w-full max-w-3xl mb-6 space-y-4 bg-card/40 p-4 rounded-2xl border border-gray-800">
             <!-- أزرار الفصول -->
