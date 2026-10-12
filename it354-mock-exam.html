@@ -70,18 +70,26 @@
 
     <!-- شريط علوي للعودة وتبديل المظهر -->
    <!-- شريط علوي للعنوان وتبديل المظهر -->
+<!-- شريط علوي للعنوان ورابط الكويزات وتبديل المظهر -->
     <header class="bg-dark/70 backdrop-blur-md border-b border-gray-800 py-4 px-6 sticky top-0 z-50 transition-colors duration-300">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-lg md:text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan to-blue">IT354 - Mock Exam</h1>
             
-            <!-- زر تبديل المظهر المنزلق -->
-            <button id="theme-toggle" onclick="toggleTheme()" aria-label="تبديل المظهر" dir="ltr" class="relative w-16 h-8 rounded-full bg-slate-200 dark:bg-gray-800 border border-slate-300 dark:border-gray-700 flex items-center justify-between px-2 transition-colors duration-300 focus:outline-none shrink-0 cursor-pointer">
-                <i class="fa-solid fa-sun text-amber-500 text-xs"></i>
-                <i class="fa-solid fa-moon text-cyan text-xs"></i>
-                <span class="absolute top-1 left-1 w-6 h-6 rounded-full bg-white dark:bg-card border border-slate-200 dark:border-gray-600 shadow-md transform transition-transform duration-300 translate-x-0 dark:translate-x-8 flex items-center justify-center">
-                    <i id="theme-icon" class="fa-solid fa-moon text-cyan text-xs"></i>
-                </span>
-            </button>
+            <div class="flex items-center gap-3 md:gap-4">
+                <!-- رابط الانتقال لصفحة تجميعات الكويزات -->
+                <a href="it354-quizzes.html" class="bg-gradient-to-r from-cyan/20 to-blue/20 hover:from-cyan hover:to-blue text-cyan hover:text-white border border-cyan/40 text-xs md:text-sm font-bold px-3 md:px-4 py-1.5 rounded-full transition-all duration-300 flex items-center gap-2 shadow-sm">
+                    <i class="fa-solid fa-bolt"></i> تجميعات الكويزات
+                </a>
+
+                <!-- زر تبديل المظهر المنزلق -->
+                <button id="theme-toggle" onclick="toggleTheme()" aria-label="تبديل المظهر" dir="ltr" class="relative w-16 h-8 rounded-full bg-slate-200 dark:bg-gray-800 border border-slate-300 dark:border-gray-700 flex items-center justify-between px-2 transition-colors duration-300 focus:outline-none shrink-0 cursor-pointer">
+                    <i class="fa-solid fa-sun text-amber-500 text-xs"></i>
+                    <i class="fa-solid fa-moon text-cyan text-xs"></i>
+                    <span class="absolute top-1 left-1 w-6 h-6 rounded-full bg-white dark:bg-card border border-slate-200 dark:border-gray-600 shadow-md transform transition-transform duration-300 translate-x-0 dark:translate-x-8 flex items-center justify-center">
+                        <i id="theme-icon" class="fa-solid fa-moon text-cyan text-xs"></i>
+                    </span>
+                </button>
+            </div>
         </div>
     </header>
 
