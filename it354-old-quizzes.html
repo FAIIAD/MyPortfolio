@@ -828,10 +828,10 @@
             questionText.innerText = q.question;
 
             // تجهيز رابط الإبلاغ على تلجرام تلقائياً
-            const telegramUsername = "YOUR_TELEGRAM_USERNAME"; // <-- استبدل بمعرف التلجرام الخاص بك بدون @
+            const telegramUsername = "fahad_m7md"; // <-- استبدل بمعرف التلجرام الخاص بك بدون @
             const qNumMatch = q.question.match(/^\d+/);
             const qOriginalNum = qNumMatch ? qNumMatch[0] : (currentIdx + 1);
-            const reportMessage = `السلام عليكم، عندي ملاحظة في تجميعات كويزات IT354:\n- رقم السؤال: (${qOriginalNum})\n- الفصل: (${q.chapter})\n- السؤال: "${q.question}"\n\nالملاحظة: `;
+            const reportMessage = `\n- رقم السؤال: (${qOriginalNum})\n- الفصل: (${q.chapter})\n- السؤال: "${q.question}"\n\nالملاحظة: `;
             document.getElementById('report-btn').href = `https://t.me/${telegramUsername}?text=${encodeURIComponent(reportMessage)}`;
             
             prevBtn.disabled = (currentIdx === 0);
