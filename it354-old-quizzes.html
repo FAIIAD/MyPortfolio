@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تجميعات كويزات IT354 (Ch 17–21) | FZ</title>
+    
+    <!-- خط ثمانية والأيقونات -->
+    <link href="https://cdn.jsdelivr.net/npm/@dawod/thmanyah-font-web/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- 1. قراءة المظهر المحفوظ فور فتح الصفحة -->
+    <script>
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+        } else {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+
+    <!-- 2. إعدادات Tailwind مع تفعيل darkMode: 'class' -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#0f172a',
+                        card: '#1e293b',
+                        cyan: '#06b6d4',
+                        blue: '#3b82f6'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { 
+            font-family: 'Thmanyah Sans', sans-serif; 
+            transition: background-color 0.3s ease, color 0.3s ease; 
+        }
+        h1, h2, h3, h4 { font-family: 'Thmanyah Serif Display', serif; }
+        .option-btn { transition: all 0.2s ease; }
+        .option-btn:hover:not(:disabled) {
+            border-color: #06b6d4;
+            background-color: rgba(6, 182, 212, 0.1);
+            transform: translateX(-4px);
+        }
+        .filter-btn.active, .limit-btn.active {
+            background: linear-gradient(to right, #06b6d4, #3b82f6) !important;
+            color: white !important;
+            border-color: transparent !important;
+        }
+
+        /* 3. تنسيقات الوضع الفاتح (Light Mode) التلقائية */
+        html:not(.dark) body { background-color: #f8fafc; color: #1e293b; }
+        html:not(.dark) header, html:not(.dark) footer { background-color: rgba(255, 255, 255, 0.85); border-color: #e2e8f0; }
+        html:not(.dark) .bg-card, html:not(.dark) .bg-card\/60, html:not(.dark) .bg-card\/40 { background-color: #ffffff; border-color: #cbd5e1; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        html:not(.dark) .bg-gray-900\/60, html:not(.dark) .bg-gray-900\/40 { background-color: #f8fafc; border-color: #cbd5e1; color: #1e293b; }
+        html:not(.dark) .bg-gray-800, html:not(.dark) .bg-gray-800\/80, html:not(.dark) .bg-gray-800\/60 { background-color: #f1f5f9; border-color: #cbd5e1; color: #334155; }
+        html:not(.dark) .text-white { color: #0f172a; }
+        html:not(.dark) .text-gray-200, html:not(.dark) .text-gray-300 { color: #1e293b; }
+        html:not(.dark) .text-gray-400, html:not(.dark) .text-gray-500, html:not(.dark) .text-gray-600 { color: #475569; }
+        html:not(.dark) .border-gray-700, html:not(.dark) .border-gray-800, html:not(.dark) .border-gray-800\/80 { border-color: #e2e8f0; }
+    </style>
+</head>
+<body class="bg-dark text-gray-200 min-h-screen flex flex-col justify-between relative overflow-x-hidden">
+
+    <!-- شريط علوي للعنوان وتبديل المظهر -->
+    <header class="bg-dark/70 backdrop-blur-md border-b border-gray-800 py-4 px-6 sticky top-0 z-50 transition-colors duration-300">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-lg md:text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan to-blue">IT354 - Quiz Bank (Ch 17–21)</h1>
+            
+            <!-- زر تبديل المظهر المنزلق -->
+            <button id="theme-toggle" onclick="toggleTheme()" aria-label="تبديل المظهر" dir="ltr" class="relative w-16 h-8 rounded-full bg-slate-200 dark:bg-gray-800 border border-slate-300 dark:border-gray-700 flex items-center justify-between px-2 transition-colors duration-300 focus:outline-none shrink-0 cursor-pointer">
+                <i class="fa-solid fa-sun text-amber-500 text-xs"></i>
+                <i class="fa-solid fa-moon text-cyan text-xs"></i>
+                <span class="absolute top-1 left-1 w-6 h-6 rounded-full bg-white dark:bg-card border border-slate-200 dark:border-gray-600 shadow-md transform transition-transform duration-300 translate-x-0 dark:translate-x-8 flex items-center justify-center">
+                    <i id="theme-icon" class="fa-solid fa-moon text-cyan text-xs"></i>
+                </span>
+            </button>
+        </div>
+    </header>
+
+    <!-- حاوية الاختبار -->
+    <main class="container mx-auto px-4 py-8 flex-grow flex flex-col items-center justify-center">
+        
+        <!-- لوحة التحكم: تصفية الفصول + تحديد عدد الأسئلة -->
+        <div class="w-full max-w-3xl mb-6 space-y-4 bg-card/40 p-4 rounded-2xl border border-gray-800">
+            <!-- أزرار الفصول -->
+            <div class="flex flex-wrap items-center justify-center gap-2">
+                <span class="text-xs text-gray-400 font-bold ml-2">الفصل:</span>
+                <button onclick="filterChapter('ALL')" id="btn-ALL" class="filter-btn active text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">الكل (42)</button>
+                <button onclick="filterChapter('Ch17')" id="btn-Ch17" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Ch 17 (12)</button>
+                <button onclick="filterChapter('Ch18')" id="btn-Ch18" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Ch 18 (8)</button>
+                <button onclick="filterChapter('Ch19')" id="btn-Ch19" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Ch 19 (8)</button>
+                <button onclick="filterChapter('Ch20')" id="btn-Ch20" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Ch 20 (7)</button>
+                <button onclick="filterChapter('Ch21')" id="btn-Ch21" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Ch 21 (7)</button>
+            </div>
+
+            <!-- أزرار عدد الأسئلة -->
+            <div class="flex flex-wrap items-center justify-center gap-2 pt-2 border-t border-gray-800/80">
+                <span class="text-xs text-gray-400 font-bold ml-2">عدد الأسئلة:</span>
+                <button onclick="setQuestionLimit(10)" id="limit-10" class="limit-btn text-xs px-4 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">10 أسئلة</button>
+                <button onclick="setQuestionLimit(20)" id="limit-20" class="limit-btn text-xs px-4 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">20 سؤال</button>
+                <button onclick="setQuestionLimit(30)" id="limit-30" class="limit-btn text-xs px-4 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">30 سؤال</button>
+                <button onclick="setQuestionLimit(42)" id="limit-42" class="limit-btn active text-xs px-4 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">42 (الكل)</button>
+            </div>
+        </div>
+
+        <div class="w-full max-w-3xl bg-card/60 backdrop-blur-md border border-gray-800 rounded-2xl p-6 md:p-8 shadow-xl">
+            
+            <!-- شاشة الأسئلة -->
+            <div id="quiz-container">
+                <!-- شريط التقدم والعداد -->
+                <div class="flex flex-wrap justify-between items-center mb-3 text-sm text-gray-400 gap-2">
+                    <div class="flex items-center gap-2">
+                        <span id="question-counter" class="font-bold text-cyan">السؤال 1 من 42</span>
+                        <span id="chapter-badge" class="bg-gray-800 text-gray-300 text-xs px-3 py-1 rounded-full border border-gray-700">Ch17</span>
+                        <span id="status-badge" class="hidden text-xs px-2.5 py-0.5 rounded-full font-bold"></span>
+                    </div>
+                    <div class="flex items-center gap-2 md:gap-3">
+                        <span id="score-tracker" class="font-bold text-emerald-500">الصحيحة: 0</span>
+                        
+                        <button onclick="shuffleCurrentPool()" title="خلط الأسئلة الحالية والبدء من جديد" class="text-gray-400 hover:text-cyan transition-colors text-xs bg-gray-800 px-3 py-1.5 rounded-lg border border-gray-700">
+                            <i class="fa-solid fa-shuffle ml-1"></i> خلط الأسئلة
+                        </button>
+
+                        <!-- زر الإبلاغ عبر تلجرام -->
+                        <a id="report-btn" href="#" target="_blank" title="الإبلاغ عن خطأ في هذا السؤال عبر تلجرام" class="text-gray-400 hover:text-[#24A1DE] hover:border-[#24A1DE]/50 transition-colors text-xs bg-gray-800 px-3 py-1.5 rounded-lg border border-gray-700 flex items-center gap-1.5">
+                            <i class="fa-brands fa-telegram text-[#24A1DE] text-sm"></i> إبلاغ عن خطأ
+                        </a>
+                    </div>
+                </div>
+
+                <div class="w-full bg-gray-800 h-2 rounded-full mb-8 overflow-hidden">
+                    <div id="progress-bar" class="bg-gradient-to-r from-cyan to-blue h-full transition-all duration-300" style="width: 2%"></div>
+                </div>
+
+                <!-- نص السؤال -->
+                <h2 id="question-text" dir="ltr" class="text-lg md:text-2xl font-bold text-white mb-6 text-left leading-relaxed whitespace-pre-line"></h2>
+
+                <!-- الخيارات -->
+                <div id="options-container" dir="ltr" class="space-y-3 text-left mb-6"></div>
+
+                <!-- صندوق الشرح بعد الإجابة -->
+                <div id="explanation-box" class="hidden p-4 rounded-xl bg-gray-800/80 border border-gray-700 text-sm text-gray-300 mb-6 leading-relaxed"></div>
+
+                <!-- أزرار التنقل -->
+                <div class="flex items-center justify-between gap-3 pt-4 border-t border-gray-800">
+                    <button id="prev-btn" onclick="prevQuestion()" class="px-5 py-3 rounded-xl border border-gray-700 bg-gray-800/60 hover:border-cyan hover:text-cyan text-gray-300 font-bold transition-all disabled:opacity-40 disabled:pointer-events-none">
+                        <i class="fa-solid fa-arrow-right ml-2"></i> السابق
+                    </button>
+
+                    <button onclick="showResults()" class="px-4 py-3 rounded-xl border border-gray-700 hover:border-rose-500/60 hover:text-rose-400 text-gray-400 text-sm font-bold transition-all">
+                        إنهاء الاختبار
+                    </button>
+
+                    <button id="next-btn" onclick="nextQuestion()" class="flex-1 max-w-[220px] bg-gradient-to-r from-cyan to-blue hover:from-blue hover:to-cyan text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg">
+                        التالي <i class="fa-solid fa-arrow-left mr-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- شاشة النتيجة النهائية -->
+            <div id="result-container" class="hidden text-center py-8">
+                <div class="w-20 h-20 bg-cyan/20 rounded-full flex items-center justify-center mx-auto mb-6 text-cyan text-4xl">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-white mb-3">انتهى الاختبار!</h2>
+                <p id="final-score-text" class="text-xl text-gray-300 font-bold mb-2"></p>
+                <p id="final-details-text" class="text-sm text-gray-400 mb-8"></p>
+                
+                <div class="flex flex-wrap justify-center gap-4">
+                    <button id="retry-wrong-btn" onclick="retryWrongQuestions()" class="hidden bg-rose-600 hover:bg-rose-500 text-white font-bold py-3 px-8 rounded-full shadow-[0_0_20px_rgba(225,29,72,0.4)] transition-all">
+                        <i class="fa-solid fa-triangle-exclamation ml-2"></i> إعادة الأسئلة الخاطئة فقط (<span id="wrong-count-num">0</span>)
+                    </button>
+
+                    <button onclick="applyFilterAndLimit(false)" class="bg-gradient-to-r from-cyan to-blue text-white font-bold py-3 px-8 rounded-full hover:shadow-[0_0_20px_rgba(6,182,212,0.5)] transition-all">
+                        <i class="fa-solid fa-rotate-right ml-2"></i> اختبار جديد
+                    </button>
+
+                    <button onclick="applyFilterAndLimit(true)" class="border border-cyan text-cyan hover:bg-cyan/10 font-bold py-3 px-8 rounded-full transition-all">
+                        <i class="fa-solid fa-shuffle ml-2"></i> خلط والبدء من جديد
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="text-center py-6 text-gray-600 text-sm border-t border-gray-800">
+        &copy; 2026 FZ — IT354 Quiz Bank
+    </footer>
+
+    <!-- برمجة الاختبار وقاعدة بيانات أسئلة الكويزات (Ch 17 - 21) -->
+    <script>
+        const themeIcon = document.getElementById('theme-icon');
+        function updateThemeIcon() {
+            if (document.documentElement.classList.contains('dark')) {
+                themeIcon.className = 'fa-solid fa-moon text-cyan text-xs';
+            } else {
+                themeIcon.className = 'fa-solid fa-sun text-amber-500 text-xs';
+            }
+        }
+        updateThemeIcon();
+
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+            const isDark = document.documentElement.classList.contains('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            updateThemeIcon();
+        }
+
+        const allQuestions = [
+            // ================= CHAPTER 17 (12 Questions) =================
+            {
+                chapter: "Ch17",
+                question: "1. Hard disk drive (HDD) is a ________ storage device known for high storage capacity and low cost.",
+                options: ["Primary", "Temporary", "Volatile", "Secondary"],
+                correct: 3,
+                explanation: "الأقراص الصلبة (HDD) تُعد من وسائل التخزين الثانوية (Secondary storage) وتتميز بالسعة العالية والتكلفة المنخفضة."
+            },
+            {
+                chapter: "Ch17",
+                question: "2. Where is data permanently stored in a computer system?",
+                options: ["In RAM (main memory)", "On the hard disk", "In the keyboard", "In the CPU"],
+                correct: 1,
+                explanation: "يتم تخزين البيانات بشكل دائم (غير متطاير) على القرص الصلب (Hard disk)، بينما الذاكرة العشوائية RAM مؤقتة."
+            },
+            {
+                chapter: "Ch17",
+                question: "3. ________ contains several magnetic disks connected to a rotating spindle.",
+                options: ["Disk track", "Disk block", "Disk pack", "Disk surface"],
+                correct: 2,
+                explanation: "حزمة الأقراص (Disk pack) تتكون من عدة أقراص مغناطيسية متصلة بمحور دوران مشترك (Rotating spindle)."
+            },
+            {
+                chapter: "Ch17",
+                question: "4. What does a physical disk block address consist of?",
+                options: [
+                    "Cylinder number, track number, and block number",
+                    "Disk size, block number, and rotational delay",
+                    "Sector number, block size, and data length",
+                    "Track number, buffer size, and read-write speed"
+                ],
+                correct: 0,
+                explanation: "يتكون عنوان الكتلة الفيزيائي على القرص من رقم الأسطوانة (Cylinder number)، ورقم المسار (Track number)، ورقم الكتلة (Block number)."
+            },
+            {
+                chapter: "Ch17",
+                question: "5. What is the primary reason disk access is considered time-consuming compared to main memory access?",
+                options: [
+                    "The disk uses binary encoding instead of hex",
+                    "Disk blocks are larger than memory pages",
+                    "The seek time and rotational delay required to position the read-write head",
+                    "The disk has less storage capacity"
+                ],
+                correct: 2,
+                explanation: "الوصول للقرص يستغرق وقتاً طويلاً مقارنة بالذاكرة الرئيسية بسبب الحركة الميكانيكية المتمثلة في زمن البحث (Seek time) وتأخير الدوران (Rotational delay)."
+            },
+            {
+                chapter: "Ch17",
+                question: "6. Which one record is divided into segments and accommodated in two or more consecutive blocks?",
+                options: ["Descriptor Record", "Sparse Record", "Spanned Record", "Nondense Record"],
+                correct: 2,
+                explanation: "السجل الممتد (Spanned Record) هو السجل الذي يتجاوز حجم المساحة المتبقية في الكتلة فينقسم ليُخزن في كتلتين أو أكثر."
+            },
+            {
+                chapter: "Ch17",
+                question: "7. Record insertion is quite efficient in ________ files.",
+                options: ["Ordered & Unordered", "Ordered", "Unordered", "Sequential"],
+                correct: 2,
+                explanation: "إدخال السجلات الجديدة سريع وفعال جداً في الملفات غير المرتبة (Unordered / Heap files) لأن السجل يُضاف مباشرة في نهاية الملف."
+            },
+            {
+                chapter: "Ch17",
+                question: "8. Which file type is the best choice when you insert new records very frequently?",
+                options: ["Hashed file", "Ordered (sorted) file", "Heap (unordered) file", "Indexed file"],
+                correct: 2,
+                explanation: "ملف الكومة غير المرتب (Heap / Unordered file) هو الخيار الأفضل عند كثرة عمليات الإضافة لأن الإدخال يتم في آخر كتلة دون الحاجة لإعادة الترتيب."
+            },
+            {
+                chapter: "Ch17",
+                question: "9. Which file organization uses a separate 'overflow' file to handle new insertions efficiently while maintaining order?",
+                options: ["Ordered (sequential) file", "Hashed file", "RAID array", "Heap file"],
+                correct: 0,
+                explanation: "الملف المرتب (Ordered/Sequential file) يستخدم ملف فائض مؤقت (Overflow/Transaction file) لتسريع عمليات الإدخال الجديدة ثم يدمجه دورياً."
+            },
+            {
+                chapter: "Ch17",
+                question: "10. Which one shows that the program uses a second hash function if the first one fails. If another collision occurs, the program employs a third hash function and then uses open addressing?",
+                options: ["Multiple hashing", "Natural hashing", "Single hashing", "Linear hashing"],
+                correct: 0,
+                explanation: "التجزئة المتعددة (Multiple hashing) تطبق دالة تجزئة ثانية عند حدوث تصادم، ثم ثالثة إذا لزم الأمر قبل اللجوء للعنونة المفتوحة."
+            },
+            {
+                chapter: "Ch17",
+                question: "11. The directory in extendible hashing is an array of size 2^d, where d is known as the ________.",
+                options: ["natural depth", "folder depth", "linear depth", "global depth"],
+                correct: 3,
+                explanation: "في التجزئة القابلة للتوسع (Extendible hashing)، يكون الدليل مصفوفة بحجم 2^d حيث يُسمى d بالعمق الشامل (Global depth)."
+            },
+            {
+                chapter: "Ch17",
+                question: "12. In RAID Technology, ________ distributes data transparently over multiple disks to make them appear as a single large, fast disk.",
+                options: ["Drive descriptor", "Multiple hashing", "Data striping", "Sparse record"],
+                correct: 2,
+                explanation: "تقنية تشريح/توزيع البيانات (Data striping) في RAID توزع البيانات بشفافية عبر عدة أقراص لتبدو كقرص منطقي واحد كبير وسريع."
+            },
+
+            // ================= CHAPTER 18 (8 Questions) =================
+            {
+                chapter: "Ch18",
+                question: "13. A ________ is specified on the ordering key field of an ordered file of records.",
+                options: ["clustering index", "primary index", "secondary (key) index", "secondary (nonkey) index"],
+                correct: 1,
+                explanation: "الفهرس الأساسي (Primary index) يُعرّف على حقل مفتاح الترتيب (Ordering key field) لملف بيانات مرتب فيزيائياً."
+            },
+            {
+                chapter: "Ch18",
+                question: "14. Which of the following best describes a Primary Index?",
+                options: [
+                    "An index built on any column you choose",
+                    "An index used only for text searches",
+                    "An index built on the column that the file is already sorted by",
+                    "An index that stores every single record"
+                ],
+                correct: 2,
+                explanation: "الفهرس الأساسي يُبنى على العمود (المفتاحي) الذي يكون ملف البيانات مرتباً على أساسه مسبقاً."
+            },
+            {
+                chapter: "Ch18",
+                question: "15. A ________ has an index entry for every search key value (and hence every record) in the data file.",
+                options: ["nondense index", "dense index", "primary index", "sparse index"],
+                correct: 1,
+                explanation: "الفهرس الكثيف (Dense index) يحتوي على مدخل فهرس لكل قيمة مفتاح بحث (وبالتالي لكل سجل) في ملف البيانات."
+            },
+            {
+                chapter: "Ch18",
+                question: "16. The index whose search key specifies an order different from the sequential order of the file is called ________ index.",
+                options: ["Secondary", "Clustering", "Primary", "Primary and Clustering"],
+                correct: 0,
+                explanation: "الفهرس الثانوي (Secondary index) يُبنى على حقل غير مرتب، لذا فإن ترتيبه يختلف عن الترتيب التسلسلي الفيزيائي للملف."
+            },
+            {
+                chapter: "Ch18",
+                question: "17. A secondary index differs from a primary index mainly because:",
+                options: [
+                    "It is built on a non-ordering field and contains one entry per record (dense)",
+                    "It does not use pointers",
+                    "It can only be built on key fields",
+                    "It stores fewer entries than a primary index"
+                ],
+                correct: 0,
+                explanation: "يختلف الفهرس الثانوي عن الأساسي بكونه يُبنى على حقل غير مرتب فيزيائياً ويحتوي على مدخل لكل سجل (فهرس كثيف Dense)."
+            },
+            {
+                chapter: "Ch18",
+                question: "18. In B-tree, the root should have at least ________ children (unless it is a leaf).",
+                options: ["2", "3", "1", "4"],
+                correct: 0,
+                explanation: "في شجرة B-tree، يجب أن يحتوي الجذر (Root) على ابنين (2 children) على الأقل ما لم يكن الجذر نفسه ورقة."
+            },
+            {
+                chapter: "Ch18",
+                question: "19. The nodes in a B-tree of order 5 can have a maximum of ________ children.",
+                options: ["5", "4", "3", "6"],
+                correct: 0,
+                explanation: "في شجرة B-tree من الدرجة m (هنا m=5)، يكون الحد الأقصى لعدد الأبناء في أي عقدة هو 5 أبناء."
+            },
+            {
+                chapter: "Ch18",
+                question: "20. Traversal in B-Tree should start from the ________.",
+                options: ["leftmost child", "center child", "root", "rightmost child"],
+                correct: 0,
+                explanation: "وفقاً لشرائح المقرر (Slide 28 - Chapter 18): 'We start from the leftmost child, recursively print the leftmost child...' لذلك يبدأ اجتياز الشجرة (Inorder Traversal) بطباعة الابن الأيسر (leftmost child)."
+            },
+            {
+                chapter: "Ch18",
+                question: "21. In ________, the leaf nodes are linked to provide ordered access to the records.",
+                options: ["B-tree", "dense index", "clustering index", "B+ tree"],
+                correct: 3,
+                explanation: "في شجرة B+ tree، تكون العقد الورقية (Leaf nodes) مترابطة معاً في قائمة متصلة لتوفير وصول مرتب وسريع للسجلات."
+            },
+            {
+                chapter: "Ch18",
+                question: "22. Why do databases usually prefer B+-trees over regular B-trees?",
+                options: [
+                    "In a B+-tree, all actual data pointers are stored only in the leaf nodes, so the upper nodes hold more keys and the tree is shorter and faster",
+                    "B+-trees do not allow deletion of records",
+                    "B+-trees are older and more tested",
+                    "B+-trees use less RAM"
+                ],
+                correct: 0,
+                explanation: "تُفضل B+-tree لأن مؤشرات البيانات الفعلية تُخزن في الأوراق فقط، مما يسمح للعقد الداخلية باستيعاب مفاتيح أكثر ويجعل الشجرة أقصر وأسرع في البحث."
+            },
+            {
+                chapter: "Ch18",
+                question: "23. What is a B+-tree most commonly used for in databases?",
+                options: [
+                    "To sort text alphabetically in reports",
+                    "As a dynamic index structure that stays balanced and supports fast search, insert, and delete",
+                    "To draw diagrams of the database schema",
+                    "To compress large files on disk"
+                ],
+                correct: 1,
+                explanation: "تُستخدم B+-tree كهيكل فهرسة ديناميكي متعدد المستويات يحافظ على توازنه تلقائياً ويدعم البحث والإضافة والحذف بسرعة عالية."
+            },
+
+            // ================= CHAPTER 19 (8 Questions) =================
+            {
+                chapter: "Ch19",
+                question: "24. Query optimization in the context of databases is the process of:",
+                options: [
+                    "Choosing a suitable execution strategy for processing a query",
+                    "Creating new queries",
+                    "Normalizing a database",
+                    "Indexing a table"
+                ],
+                correct: 0,
+                explanation: "تحسين الاستعلام (Query optimization) هو عملية اختيار استراتيجية التنفيذ الأنسب والأقل تكلفة لمعالجة الاستعلام."
+            },
+            {
+                chapter: "Ch19",
+                question: "25. Which one of the following is a data structure used to describe/correspond to a relational calculus expression?",
+                options: ["Sparse Tree", "Query Tree", "Sparse Graph", "Query Graph"],
+                correct: 3,
+                explanation: "رسم الاستعلام (Query Graph) هو هيكل البيانات الذي يقابل تعبير الحساب العلائقي (Relational calculus expression)، بينما شجرة الاستعلام تقابل الجبر العلائقي."
+            },
+            {
+                chapter: "Ch19",
+                question: "26. Which one retrieves every entry in the file and checks whether its attribute values fulfil the selection condition?",
+                options: ["External search", "Binary search", "Linear search", "Non-linear search"],
+                correct: 2,
+                explanation: "البحث الخطي (Linear search / Brute force) يقوم باسترجاع وفحص كل سجل في الملف للتحقق مما إذا كان يحقق شرط الاختيار."
+            },
+            {
+                chapter: "Ch19",
+                question: "27. What is the main characteristic of linear search (brute force) in simple selection?",
+                options: [
+                    "It is more efficient than binary search",
+                    "It tests every record in the file",
+                    "It retrieves records based on the hash key",
+                    "It skips unordered records"
+                ],
+                correct: 1,
+                explanation: "السمة الأساسية للبحث الخطي (Linear search) أنه يختبر كل سجل في الملف من البداية للنهاية."
+            },
+            {
+                chapter: "Ch19",
+                question: "28. The Binary search in SELECT operation means:",
+                options: [
+                    "An equality comparison on a key attribute on an ordered file",
+                    "An equality comparison on a key attribute with primary index",
+                    "An equality comparison on a key attribute with primary data",
+                    "Retrieving every record in the file"
+                ],
+                correct: 0,
+                explanation: "البحث الثنائي (Binary search - S2) يُستخدم عندما يتضمن شرط الاختيار مقارنة مساواة على حقل مفتاحي يكون الملف مرتباً على أساسه."
+            },
+            {
+                chapter: "Ch19",
+                question: "29. Which of the following correctly translates the SQL query (SELECT student_id, student_fname FROM student WHERE student_gpa > 4.5) into relational algebra?",
+                options: [
+                    "σ_{student_id, student_fname > 4.5} (student)",
+                    "π_{student_id, student_fname} (σ_{student_gpa > 4.5} (student))",
+                    "σ_{student_gpa > 4.5} (π_{student_id, student_fname} (student))",
+                    "π_{student_id, student_gpa} (σ_{student_fname > 4.5} (student))"
+                ],
+                correct: 1,
+                explanation: "يتم تطبيق شرط الاختيار (σ student_gpa > 4.5) أولاً على جدول student، ثم تطبيق عملية الإسقاط (π student_id, student_fname) لاستخراج الأعمدة المطلوبة."
+            },
+            {
+                chapter: "Ch19",
+                question: "30. Which of the following is NOT an aggregate operator?",
+                options: ["SUM", "ROUND", "MIN", "MAX"],
+                correct: 1,
+                explanation: "الدوال التجميعية القياسية هي (MIN, MAX, SUM, COUNT, AVG)، بينما ROUND هي دالة تقريب رقمية وليست دالة تجميعية."
+            },
+            {
+                chapter: "Ch19",
+                question: "31. What is heuristic optimization?",
+                options: [
+                    "A rule-based approach to optimize query execution",
+                    "A mathematical model for indexing",
+                    "A method to store queries in memory",
+                    "A method to normalize data"
+                ],
+                correct: 0,
+                explanation: "التحسين الإرشادي (Heuristic optimization) هو نهج يعتمد على قواعد تحويل الجبر العلائقي لتحسين شجرة الاستعلام (مثل تنفيذ SELECT و PROJECT مبكراً)."
+            },
+            {
+                chapter: "Ch19",
+                question: "32. Which of the query execution plan evaluations shows that the result of an operation is stored as a temporary relation?",
+                options: ["Pipelined evaluation", "Materialized evaluation", "Parallel evaluation", "External evaluation"],
+                correct: 1,
+                explanation: "في التقييم المادي (Materialized evaluation)، يتم حفظ نتيجة كل عملية كجدول مؤقت على القرص قبل تمريرها للعملية التالية."
+            },
+
+            // ================= CHAPTER 20 (7 Questions) =================
+            {
+                chapter: "Ch20",
+                question: "33. Which of the following is true about analyzing the database queries and transactions for physical design?",
+                options: [
+                    "The files that will be accessed by the query",
+                    "The attributes whose values will be retrieved by the object",
+                    "The attributes whose values will be retrieved by the optimizer",
+                    "The files that will be accessed by the optimizer"
+                ],
+                correct: 0,
+                explanation: "عند تحليل الاستعلامات للتصميم الفيزيائي، نحتاج لتحديد الملفات التي سيصل إليها الاستعلام (The files that will be accessed by the query)."
+            },
+            {
+                chapter: "Ch20",
+                question: "34. When analyzing update operations for physical database design, attributes listed in selection conditions of delete or update operations are candidates for:",
+                options: [
+                    "Avoiding an access structure",
+                    "Definition of access structures",
+                    "Horizontal partitioning",
+                    "Denormalization"
+                ],
+                correct: 1,
+                explanation: "الخصائص المستخدمة في شروط الاختيار (WHERE) لعمليات الحذف أو التحديث تُعد مرشحة لتعريف مسارات الوصول (Definition of access structures) لتسريع العثور على السجلات المراد تعديلها."
+            },
+            {
+                chapter: "Ch20",
+                question: "35. The 80-20 rule in physical database design states that:",
+                options: [
+                    "80% of updates affect 20% of the tables",
+                    "20% of the data is accessed 80% of the time",
+                    "20% of queries access 20% of the data",
+                    "80% of queries use 80% of the data"
+                ],
+                correct: 1,
+                explanation: "تنص قاعدة 80-20 على أن 20% من البيانات يتم الوصول إليها في 80% من الوقت."
+            },
+            {
+                chapter: "Ch20",
+                question: "36. Which of the following become higher-priority candidates for primary access structure?",
+                options: [
+                    "The attributes whose values will be changed by an update operation.",
+                    "The selection attributes used by queries and transactions with time constraints.",
+                    "A file that is updated frequently.",
+                    "The attributes whose values are non-unique."
+                ],
+                correct: 1,
+                explanation: "الخصائص المستخدمة في شروط الاختيار للاستعلامات والمعاملات المقيدة زمنياً (Time constraints) تكون ذات أولوية قصوى لإنشاء هياكل الوصول الأساسية."
+            },
+            {
+                chapter: "Ch20",
+                question: "37. What is the primary goal of normalization vs. denormalization in database design?",
+                options: [
+                    "Normalization minimizes redundancy; Denormalization improves performance of frequently occurring queries by avoiding joins",
+                    "Normalization speeds up joins; Denormalization enforces referential integrity",
+                    "Both aim to increase the number of tables",
+                    "Denormalization eliminates all duplicate data"
+                ],
+                correct: 0,
+                explanation: "هدف التطبيع (Normalization) هو تقليل التكرار (Minimize redundancy)، بينما هدف إلغاء التطبيع (Denormalization) هو تحسين أداء الاستعلامات المتكررة بتجنب عمليات الربط."
+            },
+            {
+                chapter: "Ch20",
+                question: "38. The process of continuing to revise/adjust the physical database design by monitoring resource utilization is known as ________ (and its primary goal is to improve overall transaction throughput).",
+                options: ["Tuning", "Logging", "Hashing", "Indexing"],
+                correct: 0,
+                explanation: "عملية المراجعة والتعديل المستمر للتصميم الفيزيائي عبر مراقبة استخدام الموارد تُعرف بضبط قاعدة البيانات (Tuning)، وتهدف لتحسين الإنتاجية الكلية للمعاملات (Throughput)."
+            },
+            {
+                chapter: "Ch20",
+                question: "39. Which of the following is a valid reason to tune indexes?",
+                options: [
+                    "Queries may take less time to run",
+                    "Certain indexes may be causing excessive overhead because the index is on an attribute that undergoes frequent changes",
+                    "The database is in BCNF",
+                    "Size of individual tables"
+                ],
+                correct: 1,
+                explanation: "من الأسباب الرئيسية لضبط الفهارس أن بعض الفهارس قد تسبب عبئاً إضافياً مفرطاً (Excessive overhead) لأنها مبنية على أعمدة تتغير قيمها باستمرار."
+            },
+            {
+                chapter: "Ch20",
+                question: "40. Which of the following is NOT true about Query Tuning? (And what should be chosen if multiple join conditions are possible?)",
+                options: [
+                    "NOT true: 'The order of tables in the FROM clause does not affect join processing' (Also: prefer join conditions that use a clustering index)",
+                    "NOT true: 'In some situations involving correlated queries, temporaries are useful'",
+                    "NOT true: 'NOT condition may be transformed into a positive expression'",
+                    "NOT true: 'Embedded SELECT blocks may be replaced by joins'"
+                ],
+                correct: 0,
+                explanation: "العبارة الخاطئة هي أن ترتيب الجداول في جملة FROM لا يؤثر على معالجة الربط (بل يؤثر في كثير من المحسنات). وعند تعدد خيارات الربط يُفضل دائماً اختيار الشرط الذي يستخدم فهرساً تجميعياً (Clustering index)."
+            },
+
+            // ================= CHAPTER 21 (2 Questions combined to reach 42 total) =================
+            {
+                chapter: "Ch21",
+                question: "41. In transaction processing:\n- What problem occurs when two interleaved transactions access the same item making its value incorrect?\n- What is an unsuccessful transaction called?\n- What is the 'all-or-none' ACID property, and which property hides updates until commit?",
+                options: [
+                    "Problem: Lost update | Unsuccessful: Aborted transaction | All-or-none: Atomicity | Hide updates: Isolation",
+                    "Problem: Dirty read | Unsuccessful: Active transaction | All-or-none: Durability | Hide updates: Consistency",
+                    "Problem: Phantom read | Unsuccessful: Compensating transaction | All-or-none: Isolation | Hide updates: Atomicity",
+                    "Problem: Unrepeatable read | Unsuccessful: Partially committed | All-or-none: Consistency | Hide updates: Durability"
+                ],
+                correct: 0,
+                explanation: "تداخل عمليتين يسبب مشكلة التحديث المفقود (Lost update)، والمعاملة غير الناجحة تسمى ملغاة (Aborted transaction)، وخاصية الكل أو لا شيء هي الذرية (Atomicity)، وإخفاء التحديثات حتى الالتزام هو العزل (Isolation)."
+            },
+            {
+                chapter: "Ch21",
+                question: "42. Regarding Transaction Schedules & Conflict Serializability:\n- Order of concurrent operations forms a: (Schedule)\n- Two schedules producing the same final state are: (Result equivalent)\n- A schedule equivalent to some serial schedule is: (Serializable)\n- For S1: r1(x) r1(y) r2(x) r2(y) w2(y) w1(x) and S2: r1(x) r2(x) r2(y) w2(y) r1(y) w1(x), which is conflict serializable?",
+                options: [
+                    "S1 is NOT conflict serializable (cycle T1↔T2), and S2 IS conflict serializable (T2→T1)",
+                    "S1 is conflict serializable, and S2 is not conflict serializable",
+                    "Both S1 and S2 are conflict serializable",
+                    "Neither S1 nor S2 is conflict serializable"
+                ],
+                correct: 0,
+                explanation: "في الجدول S1: القراءة r1(y) قبل الكتابة w2(y) تعطي سهماً من T1 إلى T2، والقراءة r2(x) قبل w1(x) تعطي سهماً من T2 إلى T1 (توجد حلقة مفرغة فلا يقبل التسلسل). أما في S2: كلا التضاربين يتجهان من T2 إلى T1 فلا توجد حلقة وهو قابل للتسلسل التضاربي (Conflict serializable)."
+            }
+        ];
+
+        // تفكيك السؤالين 41 و 42 إلى أسئلة منفصلة دقيقة كما وردت في الكويزات ليصبح الإجمالي 48 سؤالاً مفرداً واضحاً
+        allQuestions.splice(40, 2,
+            {
+                chapter: "Ch21",
+                question: "41. ________ problem occurs when two transactions that access the same database items have their operations interleaved in a way that makes the value of some database item incorrect.",
+                options: ["Unrepeatable reads", "Phantom reads", "Lost update", "Dirty reads"],
+                correct: 2,
+                explanation: "مشكلة التحديث المفقود (Lost update) تحدث عندما تتداخل عمليات معاملتين تصلان لنفس العنصر مما يجعل قيمته النهائية غير صحيحة."
+            },
+            {
+                chapter: "Ch21",
+                question: "42. A transaction that is unsuccessful is called a/an ________.",
+                options: ["Compensating transaction", "Partially committed transaction", "Active transaction", "Aborted transaction"],
+                correct: 3,
+                explanation: "المعاملة التي تنتهي بشكل غير ناجح ويتم التراجع عنها تُسمى معاملة ملغاة (Aborted transaction)."
+            },
+            {
+                chapter: "Ch21",
+                question: "43. A transaction T reaches its commit point when:",
+                options: [
+                    "It begins execution in the system",
+                    "The system log has been backed up to archival storage",
+                    "It writes the first item to the database",
+                    "All its operations that access the database have been executed successfully and the effect of all the transaction operations on the database has been recorded in the log"
+                ],
+                correct: 3,
+                explanation: "تصل المعاملة إلى نقطة الالتزام (Commit point) عندما تُنفذ جميع عملياتها بنجاح ويُدوّن أثر جميع عملياتها في سجل النظام (Log)."
+            },
+            {
+                chapter: "Ch21",
+                question: "44. The 'all-or-none' property is commonly referred to as ________.",
+                options: ["Atomicity", "Isolation", "Durability", "Consistency preservation"],
+                correct: 0,
+                explanation: "خاصية 'الكل أو لا شيء' (تنفيذ المعاملة بالكامل أو عدم تنفيذها إطلاقاً) تُعرف بالذرية (Atomicity)."
+            },
+            {
+                chapter: "Ch21",
+                question: "45. The ACID property that states a transaction should not make its updates visible to other transactions until it is committed is:",
+                options: ["Durability", "Isolation", "Atomicity", "Consistency preservation"],
+                correct: 1,
+                explanation: "خاصية العزل (Isolation) تنص على عدم إظهار تحديثات المعاملة للمعاملات الأخرى حتى تلتزم (Commit)."
+            },
+            {
+                chapter: "Ch21",
+                question: "46. When transactions are executing concurrently in an interleaved fashion, the order of execution of operations from the various transactions forms what is known as a ________.",
+                options: ["commit", "serializable", "schedule", "rollback"],
+                correct: 2,
+                explanation: "الترتيب الزمني لتنفيذ العمليات المتداخلة من مختلف المعاملات يُعرف بجدول العمليات (Transaction schedule أو History)."
+            },
+            {
+                chapter: "Ch21",
+                question: "47. Two schedules are called ________ if they produce the same final state of the database, whereas a schedule S is ________ if it is equivalent to some serial schedule of the same n transactions.",
+                options: [
+                    "Result equivalent / serializable",
+                    "Serial schedules / non-serializable",
+                    "Nonrepeatable schedules / result equivalent",
+                    "Conflict equivalent / atomic"
+                ],
+                correct: 0,
+                explanation: "يكون الجدولان متكافئين في النتيجة (Result equivalent) إذا أنتجا نفس الحالة النهائية لقاعدة البيانات، ويكون الجدول قابلاً للتسلسل (Serializable) إذا كان مكافئاً لجدول تسلسلي."
+            },
+            {
+                chapter: "Ch21",
+                question: "48. Let ri(z) and wi(z) denote read and write operations on a data item z by transaction Ti. Consider the following two schedules:\nS1: r1(x) r1(y) r2(x) r2(y) w2(y) w1(x)\nS2: r1(x) r2(x) r2(y) w2(y) r1(y) w1(x)\nWhich one of the following options is correct?",
+                options: [
+                    "Neither S1 nor S2 is conflict serializable.",
+                    "S1 is conflict serializable, and S2 is not conflict serializable.",
+                    "Both S1 and S2 are conflict serializable.",
+                    "S1 is not conflict serializable, and S2 is conflict serializable."
+                ],
+                correct: 3,
+                explanation: "في S1 توجد دورة في رسم الأسبقية (T1 → T2 بسبب r1(y)..w2(y) و T2 → T1 بسبب r2(x)..w1(x)) لذا فهو غير قابل للتسلسل التضاربي. أما S2 فجميع الأسهم تتجه من T2 إلى T1 لذا فهو قابل للتسلسل التضاربي."
+            }
+        );
+
+        // تحديث أعداد الأزرار في الواجهة بعد تفكيك الأسئلة إلى 48 سؤالاً مفرداً
+        document.getElementById('btn-ALL').innerText = `الكل (${allQuestions.length})`;
+        document.getElementById('btn-Ch17').innerText = `Ch 17 (${allQuestions.filter(q=>q.chapter==='Ch17').length})`;
+        document.getElementById('btn-Ch18').innerText = `Ch 18 (${allQuestions.filter(q=>q.chapter==='Ch18').length})`;
+        document.getElementById('btn-Ch19').innerText = `Ch 19 (${allQuestions.filter(q=>q.chapter==='Ch19').length})`;
+        document.getElementById('btn-Ch20').innerText = `Ch 20 (${allQuestions.filter(q=>q.chapter==='Ch20').length})`;
+        document.getElementById('btn-Ch21').innerText = `Ch 21 (${allQuestions.filter(q=>q.chapter==='Ch21').length})`;
+        document.getElementById('limit-42').innerText = `${allQuestions.length} (الكل)`;
+
+        let questions = [];
+        let userAnswers = [];
+        let currentIdx = 0;
+        let currentFilter = 'ALL';
+        let currentLimit = 48;
+
+        const questionCounter = document.getElementById('question-counter');
+        const chapterBadge = document.getElementById('chapter-badge');
+        const statusBadge = document.getElementById('status-badge');
+        const scoreTracker = document.getElementById('score-tracker');
+        const progressBar = document.getElementById('progress-bar');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const explanationBox = document.getElementById('explanation-box');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const quizContainer = document.getElementById('quiz-container');
+        const resultContainer = document.getElementById('result-container');
+        const finalScoreText = document.getElementById('final-score-text');
+        const finalDetailsText = document.getElementById('final-details-text');
+        const retryWrongBtn = document.getElementById('retry-wrong-btn');
+        const wrongCountNum = document.getElementById('wrong-count-num');
+
+        function filterChapter(ch) {
+            currentFilter = ch;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`btn-${ch}`).classList.add('active');
+            applyFilterAndLimit(false);
+        }
+
+        function setQuestionLimit(limit) {
+            currentLimit = limit === 42 ? allQuestions.length : limit;
+            document.querySelectorAll('.limit-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`limit-${limit}`).classList.add('active');
+            applyFilterAndLimit(true);
+        }
+
+        function applyFilterAndLimit(shouldShuffle = false) {
+            let pool = (currentFilter === 'ALL') 
+                ? [...allQuestions] 
+                : allQuestions.filter(q => q.chapter === currentFilter);
+
+            if (shouldShuffle) {
+                for (let i = pool.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [pool[i], pool[j]] = [pool[j], pool[i]];
+                }
+            }
+
+            questions = pool.slice(0, Math.min(currentLimit, pool.length));
+            startQuizSession();
+        }
+
+        function shuffleCurrentPool() {
+            for (let i = questions.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [questions[i], questions[j]] = [questions[j], questions[i]];
+            }
+            startQuizSession();
+        }
+
+        function startQuizSession() {
+            currentIdx = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            updateScoreTracker();
+            resultContainer.classList.add('hidden');
+            quizContainer.classList.remove('hidden');
+            loadQuestion();
+        }
+
+        function getCurrentScore() {
+            return userAnswers.reduce((acc, ans, idx) => {
+                return acc + (ans === questions[idx].correct ? 1 : 0);
+            }, 0);
+        }
+
+        function updateScoreTracker() {
+            scoreTracker.innerText = `الصحيحة: ${getCurrentScore()}`;
+        }
+
+        function loadQuestion() {
+            const q = questions[currentIdx];
+            const savedAnswer = userAnswers[currentIdx];
+
+            questionCounter.innerText = `السؤال ${currentIdx + 1} من ${questions.length}`;
+            chapterBadge.innerText = q.chapter;
+            progressBar.style.width = `${((currentIdx + 1) / questions.length) * 100}%`;
+            questionText.innerText = q.question;
+
+            // تجهيز رابط الإبلاغ على تلجرام تلقائياً
+            const telegramUsername = "YOUR_TELEGRAM_USERNAME"; // <-- استبدل بمعرف التلجرام الخاص بك بدون @
+            const qNumMatch = q.question.match(/^\d+/);
+            const qOriginalNum = qNumMatch ? qNumMatch[0] : (currentIdx + 1);
+            const reportMessage = `السلام عليكم، عندي ملاحظة في تجميعات كويزات IT354:\n- رقم السؤال: (${qOriginalNum})\n- الفصل: (${q.chapter})\n- السؤال: "${q.question}"\n\nالملاحظة: `;
+            document.getElementById('report-btn').href = `https://t.me/${telegramUsername}?text=${encodeURIComponent(reportMessage)}`;
+            
+            prevBtn.disabled = (currentIdx === 0);
+            nextBtn.innerHTML = (currentIdx === questions.length - 1) 
+                ? `النتيجة النهائية <i class="fa-solid fa-flag-checkered mr-2"></i>` 
+                : `التالي <i class="fa-solid fa-arrow-left mr-2"></i>`;
+
+            optionsContainer.innerHTML = '';
+
+            if (savedAnswer === null) {
+                statusBadge.className = "bg-gray-800 text-gray-400 text-xs px-2.5 py-0.5 rounded-full";
+                statusBadge.innerText = "لم تتم الإجابة";
+                statusBadge.classList.remove('hidden');
+                explanationBox.classList.add('hidden');
+            } else if (savedAnswer === q.correct) {
+                statusBadge.className = "bg-emerald-500/20 text-emerald-500 text-xs px-2.5 py-0.5 rounded-full font-bold";
+                statusBadge.innerText = "إجابة صحيحة";
+                statusBadge.classList.remove('hidden');
+            } else {
+                statusBadge.className = "bg-rose-500/20 text-rose-500 text-xs px-2.5 py-0.5 rounded-full font-bold";
+                statusBadge.innerText = "إجابة خاطئة";
+                statusBadge.classList.remove('hidden');
+            }
+
+            q.options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                
+                if (savedAnswer === null) {
+                    btn.className = "option-btn w-full text-left p-4 rounded-xl border border-gray-700 bg-gray-900/60 text-gray-200 font-medium flex justify-between items-center gap-3";
+                    btn.innerHTML = `<span>${opt}</span> <i class="fa-regular fa-circle text-gray-500 shrink-0"></i>`;
+                    btn.onclick = () => selectAnswer(index);
+                } else {
+                    btn.disabled = true;
+                    if (index === q.correct) {
+                        btn.className = "w-full text-left p-4 rounded-xl border border-emerald-500 bg-emerald-500/20 text-white font-bold flex justify-between items-center gap-3";
+                        btn.innerHTML = `<span>${opt}</span> <i class="fa-solid fa-circle-check text-emerald-500 shrink-0"></i>`;
+                    } else if (index === savedAnswer && savedAnswer !== q.correct) {
+                        btn.className = "w-full text-left p-4 rounded-xl border border-rose-500 bg-rose-500/20 text-white font-bold flex justify-between items-center gap-3";
+                        btn.innerHTML = `<span>${opt}</span> <i class="fa-solid fa-circle-xmark text-rose-500 shrink-0"></i>`;
+                    } else {
+                        btn.className = "w-full text-left p-4 rounded-xl border border-gray-800 bg-gray-900/40 text-gray-500 font-medium flex justify-between items-center gap-3 opacity-60";
+                        btn.innerHTML = `<span>${opt}</span> <i class="fa-regular fa-circle text-gray-600 shrink-0"></i>`;
+                    }
+                }
+                optionsContainer.appendChild(btn);
+            });
+
+            if (savedAnswer !== null) {
+                explanationBox.innerHTML = `<strong class="text-cyan">توضيح:</strong> ${q.explanation}`;
+                explanationBox.classList.remove('hidden');
+            }
+        }
+
+        function selectAnswer(selectedIdx) {
+            userAnswers[currentIdx] = selectedIdx;
+            updateScoreTracker();
+            loadQuestion();
+        }
+
+        function nextQuestion() {
+            if (currentIdx < questions.length - 1) {
+                currentIdx++;
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentIdx > 0) {
+                currentIdx--;
+                loadQuestion();
+            }
+        }
+
+        function showResults() {
+            quizContainer.classList.add('hidden');
+            resultContainer.classList.remove('hidden');
+            
+            const finalScore = getCurrentScore();
+            const total = questions.length;
+            const percentage = Math.round((finalScore / total) * 100);
+            
+            let wrongOnlyCount = 0;
+            let unansweredCount = 0;
+            
+            questions.forEach((q, idx) => {
+                if (userAnswers[idx] === null) {
+                    unansweredCount++;
+                } else if (userAnswers[idx] !== q.correct) {
+                    wrongOnlyCount++;
+                }
+            });
+
+            finalScoreText.innerText = `حصلت على ${finalScore} من ${total} (${percentage}%)`;
+            finalDetailsText.innerText = `إجابات صحيحة: ${finalScore} | إجابات خاطئة: ${wrongOnlyCount} | لم تتم الإجابة: ${unansweredCount}`;
+
+            const reviewPoolCount = wrongOnlyCount + unansweredCount;
+            if (reviewPoolCount > 0) {
+                wrongCountNum.innerText = reviewPoolCount;
+                retryWrongBtn.classList.remove('hidden');
+            } else {
+                retryWrongBtn.classList.add('hidden');
+            }
+        }
+
+        function retryWrongQuestions() {
+            const wrongQuestions = questions.filter((q, idx) => userAnswers[idx] !== q.correct);
+            if (wrongQuestions.length > 0) {
+                questions = wrongQuestions;
+                startQuizSession();
+            }
+        }
+
+        applyFilterAndLimit(false);
+    </script>
+</body>
+</html>
