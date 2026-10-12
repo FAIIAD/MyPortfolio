@@ -194,7 +194,7 @@
     </main>
 
     <footer class="text-center py-6 text-gray-600 text-sm border-t border-gray-800">
-        &copy; 2026 FZ3 — IT354 Study Hub
+        &copy; Created by FZ &copy; 2026 
     </footer>
 
     <!-- برمجة الاختبار وقاعدة بيانات الـ 80 سؤال -->
@@ -1242,7 +1242,7 @@
             const telegramUsername = "fahad_m7md"; // <-- استبدل هذه الكلمة بمعرفك في تلجرام بدون @
             const qNumMatch = q.question.match(/^\d+/);
             const qOriginalNum = qNumMatch ? qNumMatch[0] : (currentIdx + 1);
-            const reportMessage = `السلام عليكم فهد، عندي ملاحظة/خطأ في اختبار IT354:\n- رقم السؤال الأصلي: (${qOriginalNum})\n- الفصل: (${q.chapter})\n- نص السؤال: "${q.question}"\n\nالملاحظة: `;
+            const reportMessage = `IT354:\n- رقم السؤال الأصلي: (${qOriginalNum})\n- الفصل: (${q.chapter})\n- نص السؤال: "${q.question}"\n\nالملاحظة: `;
             document.getElementById('report-btn').href = `https://t.me/${telegramUsername}?text=${encodeURIComponent(reportMessage)}`;
             
             // تحديث حالة زر السابق والتالي
