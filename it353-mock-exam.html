@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT353 - Models 1 to 5 Mock Exam</title>
+    
+    <!-- خط ثمانية، خط Open Sans، والأيقونات -->
+    <link href="https://cdn.jsdelivr.net/npm/@dawod/thmanyah-font-web/index.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- قراءة المظهر المحفوظ فور فتح الصفحة -->
+    <script>
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+        } else {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+
+    <!-- إعدادات Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#0f172a',
+                        card: '#1e293b',
+                        cyan: '#06b6d4',
+                        blue: '#3b82f6'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { 
+            font-family: 'Thmanyah Sans', sans-serif; 
+            transition: background-color 0.3s ease, color 0.3s ease; 
+        }
+        h1, h2, h3, h4 { font-family: 'Thmanyah Serif Display', serif; }
+        
+        /* خط Open Sans لأسئلة الاختبار والخيارات الإنجليزية */
+        #question-text {
+            font-family: 'Open Sans', sans-serif !important;
+        }
+
+        .option-btn { transition: all 0.2s ease; }
+        .option-btn:hover:not(:disabled) {
+            border-color: #06b6d4;
+            background-color: rgba(6, 182, 212, 0.1);
+            transform: translateX(-4px);
+        }
+        .filter-btn.active, .limit-btn.active {
+            background: linear-gradient(to right, #06b6d4, #3b82f6) !important;
+            color: white !important;
+            border-color: transparent !important;
+        }
+
+        /* تنسيقات الوضع الفاتح */
+        html:not(.dark) body { background-color: #f8fafc; color: #1e293b; }
+        html:not(.dark) header, html:not(.dark) footer { background-color: rgba(255, 255, 255, 0.85); border-color: #e2e8f0; }
+        html:not(.dark) .bg-card, html:not(.dark) .bg-card\/60, html:not(.dark) .bg-card\/40 { background-color: #ffffff; border-color: #cbd5e1; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        html:not(.dark) .bg-gray-900\/60, html:not(.dark) .bg-gray-900\/40 { background-color: #f8fafc; border-color: #cbd5e1; color: #1e293b; }
+        html:not(.dark) .bg-gray-800, html:not(.dark) .bg-gray-800\/80, html:not(.dark) .bg-gray-800\/60 { background-color: #f1f5f9; border-color: #cbd5e1; color: #334155; }
+        html:not(.dark) .text-white { color: #0f172a; }
+        html:not(.dark) .text-gray-200, html:not(.dark) .text-gray-300 { color: #1e293b; }
+        html:not(.dark) .text-gray-400, html:not(.dark) .text-gray-500, html:not(.dark) .text-gray-600 { color: #475569; }
+        html:not(.dark) .border-gray-700, html:not(.dark) .border-gray-800, html:not(.dark) .border-gray-800\/80 { border-color: #e2e8f0; }
+    </style>
+</head>
+<body class="bg-dark text-gray-200 min-h-screen flex flex-col justify-between relative overflow-x-hidden">
+
+    <header class="bg-dark/70 backdrop-blur-md border-b border-gray-800 py-4 px-6 sticky top-0 z-50 transition-colors duration-300">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-lg md:text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan to-blue">IT353 - Models 1 to 5</h1>
+            
+            <div class="flex items-center gap-3 md:gap-4">
+                <a href="index.html" class="bg-gradient-to-r from-cyan/20 to-blue/20 hover:from-cyan hover:to-blue text-cyan hover:text-white border border-cyan/40 text-xs md:text-sm font-bold px-3 md:px-4 py-1.5 rounded-full transition-all duration-300 flex items-center gap-2 shadow-sm">
+                    <i class="fa-solid fa-house"></i> الرئيسية
+                </a>
+
+                <button id="theme-toggle" onclick="toggleTheme()" aria-label="تبديل المظهر" dir="ltr" class="relative w-16 h-8 rounded-full bg-slate-200 dark:bg-gray-800 border border-slate-300 dark:border-gray-700 flex items-center justify-between px-2 transition-colors duration-300 focus:outline-none shrink-0 cursor-pointer">
+                    <i class="fa-solid fa-sun text-amber-500 text-xs"></i>
+                    <i class="fa-solid fa-moon text-cyan text-xs"></i>
+                    <span class="absolute top-1 left-1 w-6 h-6 rounded-full bg-white dark:bg-card border border-slate-200 dark:border-gray-600 shadow-md transform transition-transform duration-300 translate-x-0 dark:translate-x-8 flex items-center justify-center">
+                        <i id="theme-icon" class="fa-solid fa-moon text-cyan text-xs"></i>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 flex-grow flex flex-col items-center justify-center">
+        
+        <!-- صندوق التنبيه -->
+        <div id="quiz-alert" class="w-full max-w-3xl mb-4 bg-cyan/10 border border-cyan/30 rounded-xl p-3.5 px-4 flex items-center justify-between gap-3 text-xs md:text-sm text-gray-200 shadow-sm transition-all duration-500">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-circle-info text-cyan text-lg shrink-0"></i>
+                <p class="leading-relaxed">
+                    <strong class="text-cyan font-bold">تنبيه:</strong> تم تصميم هذا الاختبار الشامل لـ 100 سؤال حصرياً ليغطي الوحدات الخمس الأولى (Models 1 - 5) لمقرر IT353.
+                </p>
+            </div>
+            <span id="alert-timer" class="text-cyan font-bold text-xs bg-cyan/20 px-2.5 py-1 rounded-full shrink-0">3s</span>
+        </div>
+
+        <!-- لوحة التحكم -->
+        <div class="w-full max-w-3xl mb-6 space-y-4 bg-card/40 p-4 rounded-2xl border border-gray-800">
+            <div class="flex flex-wrap items-center justify-center gap-2">
+                <span class="text-xs text-gray-400 font-bold ml-2">الوحدة:</span>
+                <button onclick="filterChapter('ALL')" id="btn-ALL" class="filter-btn active text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">الكل (100)</button>
+                <button onclick="filterChapter('Mod1')" id="btn-Mod1" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Mod 1 (20)</button>
+                <button onclick="filterChapter('Mod2')" id="btn-Mod2" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Mod 2 (20)</button>
+                <button onclick="filterChapter('Mod3')" id="btn-Mod3" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Mod 3 (20)</button>
+                <button onclick="filterChapter('Mod4')" id="btn-Mod4" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Mod 4 (20)</button>
+                <button onclick="filterChapter('Mod5')" id="btn-Mod5" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Mod 5 (20)</button>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-center gap-2 pt-2 border-t border-gray-800/80">
+                <span class="text-xs text-gray-400 font-bold ml-2">عدد الأسئلة:</span>
+                <button onclick="setQuestionLimit(20)" id="limit-20" class="limit-btn text-xs px-4 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">20 سؤال</button>
+                <button onclick="setQuestionLimit(40)" id="limit-40" class="limit-btn text-xs px-4 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">40 سؤال</button>
+                <button onclick="setQuestionLimit(60)" id="limit-60" class="limit-btn text-xs px-4 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">60 سؤال</button>
+                <button onclick="setQuestionLimit(100)" id="limit-100" class="limit-btn active text-xs px-4 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">100 (الكل)</button>
+            </div>
+        </div>
+
+        <div class="w-full max-w-3xl bg-card/60 backdrop-blur-md border border-gray-800 rounded-2xl p-6 md:p-8 shadow-xl">
+            
+            <div id="quiz-container">
+                <!-- العداد والأدوات -->
+                <div class="flex flex-wrap justify-between items-center mb-4 text-sm text-gray-400 gap-3">
+                    <div class="flex items-center gap-2">
+                        <span id="question-counter" class="font-bold text-cyan bg-cyan/10 border border-cyan/20 px-3 py-1 rounded-full shadow-sm">السؤال 1 من 100</span>
+                        <span id="chapter-badge" class="bg-gray-800 text-gray-300 text-xs px-3 py-1 rounded-full border border-gray-700 shadow-sm">Mod1</span>
+                        <span id="status-badge" class="hidden text-xs px-3 py-1 rounded-full font-bold shadow-sm"></span>
+                    </div>
+                    
+                    <div class="flex items-center gap-2 md:gap-3 mr-auto">
+                        <div class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 font-bold px-3 py-1.5 rounded-full text-xs flex items-center gap-1.5 shadow-sm">
+                            <i class="fa-solid fa-check-double"></i>
+                            <span id="score-tracker" class="hidden sm:inline">الصحيحة: 0</span>
+                            <span id="score-tracker-mobile" class="sm:hidden">0</span>
+                        </div>
+                        
+                        <button onclick="shuffleCurrentPool()" title="خلط الأسئلة الحالية والبدء من جديد" class="text-gray-400 hover:text-cyan transition-all duration-300 text-xs bg-gray-800 hover:bg-gray-700 px-3 md:px-4 py-1.5 rounded-full border border-gray-700 flex items-center shadow-sm">
+                            <i class="fa-solid fa-shuffle sm:ml-1.5"></i> <span class="hidden sm:inline">خلط</span>
+                        </button>
+
+                        <button id="auto-next-toggle" onclick="toggleAutoNext()" title="تجاوز تلقائي للسؤال التالي عند الإجابة الصحيحة" class="text-gray-400 hover:text-emerald-500 transition-all duration-300 text-xs bg-gray-800 hover:bg-gray-700 px-3 md:px-4 py-1.5 rounded-full border border-gray-700 flex items-center gap-1.5 shadow-sm">
+                            <i id="auto-next-icon" class="fa-solid fa-toggle-off text-gray-500 text-sm transition-all"></i> 
+                            <span class="hidden sm:inline">تجاوز تلقائي</span>
+                        </button>
+
+                        <a id="report-btn" href="#" target="_blank" title="الإبلاغ عن خطأ عبر تلجرام" class="text-gray-400 hover:text-[#24A1DE] transition-all duration-300 text-xs bg-gray-800 hover:bg-gray-700 px-3 md:px-4 py-1.5 rounded-full border border-gray-700 flex items-center gap-1.5 shadow-sm">
+                            <i class="fa-brands fa-telegram text-[#24A1DE] text-sm"></i> <span class="hidden sm:inline">إبلاغ</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- شريط التقدم -->
+                <div class="w-full bg-gray-800 h-3 rounded-full mb-8 overflow-hidden shadow-inner border border-gray-700/50">
+                    <div id="progress-bar" class="bg-gradient-to-r from-cyan to-blue h-full transition-all duration-500 ease-out" style="width: 1%"></div>
+                </div>
+
+                <!-- نص السؤال -->
+                <h2 id="question-text" dir="ltr" class="text-lg md:text-xl font-bold text-white mb-6 text-left leading-relaxed whitespace-pre-line"></h2>
+
+                <!-- الخيارات -->
+                <div id="options-container" dir="ltr" class="space-y-3 text-left mb-6"></div>
+
+                <!-- صندوق الشرح -->
+                <div id="explanation-box" class="hidden p-4 rounded-xl bg-gray-800/80 border border-gray-700 text-sm text-gray-300 mb-6 leading-relaxed shadow-inner"></div>
+
+                <!-- أزرار التنقل -->
+                <div class="flex items-center justify-between gap-3 pt-5 border-t border-gray-800/80">
+                    <button id="prev-btn" onclick="prevQuestion()" class="px-5 py-3 rounded-full border border-gray-700 bg-gray-800/60 hover:bg-gray-800 hover:border-cyan hover:text-cyan text-gray-300 font-bold transition-all duration-300 disabled:opacity-40 disabled:pointer-events-none shadow-sm hover:shadow-md">
+                        <i class="fa-solid fa-arrow-right ml-2"></i> السابق
+                    </button>
+
+                    <button onclick="showResults()" class="px-4 py-3 rounded-full border border-gray-700 hover:bg-gray-800 hover:border-rose-500/60 hover:text-rose-400 text-gray-400 text-sm font-bold transition-all duration-300 shadow-sm hover:shadow-md">
+                        إنهاء الاختبار
+                    </button>
+
+                    <button id="next-btn" onclick="nextQuestion()" class="flex-1 max-w-[220px] bg-gradient-to-r from-cyan to-blue hover:from-blue hover:to-cyan text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5">
+                        التالي <i class="fa-solid fa-arrow-left mr-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- شاشة النتيجة النهائية -->
+            <div id="result-container" class="hidden text-center py-8">
+                <div class="w-20 h-20 bg-cyan/20 rounded-full flex items-center justify-center mx-auto mb-6 text-cyan text-4xl">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-white mb-3">انتهى الاختبار!</h2>
+                <p id="final-score-text" class="text-xl text-gray-300 font-bold mb-2"></p>
+                <p id="final-details-text" class="text-sm text-gray-400 mb-8"></p>
+                
+                <div class="flex flex-wrap justify-center gap-4">
+                    <button id="retry-wrong-btn" onclick="retryWrongQuestions()" class="hidden bg-rose-600 hover:bg-rose-500 text-white font-bold py-3 px-8 rounded-full shadow-[0_0_20px_rgba(225,29,72,0.4)] transition-all">
+                        <i class="fa-solid fa-triangle-exclamation ml-2"></i> إعادة الأسئلة الخاطئة فقط (<span id="wrong-count-num">0</span>)
+                    </button>
+
+                    <button onclick="applyFilterAndLimit(false)" class="bg-gradient-to-r from-cyan to-blue text-white font-bold py-3 px-8 rounded-full hover:shadow-[0_0_20px_rgba(6,182,212,0.5)] transition-all">
+                        <i class="fa-solid fa-rotate-right ml-2"></i> اختبار جديد
+                    </button>
+
+                    <button onclick="applyFilterAndLimit(true)" class="border border-cyan text-cyan hover:bg-cyan/10 font-bold py-3 px-8 rounded-full transition-all">
+                        <i class="fa-solid fa-shuffle ml-2"></i> خلط والبدء من جديد
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="text-center py-6 text-gray-600 text-sm border-t border-gray-800">
+        &copy; 2026 FZ — IT353 (Models 1 - 5) Quiz Bank
+    </footer>
+
+    <script>
+        // إخفاء صندوق التنبيه تلقائياً
+        (function() {
+            let timeLeft = 3;
+            const alertBox = document.getElementById('quiz-alert');
+            const timerSpan = document.getElementById('alert-timer');
+            const countdown = setInterval(() => {
+                timeLeft--;
+                if (timeLeft > 0) {
+                    timerSpan.innerText = timeLeft + 's';
+                } else {
+                    clearInterval(countdown);
+                    alertBox.style.opacity = '0';
+                    setTimeout(() => alertBox.style.display = 'none', 500);
+                }
+            }, 1000);
+        })();
+
+        const themeIcon = document.getElementById('theme-icon');
+        function updateThemeIcon() {
+            if (document.documentElement.classList.contains('dark')) {
+                themeIcon.className = 'fa-solid fa-moon text-cyan text-xs';
+            } else {
+                themeIcon.className = 'fa-solid fa-sun text-amber-500 text-xs';
+            }
+        }
+        updateThemeIcon();
+
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+            const isDark = document.documentElement.classList.contains('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            updateThemeIcon();
+        }
+
+        const allQuestions = [
+            // ================= MODULE 1 (20 Questions) =================
+            {
+                chapter: "Mod1",
+                question: "1. The complex organizational process whereby computer-based information systems are developed and maintained is known as:",
+                options: ["Application Software", "Systems Analysis and Design", "Business Process Reengineering", "Project Management"],
+                correct: 1,
+                explanation: "تحليل وتصميم النظم هو العملية التنظيمية المعقدة التي يتم من خلالها تطوير وصيانة نظم المعلومات[cite: 793]."
+            },
+            {
+                chapter: "Mod1",
+                question: "2. Which of the following refers to computer software designed to support organizational functions or processes?",
+                options: ["System Software", "Application Software", "Methodologies", "Techniques"],
+                correct: 1,
+                explanation: "برمجيات التطبيقات (Application Software) مصممة خصيصاً لدعم وظائف وعمليات المنظمة[cite: 793]."
+            },
+            {
+                chapter: "Mod1",
+                question: "3. An organizational role most responsible for the analysis and design of information systems is:",
+                options: ["Programmer", "Database Administrator", "Systems Analyst", "Project Sponsor"],
+                correct: 2,
+                explanation: "محلل النظم (Systems Analyst) هو المسؤول الرئيسي عن دراسة مشاكل واحتياجات المنظمة لتطوير أنظمة المعلومات[cite: 794]."
+            },
+            {
+                chapter: "Mod1",
+                question: "4. Comprehensive, multiple-step approaches to systems development that will guide your work and influence the quality of your final product are called:",
+                options: ["Methodologies", "Techniques", "Tools", "Software"],
+                correct: 0,
+                explanation: "المنهجيات (Methodologies) هي أساليب شاملة ومتعددة الخطوات لتطوير النظم توجه عملك وتؤثر على جودة المنتج النهائي[cite: 795]."
+            },
+            {
+                chapter: "Mod1",
+                question: "5. Particular processes that an analyst will follow to ensure the work is well thought out, complete, and comprehensible to others are called:",
+                options: ["Tools", "Systems", "Techniques", "Prototypes"],
+                correct: 2,
+                explanation: "التقنيات (Techniques) هي العمليات المحددة التي يتبعها المحلل لضمان إنجاز العمل بشكل مدروس وكامل[cite: 796]."
+            },
+            {
+                chapter: "Mod1",
+                question: "6. Typical computer programs that make it easy to use and benefit from techniques are known as:",
+                options: ["Methodologies", "Tools", "Techniques", "Frameworks"],
+                correct: 1,
+                explanation: "الأدوات (Tools) هي البرامج الحاسوبية التي تسهل استخدام التقنيات وتطبيق المنهجيات في تطوير النظم[cite: 796]."
+            },
+            {
+                chapter: "Mod1",
+                question: "7. Which phase of the Systems Development Life Cycle (SDLC) involves identifying, analyzing, prioritizing, and arranging an organization's total information system needs?",
+                options: ["Analysis", "Implementation", "Design", "Planning"],
+                correct: 3,
+                explanation: "مرحلة التخطيط (Planning) هي المرحلة الأولى التي يتم فيها تحديد وتحليل وترتيب أولويات احتياجات النظام بشكل كامل[cite: 802]."
+            },
+            {
+                chapter: "Mod1",
+                question: "8. The phase of the SDLC in which system requirements are studied and structured is:",
+                options: ["Planning", "Design", "Analysis", "Implementation"],
+                correct: 2,
+                explanation: "مرحلة التحليل (Analysis) هي المرحلة الثانية التي يتم فيها دراسة وهيكلة متطلبات النظام[cite: 803]."
+            },
+            {
+                chapter: "Mod1",
+                question: "9. The phase in which the description of the recommended solution is converted into logical and physical system specifications is called:",
+                options: ["Planning", "Analysis", "Implementation", "Design"],
+                correct: 3,
+                explanation: "مرحلة التصميم (Design) هي المرحلة الثالثة حيث تُحوّل الحلول الموصى بها إلى مواصفات منطقية وفيزيائية[cite: 804]."
+            },
+            {
+                chapter: "Mod1",
+                question: "10. In which SDLC phase do analysts turn system specifications into a working system that is tested and then put into use?",
+                options: ["Implementation", "Maintenance", "Design", "Analysis"],
+                correct: 0,
+                explanation: "في مرحلة التنفيذ (Implementation)، يتم تحويل مواصفات النظام إلى نظام فعّال يعمل ويُختبر ليدخل حيز الاستخدام[cite: 805]."
+            },
+            {
+                chapter: "Mod1",
+                question: "11. The final phase of the SDLC where an information system is systematically repaired and improved is:",
+                options: ["Maintenance", "Implementation", "Design", "Testing"],
+                correct: 0,
+                explanation: "الصيانة (Maintenance) هي المرحلة النهائية التي يتم فيها إصلاح وتحسين النظام بشكل منهجي[cite: 806]."
+            },
+            {
+                chapter: "Mod1",
+                question: "12. An approach to software development with short, incremental development cycles, automated tests, and two-person programming teams is known as:",
+                options: ["Traditional Waterfall", "eXtreme Programming", "Joint Application Design", "Prototyping"],
+                correct: 1,
+                explanation: "البرمجة القصوى (eXtreme Programming) هي نهج يعتمد على دورات تطوير قصيرة واختبارات آلية وعمل المبرمجين في أزواج[cite: 816]."
+            },
+            {
+                chapter: "Mod1",
+                question: "13. Turning over responsibility for some or all of an organization's information systems applications and operations to an outside firm is called:",
+                options: ["In-house development", "Cloud computing", "Outsourcing", "Software Reuse"],
+                correct: 2,
+                explanation: "التعهيد (Outsourcing) يعني نقل مسؤولية تطوير أو تشغيل النظم جزئياً أو كلياً إلى شركة خارجية[cite: 823]."
+            },
+            {
+                chapter: "Mod1",
+                question: "14. Off-the-shelf software systems that cannot be modified to meet the specific, individual needs of a particular organization are called:",
+                options: ["Open-source systems", "Turnkey systems", "Cloud systems", "In-house systems"],
+                correct: 1,
+                explanation: "الأنظمة الجاهزة للتشغيل (Turnkey systems) هي برمجيات جاهزة لا يمكن تعديلها لتلبية الاحتياجات الفردية المحددة للمنظمة[cite: 826]."
+            },
+            {
+                chapter: "Mod1",
+                question: "15. The provision of applications or related services over the Internet, where customers do not have to invest in the hardware and software resources needed, is called:",
+                options: ["Cloud computing", "Open-source software", "Outsourcing", "Turnkey systems"],
+                correct: 0,
+                explanation: "الحوسبة السحابية (Cloud computing) تتيح تقديم التطبيقات والخدمات عبر الإنترنت دون حاجة العميل للاستثمار في البنية التحتية[cite: 827]."
+            },
+            {
+                chapter: "Mod1",
+                question: "16. Software that is freely available, not just the final product but the source code itself, is known as:",
+                options: ["Packaged software", "Open-source software", "Cloud software", "Turnkey software"],
+                correct: 1,
+                explanation: "البرمجيات مفتوحة المصدر (Open-source software) تتيح الكود المصدري للمنتج النهائي بشكل مجاني للجميع[cite: 828]."
+            },
+            {
+                chapter: "Mod1",
+                question: "17. The use of previously written software resources (objects and components) in new applications is called:",
+                options: ["Software Reuse", "Prototyping", "Outsourcing", "Cloud Computing"],
+                correct: 0,
+                explanation: "إعادة استخدام البرمجيات (Software Reuse) تعني استخدام الموارد أو المكونات البرمجية المكتوبة مسبقاً في تطبيقات جديدة[cite: 833]."
+            },
+            {
+                chapter: "Mod1",
+                question: "18. Which approach to software reuse mandates the development and sharing of reusable assets, and establishes organizational policies for documentation and packaging?",
+                options: ["Ad hoc", "Facilitated", "Managed", "Designed"],
+                correct: 2,
+                explanation: "في النهج المدار (Managed reuse)، يُفرض تطوير ومشاركة الأصول القابلة لإعادة الاستخدام وتُوضع سياسات تنظيمية لذلك[cite: 838]."
+            },
+            {
+                chapter: "Mod1",
+                question: "19. Which of the following is NOT an approach of software reuse?",
+                options: ["Analyzed reuse", "Designed reuse", "Ad hoc reuse", "Managed reuse"],
+                correct: 0,
+                explanation: "مناهج إعادة الاستخدام المعروفة هي (Ad hoc, Facilitated, Managed, Designed) ولا يوجد ما يسمى (Analyzed reuse)[cite: 778]."
+            },
+            {
+                chapter: "Mod1",
+                question: "20. What is the correct order of the Systems Development Life Cycle (SDLC) phases?",
+                options: [
+                    "Planning, Design, Analysis, Implementation, Maintenance",
+                    "Design, Planning, Analysis, Implementation, Maintenance",
+                    "Planning, Analysis, Design, Implementation, Maintenance",
+                    "Analysis, Planning, Design, Implementation, Maintenance"
+                ],
+                correct: 2,
+                explanation: "الترتيب الصحيح لدورة حياة تطوير النظم هو: التخطيط (Planning)، ثم التحليل (Analysis)، ثم التصميم (Design)، ثم التنفيذ (Implementation)، وأخيراً الصيانة (Maintenance)[cite: 777]."
+            },
+
+            // ================= MODULE 2 (20 Questions) =================
+            {
+                chapter: "Mod2",
+                question: "21. A systems analyst with a diverse set of skills who is responsible for initiating, planning, executing, and closing down a project is a:",
+                options: ["Database Administrator", "Project manager", "Software Engineer", "Business Analyst"],
+                correct: 1,
+                explanation: "مدير المشروع (Project manager) هو محلل نظم يمتلك مهارات متنوعة ليكون مسؤولاً عن جميع مراحل إدارة المشروع[cite: 848]."
+            },
+            {
+                chapter: "Mod2",
+                question: "22. A planned undertaking of related activities to reach an objective that has a beginning and an end is called a:",
+                options: ["System", "Methodology", "Project", "Deliverable"],
+                correct: 2,
+                explanation: "المشروع (Project) هو مسعى مخطط لأنشطة مترابطة للوصول إلى هدف معين، وله بداية ونهاية محددتان[cite: 848]."
+            },
+            {
+                chapter: "Mod2",
+                question: "23. An end product of an SDLC phase is called a:",
+                options: ["Tool", "Deliverable", "Technique", "Prototype"],
+                correct: 1,
+                explanation: "المنتج النهائي (Deliverable) هو ما ينتج في نهاية كل مرحلة من مراحل دورة حياة تطوير النظم[cite: 848]."
+            },
+            {
+                chapter: "Mod2",
+                question: "24. A standard form for requesting or proposing systems development work within an organization is known as:",
+                options: ["System Service Request (SSR)", "Baseline Project Plan (BPP)", "Project Scope Statement", "Gantt Chart"],
+                correct: 0,
+                explanation: "طلب خدمة النظام (System Service Request - SSR) هو نموذج قياسي يستخدم لطلب أو اقتراح أعمال تطوير النظم[cite: 850]."
+            },
+            {
+                chapter: "Mod2",
+                question: "25. A study that determines whether a requested system makes economic and operational sense for an organization is a:",
+                options: ["Project Charter", "Feasibility study", "Work breakdown structure", "Network diagram"],
+                correct: 1,
+                explanation: "دراسة الجدوى (Feasibility study) تحدد ما إذا كان النظام المطلوب منطقياً ومجدياً من الناحية الاقتصادية والتشغيلية[cite: 850]."
+            },
+            {
+                chapter: "Mod2",
+                question: "26. The first phase of the project management process, in which activities are performed to assess the size, scope, and complexity of the project, is:",
+                options: ["Planning", "Execution", "Initiation", "Closedown"],
+                correct: 2,
+                explanation: "مرحلة البدء (Initiation) هي المرحلة الأولى التي يتم فيها تقييم حجم ونطاق وتعقيد المشروع[cite: 854]."
+            },
+            {
+                chapter: "Mod2",
+                question: "27. The second phase of the project management process, which focuses on defining clear, discrete activities and the work needed to complete them, is:",
+                options: ["Execution", "Initiation", "Closedown", "Planning"],
+                correct: 3,
+                explanation: "مرحلة التخطيط (Planning) هي المرحلة الثانية وتركز على تحديد أنشطة واضحة ومنفصلة والعمل المطلوب لإنجازها[cite: 857]."
+            },
+            {
+                chapter: "Mod2",
+                question: "28. The third phase of the project management process, in which the plans created in the prior phases are put into action, is:",
+                options: ["Planning", "Initiation", "Execution", "Closedown"],
+                correct: 2,
+                explanation: "مرحلة التنفيذ (Executing) هي المرحلة الثالثة حيث يتم وضع الخطط موضع التنفيذ[cite: 860]."
+            },
+            {
+                chapter: "Mod2",
+                question: "29. The final phase of the project management process that focuses on bringing a project to an end is:",
+                options: ["Execution", "Planning", "Closedown", "Initiation"],
+                correct: 2,
+                explanation: "مرحلة الإغلاق (Closedown) هي المرحلة النهائية التي تركز على إنهاء المشروع بشكل سليم[cite: 862]."
+            },
+            {
+                chapter: "Mod2",
+                question: "30. The process of dividing the project into manageable tasks and logically ordering them to ensure a smooth evolution between tasks is called:",
+                options: ["Network diagramming", "Critical path scheduling", "Work breakdown structure", "PERT calculation"],
+                correct: 2,
+                explanation: "هيكل تجزئة العمل (Work breakdown structure - WBS) هو عملية تقسيم المشروع إلى مهام قابلة للإدارة وترتيبها منطقياً[cite: 858]."
+            },
+            {
+                chapter: "Mod2",
+                question: "31. A graphical representation of a project that shows each task as a horizontal bar whose length is proportional to its time for completion is a:",
+                options: ["Flowchart", "Gantt chart", "Network diagram", "PERT chart"],
+                correct: 1,
+                explanation: "مخطط جانت (Gantt chart) يمثل المشروع برسم بياني يُظهر كل مهمة كشريط أفقي يتناسب طوله مع وقت إنجازها[cite: 858]."
+            },
+            {
+                chapter: "Mod2",
+                question: "32. A diagram that depicts project tasks and their interrelationships is known as a:",
+                options: ["Gantt chart", "Flow diagram", "Network diagram", "Context diagram"],
+                correct: 2,
+                explanation: "المخطط الشبكي (Network Diagram) هو رسم يوضح مهام المشروع والعلاقات المتبادلة بينها (الاعتماديات)[cite: 859]."
+            },
+            {
+                chapter: "Mod2",
+                question: "33. What does PERT stand for in project management?",
+                options: ["Project Evaluation Review Technique", "Program Evaluation Review Technique", "Project Estimation Resource Technique", "Process Evaluation Review Tool"],
+                correct: 1,
+                explanation: "مصطلح PERT هو اختصار لـ Program Evaluation Review Technique، وهي تقنية لتقدير مدة المهام[cite: 869]."
+            },
+            {
+                chapter: "Mod2",
+                question: "34. The formula used to determine Expected Time (ET) in a PERT calculation is:",
+                options: ["ET = (o + 4r + p) / 6", "ET = (o + r + p) / 3", "ET = (o + 2r + p) / 4", "ET = (o + p) / 2"],
+                correct: 0,
+                explanation: "الصيغة المعتمدة لتقدير الوقت (ET) في أسلوب PERT هي بجمع الوقت المتفائل مع 4 أضعاف الوقت الواقعي والوقت المتشائم ثم القسمة على 6: ET = (o + 4r + p) / 6[cite: 869]."
+            },
+            {
+                chapter: "Mod2",
+                question: "35. In critical path scheduling, the shortest time in which a project can be completed is defined by the:",
+                options: ["Slack time", "Expected time", "Critical path", "Optimistic time"],
+                correct: 2,
+                explanation: "المسار الحرج (Critical path) يمثل أطول مسار زمني في المشروع والذي يحدد أقصر وقت ممكن لإنجاز المشروع بالكامل[cite: 871]."
+            },
+            {
+                chapter: "Mod2",
+                question: "36. The amount of time an activity can be delayed without delaying the entire project is called:",
+                options: ["Delay time", "Expected time", "Slack time", "Float duration"],
+                correct: 2,
+                explanation: "وقت الركود أو الفراغ (Slack time) هو الوقت الذي يمكن أن تتأخر فيه مهمة معينة دون أن تتسبب في تأخير المشروع بأكمله[cite: 871]."
+            },
+            {
+                chapter: "Mod2",
+                question: "37. When comparing Gantt charts and Network diagrams, what does the Gantt chart visually show that a Network diagram does not?",
+                options: ["Task dependencies", "Time overlap of tasks", "Sequence of tasks", "Critical path only"],
+                correct: 1,
+                explanation: "مخطط جانت يُظهر بوضوح تداخل الأوقات بين المهام (Time overlap of tasks)، بينما لا يوضح المخطط الشبكي التداخل الزمني بوضوح[cite: 866]."
+            },
+            {
+                chapter: "Mod2",
+                question: "38. A network diagram is mainly used to show:",
+                options: ["Task durations", "Project costs", "Stakeholder communication", "Task dependencies and sequencing"],
+                correct: 3,
+                explanation: "المخطط الشبكي (Network diagram) يُستخدم بشكل أساسي لإظهار التسلسل والاعتماديات بين مهام المشروع (Task dependencies)[cite: 782]."
+            },
+            {
+                chapter: "Mod2",
+                question: "39. Which of the following is a widely used software tool for assisting with project management tasks like viewing Gantt or Network diagrams?",
+                options: ["Microsoft Word", "Microsoft Project", "Adobe Photoshop", "Visual Studio"],
+                correct: 1,
+                explanation: "برنامج Microsoft Project هو من الأدوات الشائعة والقوية للمساعدة في إدارة المشاريع وإنشاء مخططات جانت والشبكات[cite: 876]."
+            },
+            {
+                chapter: "Mod2",
+                question: "40. Influencing the activities of others toward the attainment of a common goal through the use of intelligence, personality, and abilities is an example of which project manager skill?",
+                options: ["Technical problem solving", "Customer relations", "Leadership", "Conflict management"],
+                correct: 2,
+                explanation: "القيادة (Leadership) هي مهارة توجيه أنشطة الآخرين والتأثير عليهم لتحقيق هدف مشترك باستخدام الذكاء والشخصية[cite: 853]."
+            },
+
+            // ================= MODULE 3 (20 Questions) =================
+            {
+                chapter: "Mod3",
+                question: "41. The first phase of SDLC, Planning, consists of project initiation and planning, and:",
+                options: ["Requirements structuring", "Project execution", "Project identification and selection", "System design"],
+                correct: 2,
+                explanation: "مرحلة التخطيط تتكون من عملية (تحديد واختيار المشروع) بالإضافة إلى (بدء وتخطيط المشروع)[cite: 887]."
+            },
+            {
+                chapter: "Mod3",
+                question: "42. Potential development projects are generally identified by which types of initiatives?",
+                options: ["Internal and External", "Hardware and Software", "Top-down and Bottom-up", "Qualitative and Quantitative"],
+                correct: 2,
+                explanation: "يتم تحديد المشاريع المحتملة من خلال مبادرات تبدأ من الإدارة العليا (Top-down) أو من الإدارات التشغيلية في الأسفل (Bottom-up)[cite: 889]."
+            },
+            {
+                chapter: "Mod3",
+                question: "43. Analyzing an organization’s activities to determine where value is added to products and/or services and the costs incurred for doing so is known as:",
+                options: ["Value Chain Analysis", "Multicriteria Analysis", "SWOT Analysis", "Feasibility Analysis"],
+                correct: 0,
+                explanation: "تحليل سلسلة القيمة (Value Chain Analysis) يُستخدم لتحليل الأنشطة لتحديد أين تضاف القيمة للمنتجات والخدمات والتكاليف المترتبة عليها[cite: 891]."
+            },
+            {
+                chapter: "Mod3",
+                question: "44. A strategy in systems analysis and design in which the project is reviewed after each phase and continuation of the project is rejustified is called:",
+                options: ["Incremental commitment", "Rapid Application Development", "Throwaway prototyping", "Continuous integration"],
+                correct: 0,
+                explanation: "الالتزام التدريجي (Incremental commitment) هو استراتيجية تتم فيها مراجعة المشروع بعد كل مرحلة وإعادة تبرير استمراره[cite: 894]."
+            },
+            {
+                chapter: "Mod3",
+                question: "45. An ongoing process that defines the mission, objectives, and strategies of an organization is:",
+                options: ["Information Systems Planning", "Corporate Strategic Planning", "Project Management", "Business Process Reengineering"],
+                correct: 1,
+                explanation: "التخطيط الاستراتيجي للشركات (Corporate Strategic Planning) هو عملية مستمرة تحدد مهمة المنظمة وأهدافها واستراتيجياتها[cite: 897]."
+            },
+            {
+                chapter: "Mod3",
+                question: "46. What is the purpose of a Mission Statement in corporate planning?",
+                options: ["To explain financial budgets", "To define what business the company is in", "To allocate employee salaries", "To describe IT requirements"],
+                correct: 1,
+                explanation: "بيان المهمة (Mission Statement) يوضح ويُعرّف طبيعة الأعمال التي تقوم بها الشركة[cite: 898]."
+            },
+            {
+                chapter: "Mod3",
+                question: "47. A series of statements that express an organization’s qualitative and quantitative goals for reaching a desired future position are:",
+                options: ["Mission statements", "Value chain points", "Objective statements", "Feasibility goals"],
+                correct: 2,
+                explanation: "بيانات الأهداف (Objective statements) تعبر عن الأهداف النوعية والكمية التي تسعى المنظمة للوصول إليها في المستقبل[cite: 899]."
+            },
+            {
+                chapter: "Mod3",
+                question: "48. The method by which an organization attempts to achieve its mission and objectives is called its:",
+                options: ["Competitive strategy", "Information system plan", "Incremental commitment", "Operational directive"],
+                correct: 0,
+                explanation: "الاستراتيجية التنافسية (Competitive strategy) هي الطريقة التي تتبعها المنظمة لتحقيق مهمتها وأهدافها[cite: 900]."
+            },
+            {
+                chapter: "Mod3",
+                question: "49. An orderly means of assessing the information needs of an organization and defining the systems, databases, and technologies that will best satisfy those needs is:",
+                options: ["Corporate Strategic Planning", "Information Systems Planning (ISP)", "Project Initiation", "Requirements Determination"],
+                correct: 1,
+                explanation: "تخطيط نظم المعلومات (ISP) هو وسيلة منظمة لتقييم احتياجات المعلومات للمنظمة وتحديد الأنظمة والتقنيات التي تلبيها[cite: 901]."
+            },
+            {
+                chapter: "Mod3",
+                question: "50. Which IS planning approach attempts to gain a broad understanding of information system needs of the entire organization?",
+                options: ["Bottom-up planning", "Top-down planning", "Incremental planning", "Radical planning"],
+                correct: 1,
+                explanation: "التخطيط من الأعلى للأسفل (Top-down planning) يهدف إلى فهم واسع وشامل لاحتياجات نظام المعلومات في المنظمة بأكملها[cite: 904]."
+            },
+            {
+                chapter: "Mod3",
+                question: "51. Which IS planning approach identifies IS development projects based on solving specific operational business problems or taking advantage of specific opportunities?",
+                options: ["Top-down planning", "Strategic planning", "Bottom-up planning", "Global planning"],
+                correct: 2,
+                explanation: "التخطيط من الأسفل للأعلى (Bottom-up planning) يبدأ بتحديد المشاريع بناءً على حل مشاكل تشغيلية محددة أو استغلال فرص معينة[cite: 904]."
+            },
+            {
+                chapter: "Mod3",
+                question: "52. Which of the following is an advantage to the Top-Down Planning approach?",
+                options: ["Faster development", "Integration with existing systems focus", "Fewer users and management layers involved", "Broader Perspective"],
+                correct: 3,
+                explanation: "من مميزات النهج من الأعلى للأسفل أنه يوفر منظوراً أوسع (Broader Perspective) وتكاملاً أفضل للنظم[cite: 905]."
+            },
+            {
+                chapter: "Mod3",
+                question: "53. In IS Planning Matrices, which matrix identifies which business functions are being performed at various organizational locations?",
+                options: ["Unit-to-Function", "Location-to-Function", "Function-to-Process", "Process-to-Data Entity"],
+                correct: 1,
+                explanation: "مصفوفة (الموقع إلى الوظيفة - Location-to-Function) تحدد الوظائف التجارية التي يتم أداؤها في المواقع التنظيمية المختلفة[cite: 908]."
+            },
+            {
+                chapter: "Mod3",
+                question: "54. Which matrix identifies which data are captured, used, updated, or deleted within each process?",
+                options: ["Data Entity-to-Information System", "Function-to-Data Entity", "Process-to-Data Entity", "Information System-to-Objective"],
+                correct: 2,
+                explanation: "مصفوفة (العملية إلى كيان البيانات - Process-to-Data Entity) تبين البيانات التي يتم التقاطها أو استخدامها أو تعديلها داخل كل عملية[cite: 908]."
+            },
+            {
+                chapter: "Mod3",
+                question: "55. A large worldwide network of networks that use a common protocol to communicate with each other is the:",
+                options: ["Intranet", "Internet", "Local Area Network", "Wide Area Network"],
+                correct: 1,
+                explanation: "الإنترنت (Internet) هو شبكة عالمية ضخمة من الشبكات التي تستخدم بروتوكولاً مشتركاً للتواصل[cite: 912]."
+            },
+            {
+                chapter: "Mod3",
+                question: "56. Internet-based communication to support day-to-day government, business, and consumer activities is known as:",
+                options: ["Electronic commerce (EC)", "Cloud Computing", "Outsourcing", "Social Networking"],
+                correct: 0,
+                explanation: "التجارة الإلكترونية (Electronic commerce - EC) هي الاتصالات المعتمدة على الإنترنت لدعم الأنشطة اليومية للأعمال والمستهلكين[cite: 912]."
+            },
+            {
+                chapter: "Mod3",
+                question: "57. A broad class of physical objects that feature an Internet address and connectivity that communicate between these objects and other Internet-enabled devices is called:",
+                options: ["Cloud computing", "Software as a Service (SaaS)", "Internet-of-Things (IoT)", "E-commerce"],
+                correct: 2,
+                explanation: "إنترنت الأشياء (IoT) يضم مجموعة واسعة من الأشياء المادية التي تملك عنوان إنترنت وتتصل مع أجهزة وأنظمة أخرى[cite: 912]."
+            },
+            {
+                chapter: "Mod3",
+                question: "58. An electronic commerce business model that focuses on transactions between a business and an individual consumer is:",
+                options: ["B2B", "C2C", "B2G", "B2C"],
+                correct: 3,
+                explanation: "نموذج الأعمال (B2C - Business-to-Consumer) يركز على التعاملات التجارية بين الشركة والمستهلك الفردي[cite: 913]."
+            },
+            {
+                chapter: "Mod3",
+                question: "59. The primary deliverable from the first part of the planning phase is a:",
+                options: ["Functional prototype", "Schedule of specific IS development projects", "Compiled software code", "User manual"],
+                correct: 1,
+                explanation: "المُخْرَج الرئيسي من الجزء الأول من مرحلة التخطيط هو جدول للمشاريع المحددة لتطوير نظم المعلومات (Schedule of specific IS development projects)[cite: 894]."
+            },
+            {
+                chapter: "Mod3",
+                question: "60. What is the primary focus of project identification in systems development?",
+                options: ["Determining project budget", "Allocating resources to projects", "Identifying potential development projects", "Assessing project risks"],
+                correct: 2,
+                explanation: "التركيز الأساسي لعملية تحديد المشروع (Project identification) هو التعرف على المشاريع المحتملة التي يمكن تطويرها[cite: 754]."
+            },
+
+            // ================= MODULE 4 (20 Questions) =================
+            {
+                chapter: "Mod4",
+                question: "61. The justification for an information system, presented in terms of the tangible and intangible economic benefits and costs and the technical and organizational feasibility is called a:",
+                options: ["Business case", "Project charter", "Baseline Project Plan", "System Service Request"],
+                correct: 0,
+                explanation: "حالة العمل (Business case) هي التبرير لإنشاء نظام معلومات، وتُعرض فيها الفوائد والتكاليف والجدوى الفنية والتنظيمية[cite: 928]."
+            },
+            {
+                chapter: "Mod4",
+                question: "62. A major outcome and deliverable from the project initiation and planning phase that contains the best estimate of a project’s scope, benefits, costs, risks, and resource requirements is the:",
+                options: ["Project Scope Statement", "Baseline Project Plan (BPP)", "Feasibility Report", "Business Plan"],
+                correct: 1,
+                explanation: "خطة المشروع الأساسية (BPP) هي مستند رئيسي يحتوي على أفضل التقديرات لنطاق المشروع وفوائده وتكاليفه ومخاطره[cite: 928]."
+            },
+            {
+                chapter: "Mod4",
+                question: "63. A document prepared for the customer that describes what the project will deliver and outlines generally at a high level all work required to complete the project is the:",
+                options: ["Project Scope Statement (PSS)", "Baseline Project Plan", "Gantt Chart", "Business Case"],
+                correct: 0,
+                explanation: "بيان نطاق المشروع (Project Scope Statement) يوضح للعميل ما سيقدمه المشروع والأعمال المطلوبة لإنجازه بمستوى عالٍ من التجريد[cite: 928]."
+            },
+            {
+                chapter: "Mod4",
+                question: "64. The process of identifying the financial benefits and costs associated with a development project is known as:",
+                options: ["Technical feasibility", "Economic feasibility", "Operational feasibility", "Political feasibility"],
+                correct: 1,
+                explanation: "الجدوى الاقتصادية (Economic feasibility) هي عملية تُعنى بتحديد التكاليف والفوائد المالية المرتبطة بالمشروع[cite: 930]."
+            },
+            {
+                chapter: "Mod4",
+                question: "65. A benefit derived from the creation of an information system that can be measured in dollars and with certainty is a:",
+                options: ["Intangible benefit", "Qualitative benefit", "Tangible benefit", "Strategic benefit"],
+                correct: 2,
+                explanation: "الفائدة الملموسة (Tangible benefit) هي التي يمكن قياسها بشكل دقيق وبقيمة نقدية مؤكدة[cite: 931]."
+            },
+            {
+                chapter: "Mod4",
+                question: "66. A cost associated with an information system that cannot be easily measured in terms of dollars or with certainty is an:",
+                options: ["Tangible cost", "Intangible cost", "One-time cost", "Recurring cost"],
+                correct: 1,
+                explanation: "التكلفة غير الملموسة (Intangible cost) هي تكلفة تصعب ترجمتها لقيمة مالية دقيقة أو مؤكدة[cite: 933]."
+            },
+            {
+                chapter: "Mod4",
+                question: "67. A cost associated with project start-up and development or system start-up is a:",
+                options: ["Recurring cost", "Variable cost", "One-time cost", "Indirect cost"],
+                correct: 2,
+                explanation: "التكلفة لمرة واحدة (One-time cost) تدفع لتأسيس وتطوير وبدء تشغيل النظام ولا تتكرر بشكل مستمر[cite: 933]."
+            },
+            {
+                chapter: "Mod4",
+                question: "68. A cost resulting from the ongoing evolution and use of a system is a:",
+                options: ["Recurring cost", "Sunk cost", "One-time cost", "Capital cost"],
+                correct: 0,
+                explanation: "التكلفة المتكررة (Recurring cost) هي المصاريف المستمرة الناتجة عن تشغيل واستخدام وصيانة النظام[cite: 933]."
+            },
+            {
+                chapter: "Mod4",
+                question: "69. The cost of owning and operating a system, including the total cost of acquisition, as well as all costs associated with its ongoing use and maintenance, is called:",
+                options: ["Net Present Value", "Return on Investment", "Total Cost of Ownership (TCO)", "Break-even point"],
+                correct: 2,
+                explanation: "إجمالي تكلفة الملكية (TCO) يشمل جميع التكاليف منذ شراء النظام وحتى تكاليف التشغيل والصيانة المستمرة[cite: 933]."
+            },
+            {
+                chapter: "Mod4",
+                question: "70. The ratio of cash receipts to cash outlays is used to determine the:",
+                options: ["Return on Investment (ROI)", "Net Present Value (NPV)", "Break-Even Analysis", "Total Cost of Ownership"],
+                correct: 0,
+                explanation: "العائد على الاستثمار (ROI) هو نسبة الإيرادات (المنافع المالية) إلى التكاليف (المصروفات النقدية)[cite: 938]."
+            },
+            {
+                chapter: "Mod4",
+                question: "71. A type of cost–benefit analysis to identify at what point (if ever) benefits equal costs is:",
+                options: ["Return on Investment", "Net Present Value", "Break-even analysis", "Cost-ratio analysis"],
+                correct: 2,
+                explanation: "تحليل نقطة التعادل (Break-even analysis) يحدد الزمن الذي تتساوى فيه التكاليف مع الفوائد ويبدأ المشروع بتحقيق الربح[cite: 941]."
+            },
+            {
+                chapter: "Mod4",
+                question: "72. The process of assessing the development organization’s ability to construct a proposed system, taking into account various project risk factors, is:",
+                options: ["Operational feasibility", "Technical feasibility", "Schedule feasibility", "Economic feasibility"],
+                correct: 1,
+                explanation: "الجدوى الفنية (Technical feasibility) تقيّم قدرة المنظمة التقنية وخبراتها في بناء النظام المقترح وتحديد مخاطره[cite: 943]."
+            },
+            {
+                chapter: "Mod4",
+                question: "73. The process of assessing the degree to which a proposed system solves business problems or takes advantage of business opportunities is:",
+                options: ["Economic feasibility", "Schedule feasibility", "Operational feasibility", "Political feasibility"],
+                correct: 2,
+                explanation: "الجدوى التشغيلية (Operational feasibility) تقيس مدى توافق النظام مع بيئة العمل وكفاءته في حل المشاكل واستغلال الفرص[cite: 947]."
+            },
+            {
+                chapter: "Mod4",
+                question: "74. The process of assessing the degree to which the potential time frame and completion dates for all major activities meet organizational deadlines is:",
+                options: ["Schedule feasibility", "Legal feasibility", "Political feasibility", "Technical feasibility"],
+                correct: 0,
+                explanation: "جدوى الجدول الزمني (Schedule feasibility) تتحقق من إمكانية إنهاء المشروع ضمن الإطار الزمني والمواعيد النهائية المطلوبة[cite: 947]."
+            },
+            {
+                chapter: "Mod4",
+                question: "75. The process of evaluating how key stakeholders within the organization view the proposed system is:",
+                options: ["Operational feasibility", "Legal feasibility", "Political feasibility", "Economic feasibility"],
+                correct: 2,
+                explanation: "الجدوى السياسية (Political feasibility) تتعلق بكيفية رؤية وتقبل أصحاب المصلحة (Stakeholders) للنظام الجديد[cite: 947]."
+            },
+            {
+                chapter: "Mod4",
+                question: "76. A peer group review of any product created during the systems development process is called a:",
+                options: ["JAD session", "Walk-through", "Nominal Group Technique", "Focus group"],
+                correct: 1,
+                explanation: "المراجعة الهيكلية (Walk-through) هي جلسة مراجعة تتم بواسطة الزملاء لتقييم أي منتج تم إنشاؤه أثناء عملية التطوير[cite: 954]."
+            },
+            {
+                chapter: "Mod4",
+                question: "77. In a structured walk-through, who is responsible for making detailed notes of the happenings?",
+                options: ["The presenter", "The sponsor", "The maintenance oracle", "The scribe"],
+                correct: 3,
+                explanation: "الكاتب أو المدون (The scribe) هو الشخص المسؤول عن تدوين الملاحظات التفصيلية خلال جلسات المراجعة أو JAD[cite: 775]."
+            },
+            {
+                chapter: "Mod4",
+                question: "78. Which of the following is NOT typically a section of the Baseline Project Plan (BPP)?",
+                options: ["Introduction", "Feasibility assessment", "Coding standards", "Management issues"],
+                correct: 2,
+                explanation: "خطة المشروع الأساسية (BPP) تتضمن المقدمة ووصف النظام وتقييم الجدوى والقضايا الإدارية، ولا تتضمن معايير كتابة الأكواد (Coding standards)[cite: 949]."
+            },
+            {
+                chapter: "Mod4",
+                question: "79. The discount rate is used to determine the present value of cash outlays and receipts in which financial measurement?",
+                options: ["Net Present Value (NPV)", "Break-Even Analysis", "Return on Investment (ROI)", "Payback Period"],
+                correct: 0,
+                explanation: "في حساب صافي القيمة الحالية (NPV)، يتم استخدام معدل الخصم (Discount rate) لتحويل التدفقات النقدية المستقبلية لقيمتها الحالية[cite: 938]."
+            },
+            {
+                chapter: "Mod4",
+                question: "80. A short, high-level document prepared for the customer that describes what the project will deliver is typically known as the:",
+                options: ["Baseline Project Plan", "System Service Request", "Project Scope Statement", "Project network diagram"],
+                correct: 2,
+                explanation: "بيان نطاق المشروع (Project Scope Statement) هو وثيقة مختصرة توضح للعميل ما سيقدمه المشروع بشكل عام[cite: 783]."
+            },
+
+            // ================= MODULE 5 (20 Questions) =================
+            {
+                chapter: "Mod5",
+                question: "81. Gathering information on what the system should do from sources like users, observation, and reports is called:",
+                options: ["Requirements structuring", "System implementation", "Requirements determination", "Logical design"],
+                correct: 2,
+                explanation: "تحديد المتطلبات (Requirements determination) هو عملية جمع المعلومات حول ما يجب أن يقوم به النظام من مختلف المصادر المتاحة[cite: 965]."
+            },
+            {
+                chapter: "Mod5",
+                question: "82. Conversational questions in interviews that have no specific answers in mind are called:",
+                options: ["Open-ended questions", "Closed-ended questions", "Probing questions", "Structured questions"],
+                correct: 0,
+                explanation: "الأسئلة المفتوحة (Open-ended questions) هي أسئلة حوارية لا تتطلب إجابات محددة مسبقاً وتسمح للمتحدث بالتعبير بحرية[cite: 972]."
+            },
+            {
+                chapter: "Mod5",
+                question: "83. Questions in interviews that ask those responding to choose from among a set of specified responses are called:",
+                options: ["Open-ended questions", "Nominal questions", "Closed-ended questions", "Unstructured questions"],
+                correct: 2,
+                explanation: "الأسئلة المغلقة (Closed-ended questions) تلزم المجيب باختيار إجابة من بين مجموعة خيارات محددة[cite: 972]."
+            },
+            {
+                chapter: "Mod5",
+                question: "84. A facilitated process that supports idea generation by groups, starting with members working alone before pooling ideas, is:",
+                options: ["Joint Application Design (JAD)", "Nominal Group Technique (NGT)", "Business Process Reengineering (BPR)", "Prototyping"],
+                correct: 1,
+                explanation: "تقنية المجموعة الاسمية (NGT) تبدأ بعمل الأفراد بمفردهم لتوليد الأفكار قبل جمعها ومناقشتها وتصفيتها تحت إشراف ميسر[cite: 976]."
+            },
+            {
+                chapter: "Mod5",
+                question: "85. Watching users do their jobs to obtain more accurate information than self-reporting provides is known as:",
+                options: ["Direct Observation", "Document Analysis", "Group Interviewing", "JAD Sessions"],
+                correct: 0,
+                explanation: "الملاحظة المباشرة (Direct Observation) هي مراقبة المستخدمين أثناء أداء عملهم للحصول على بيانات أكثر دقة وموثوقية[cite: 977]."
+            },
+            {
+                chapter: "Mod5",
+                question: "86. The official way a system works as described in organizational documentation is the:",
+                options: ["Formal system", "Informal system", "Logical system", "Prototyped system"],
+                correct: 0,
+                explanation: "النظام الرسمي (Formal system) هو الطريقة المعتمدة والموثقة رسمياً لعمل النظام في المنظمة[cite: 981]."
+            },
+            {
+                chapter: "Mod5",
+                question: "87. The way a system actually works in practice, which can be revealed through interviews and observation, is the:",
+                options: ["Formal system", "Informal system", "Automated system", "Documented system"],
+                correct: 1,
+                explanation: "النظام غير الرسمي (Informal system) يمثل الطريقة الفعلية التي يعمل بها النظام على أرض الواقع، وقد يختلف عن التوثيق الرسمي[cite: 981]."
+            },
+            {
+                chapter: "Mod5",
+                question: "88. A structured process in which users, managers, and analysts work together for several days in intensive meetings to specify requirements is:",
+                options: ["Nominal Group Technique", "Direct Observation", "Joint Application Design (JAD)", "Business Process Reengineering"],
+                correct: 2,
+                explanation: "تصميم التطبيقات المشترك (JAD) هو عملية يجتمع فيها المعنيون لأيام في ورش عمل مكثفة لتحديد المتطلبات بدقة وسرعة[cite: 986]."
+            },
+            {
+                chapter: "Mod5",
+                question: "89. In a JAD session, who is responsible for facilitating the group process?",
+                options: ["Sponsor", "Session Leader", "Systems Analyst", "Scribe"],
+                correct: 1,
+                explanation: "قائد الجلسة (Session Leader) هو الشخص المتخصص الذي يُدير ويسهل سير عملية النقاش داخل جلسات JAD[cite: 987]."
+            },
+            {
+                chapter: "Mod5",
+                question: "90. An iterative process in which requirements are converted to a working system that is continually revised through collaboration is:",
+                options: ["Prototyping", "BPR", "JAD", "SDLC"],
+                correct: 0,
+                explanation: "النمذجة الأولية (Prototyping) هي عملية تكرارية لتحويل المتطلبات إلى نسخة مبدئية تعمل ويتم تعديلها بالتعاون مع المستخدمين[cite: 989]."
+            },
+            {
+                chapter: "Mod5",
+                question: "91. A type of prototyping that does NOT preserve the prototype after the development process is successful is called:",
+                options: ["Evolutionary prototyping", "Throwaway prototyping", "Agile prototyping", "Iterative prototyping"],
+                correct: 1,
+                explanation: "النمذجة المستهلكة (Throwaway prototyping) هي عملية يتم فيها بناء نموذج أولي لغرض الفهم فقط ثم يتم التخلص منه وبناء النظام الفعلي[cite: 990]."
+            },
+            {
+                chapter: "Mod5",
+                question: "92. The search for, and implementation of, radical change in business processes to achieve breakthrough improvements is:",
+                options: ["Agile Development", "Prototyping", "Business Process Reengineering (BPR)", "Joint Application Design"],
+                correct: 2,
+                explanation: "إعادة هندسة العمليات التجارية (BPR) تهدف لإحداث تغيير جذري في العمليات لتحقيق قفزات نوعية في الأداء والمنتجات[cite: 993]."
+            },
+            {
+                chapter: "Mod5",
+                question: "93. Technologies that enable breaking long-held business rules that inhibit organizations from making radical business changes are called:",
+                options: ["Legacy technologies", "Disruptive technologies", "Incremental technologies", "Prototyping tools"],
+                correct: 1,
+                explanation: "التقنيات المزعزعة أو المدمرة (Disruptive technologies) هي تقنيات تكسر القواعد القديمة وتمكّن المنظمات من إحداث تغييرات جذرية[cite: 994]."
+            },
+            {
+                chapter: "Mod5",
+                question: "94. Agile Methodologies for requirements determination emphasize which of the following?",
+                options: ["Strict adherence to plans", "Heavy formal documentation", "Continual user involvement", "Avoiding changes in requirements"],
+                correct: 2,
+                explanation: "تركز المنهجيات الرشيقة (Agile) بشكل كبير على المشاركة المستمرة للمستخدم (Continual user involvement) طوال دورة التطوير[cite: 996]."
+            },
+            {
+                chapter: "Mod5",
+                question: "95. Which Agile approach focuses heavily on user goals, roles, and tasks?",
+                options: ["The Planning Game", "Scrum", "eXtreme Programming", "Agile usage-centered design"],
+                correct: 3,
+                explanation: "التصميم المرتكز على الاستخدام في بيئة الأجايل (Agile usage-centered design) يركز تحديداً على أهداف وأدوار ومهام المستخدمين[cite: 996]."
+            },
+            {
+                chapter: "Mod5",
+                question: "96. The Planning Game is a technique based on which specific agile methodology?",
+                options: ["Scrum", "Kanban", "eXtreme Programming (XP)", "Prototyping"],
+                correct: 2,
+                explanation: "لعبة التخطيط (The Planning Game) هي إحدى الممارسات والتقنيات الأساسية المعتمدة في البرمجة القصوى (eXtreme Programming)[cite: 996]."
+            },
+            {
+                chapter: "Mod5",
+                question: "97. A set of activities designed to produce a specific output for a particular customer or market is defined as a:",
+                options: ["Disruptive technology", "Key business process", "System prototype", "Formal system"],
+                correct: 1,
+                explanation: "العملية التجارية الأساسية (Key business process) هي مجموعة الأنشطة المصممة لإنتاج مخرجات محددة لعميل أو سوق معين[cite: 993]."
+            },
+            {
+                chapter: "Mod5",
+                question: "98. Which of the following is NOT a traditional method for determining requirements?",
+                options: ["Joint Application Design (JAD)", "Interviewing individuals", "Observing workers", "Studying business documents"],
+                correct: 0,
+                explanation: "تصميم التطبيقات المشترك (JAD) يُعتبر من الطرق الحديثة/المعاصرة (Contemporary Methods) وليس من الطرق التقليدية (Traditional)[cite: 969]."
+            },
+            {
+                chapter: "Mod5",
+                question: "99. In the process of determining requirements, questioning everything is a characteristic of:",
+                options: ["Impartiality", "Relaxing constraints", "Impertinence", "Reframing"],
+                correct: 2,
+                explanation: "الوقاحة الإيجابية أو الشك المنهجي (Impertinence) تعني أن على المحلل ألا يسلم بالأمور كما هي بل يجب أن يسأل ويستفسر عن كل شيء[cite: 966]."
+            },
+            {
+                chapter: "Mod5",
+                question: "100. During requirements determination, assuming that anything is possible and eliminating the infeasible is a characteristic of:",
+                options: ["Attention to details", "Relaxing constraints", "Impertinence", "Impartiality"],
+                correct: 1,
+                explanation: "تخفيف القيود (Relaxing constraints) يتطلب من المحلل افتراض أن كل شيء ممكن في البداية ثم البدء باستبعاد الأمور غير الممكنة لاحقاً[cite: 966]."
+            }
+        ];
+
+        let questions = [];
+        let userAnswers = [];
+        let currentIdx = 0;
+        let currentFilter = 'ALL';
+        let currentLimit = 100;
+
+        const questionCounter = document.getElementById('question-counter');
+        const chapterBadge = document.getElementById('chapter-badge');
+        const statusBadge = document.getElementById('status-badge');
+        const scoreTracker = document.getElementById('score-tracker');
+        const progressBar = document.getElementById('progress-bar');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const explanationBox = document.getElementById('explanation-box');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const quizContainer = document.getElementById('quiz-container');
+        const resultContainer = document.getElementById('result-container');
+        const finalScoreText = document.getElementById('final-score-text');
+        const finalDetailsText = document.getElementById('final-details-text');
+        const retryWrongBtn = document.getElementById('retry-wrong-btn');
+        const wrongCountNum = document.getElementById('wrong-count-num');
+
+        function filterChapter(ch) {
+            currentFilter = ch;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`btn-${ch}`).classList.add('active');
+            applyFilterAndLimit(false);
+        }
+
+        function setQuestionLimit(limit) {
+            currentLimit = limit === 100 ? allQuestions.length : limit;
+            document.querySelectorAll('.limit-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`limit-${limit}`).classList.add('active');
+            applyFilterAndLimit(true);
+        }
+
+        function applyFilterAndLimit(shouldShuffle = false) {
+            let pool = (currentFilter === 'ALL') 
+                ? [...allQuestions] 
+                : allQuestions.filter(q => q.chapter === currentFilter);
+
+            if (shouldShuffle) {
+                for (let i = pool.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [pool[i], pool[j]] = [pool[j], pool[i]];
+                }
+            }
+
+            questions = pool.slice(0, Math.min(currentLimit, pool.length));
+            startQuizSession();
+        }
+
+        function shuffleCurrentPool() {
+            for (let i = questions.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [questions[i], questions[j]] = [questions[j], questions[i]];
+            }
+            startQuizSession();
+        }
+
+        let isAutoNext = false;
+        function toggleAutoNext() {
+            isAutoNext = !isAutoNext;
+            const icon = document.getElementById('auto-next-icon');
+            const btn = document.getElementById('auto-next-toggle');
+            if (isAutoNext) {
+                icon.className = 'fa-solid fa-toggle-on text-emerald-500 text-sm transition-all';
+                btn.classList.remove('text-gray-400');
+                btn.classList.add('text-emerald-500');
+            } else {
+                icon.className = 'fa-solid fa-toggle-off text-gray-500 text-sm transition-all';
+                btn.classList.remove('text-emerald-500');
+                btn.classList.add('text-gray-400');
+            }
+        }
+
+        function startQuizSession() {
+            currentIdx = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            updateScoreTracker();
+            resultContainer.classList.add('hidden');
+            quizContainer.classList.remove('hidden');
+            loadQuestion();
+        }
+
+        function getCurrentScore() {
+            return userAnswers.reduce((acc, ans, idx) => {
+                return acc + (ans === questions[idx].correct ? 1 : 0);
+            }, 0);
+        }
+
+        function updateScoreTracker() {
+            const currentScore = getCurrentScore();
+            document.getElementById('score-tracker').innerText = `الصحيحة: ${currentScore}`;
+            if (document.getElementById('score-tracker-mobile')) {
+                document.getElementById('score-tracker-mobile').innerText = currentScore;
+            }
+        }
+
+        function loadQuestion() {
+            const q = questions[currentIdx];
+            const savedAnswer = userAnswers[currentIdx];
+
+            questionCounter.innerText = `السؤال ${currentIdx + 1} من ${questions.length}`;
+            chapterBadge.innerText = q.chapter;
+            progressBar.style.width = `${((currentIdx + 1) / questions.length) * 100}%`;
+            questionText.innerText = q.question;
+
+            // تجهيز رابط الإبلاغ على تلجرام تلقائياً
+            const telegramUsername = "jory976"; // المعرف الموجود في الملفات المرجعية كافتراضي للتواصل
+            const qNumMatch = q.question.match(/^\d+/);
+            const qOriginalNum = qNumMatch ? qNumMatch[0] : (currentIdx + 1);
+            const reportMessage = `السلام عليكم فهد، عندي ملاحظة في كويزات IT353 (Models 1-5):\n- رقم السؤال: (${qOriginalNum})\n- الوحدة: (${q.chapter})\n- السؤال: "${q.question}"\n\nالملاحظة: `;
+            document.getElementById('report-btn').href = `https://t.me/${telegramUsername}?text=${encodeURIComponent(reportMessage)}`;
+            
+            prevBtn.disabled = (currentIdx === 0);
+            nextBtn.innerHTML = (currentIdx === questions.length - 1) 
+                ? `النتيجة النهائية <i class="fa-solid fa-flag-checkered mr-2"></i>` 
+                : `التالي <i class="fa-solid fa-arrow-left mr-2"></i>`;
+
+            optionsContainer.innerHTML = '';
+
+            if (savedAnswer === null) {
+                statusBadge.className = "bg-gray-800 text-gray-400 text-xs px-3 py-1 rounded-full shadow-sm";
+                statusBadge.innerText = "لم تتم الإجابة";
+                statusBadge.classList.remove('hidden');
+                explanationBox.classList.add('hidden');
+            } else if (savedAnswer === q.correct) {
+                statusBadge.className = "bg-emerald-500/20 text-emerald-500 text-xs px-3 py-1 rounded-full font-bold shadow-sm";
+                statusBadge.innerText = "إجابة صحيحة";
+                statusBadge.classList.remove('hidden');
+            } else {
+                statusBadge.className = "bg-rose-500/20 text-rose-500 text-xs px-3 py-1 rounded-full font-bold shadow-sm";
+                statusBadge.innerText = "إجابة خاطئة";
+                statusBadge.classList.remove('hidden');
+            }
+
+            q.options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                
+                if (savedAnswer === null) {
+                    btn.className = "option-btn w-full text-left p-4 rounded-xl border border-gray-700 bg-gray-900/60 text-gray-200 font-medium flex justify-between items-center gap-3";
+                    btn.innerHTML = `<span>${opt}</span> <i class="fa-regular fa-circle text-gray-500 shrink-0"></i>`;
+                    btn.onclick = () => selectAnswer(index);
+                } else {
+                    btn.disabled = true;
+                    if (index === q.correct) {
+                        btn.className = "w-full text-left p-4 rounded-xl border border-emerald-500 bg-emerald-500/20 text-white font-bold flex justify-between items-center gap-3";
+                        btn.innerHTML = `<span>${opt}</span> <i class="fa-solid fa-circle-check text-emerald-500 shrink-0"></i>`;
+                    } else if (index === savedAnswer && savedAnswer !== q.correct) {
+                        btn.className = "w-full text-left p-4 rounded-xl border border-rose-500 bg-rose-500/20 text-white font-bold flex justify-between items-center gap-3";
+                        btn.innerHTML = `<span>${opt}</span> <i class="fa-solid fa-circle-xmark text-rose-500 shrink-0"></i>`;
+                    } else {
+                        btn.className = "w-full text-left p-4 rounded-xl border border-gray-800 bg-gray-900/40 text-gray-500 font-medium flex justify-between items-center gap-3 opacity-60";
+                        btn.innerHTML = `<span>${opt}</span> <i class="fa-regular fa-circle text-gray-600 shrink-0"></i>`;
+                    }
+                }
+                optionsContainer.appendChild(btn);
+            });
+
+            if (savedAnswer !== null) {
+                explanationBox.innerHTML = `<strong class="text-cyan">توضيح:</strong> ${q.explanation}`;
+                explanationBox.classList.remove('hidden');
+            }
+        }
+
+        function selectAnswer(selectedIdx) {
+            userAnswers[currentIdx] = selectedIdx;
+            updateScoreTracker();
+            loadQuestion();
+
+            if (isAutoNext && selectedIdx === questions[currentIdx].correct) {
+                setTimeout(() => {
+                    nextQuestion();
+                }, 400);
+            }
+        }
+
+        function nextQuestion() {
+            if (currentIdx < questions.length - 1) {
+                currentIdx++;
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentIdx > 0) {
+                currentIdx--;
+                loadQuestion();
+            }
+        }
+
+        function showResults() {
+            quizContainer.classList.add('hidden');
+            resultContainer.classList.remove('hidden');
+            
+            const finalScore = getCurrentScore();
+            const total = questions.length;
+            const percentage = Math.round((finalScore / total) * 100);
+            
+            let wrongOnlyCount = 0;
+            let unansweredCount = 0;
+            
+            questions.forEach((q, idx) => {
+                if (userAnswers[idx] === null) {
+                    unansweredCount++;
+                } else if (userAnswers[idx] !== q.correct) {
+                    wrongOnlyCount++;
+                }
+            });
+
+            finalScoreText.innerText = `حصلت على ${finalScore} من ${total} (${percentage}%)`;
+            finalDetailsText.innerText = `إجابات صحيحة: ${finalScore} | إجابات خاطئة: ${wrongOnlyCount} | لم تتم الإجابة: ${unansweredCount}`;
+
+            const reviewPoolCount = wrongOnlyCount + unansweredCount;
+            if (reviewPoolCount > 0) {
+                wrongCountNum.innerText = reviewPoolCount;
+                retryWrongBtn.classList.remove('hidden');
+            } else {
+                retryWrongBtn.classList.add('hidden');
+            }
+        }
+
+        function retryWrongQuestions() {
+            const wrongQuestions = questions.filter((q, idx) => userAnswers[idx] !== q.correct);
+            if (wrongQuestions.length > 0) {
+                questions = wrongQuestions;
+                startQuizSession();
+            }
+        }
+
+        applyFilterAndLimit(false);
+    </script>
+</body>
+</html>
