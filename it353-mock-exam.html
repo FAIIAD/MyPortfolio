@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IT353 - Models 1 to 5 Mock Exam</title>
+    <title>IT353 - Models 1 to 5</title>
     
     <!-- خط ثمانية، خط Open Sans، والأيقونات -->
     <link href="https://cdn.jsdelivr.net/npm/@dawod/thmanyah-font-web/index.css" rel="stylesheet">
@@ -19,7 +19,7 @@
         }
     </script>
 
-    <!-- إعدادات Tailwind -->
+    <!-- إعدادات الألوان الجديدة في Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -27,10 +27,10 @@
             theme: {
                 extend: {
                     colors: {
-                        dark: '#0f172a',
-                        card: '#1e293b',
-                        cyan: '#06b6d4',
-                        blue: '#3b82f6'
+                        dark: '#0f111a',     // خلفية داكنة ليلية عصرية
+                        card: '#1b1e2b',     // لون البطاقات الداكنة
+                        primary: '#8b5cf6',  // البنفسجي (Violet)
+                        secondary: '#d946ef' // الفوشيا (Fuchsia)
                     }
                 }
             }
@@ -51,57 +51,51 @@
 
         .option-btn { transition: all 0.2s ease; }
         .option-btn:hover:not(:disabled) {
-            border-color: #06b6d4;
-            background-color: rgba(6, 182, 212, 0.1);
+            border-color: #8b5cf6;
+            background-color: rgba(139, 92, 246, 0.1);
             transform: translateX(-4px);
         }
         .filter-btn.active, .limit-btn.active {
-            background: linear-gradient(to right, #06b6d4, #3b82f6) !important;
+            background: linear-gradient(to right, #8b5cf6, #d946ef) !important;
             color: white !important;
             border-color: transparent !important;
         }
 
-        /* تنسيقات الوضع الفاتح */
-        html:not(.dark) body { background-color: #f8fafc; color: #1e293b; }
+        /* تنسيقات الوضع الفاتح مع تباين ممتاز */
+        html:not(.dark) body { background-color: #f8fafc; color: #0f111a; }
         html:not(.dark) header, html:not(.dark) footer { background-color: rgba(255, 255, 255, 0.85); border-color: #e2e8f0; }
         html:not(.dark) .bg-card, html:not(.dark) .bg-card\/60, html:not(.dark) .bg-card\/40 { background-color: #ffffff; border-color: #cbd5e1; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
-        html:not(.dark) .bg-gray-900\/60, html:not(.dark) .bg-gray-900\/40 { background-color: #f8fafc; border-color: #cbd5e1; color: #1e293b; }
-        html:not(.dark) .bg-gray-800, html:not(.dark) .bg-gray-800\/80, html:not(.dark) .bg-gray-800\/60 { background-color: #f1f5f9; border-color: #cbd5e1; color: #334155; }
-        html:not(.dark) .text-white { color: #0f172a; }
+        html:not(.dark) .bg-gray-900\/60, html:not(.dark) .bg-gray-900\/40 { background-color: #f1f5f9; border-color: #cbd5e1; color: #1e293b; }
+        html:not(.dark) .bg-gray-800, html:not(.dark) .bg-gray-800\/80, html:not(.dark) .bg-gray-800\/60 { background-color: #e2e8f0; border-color: #cbd5e1; color: #334155; }
+        html:not(.dark) .text-white { color: #0f111a; }
         html:not(.dark) .text-gray-200, html:not(.dark) .text-gray-300 { color: #1e293b; }
         html:not(.dark) .text-gray-400, html:not(.dark) .text-gray-500, html:not(.dark) .text-gray-600 { color: #475569; }
-        html:not(.dark) .border-gray-700, html:not(.dark) .border-gray-800, html:not(.dark) .border-gray-800\/80 { border-color: #e2e8f0; }
+        html:not(.dark) .border-gray-700, html:not(.dark) .border-gray-800, html:not(.dark) .border-gray-800\/80 { border-color: #cbd5e1; }
     </style>
 </head>
 <body class="bg-dark text-gray-200 min-h-screen flex flex-col justify-between relative overflow-x-hidden">
-<header class="bg-dark/70 backdrop-blur-md border-b border-gray-800 py-4 px-6 sticky top-0 z-50 transition-colors duration-300">
+
+    <header class="bg-dark/70 backdrop-blur-md border-b border-gray-800 py-4 px-6 sticky top-0 z-50 transition-colors duration-300">
         <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-lg md:text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan to-blue">IT353 - Models 1 to 5</h1>
+            <h1 class="text-lg md:text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">IT353 - Models 1 to 5</h1>
             
             <div class="flex items-center gap-3 md:gap-4">
-                <!-- زر تبديل المظهر المنزلق -->
+                <a href="index.html" class="bg-gradient-to-r from-primary/20 to-secondary/20 hover:from-primary hover:to-secondary text-primary hover:text-white border border-primary/40 text-xs md:text-sm font-bold px-3 md:px-4 py-1.5 rounded-full transition-all duration-300 flex items-center gap-2 shadow-sm">
+                    <i class="fa-solid fa-house"></i> الرئيسية
+                </a>
+
                 <button id="theme-toggle" onclick="toggleTheme()" aria-label="تبديل المظهر" dir="ltr" class="relative w-16 h-8 rounded-full bg-slate-200 dark:bg-gray-800 border border-slate-300 dark:border-gray-700 flex items-center justify-between px-2 transition-colors duration-300 focus:outline-none shrink-0 cursor-pointer">
                     <i class="fa-solid fa-sun text-amber-500 text-xs"></i>
-                    <i class="fa-solid fa-moon text-cyan text-xs"></i>
+                    <i class="fa-solid fa-moon text-primary text-xs"></i>
                     <span class="absolute top-1 left-1 w-6 h-6 rounded-full bg-white dark:bg-card border border-slate-200 dark:border-gray-600 shadow-md transform transition-transform duration-300 translate-x-0 dark:translate-x-8 flex items-center justify-center">
-                        <i id="theme-icon" class="fa-solid fa-moon text-cyan text-xs"></i>
+                        <i id="theme-icon" class="fa-solid fa-moon text-primary text-xs"></i>
                     </span>
                 </button>
             </div>
         </div>
     </header>
+
     <main class="container mx-auto px-4 py-8 flex-grow flex flex-col items-center justify-center">
-        
-        <!-- صندوق التنبيه -->
-        <div id="quiz-alert" class="w-full max-w-3xl mb-4 bg-cyan/10 border border-cyan/30 rounded-xl p-3.5 px-4 flex items-center justify-between gap-3 text-xs md:text-sm text-gray-200 shadow-sm transition-all duration-500">
-            <div class="flex items-center gap-3">
-                <i class="fa-solid fa-circle-info text-cyan text-lg shrink-0"></i>
-                <p class="leading-relaxed">
-                    <strong class="text-cyan font-bold">تنبيه:</strong> تم تصميم هذا الاختبار الشامل لـ 100 سؤال حصرياً ليغطي الوحدات الخمس الأولى (Models 1 - 5) لمقرر IT353.
-                </p>
-            </div>
-            <span id="alert-timer" class="text-cyan font-bold text-xs bg-cyan/20 px-2.5 py-1 rounded-full shrink-0">3s</span>
-        </div>
 
         <!-- لوحة التحكم -->
         <div class="w-full max-w-3xl mb-6 space-y-4 bg-card/40 p-4 rounded-2xl border border-gray-800">
@@ -130,7 +124,7 @@
                 <!-- العداد والأدوات -->
                 <div class="flex flex-wrap justify-between items-center mb-4 text-sm text-gray-400 gap-3">
                     <div class="flex items-center gap-2">
-                        <span id="question-counter" class="font-bold text-cyan bg-cyan/10 border border-cyan/20 px-3 py-1 rounded-full shadow-sm">السؤال 1 من 100</span>
+                        <span id="question-counter" class="font-bold text-primary bg-primary/10 border border-primary/20 px-3 py-1 rounded-full shadow-sm">السؤال 1 من 100</span>
                         <span id="chapter-badge" class="bg-gray-800 text-gray-300 text-xs px-3 py-1 rounded-full border border-gray-700 shadow-sm">Mod1</span>
                         <span id="status-badge" class="hidden text-xs px-3 py-1 rounded-full font-bold shadow-sm"></span>
                     </div>
@@ -142,7 +136,7 @@
                             <span id="score-tracker-mobile" class="sm:hidden">0</span>
                         </div>
                         
-                        <button onclick="shuffleCurrentPool()" title="خلط الأسئلة الحالية والبدء من جديد" class="text-gray-400 hover:text-cyan transition-all duration-300 text-xs bg-gray-800 hover:bg-gray-700 px-3 md:px-4 py-1.5 rounded-full border border-gray-700 flex items-center shadow-sm">
+                        <button onclick="shuffleCurrentPool()" title="خلط الأسئلة الحالية والبدء من جديد" class="text-gray-400 hover:text-primary transition-all duration-300 text-xs bg-gray-800 hover:bg-gray-700 px-3 md:px-4 py-1.5 rounded-full border border-gray-700 flex items-center shadow-sm">
                             <i class="fa-solid fa-shuffle sm:ml-1.5"></i> <span class="hidden sm:inline">خلط</span>
                         </button>
 
@@ -159,7 +153,7 @@
 
                 <!-- شريط التقدم -->
                 <div class="w-full bg-gray-800 h-3 rounded-full mb-8 overflow-hidden shadow-inner border border-gray-700/50">
-                    <div id="progress-bar" class="bg-gradient-to-r from-cyan to-blue h-full transition-all duration-500 ease-out" style="width: 1%"></div>
+                    <div id="progress-bar" class="bg-gradient-to-r from-primary to-secondary h-full transition-all duration-500 ease-out" style="width: 1%"></div>
                 </div>
 
                 <!-- نص السؤال -->
@@ -173,7 +167,7 @@
 
                 <!-- أزرار التنقل -->
                 <div class="flex items-center justify-between gap-3 pt-5 border-t border-gray-800/80">
-                    <button id="prev-btn" onclick="prevQuestion()" class="px-5 py-3 rounded-full border border-gray-700 bg-gray-800/60 hover:bg-gray-800 hover:border-cyan hover:text-cyan text-gray-300 font-bold transition-all duration-300 disabled:opacity-40 disabled:pointer-events-none shadow-sm hover:shadow-md">
+                    <button id="prev-btn" onclick="prevQuestion()" class="px-5 py-3 rounded-full border border-gray-700 bg-gray-800/60 hover:bg-gray-800 hover:border-primary hover:text-primary text-gray-300 font-bold transition-all duration-300 disabled:opacity-40 disabled:pointer-events-none shadow-sm hover:shadow-md">
                         <i class="fa-solid fa-arrow-right ml-2"></i> السابق
                     </button>
 
@@ -181,7 +175,7 @@
                         إنهاء الاختبار
                     </button>
 
-                    <button id="next-btn" onclick="nextQuestion()" class="flex-1 max-w-[220px] bg-gradient-to-r from-cyan to-blue hover:from-blue hover:to-cyan text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5">
+                    <button id="next-btn" onclick="nextQuestion()" class="flex-1 max-w-[220px] bg-gradient-to-r from-primary to-secondary hover:from-secondary hover:to-primary text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5">
                         التالي <i class="fa-solid fa-arrow-left mr-2"></i>
                     </button>
                 </div>
@@ -189,7 +183,7 @@
 
             <!-- شاشة النتيجة النهائية -->
             <div id="result-container" class="hidden text-center py-8">
-                <div class="w-20 h-20 bg-cyan/20 rounded-full flex items-center justify-center mx-auto mb-6 text-cyan text-4xl">
+                <div class="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-6 text-primary text-4xl">
                     <i class="fa-solid fa-trophy"></i>
                 </div>
                 <h2 class="text-3xl font-bold text-white mb-3">انتهى الاختبار!</h2>
@@ -201,11 +195,11 @@
                         <i class="fa-solid fa-triangle-exclamation ml-2"></i> إعادة الأسئلة الخاطئة فقط (<span id="wrong-count-num">0</span>)
                     </button>
 
-                    <button onclick="applyFilterAndLimit(false)" class="bg-gradient-to-r from-cyan to-blue text-white font-bold py-3 px-8 rounded-full hover:shadow-[0_0_20px_rgba(6,182,212,0.5)] transition-all">
+                    <button onclick="applyFilterAndLimit(false)" class="bg-gradient-to-r from-primary to-secondary text-white font-bold py-3 px-8 rounded-full hover:shadow-[0_0_20px_rgba(139,92,246,0.5)] transition-all">
                         <i class="fa-solid fa-rotate-right ml-2"></i> اختبار جديد
                     </button>
 
-                    <button onclick="applyFilterAndLimit(true)" class="border border-cyan text-cyan hover:bg-cyan/10 font-bold py-3 px-8 rounded-full transition-all">
+                    <button onclick="applyFilterAndLimit(true)" class="border border-primary text-primary hover:bg-primary/10 font-bold py-3 px-8 rounded-full transition-all">
                         <i class="fa-solid fa-shuffle ml-2"></i> خلط والبدء من جديد
                     </button>
                 </div>
@@ -215,31 +209,14 @@
     </main>
 
     <footer class="text-center py-6 text-gray-600 text-sm border-t border-gray-800">
-        Created by FZ &copy; 2026 
+         Created by FZ &copy; 2026
     </footer>
 
     <script>
-        // إخفاء صندوق التنبيه تلقائياً
-        (function() {
-            let timeLeft = 3;
-            const alertBox = document.getElementById('quiz-alert');
-            const timerSpan = document.getElementById('alert-timer');
-            const countdown = setInterval(() => {
-                timeLeft--;
-                if (timeLeft > 0) {
-                    timerSpan.innerText = timeLeft + 's';
-                } else {
-                    clearInterval(countdown);
-                    alertBox.style.opacity = '0';
-                    setTimeout(() => alertBox.style.display = 'none', 500);
-                }
-            }, 1000);
-        })();
-
         const themeIcon = document.getElementById('theme-icon');
         function updateThemeIcon() {
             if (document.documentElement.classList.contains('dark')) {
-                themeIcon.className = 'fa-solid fa-moon text-cyan text-xs';
+                themeIcon.className = 'fa-solid fa-moon text-primary text-xs';
             } else {
                 themeIcon.className = 'fa-solid fa-sun text-amber-500 text-xs';
             }
@@ -386,7 +363,7 @@
                 question: "19. Which of the following is NOT an approach of software reuse?",
                 options: ["Analyzed reuse", "Designed reuse", "Ad hoc reuse", "Managed reuse"],
                 correct: 0,
-                explanation: "مناهج إعادة الاستخدام المعروفة هي (Ad hoc, Facilitated, Managed, Designed) ولا يوجد ما يسمى (Analyzed reuse)[cite: 778]."
+                explanation: "مناهج إعادة الاستخدام المعروفة هي (Ad hoc, Facilitated, Managed, Designed) ولا يوجد ما يسمى (Analyzed reuse)[cite: 1383]."
             },
             {
                 chapter: "Mod1",
@@ -398,7 +375,7 @@
                     "Analysis, Planning, Design, Implementation, Maintenance"
                 ],
                 correct: 2,
-                explanation: "الترتيب الصحيح لدورة حياة تطوير النظم هو: التخطيط (Planning)، ثم التحليل (Analysis)، ثم التصميم (Design)، ثم التنفيذ (Implementation)، وأخيراً الصيانة (Maintenance)[cite: 777]."
+                explanation: "الترتيب الصحيح لدورة حياة تطوير النظم هو: التخطيط (Planning)، ثم التحليل (Analysis)، ثم التصميم (Design)، ثم التنفيذ (Implementation)، وأخيراً الصيانة (Maintenance)[cite: 1382]."
             },
 
             // ================= MODULE 2 (20 Questions) =================
@@ -526,7 +503,7 @@
                 question: "38. A network diagram is mainly used to show:",
                 options: ["Task durations", "Project costs", "Stakeholder communication", "Task dependencies and sequencing"],
                 correct: 3,
-                explanation: "المخطط الشبكي (Network diagram) يُستخدم بشكل أساسي لإظهار التسلسل والاعتماديات بين مهام المشروع (Task dependencies)[cite: 782]."
+                explanation: "المخطط الشبكي (Network diagram) يُستخدم بشكل أساسي لإظهار التسلسل والاعتماديات بين مهام المشروع (Task dependencies)[cite: 1387]."
             },
             {
                 chapter: "Mod2",
@@ -682,7 +659,7 @@
                 question: "60. What is the primary focus of project identification in systems development?",
                 options: ["Determining project budget", "Allocating resources to projects", "Identifying potential development projects", "Assessing project risks"],
                 correct: 2,
-                explanation: "التركيز الأساسي لعملية تحديد المشروع (Project identification) هو التعرف على المشاريع المحتملة التي يمكن تطويرها[cite: 754]."
+                explanation: "التركيز الأساسي لعملية تحديد المشروع (Project identification) هو التعرف على المشاريع المحتملة التي يمكن تطويرها[cite: 1359]."
             },
 
             // ================= MODULE 4 (20 Questions) =================
@@ -803,7 +780,7 @@
                 question: "77. In a structured walk-through, who is responsible for making detailed notes of the happenings?",
                 options: ["The presenter", "The sponsor", "The maintenance oracle", "The scribe"],
                 correct: 3,
-                explanation: "الكاتب أو المدون (The scribe) هو الشخص المسؤول عن تدوين الملاحظات التفصيلية خلال جلسات المراجعة أو JAD[cite: 775]."
+                explanation: "الكاتب أو المدون (The scribe) هو الشخص المسؤول عن تدوين الملاحظات التفصيلية خلال جلسات المراجعة أو JAD[cite: 1380]."
             },
             {
                 chapter: "Mod4",
@@ -824,7 +801,7 @@
                 question: "80. A short, high-level document prepared for the customer that describes what the project will deliver is typically known as the:",
                 options: ["Baseline Project Plan", "System Service Request", "Project Scope Statement", "Project network diagram"],
                 correct: 2,
-                explanation: "بيان نطاق المشروع (Project Scope Statement) هو وثيقة مختصرة توضح للعميل ما سيقدمه المشروع بشكل عام[cite: 783]."
+                explanation: "بيان نطاق المشروع (Project Scope Statement) هو وثيقة مختصرة توضح للعميل ما سيقدمه المشروع بشكل عام[cite: 1388]."
             },
 
             // ================= MODULE 5 (20 Questions) =================
@@ -952,7 +929,7 @@
                 question: "98. Which of the following is NOT a traditional method for determining requirements?",
                 options: ["Joint Application Design (JAD)", "Interviewing individuals", "Observing workers", "Studying business documents"],
                 correct: 0,
-                explanation: "تصميم التطبيقات المشترك (JAD) يُعتبر من الطرق الحديثة/المعاصرة (Contemporary Methods) وليس من الطرق التقليدية (Traditional)[cite: 969]."
+                explanation: "تصميم التطبيقات المشترك (JAD) يُعتبر من الطرق الحديثة/المعاصرة (Contemporary Methods) وليس من الطرق التقليدية (Traditional)[cite: 1386]."
             },
             {
                 chapter: "Mod5",
@@ -1079,11 +1056,10 @@
             progressBar.style.width = `${((currentIdx + 1) / questions.length) * 100}%`;
             questionText.innerText = q.question;
 
-            // تجهيز رابط الإبلاغ على تلجرام تلقائياً
-            const telegramUsername = "fahad_m7md"; // المعرف الموجود في الملفات المرجعية كافتراضي للتواصل
+            const telegramUsername = "Fahad_m7md";
             const qNumMatch = q.question.match(/^\d+/);
             const qOriginalNum = qNumMatch ? qNumMatch[0] : (currentIdx + 1);
-            const reportMessage = ` IT353 (Models 1-5):\n- رقم السؤال: (${qOriginalNum})\n- الوحدة: (${q.chapter})\n- السؤال: "${q.question}"\n\nالملاحظة: `;
+            const reportMessage = `IT353 (Models 1-5):\n- رقم السؤال: (${qOriginalNum})\n- الوحدة: (${q.chapter})\n- السؤال: "${q.question}"\n\nالملاحظة: `;
             document.getElementById('report-btn').href = `https://t.me/${telegramUsername}?text=${encodeURIComponent(reportMessage)}`;
             
             prevBtn.disabled = (currentIdx === 0);
