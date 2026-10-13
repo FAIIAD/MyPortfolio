@@ -1085,10 +1085,10 @@
             questionText.innerText = q.question;
 
             // تجهيز رابط الإبلاغ على تلجرام تلقائياً
-            const telegramUsername = "jory976"; // المعرف الموجود في الملفات المرجعية كافتراضي للتواصل
+            const telegramUsername = "fahad_m7md"; // المعرف الموجود في الملفات المرجعية كافتراضي للتواصل
             const qNumMatch = q.question.match(/^\d+/);
             const qOriginalNum = qNumMatch ? qNumMatch[0] : (currentIdx + 1);
-            const reportMessage = `السلام عليكم فهد، عندي ملاحظة في كويزات IT353 (Models 1-5):\n- رقم السؤال: (${qOriginalNum})\n- الوحدة: (${q.chapter})\n- السؤال: "${q.question}"\n\nالملاحظة: `;
+            const reportMessage = ` IT353 (Models 1-5):\n- رقم السؤال: (${qOriginalNum})\n- الوحدة: (${q.chapter})\n- السؤال: "${q.question}"\n\nالملاحظة: `;
             document.getElementById('report-btn').href = `https://t.me/${telegramUsername}?text=${encodeURIComponent(reportMessage)}`;
             
             prevBtn.disabled = (currentIdx === 0);
@@ -1150,7 +1150,7 @@
             if (isAutoNext && selectedIdx === questions[currentIdx].correct) {
                 setTimeout(() => {
                     nextQuestion();
-                }, 400);
+                }, 900);
             }
         }
 
