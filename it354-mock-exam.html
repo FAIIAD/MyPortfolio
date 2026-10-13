@@ -127,66 +127,72 @@
         </div>
 
         <div class="w-full max-w-3xl bg-card/60 backdrop-blur-md border border-gray-800 rounded-2xl p-6 md:p-8 shadow-xl">
-            
-            <!-- شاشة الأسئلة -->
-            <div id="quiz-container">
-                <!-- شريط التقدم والعداد -->
-                <div class="flex flex-wrap justify-between items-center mb-3 text-sm text-gray-400 gap-2">
+        <div id="quiz-container">
+                <!-- العداد والأدوات -->
+                <div class="flex flex-wrap justify-between items-center mb-4 text-sm text-gray-400 gap-3">
+                    <!-- القسم الأيمن: رقم السؤال والفصل -->
                     <div class="flex items-center gap-2">
-                        <span id="question-counter" class="font-bold text-cyan">السؤال 1 من 80</span>
-                        <span id="chapter-badge" class="bg-gray-800 text-gray-300 text-xs px-3 py-1 rounded-full border border-gray-700">Ch17</span>
-                        <span id="status-badge" class="hidden text-xs px-2.5 py-0.5 rounded-full font-bold"></span>
+                        <span id="question-counter" class="font-bold text-cyan bg-cyan/10 border border-cyan/20 px-3 py-1 rounded-full shadow-sm">السؤال 1 من 42</span>
+                        <span id="chapter-badge" class="bg-gray-800 text-gray-300 text-xs px-3 py-1 rounded-full border border-gray-700 shadow-sm">Ch17</span>
+                        <span id="status-badge" class="hidden text-xs px-3 py-1 rounded-full font-bold shadow-sm"></span>
                     </div>
-            <div class="flex items-center gap-2 md:gap-3">
-                        <span id="score-tracker" class="font-bold text-emerald-500 hidden sm:inline">الصحيحة: 0</span>
+                    
+                    <!-- القسم الأيسر: النتيجة وأزرار التحكم -->
+                    <div class="flex items-center gap-2 md:gap-3 mr-auto">
+                        <!-- شارة النتيجة (Badge منفصلة ومميزة بصرياً) -->
+                        <div class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 font-bold px-3 py-1.5 rounded-full text-xs flex items-center gap-1.5 shadow-sm">
+                            <i class="fa-solid fa-check-double"></i>
+                            <span id="score-tracker" class="hidden sm:inline">الصحيحة: 0</span>
+                            <span id="score-tracker-mobile" class="sm:hidden">0</span>
+                        </div>
                         
-                        <!-- زر خلط الأسئلة -->
-                        <button onclick="shuffleCurrentPool()" title="خلط الأسئلة الحالية والبدء من جديد" class="text-gray-400 hover:text-cyan transition-colors text-xs bg-gray-800 px-3 py-1.5 rounded-lg border border-gray-700 flex items-center">
-                            <i class="fa-solid fa-shuffle sm:ml-1"></i> <span class="hidden sm:inline">خلط</span>
+                        <!-- زر خلط الأسئلة (حواف دائرية بالكامل) -->
+                        <button onclick="shuffleCurrentPool()" title="خلط الأسئلة الحالية والبدء من جديد" class="text-gray-400 hover:text-cyan transition-all duration-300 text-xs bg-gray-800 hover:bg-gray-700 px-3 md:px-4 py-1.5 rounded-full border border-gray-700 flex items-center shadow-sm">
+                            <i class="fa-solid fa-shuffle sm:ml-1.5"></i> <span class="hidden sm:inline">خلط</span>
                         </button>
 
-                        <!-- زر الانتقال التلقائي (Toggle) -->
-                        <button id="auto-next-toggle" onclick="toggleAutoNext()" title="انتقال تلقائي للسؤال التالي عند الإجابة الصحيحة" class="text-gray-400 hover:text-emerald-500 transition-colors text-xs bg-gray-800 px-3 py-1.5 rounded-lg border border-gray-700 flex items-center gap-1.5">
+                        <!-- زر التجاوز التلقائي (حواف دائرية بالكامل) -->
+                        <button id="auto-next-toggle" onclick="toggleAutoNext()" title="تجاوز تلقائي للسؤال التالي عند الإجابة الصحيحة" class="text-gray-400 hover:text-emerald-500 transition-all duration-300 text-xs bg-gray-800 hover:bg-gray-700 px-3 md:px-4 py-1.5 rounded-full border border-gray-700 flex items-center gap-1.5 shadow-sm">
                             <i id="auto-next-icon" class="fa-solid fa-toggle-off text-gray-500 text-sm transition-all"></i> 
                             <span class="hidden sm:inline">تجاوز تلقائي</span>
                         </button>
 
-                        <!-- زر الإبلاغ عبر تلجرام -->
-                        <a id="report-btn" href="#" target="_blank" title="الإبلاغ عن خطأ في هذا السؤال عبر تلجرام" class="text-gray-400 hover:text-[#24A1DE] transition-colors text-xs bg-gray-800 px-3 py-1.5 rounded-lg border border-gray-700 flex items-center gap-1.5">
+                        <!-- زر الإبلاغ عبر تلجرام (حواف دائرية بالكامل) -->
+                        <a id="report-btn" href="#" target="_blank" title="الإبلاغ عن خطأ عبر تلجرام" class="text-gray-400 hover:text-[#24A1DE] transition-all duration-300 text-xs bg-gray-800 hover:bg-gray-700 px-3 md:px-4 py-1.5 rounded-full border border-gray-700 flex items-center gap-1.5 shadow-sm">
                             <i class="fa-brands fa-telegram text-[#24A1DE] text-sm"></i> <span class="hidden sm:inline">إبلاغ</span>
                         </a>
                     </div>
                 </div>
 
-                <div class="w-full bg-gray-800 h-2 rounded-full mb-8 overflow-hidden">
-                    <div id="progress-bar" class="bg-gradient-to-r from-cyan to-blue h-full transition-all duration-300" style="width: 1%"></div>
+                <!-- شريط التقدم (أسمك h-3 مع ظل داخلي) -->
+                <div class="w-full bg-gray-800 h-3 rounded-full mb-8 overflow-hidden shadow-inner border border-gray-700/50">
+                    <div id="progress-bar" class="bg-gradient-to-r from-cyan to-blue h-full transition-all duration-500 ease-out" style="width: 2%"></div>
                 </div>
 
                 <!-- نص السؤال -->
-                <h2 id="question-text" dir="ltr" class="text-lg md:text-2xl font-bold text-white mb-6 text-left leading-relaxed"></h2>
+                <h2 id="question-text" dir="ltr" class="text-lg md:text-xl font-bold text-white mb-6 text-left leading-relaxed whitespace-pre-line"></h2>
 
                 <!-- الخيارات -->
                 <div id="options-container" dir="ltr" class="space-y-3 text-left mb-6"></div>
 
-                <!-- صندوق الشرح بعد الإجابة -->
-                <div id="explanation-box" class="hidden p-4 rounded-xl bg-gray-800/80 border border-gray-700 text-sm text-gray-300 mb-6 leading-relaxed"></div>
+                <!-- صندوق الشرح -->
+                <div id="explanation-box" class="hidden p-4 rounded-xl bg-gray-800/80 border border-gray-700 text-sm text-gray-300 mb-6 leading-relaxed shadow-inner"></div>
 
-                <!-- أزرار التنقل (السابق / التالي بدون إجبار على الإجابة / إنهاء) -->
-                <div class="flex items-center justify-between gap-3 pt-4 border-t border-gray-800">
-                    <button id="prev-btn" onclick="prevQuestion()" class="px-5 py-3 rounded-xl border border-gray-700 bg-gray-800/60 hover:border-cyan hover:text-cyan text-gray-300 font-bold transition-all disabled:opacity-40 disabled:pointer-events-none">
+                <!-- أزرار التنقل (أصبحت دائرية بالكامل rounded-full لتناسق التصميم) -->
+                <div class="flex items-center justify-between gap-3 pt-5 border-t border-gray-800/80">
+                    <button id="prev-btn" onclick="prevQuestion()" class="px-5 py-3 rounded-full border border-gray-700 bg-gray-800/60 hover:bg-gray-800 hover:border-cyan hover:text-cyan text-gray-300 font-bold transition-all duration-300 disabled:opacity-40 disabled:pointer-events-none shadow-sm hover:shadow-md">
                         <i class="fa-solid fa-arrow-right ml-2"></i> السابق
                     </button>
 
-                    <button onclick="showResults()" class="px-4 py-3 rounded-xl border border-gray-700 hover:border-rose-500/60 hover:text-rose-400 text-gray-400 text-sm font-bold transition-all">
+                    <button onclick="showResults()" class="px-4 py-3 rounded-full border border-gray-700 hover:bg-gray-800 hover:border-rose-500/60 hover:text-rose-400 text-gray-400 text-sm font-bold transition-all duration-300 shadow-sm hover:shadow-md">
                         إنهاء الاختبار
                     </button>
 
-                    <button id="next-btn" onclick="nextQuestion()" class="flex-1 max-w-[220px] bg-gradient-to-r from-cyan to-blue hover:from-blue hover:to-cyan text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg">
+                    <button id="next-btn" onclick="nextQuestion()" class="flex-1 max-w-[220px] bg-gradient-to-r from-cyan to-blue hover:from-blue hover:to-cyan text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5">
                         التالي <i class="fa-solid fa-arrow-left mr-2"></i>
                     </button>
                 </div>
             </div>
-
             <!-- شاشة النتيجة النهائية -->
             <div id="result-container" class="hidden text-center py-8">
                 <div class="w-20 h-20 bg-cyan/20 rounded-full flex items-center justify-center mx-auto mb-6 text-cyan text-4xl">
@@ -1248,8 +1254,12 @@
             }, 0);
         }
 
-        function updateScoreTracker() {
-            scoreTracker.innerText = `الصحيحة: ${getCurrentScore()}`;
+      function updateScoreTracker() {
+            const currentScore = getCurrentScore();
+            document.getElementById('score-tracker').innerText = `الصحيحة: ${currentScore}`;
+            if (document.getElementById('score-tracker-mobile')) {
+                document.getElementById('score-tracker-mobile').innerText = currentScore;
+            }
         }
 
         // عرض السؤال الحالي (مع استرجاع حالة الإجابة إن وجدت)
