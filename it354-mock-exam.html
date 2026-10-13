@@ -137,16 +137,23 @@
                         <span id="chapter-badge" class="bg-gray-800 text-gray-300 text-xs px-3 py-1 rounded-full border border-gray-700">Ch17</span>
                         <span id="status-badge" class="hidden text-xs px-2.5 py-0.5 rounded-full font-bold"></span>
                     </div>
-                   <div class="flex items-center gap-2 md:gap-3">
-                        <span id="score-tracker" class="font-bold text-emerald-500">الصحيحة: 0</span>
+            <div class="flex items-center gap-2 md:gap-3">
+                        <span id="score-tracker" class="font-bold text-emerald-500 hidden sm:inline">الصحيحة: 0</span>
                         
-                        <button onclick="shuffleCurrentPool()" title="خلط الأسئلة الحالية والبدء من جديد" class="text-gray-400 hover:text-cyan transition-colors text-xs bg-gray-800 px-3 py-1.5 rounded-lg border border-gray-700">
-                            <i class="fa-solid fa-shuffle ml-1"></i> خلط الأسئلة
+                        <!-- زر خلط الأسئلة -->
+                        <button onclick="shuffleCurrentPool()" title="خلط الأسئلة الحالية والبدء من جديد" class="text-gray-400 hover:text-cyan transition-colors text-xs bg-gray-800 px-3 py-1.5 rounded-lg border border-gray-700 flex items-center">
+                            <i class="fa-solid fa-shuffle sm:ml-1"></i> <span class="hidden sm:inline">خلط</span>
+                        </button>
+
+                        <!-- زر الانتقال التلقائي (Toggle) -->
+                        <button id="auto-next-toggle" onclick="toggleAutoNext()" title="انتقال تلقائي للسؤال التالي عند الإجابة الصحيحة" class="text-gray-400 hover:text-emerald-500 transition-colors text-xs bg-gray-800 px-3 py-1.5 rounded-lg border border-gray-700 flex items-center gap-1.5">
+                            <i id="auto-next-icon" class="fa-solid fa-toggle-off text-gray-500 text-sm transition-all"></i> 
+                            <span class="hidden sm:inline">تلقائي</span>
                         </button>
 
                         <!-- زر الإبلاغ عبر تلجرام -->
-                        <a id="report-btn" href="#" target="_blank" title="الإبلاغ عن خطأ في هذا السؤال عبر تلجرام" class="text-gray-400 hover:text-[#24A1DE] hover:border-[#24A1DE]/50 transition-colors text-xs bg-gray-800 px-3 py-1.5 rounded-lg border border-gray-700 flex items-center gap-1.5">
-                            <i class="fa-brands fa-telegram text-[#24A1DE] text-sm"></i> إبلاغ عن خطأ
+                        <a id="report-btn" href="#" target="_blank" title="الإبلاغ عن خطأ في هذا السؤال عبر تلجرام" class="text-gray-400 hover:text-[#24A1DE] transition-colors text-xs bg-gray-800 px-3 py-1.5 rounded-lg border border-gray-700 flex items-center gap-1.5">
+                            <i class="fa-brands fa-telegram text-[#24A1DE] text-sm"></i> <span class="hidden sm:inline">إبلاغ</span>
                         </a>
                     </div>
                 </div>
@@ -1315,10 +1322,37 @@
             }
         }
 
+       // متغير لحفظ حالة زر الانتقال التلقائي
+        let isAutoNext = false;
+
+        // دالة تشغيل وإيقاف زر الانتقال التلقائي (Toggle)
+        function toggleAutoNext() {
+            isAutoNext = !isAutoNext;
+            const icon = document.getElementById('auto-next-icon');
+            const btn = document.getElementById('auto-next-toggle');
+            if (isAutoNext) {
+                icon.className = 'fa-solid fa-toggle-on text-emerald-500 text-sm transition-all';
+                btn.classList.remove('text-gray-400');
+                btn.classList.add('text-emerald-500');
+            } else {
+                icon.className = 'fa-solid fa-toggle-off text-gray-500 text-sm transition-all';
+                btn.classList.remove('text-emerald-500');
+                btn.classList.add('text-gray-400');
+            }
+        }
+
+        // دالة اختيار الإجابة (محدثة بالانتقال الشبه فوري)
         function selectAnswer(selectedIdx) {
             userAnswers[currentIdx] = selectedIdx;
             updateScoreTracker();
-            loadQuestion(); // إعادة رسم السؤال لإظهار التصحيح والشرح فوراً
+            loadQuestion(); // يتم تلوين الإجابة الصحيحة بالأخضر هنا
+
+            // إذا كان الزر مفعلاً والإجابة صحيحة، انتقل شبه فوراً
+            if (isAutoNext && selectedIdx === questions[currentIdx].correct) {
+                setTimeout(() => {
+                    nextQuestion();
+                }, 300); // 300 جزء من الثانية (شبه فوري)
+            }
         }
 
         function nextQuestion() {
