@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT352 - Modules 1 to 5 | FZ</title>
+    
+    <!-- خط ثمانية، خط Open Sans، والأيقونات -->
+    <link href="https://cdn.jsdelivr.net/npm/@dawod/thmanyah-font-web/index.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- قراءة المظهر المحفوظ فور فتح الصفحة -->
+    <script>
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+        } else {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+
+    <!-- إعدادات الألوان الجديدة في Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#0f111a',     // خلفية داكنة ليلية عصرية
+                        card: '#1b1e2b',     // لون البطاقات الداكنة
+                        primary: '#8b5cf6',  // البنفسجي (Violet)
+                        secondary: '#d946ef' // الفوشيا (Fuchsia)
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { 
+            font-family: 'Thmanyah Sans', sans-serif; 
+            transition: background-color 0.3s ease, color 0.3s ease; 
+        }
+        h1, h2, h3, h4 { font-family: 'Thmanyah Serif Display', serif; }
+        
+        /* خط Open Sans لأسئلة الاختبار والخيارات الإنجليزية */
+        #question-text {
+            font-family: 'Open Sans', sans-serif !important;
+        }
+
+        .option-btn { transition: all 0.2s ease; }
+        .option-btn:hover:not(:disabled) {
+            border-color: #8b5cf6;
+            background-color: rgba(139, 92, 246, 0.1);
+            transform: translateX(-4px);
+        }
+        .filter-btn.active, .limit-btn.active {
+            background: linear-gradient(to right, #8b5cf6, #d946ef) !important;
+            color: white !important;
+            border-color: transparent !important;
+        }
+
+        /* تنسيقات الوضع الفاتح مع تباين ممتاز */
+        html:not(.dark) body { background-color: #f8fafc; color: #0f111a; }
+        html:not(.dark) header, html:not(.dark) footer { background-color: rgba(255, 255, 255, 0.85); border-color: #e2e8f0; }
+        html:not(.dark) .bg-card, html:not(.dark) .bg-card\/60, html:not(.dark) .bg-card\/40 { background-color: #ffffff; border-color: #cbd5e1; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        html:not(.dark) .bg-gray-900\/60, html:not(.dark) .bg-gray-900\/40 { background-color: #f1f5f9; border-color: #cbd5e1; color: #1e293b; }
+        html:not(.dark) .bg-gray-800, html:not(.dark) .bg-gray-800\/80, html:not(.dark) .bg-gray-800\/60 { background-color: #e2e8f0; border-color: #cbd5e1; color: #334155; }
+        html:not(.dark) .text-white { color: #0f111a; }
+        html:not(.dark) .text-gray-200, html:not(.dark) .text-gray-300 { color: #1e293b; }
+        html:not(.dark) .text-gray-400, html:not(.dark) .text-gray-500, html:not(.dark) .text-gray-600 { color: #475569; }
+        html:not(.dark) .border-gray-700, html:not(.dark) .border-gray-800, html:not(.dark) .border-gray-800\/80 { border-color: #cbd5e1; }
+    </style>
+</head>
+<body class="bg-dark text-gray-200 min-h-screen flex flex-col justify-between relative overflow-x-hidden">
+
+    <header class="bg-dark/70 backdrop-blur-md border-b border-gray-800 py-4 px-6 sticky top-0 z-50 transition-colors duration-300">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-lg md:text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">IT352 - Modules 1 to 5</h1>
+            
+            <div class="flex items-center gap-3 md:gap-4">
+                <button id="theme-toggle" onclick="toggleTheme()" aria-label="تبديل المظهر" dir="ltr" class="relative w-16 h-8 rounded-full bg-slate-200 dark:bg-gray-800 border border-slate-300 dark:border-gray-700 flex items-center justify-between px-2 transition-colors duration-300 focus:outline-none shrink-0 cursor-pointer">
+                    <i class="fa-solid fa-sun text-amber-500 text-xs"></i>
+                    <i class="fa-solid fa-moon text-primary text-xs"></i>
+                    <span class="absolute top-1 left-1 w-6 h-6 rounded-full bg-white dark:bg-card border border-slate-200 dark:border-gray-600 shadow-md transform transition-transform duration-300 translate-x-0 dark:translate-x-8 flex items-center justify-center">
+                        <i id="theme-icon" class="fa-solid fa-moon text-primary text-xs"></i>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 flex-grow flex flex-col items-center justify-center">
+
+        <!-- لوحة التحكم -->
+        <div class="w-full max-w-3xl mb-6 space-y-4 bg-card/40 p-4 rounded-2xl border border-gray-800">
+            <div class="flex flex-wrap items-center justify-center gap-2">
+                <span class="text-xs text-gray-400 font-bold ml-2">الوحدة:</span>
+                <button onclick="filterChapter('ALL')" id="btn-ALL" class="filter-btn active text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">الكل (100)</button>
+                <button onclick="filterChapter('Mod1')" id="btn-Mod1" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Mod 1 (20)</button>
+                <button onclick="filterChapter('Mod2')" id="btn-Mod2" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Mod 2 (20)</button>
+                <button onclick="filterChapter('Mod3')" id="btn-Mod3" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Mod 3 (20)</button>
+                <button onclick="filterChapter('Mod4')" id="btn-Mod4" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Mod 4 (20)</button>
+                <button onclick="filterChapter('Mod5')" id="btn-Mod5" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Mod 5 (20)</button>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-center gap-2 pt-2 border-t border-gray-800/80">
+                <span class="text-xs text-gray-400 font-bold ml-2">عدد الأسئلة:</span>
+                <button onclick="setQuestionLimit(20)" id="limit-20" class="limit-btn text-xs px-4 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">20 سؤال</button>
+                <button onclick="setQuestionLimit(40)" id="limit-40" class="limit-btn text-xs px-4 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">40 سؤال</button>
+                <button onclick="setQuestionLimit(60)" id="limit-60" class="limit-btn text-xs px-4 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">60 سؤال</button>
+                <button onclick="setQuestionLimit(100)" id="limit-100" class="limit-btn active text-xs px-4 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">100 (الكل)</button>
+            </div>
+        </div>
+
+        <div class="w-full max-w-3xl bg-card/60 backdrop-blur-md border border-gray-800 rounded-2xl p-6 md:p-8 shadow-xl">
+            
+            <div id="quiz-container">
+                <!-- العداد والأدوات -->
+                <div class="flex flex-wrap justify-between items-center mb-4 text-sm text-gray-400 gap-3">
+                    <div class="flex items-center gap-2">
+                        <span id="question-counter" class="font-bold text-primary bg-primary/10 border border-primary/20 px-3 py-1 rounded-full shadow-sm">السؤال 1 من 100</span>
+                        <span id="chapter-badge" class="bg-gray-800 text-gray-300 text-xs px-3 py-1 rounded-full border border-gray-700 shadow-sm">Mod1</span>
+                        <span id="status-badge" class="hidden text-xs px-3 py-1 rounded-full font-bold shadow-sm"></span>
+                    </div>
+                    
+                    <div class="flex items-center gap-2 md:gap-3 mr-auto">
+                        <div class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 font-bold px-3 py-1.5 rounded-full text-xs flex items-center gap-1.5 shadow-sm">
+                            <i class="fa-solid fa-check-double"></i>
+                            <span id="score-tracker" class="hidden sm:inline">الصحيحة: 0</span>
+                            <span id="score-tracker-mobile" class="sm:hidden">0</span>
+                        </div>
+                        
+                        <button onclick="shuffleCurrentPool()" title="خلط الأسئلة الحالية والبدء من جديد" class="text-gray-400 hover:text-primary transition-all duration-300 text-xs bg-gray-800 hover:bg-gray-700 px-3 md:px-4 py-1.5 rounded-full border border-gray-700 flex items-center shadow-sm">
+                            <i class="fa-solid fa-shuffle sm:ml-1.5"></i> <span class="hidden sm:inline">خلط</span>
+                        </button>
+
+                        <button id="auto-next-toggle" onclick="toggleAutoNext()" title="تجاوز تلقائي للسؤال التالي عند الإجابة الصحيحة" class="text-gray-400 hover:text-emerald-500 transition-all duration-300 text-xs bg-gray-800 hover:bg-gray-700 px-3 md:px-4 py-1.5 rounded-full border border-gray-700 flex items-center gap-1.5 shadow-sm">
+                            <i id="auto-next-icon" class="fa-solid fa-toggle-off text-gray-500 text-sm transition-all"></i> 
+                            <span class="hidden sm:inline">تجاوز تلقائي</span>
+                        </button>
+
+                        <a id="report-btn" href="#" target="_blank" title="الإبلاغ عن خطأ عبر تلجرام" class="text-gray-400 hover:text-[#24A1DE] transition-all duration-300 text-xs bg-gray-800 hover:bg-gray-700 px-3 md:px-4 py-1.5 rounded-full border border-gray-700 flex items-center gap-1.5 shadow-sm">
+                            <i class="fa-brands fa-telegram text-[#24A1DE] text-sm"></i> <span class="hidden sm:inline">إبلاغ</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- شريط التقدم -->
+                <div class="w-full bg-gray-800 h-3 rounded-full mb-8 overflow-hidden shadow-inner border border-gray-700/50">
+                    <div id="progress-bar" class="bg-gradient-to-r from-primary to-secondary h-full transition-all duration-500 ease-out" style="width: 1%"></div>
+                </div>
+
+                <!-- نص السؤال -->
+                <h2 id="question-text" dir="ltr" class="text-lg md:text-xl font-bold text-white mb-6 text-left leading-relaxed whitespace-pre-line"></h2>
+
+                <!-- الخيارات -->
+                <div id="options-container" dir="ltr" class="space-y-3 text-left mb-6"></div>
+
+                <!-- صندوق الشرح -->
+                <div id="explanation-box" class="hidden p-4 rounded-xl bg-gray-800/80 border border-gray-700 text-sm text-gray-300 mb-6 leading-relaxed shadow-inner"></div>
+
+                <!-- أزرار التنقل -->
+                <div class="flex items-center justify-between gap-3 pt-5 border-t border-gray-800/80">
+                    <button id="prev-btn" onclick="prevQuestion()" class="px-5 py-3 rounded-full border border-gray-700 bg-gray-800/60 hover:bg-gray-800 hover:border-primary hover:text-primary text-gray-300 font-bold transition-all duration-300 disabled:opacity-40 disabled:pointer-events-none shadow-sm hover:shadow-md">
+                        <i class="fa-solid fa-arrow-right ml-2"></i> السابق
+                    </button>
+
+                    <button onclick="showResults()" class="px-4 py-3 rounded-full border border-gray-700 hover:bg-gray-800 hover:border-rose-500/60 hover:text-rose-400 text-gray-400 text-sm font-bold transition-all duration-300 shadow-sm hover:shadow-md">
+                        إنهاء الاختبار
+                    </button>
+
+                    <button id="next-btn" onclick="nextQuestion()" class="flex-1 max-w-[220px] bg-gradient-to-r from-primary to-secondary hover:from-secondary hover:to-primary text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5">
+                        التالي <i class="fa-solid fa-arrow-left mr-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- شاشة النتيجة النهائية -->
+            <div id="result-container" class="hidden text-center py-8">
+                <div class="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-6 text-primary text-4xl">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-white mb-3">انتهى الاختبار!</h2>
+                <p id="final-score-text" class="text-xl text-gray-300 font-bold mb-2"></p>
+                <p id="final-details-text" class="text-sm text-gray-400 mb-8"></p>
+                
+                <div class="flex flex-wrap justify-center gap-4">
+                    <button id="retry-wrong-btn" onclick="retryWrongQuestions()" class="hidden bg-rose-600 hover:bg-rose-500 text-white font-bold py-3 px-8 rounded-full shadow-[0_0_20px_rgba(225,29,72,0.4)] transition-all">
+                        <i class="fa-solid fa-triangle-exclamation ml-2"></i> إعادة الأسئلة الخاطئة فقط (<span id="wrong-count-num">0</span>)
+                    </button>
+
+                    <button onclick="applyFilterAndLimit(false)" class="bg-gradient-to-r from-primary to-secondary text-white font-bold py-3 px-8 rounded-full hover:shadow-[0_0_20px_rgba(139,92,246,0.5)] transition-all">
+                        <i class="fa-solid fa-rotate-right ml-2"></i> اختبار جديد
+                    </button>
+
+                    <button onclick="applyFilterAndLimit(true)" class="border border-primary text-primary hover:bg-primary/10 font-bold py-3 px-8 rounded-full transition-all">
+                        <i class="fa-solid fa-shuffle ml-2"></i> خلط والبدء من جديد
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="text-center py-6 text-gray-600 text-sm border-t border-gray-800">
+        &copy; 2026 FZ — IT352 (Modules 1 - 5) Quiz Bank
+    </footer>
+
+    <script>
+        const themeIcon = document.getElementById('theme-icon');
+        function updateThemeIcon() {
+            if (document.documentElement.classList.contains('dark')) {
+                themeIcon.className = 'fa-solid fa-moon text-primary text-xs';
+            } else {
+                themeIcon.className = 'fa-solid fa-sun text-amber-500 text-xs';
+            }
+        }
+        updateThemeIcon();
+
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+            const isDark = document.documentElement.classList.contains('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            updateThemeIcon();
+        }
+
+        const allQuestions = [
+            // ================= MODULE 1 (20 Questions) =================
+            {
+                chapter: "Mod1",
+                question: "1. Making products and services that accommodate the widest possible number of people is the definition of:",
+                options: ["Inclusiveness", "User-centered techniques", "Users involvement", "Accessibility"],
+                correct: 0,
+                explanation: "تم تعريف Inclusiveness على أنها صنع المنتجات والخدمات التي تتسع وتلبي احتياجات أكبر عدد ممكن من الناس[cite: 1964, 2010]."
+            },
+            {
+                chapter: "Mod1",
+                question: "2. The social sciences, computing sciences, engineering, ergonomics, and informatics are considered the:",
+                options: ["Design Perspective of Interaction Design", "Social Perspective of Interaction Design", "Academic Perspective of Interaction Design", "Industry Perspective of Interaction Design"],
+                correct: 2,
+                explanation: "تعتبر هذه التخصصات (العلوم الاجتماعية، الحوسبة، الهندسة، إلخ) هي المنظور الأكاديمي (Academic Perspective) لتصميم التفاعل[cite: 1970, 2010]."
+            },
+            {
+                chapter: "Mod1",
+                question: "3. Which aspect differentiates Interaction Design from traditional UI Design?",
+                options: ["Emphasis on hardware interaction", "Focus on backend programming", "Integration of user emotions and behaviors", "Priority on graphic elements"],
+                correct: 2,
+                explanation: "تصميم التفاعل يركز بشكل كبير على دمج مشاعر المستخدم وسلوكياته (Integration of user emotions and behaviors) مقارنة بتصميم الواجهات التقليدي[cite: 1942, 1943]."
+            },
+            {
+                chapter: "Mod1",
+                question: "4. What greatly enhances the Human-Computer Interaction (HCI) user experience?",
+                options: ["Complexity", "Cost", "Intuitiveness", "Rarity"],
+                correct: 2,
+                explanation: "الـ Intuitiveness (البديهية وسهولة الفهم) هي أحد أهم العوامل التي تحسن تجربة المستخدم في تفاعل الإنسان والحاسوب[cite: 1917]."
+            },
+            {
+                chapter: "Mod1",
+                question: "5. The extent to which an interactive product is accessible by as many people as possible is:",
+                options: ["Accessibility", "Sketching", "Storyboarding", "Inclusiveness"],
+                correct: 0,
+                explanation: "إمكانية الوصول (Accessibility) تُعرف بأنها المدى الذي يمكن فيه لأكبر عدد ممكن من الأشخاص الوصول للمنتج واستخدامه[cite: 1929, 1930, 1988]."
+            },
+            {
+                chapter: "Mod1",
+                question: "6. Similar operations must have similar elements for similar tasks. This is a definition of:",
+                options: ["Safety", "Usability", "Accessibility", "Consistency"],
+                correct: 3,
+                explanation: "التناسق (Consistency) يعني أن العمليات المتشابهة يجب أن تمتلك عناصر متشابهة لإنجاز المهام المتشابهة[cite: 1991, 2005, 2006]."
+            },
+            {
+                chapter: "Mod1",
+                question: "7. Designing the exact same operations and interfaces across different applications and devices refers to:",
+                options: ["Virtual consistency", "Internal consistency", "Inconsistency", "External consistency"],
+                correct: 3,
+                explanation: "التناسق الخارجي (External consistency) هو تصميم نفس العمليات والواجهات عبر تطبيقات وأجهزة مختلفة لتسهيل التعلم[cite: 1959]."
+            },
+            {
+                chapter: "Mod1",
+                question: "8. Which of the following is a very general goal of usability that refers to how good a system is at doing what it is supposed to do?",
+                options: ["Effectiveness", "Suppose to do", "Efficiency", "Utility"],
+                correct: 0,
+                explanation: "الفعالية (Effectiveness) هي هدف عام لقابلية الاستخدام يقيس مدى جودة النظام في أداء ما يُفترض به أن يفعله[cite: 1958]."
+            },
+            {
+                chapter: "Mod1",
+                question: "9. Which discipline is NOT typically listed as part of the 'Academic Perspective' of Interaction Design?",
+                options: ["Ergonomics", "Informatics", "Computing sciences", "Graphic Design"],
+                correct: 3,
+                explanation: "التصميم الجرافيكي (Graphic Design) يُعتبر من الممارسات التصميمية (Design Practices) وليس من التخصصات الأكاديمية مثل الحوسبة والمعلوماتية[cite: 1970, 2010]."
+            },
+            {
+                chapter: "Mod1",
+                question: "10. Which statement best defines 'Inclusiveness' in HCI?",
+                options: ["Focusing only on the majority of users.", "Aimed to address the needs of as diverse a user base as possible.", "Unique requirements of specialist user groups.", "Aesthetic preferences of various cultures."],
+                correct: 1,
+                explanation: "الشمولية (Inclusiveness) في تفاعل الإنسان والحاسوب تهدف إلى تلبية احتياجات قاعدة مستخدمين متنوعة قدر الإمكان[cite: 1932, 1933]."
+            },
+            {
+                chapter: "Mod1",
+                question: "11. 'Accessibility' in interaction design primarily focuses on:",
+                options: ["The visual aesthetics of a product.", "Making a product available to as many people as possible, including those with disabilities.", "The cost-effectiveness of the user interface.", "How fast the system processes user inputs."],
+                correct: 1,
+                explanation: "إمكانية الوصول (Accessibility) تركز على المدى الذي يكون فيه المنتج متاحاً لأكبر عدد ممكن من الناس، وغالباً ما يستهدف ذوي الإعاقة[cite: 1929, 1930, 1988]."
+            },
+            {
+                chapter: "Mod1",
+                question: "12. What is the primary difference between 'Internal consistency' and 'External consistency'?",
+                options: ["Internal focuses on colors; External focuses on shapes.", "Internal is across different devices; External is within one app.", "Internal designs operations to act the same within an application; External designs them across applications.", "There is no difference."],
+                correct: 2,
+                explanation: "التناسق الداخلي (Internal) يكون داخل التطبيق نفسه، بينما التناسق الخارجي (External) يكون عبر تطبيقات وأجهزة متعددة[cite: 1959]."
+            },
+            {
+                chapter: "Mod1",
+                question: "13. The concept that states 'interactive products should accommodate the widest possible number of people' is distinctively called:",
+                options: ["Inclusiveness", "Usability Testing", "Efficiency", "Learnability"],
+                correct: 0,
+                explanation: "صنع منتجات تستوعب أوسع نطاق ممكن من الأشخاص هو التعريف الدقيق لـ Inclusiveness[cite: 1964, 2010]."
+            },
+            {
+                chapter: "Mod1",
+                question: "14. A user-friendly system that allows users to quickly perform tasks without confusion is exhibiting high:",
+                options: ["Rarity", "Complexity", "Intuitiveness", "Cost"],
+                correct: 2,
+                explanation: "البديهية (Intuitiveness) هي ما يجعل النظام سهل الفهم والاستخدام دون تعقيد مما يعزز تجربة المستخدم[cite: 1917]."
+            },
+            {
+                chapter: "Mod1",
+                question: "15. Which of the following is considered an 'Academic' discipline that informs Interaction Design?",
+                options: ["Social sciences", "Product design", "Artist-design", "Film industry"],
+                correct: 0,
+                explanation: "العلوم الاجتماعية (Social sciences) تُصنف كمنظور وتخصص أكاديمي يساهم في تصميم التفاعل[cite: 1970, 2010]."
+            },
+            {
+                chapter: "Mod1",
+                question: "16. Which of the following is a key goal of usability in Interaction Design?",
+                options: ["Making the code run faster on servers", "Ensuring the system is effective and does what it is supposed to do", "Reducing the cost of hardware", "Adding as many features as possible"],
+                correct: 1,
+                explanation: "الفعالية (Effectiveness) هي هدف أساسي لقابلية الاستخدام (Usability) وتُعنى بمدى جودة النظام في أداء المطلوب منه[cite: 1958]."
+            },
+            {
+                chapter: "Mod1",
+                question: "17. A design approach that integrates user emotions, behaviors, and everyday interactions is central to:",
+                options: ["Database Management", "Interaction Design", "Network Architecture", "Compiler Construction"],
+                correct: 1,
+                explanation: "تصميم التفاعل (Interaction Design) يدمج المشاعر والسلوكيات في تصميمه لتجربة المستخدم[cite: 1942, 1943]."
+            },
+            {
+                chapter: "Mod1",
+                question: "18. What usability goal is achieved when all similar navigation menus are placed in the exact same location across all screens?",
+                options: ["External consistency", "Internal consistency", "Accessibility", "Inclusiveness"],
+                correct: 1,
+                explanation: "تطبيق نفس العمليات (مثل القوائم) داخل نفس التطبيق هو مثال على التناسق الداخلي (Internal consistency)[cite: 1959, 1991]."
+            },
+            {
+                chapter: "Mod1",
+                question: "19. Using the 'Ctrl+C' shortcut for copying text in Word, Excel, and an Internet browser is an example of:",
+                options: ["Internal consistency", "Inclusiveness", "External consistency", "Learnability"],
+                correct: 2,
+                explanation: "استخدام نفس الاختصار أو العملية عبر تطبيقات مختلفة يُعتبر تناسقاً خارجياً (External consistency)[cite: 1959]."
+            },
+            {
+                chapter: "Mod1",
+                question: "20. Why is 'Consistency' considered a critical rule in user interface design?",
+                options: ["Because it saves coding time for developers.", "Because similar operations with similar elements make the system easier to learn and use.", "Because it limits user options.", "Because it increases the complexity of the design."],
+                correct: 1,
+                explanation: "التناسق يضمن أن المهام المتشابهة تستخدم عناصر متشابهة مما يسهل على المستخدم التعلم والاستخدام[cite: 1991, 2005, 2006]."
+            },
+
+            // ================= MODULE 2 (20 Questions) =================
+            {
+                chapter: "Mod2",
+                question: "21. The double diamond of design approach starts with:",
+                options: ["Deliver: The resulting project is finalized, produced, and launched.", "Develop: Solutions or concepts are created, prototyped, tested, and iterated.", "Define: Designers develop a clear brief that frames the design challenge.", "Discover: Designers try to gather insights about the problem."],
+                correct: 3,
+                explanation: "نموذج الجوهرة المزدوجة يبدأ بمرحلة (Discover) حيث يحاول المصممون جمع رؤى وأفكار حول المشكلة[cite: 1982, 2004]."
+            },
+            {
+                chapter: "Mod2",
+                question: "22. In the double diamond of design, discovering requirement sits in:",
+                options: ["The third phase", "The first two phases", "The fourth phase", "The last two phases"],
+                correct: 1,
+                explanation: "اكتشاف المتطلبات يقع في المرحلتين الأوليين (Discover و Define) من نموذج الجوهرة المزدوجة[cite: 1930]."
+            },
+            {
+                chapter: "Mod2",
+                question: "23. Which phase of the double-diamond of design aims to create solutions?",
+                options: ["Develop", "Deliver", "Discover", "Define"],
+                correct: 0,
+                explanation: "مرحلة التطوير (Develop) تهدف لإنشاء الحلول والمفاهيم والنماذج الأولية واختبارها[cite: 1918, 1982, 2010]."
+            },
+            {
+                chapter: "Mod2",
+                question: "24. Which phase involves rigorous testing and refinement in HCI?",
+                options: ["Discover", "Define", "Deliver", "Develop"],
+                correct: 3,
+                explanation: "مرحلة التطوير (Develop) تتضمن الاختبار الدقيق والتحسين من خلال النماذج الأولية[cite: 1918]."
+            },
+            {
+                chapter: "Mod2",
+                question: "25. What is the focus of the 'Deliver' phase in HCI?",
+                options: ["Ideation", "Prototyping", "Implementation", "Research"],
+                correct: 2,
+                explanation: "مرحلة التسليم (Deliver) تركز على التنفيذ (Implementation) والإنتاج وإطلاق المشروع النهائي[cite: 1949]."
+            },
+            {
+                chapter: "Mod2",
+                question: "26. Users are involved inconsistently across the project life of the design; this stage is known as:",
+                options: ["Long term involvement", "Short term involvement", "Full-time involvement", "Part-time involvement"],
+                correct: 3,
+                explanation: "التفاعل غير المستمر أو المتقطع للمستخدمين عبر حياة المشروع يُعرف بالمشاركة بدوام جزئي (Part-time involvement)[cite: 1985, 2004]."
+            },
+            {
+                chapter: "Mod2",
+                question: "27. According to the principles of the user-centred approach, Empirical measurement aimed to:",
+                options: ["Focus on context and is particularly appropriate for complex problems.", "Fix problems found in user testing.", "Observe, record, and analyze users' reactions and performance to scenarios, simulations, and prototypes.", "Understand users by directly studying their cognitive characteristics."],
+                correct: 2,
+                explanation: "القياس التجريبي يهدف إلى ملاحظة وتسجيل وتحليل ردود أفعال المستخدمين وأدائهم تجاه النماذج الأولية[cite: 2010]."
+            },
+            {
+                chapter: "Mod2",
+                question: "28. An interactive design process in which designers focus on the users and their needs in each phase of the design process is called:",
+                options: ["Optimization", "Software life cycle", "Stability", "User-centered design"],
+                correct: 3,
+                explanation: "التصميم المتمركز حول المستخدم (User-centered design) يركز على المستخدمين واحتياجاتهم في كل مرحلة من التصميم[cite: 1958]."
+            },
+            {
+                chapter: "Mod2",
+                question: "29. What is the first activity of interaction design?",
+                options: ["Designing alternatives", "Prototyping alternative designs", "Evaluating product and its user experience throughout", "Discovering requirements"],
+                correct: 3,
+                explanation: "اكتشاف المتطلبات (Discovering requirements) هي أولى الأنشطة الأساسية في تصميم التفاعل[cite: 1958, 1959]."
+            },
+            {
+                chapter: "Mod2",
+                question: "30. Basic activities in interactive design EXCEPT:",
+                options: ["Testing the prototype", "Building interactive version of the designs", "Identifying needs and establishing requirements", "Evaluating designs"],
+                correct: 0,
+                explanation: "الأنشطة الأربعة الأساسية هي (تحديد المتطلبات، تصميم البدائل، بناء النماذج، والتقييم). اختبار النموذج هو جزء من التقييم، والصيغة في الاختبارات استبعدته كنشاط أساسي مستقل بالاسم[cite: 1959]."
+            },
+            {
+                chapter: "Mod2",
+                question: "31. Integrating interaction design activities with agile software development is promising for many reasons EXCEPT:",
+                options: ["It aims to strike a balance between flexibility and structure", "It incorporates tight iterations", "It supports the irregular feedback", "It handles emergent requirements"],
+                correct: 2,
+                explanation: "الأجايل يدعم التغذية الراجعة المنتظمة والمبكرة (Regular feedback)، وليس التغذية الراجعة غير المنتظمة (irregular feedback)[cite: 1976, 2011]."
+            },
+            {
+                chapter: "Mod2",
+                question: "32. Which factor is crucial for successful interaction design?",
+                options: ["User involvement at different stages", "Using the latest technology.", "Ignoring user feedback.", "Having a large team of developers."],
+                correct: 0,
+                explanation: "مشاركة المستخدم في مراحل مختلفة (User involvement at different stages) هي عامل حاسم لنجاح تصميم التفاعل[cite: 1993, 2006]."
+            },
+            {
+                chapter: "Mod2",
+                question: "33. The advantage of involving people from different backgrounds with different perspectives in the design phase is:",
+                options: ["Having difficulties in communicating", "Difficulties in progress forward the designs being created", "Taking a long time to deliver the design", "To have more ideas and designs generated"],
+                correct: 3,
+                explanation: "تنوع الخلفيات يساهم في توليد أفكار وتصاميم أكثر وأفضل للمشروع[cite: 1997, 2007]."
+            },
+            {
+                chapter: "Mod2",
+                question: "34. Understanding users is an essential aspect of interaction design, and it helps designers to:",
+                options: ["Create different designs without looking at the user's culture", "Provide same expectations for all different users", "Understand user preferences", "Discard the main information of the expected users"],
+                correct: 2,
+                explanation: "فهم المستخدمين يساعد المصممين بشكل أساسي في فهم تفضيلات المستخدمين (Understand user preferences) لتلبيتها[cite: 1999, 2007]."
+            },
+            {
+                chapter: "Mod2",
+                question: "35. Interaction Design is a process focusing on:",
+                options: ["Testing the system", "Evaluation the system", "The Backend program", "Considering users and their goals"],
+                correct: 3,
+                explanation: "عملية تصميم التفاعل تركز في جوهرها على مراعاة المستخدمين وأهدافهم[cite: 1957]."
+            },
+            {
+                chapter: "Mod2",
+                question: "36. Bringing together people with different backgrounds can lead to:",
+                options: ["invalid design", "more understanding in a design concept", "misunderstanding in a design concept", "reflective design"],
+                correct: 1,
+                explanation: "التنوع في الخلفيات يقود إلى فهم أكبر وأعمق لمفهوم التصميم وتوليد أفكار أكثر[cite: 1959]."
+            },
+            {
+                chapter: "Mod2",
+                question: "37. Evaluating products is measured in terms of a variety of:",
+                options: ["Prototyping", "Usability and user-experience criteria", "Designing alternative", "Discovering requirements"],
+                correct: 1,
+                explanation: "تقييم المنتجات يُقاس بناءً على مجموعة متنوعة من معايير قابلية الاستخدام وتجربة المستخدم[cite: 1959]."
+            },
+            {
+                chapter: "Mod2",
+                question: "38. In the context of HCI, what is the main purpose of prototyping?",
+                options: ["To write software code", "To conduct market research", "To create the final version of a product", "To test and refine design concepts"],
+                correct: 3,
+                explanation: "الغرض الرئيسي من النمذجة (Prototyping) هو اختبار المفاهيم التصميمية وتحسينها من خلال تجربة المستخدمين لها[cite: 1934, 1935]."
+            },
+            {
+                chapter: "Mod2",
+                question: "39. As one of the basic interaction design activities, 'Conceptual Design' involves:",
+                options: ["Making the design specific, detailing layout and visuals", "Building models or mockups", "Evaluating the final product", "Defining the overall idea and purpose of the design, focusing on user needs and system functionality"],
+                correct: 3,
+                explanation: "التصميم المفاهيمي (Conceptual Design) يُعنى بتعريف الفكرة العامة والغرض من التصميم بالتركيز على احتياجات المستخدم ووظائف النظام[cite: 1978]."
+            },
+            {
+                chapter: "Mod2",
+                question: "40. As one of the basic interaction design activities, 'Concrete Design' involves:",
+                options: ["Making the design specific, detailing layout, visuals, and interaction elements", "Defining the overall idea and purpose", "Testing the prototype", "Discovering user requirements"],
+                correct: 0,
+                explanation: "التصميم الملموس أو المادي (Concrete Design) يهتم بجعل التصميم محدداً من خلال تفصيل التخطيط والمرئيات وعناصر التفاعل[cite: 1978]."
+            },
+
+            // ================= MODULE 3 (20 Questions) =================
+            {
+                chapter: "Mod3",
+                question: "41. What is the best description of a conceptual model?",
+                options: ["Interaction paradigms and interaction modes.", "The problem spaced by the designer when gathering used requirements.", "The detail of the product, including the colors, sounds, and images to use menu design.", "A high-level description of how a system is organized and operates."],
+                correct: 3,
+                explanation: "النموذج المفاهيمي هو وصف عالي المستوى لكيفية تنظيم وعمل النظام[cite: 1957]."
+            },
+            {
+                chapter: "Mod3",
+                question: "42. Which of the following is a disadvantage of interface metaphors?",
+                options: ["Makes learning new systems easier", "Helps users understand the underlying conceptual model", "Can be very innovative and more accessible to a greater diversity of users", "Can constrain designers in the way that they conceptualize a problem space"],
+                correct: 3,
+                explanation: "من عيوب استعارات الواجهة (Interface metaphors) أنها قد تقيد المصممين في طريقة تصورهم لمساحة المشكلة[cite: 1994, 2006, 2011]."
+            },
+            {
+                chapter: "Mod3",
+                question: "43. What is a benefit of using interface metaphors?",
+                options: ["Faster computation", "Lower cost", "More storage", "Easier learning"],
+                correct: 3,
+                explanation: "من فوائد استعارات الواجهة (Interface metaphors) أنها تجعل تعلم الأنظمة الجديدة أسهل (Easier learning)[cite: 1937, 1938]."
+            },
+            {
+                chapter: "Mod3",
+                question: "44. The best interaction style for spell-checking and file management is:",
+                options: ["Direct Manipulation", "Issuing Instruction", "Having a conversation", "Hybrid conceptual"],
+                correct: 1,
+                explanation: "إصدار الأوامر (Issuing Instruction) هو الأسلوب الأمثل لمهام مثل التدقيق الإملائي وإدارة الملفات لأنها مهام متكررة[cite: 1992, 2006]."
+            },
+            {
+                chapter: "Mod3",
+                question: "45. It is particularly fitting where there is a frequent need to repeat actions performed on multiple objects.",
+                options: ["Conversing", "Exploring", "Instructing", "Responding"],
+                correct: 2,
+                explanation: "التوجيه أو إعطاء الأوامر (Instructing) يكون مناسباً جداً عند الحاجة المتكررة لتنفيذ إجراءات على عدة كائنات[cite: 1979, 2011]."
+            },
+            {
+                chapter: "Mod3",
+                question: "46. Which interaction type involves dragging, selecting, opening, closing and zooming actions on virtual objects?",
+                options: ["Exploring", "Manipulating", "Instructing", "Conversing"],
+                correct: 1,
+                explanation: "المعالجة أو التلاعب (Manipulating) هو نوع التفاعل الذي يشمل السحب والتحديد والفتح والإغلاق والتكبير للكائنات الافتراضية[cite: 1995, 2006]."
+            },
+            {
+                chapter: "Mod3",
+                question: "47. The benefits of direct manipulation include the following, EXCEPT:",
+                options: ["Showing users immediately how their actions are furthering their goals", "Enabling experienced users to work rapidly on a wide range of tasks", "Allowing novice users to interact with a system in a way that is familiar to them", "Allowing infrequent users to remember how to carry out operations over time"],
+                correct: 0,
+                explanation: "بالرغم من أن المعالجة المباشرة (Direct Manipulation) توفر ردود فعل فورية، إلا أن خيار 'Showing users immediately how their actions are furthering their goals' تم استبعاده في اختبار المدتيرم كفائدة رئيسية مسجلة لهذه القائمة[cite: 1965, 2011]."
+            },
+            {
+                chapter: "Mod3",
+                question: "48. What is the reason for conceptualizing a design from a user experience (UX) perspective?",
+                options: ["Explain how designers will implement the design", "Understanding the cost and the time needed for the product.", "Finalizing the design", "Explaining how users will understand, learn about, and interact with the product."],
+                correct: 3,
+                explanation: "وضع تصور للتصميم من منظور تجربة المستخدم يساعد في شرح وتوضيح كيف سيفهم المستخدمون المنتج ويتعلمونه ويتفاعلون معه[cite: 1980, 2011]."
+            },
+            {
+                chapter: "Mod3",
+                question: "49. Which phase explicitly involves producing the conceptual model for the product?",
+                options: ["Iterative design", "Conceptual design", "Concrete design", "System design"],
+                correct: 1,
+                explanation: "التصميم المفاهيمي (Conceptual design) هو العملية التي تتضمن إنتاج النموذج المفاهيمي للمنتج[cite: 1958]."
+            },
+            {
+                chapter: "Mod3",
+                question: "50. Which interaction style involves using natural language dialogue or voice recognition?",
+                options: ["Manipulating", "Exploring", "Instructing", "Conversing"],
+                correct: 3,
+                explanation: "المحادثة (Conversing) هي أسلوب التفاعل الذي يعتمد على الحوار أو الأوامر الصوتية واللغة الطبيعية للتواصل مع النظام[cite: 1995]."
+            },
+            {
+                chapter: "Mod3",
+                question: "51. Which interaction type would be most appropriate for navigating through a 3D virtual environment?",
+                options: ["Conversing", "Responding", "Instructing", "Exploring"],
+                correct: 3,
+                explanation: "الاستكشاف (Exploring) هو النوع الأنسب للملاحة والتحرك داخل بيئات افتراضية ثلاثية الأبعاد[cite: 1979]."
+            },
+            {
+                chapter: "Mod3",
+                question: "52. When the system initiates the interaction to alert the user (e.g., a smart watch notification), it is using which interaction type?",
+                options: ["Responding", "Exploring", "Conversing", "Manipulating"],
+                correct: 0,
+                explanation: "الاستجابة (Responding) هي نوع من التفاعل حيث يأخذ النظام المبادرة لتنبيه المستخدم وينتظر استجابته[cite: 1979]."
+            },
+            {
+                chapter: "Mod3",
+                question: "53. What refers to the general approach adopted by a community for carrying out research (e.g., desktop, ubiquitous computing)?",
+                options: ["Theory", "Framework", "Paradigm", "Mental model"],
+                correct: 2,
+                explanation: "النموذج الفكري أو النظري (Paradigm) هو النهج العام الذي يتبناه مجتمع معين لإجراء البحوث[cite: 1957]."
+            },
+            {
+                chapter: "Mod3",
+                question: "54. An explanation of a phenomenon that can help identify factors relevant to the design is called a:",
+                options: ["Vision", "Framework", "Paradigm", "Theory"],
+                correct: 3,
+                explanation: "النظرية (Theory) توفر تفسيراً لظاهرة معينة يمكن أن تساعد في تحديد العوامل ذات الصلة بالتصميم[cite: 1957]."
+            },
+            {
+                chapter: "Mod3",
+                question: "55. A set of interrelated concepts providing advice on how to design user experiences is known as a:",
+                options: ["Framework", "Paradigm", "Vision", "Theory"],
+                correct: 0,
+                explanation: "الإطار العملي (Framework) هو مجموعة من المفاهيم المترابطة التي تقدم نصائح حول كيفية تصميم تجارب المستخدم[cite: 1957]."
+            },
+            {
+                chapter: "Mod3",
+                question: "56. Which of the following is considered a vision in interaction design?",
+                options: ["Gulf of execution", "Concrete scenario of how society can use next-generation technologies", "A set of guidelines for error messages", "The WIMP interface"],
+                correct: 1,
+                explanation: "الرؤية (Vision) هي قوة دافعة توفر سيناريوهات ملموسة لكيفية استخدام المجتمع لتقنيات الجيل القادم[cite: 1957]."
+            },
+            {
+                chapter: "Mod3",
+                question: "57. What is a key benefit of 'Conceptualizing' before laying out widgets?",
+                options: ["It skips the requirement phase.", "It allows designers to straighten out their thinking.", "It writes the code automatically.", "It finalizes the color palette."],
+                correct: 1,
+                explanation: "وضع التصورات يمكن المصممين من ترتيب أفكارهم والتأكد منها (straighten out their thinking) قبل البدء بتصميم الواجهات الفعلية[cite: 1957]."
+            },
+            {
+                chapter: "Mod3",
+                question: "58. Stating something to be true when it is still open to question during the conceptualization phase is known as a:",
+                options: ["Theory", "Claim", "Assumption", "Framework"],
+                correct: 1,
+                explanation: "الادعاء (Claim) هو ذكر شيء على أنه صحيح بينما لا يزال قابلاً للتساؤل[cite: 1957]."
+            },
+            {
+                chapter: "Mod3",
+                question: "59. Taking something for granted when it needs further investigation is known as an:",
+                options: ["Vision", "Paradigm", "Claim", "Assumption"],
+                correct: 3,
+                explanation: "الافتراض (Assumption) هو أخذ شيء كأمر مُسلّم به بينما يحتاج إلى مزيد من البحث والتحقق[cite: 1957]."
+            },
+            {
+                chapter: "Mod3",
+                question: "60. The idea that designers should avoid becoming narrowly focused early on is a benefit of conceptualization known as:",
+                options: ["Open-mindedness", "Orientation", "Common ground", "Feedback"],
+                correct: 0,
+                explanation: "الانفتاح الذهني (Open-mindedness) في مرحلة وضع التصورات يمنع فريق التصميم من التركيز الضيق والمبكر جداً على فكرة واحدة[cite: 1957]."
+            },
+
+            // ================= MODULE 4 (20 Questions) =================
+            {
+                chapter: "Mod4",
+                question: "61. Which type of attention is required when reading a book while listening to music?",
+                options: ["Focused attention", "Selective attention", "Alternating attention", "Divided attention"],
+                correct: 3,
+                explanation: "الاهتمام المقسم (Divided attention) هو المطلوب عند القيام بمهام متعددة في نفس الوقت، مثل قراءة كتاب مع الاستماع للموسيقى[cite: 1967, 2012]."
+            },
+            {
+                chapter: "Mod4",
+                question: "62. How can multitasking impact user performance in an interface?",
+                options: ["It increases error rates", "It improves decision-making", "It simplifies the task", "It enhances focus"],
+                correct: 0,
+                explanation: "تعدد المهام (Multitasking) يحد من القدرة على التركيز وقد يضر بالأداء مما يؤدي إلى زيادة معدلات الخطأ (increases error rates)[cite: 1963, 2012]."
+            },
+            {
+                chapter: "Mod4",
+                question: "63. How do mental models benefit user interaction?",
+                options: ["They promote faster reactions", "They enable decision-making in unfamiliar situations", "They enhance multitasking ability", "They increase memory capacity"],
+                correct: 1,
+                explanation: "النماذج الذهنية (Mental models) تمكّن المستخدم من الفهم واتخاذ القرارات (decision-making) عندما يواجه مواقف أو أنظمة غير مألوفة[cite: 1969, 2012]."
+            },
+            {
+                chapter: "Mod4",
+                question: "64. An easy equation example such as 2+2 is considered under which type of the following cognition classification?",
+                options: ["Experiential", "Slow thinking", "Long procedure", "Fast thinking"],
+                correct: 3,
+                explanation: "المعادلات البسيطة جداً كـ 2+2 تمثل (Fast thinking) لأنه تفكير انعكاسي ولا يتطلب جهداً ذهنياً كبيراً[cite: 1998, 2007]."
+            },
+            {
+                chapter: "Mod4",
+                question: "65. What helps in reducing cognitive load?",
+                options: ["Complex interfaces", "Load sounds", "Minimal design", "Bright colours"],
+                correct: 2,
+                explanation: "التصميم البسيط والأدنى (Minimal design) يساعد بشكل كبير في تقليل العبء المعرفي (Cognitive load) على المستخدم[cite: 1949]."
+            },
+            {
+                chapter: "Mod4",
+                question: "66. Memory involves:",
+                options: ["Transformation into experiences", "Recalling of knowledge to act appropriately", "Recognizing things at a point in time", "Mental effort and decision-making"],
+                correct: 1,
+                explanation: "الذاكرة (Memory) تتضمن استرجاع المعرفة للعمل والتصرف بشكل مناسب (Recalling of knowledge to act appropriately)[cite: 1958]."
+            },
+            {
+                chapter: "Mod4",
+                question: "67. Recognizing what you did today is an example of incidental:",
+                options: ["Attention", "Perception", "Memory", "Learning"],
+                correct: 3,
+                explanation: "تذكر ما فعلته اليوم دون قصد مسبق للحفظ يُعتبر مثالاً على التعلم العرضي أو غير المتعمد (Incidental Learning)[cite: 1957]."
+            },
+            {
+                chapter: "Mod4",
+                question: "68. Norman (1993) classified cognition into Experiential and:",
+                options: ["Reflective", "Fast thinking", "Slow thinking", "Intentional"],
+                correct: 0,
+                explanation: "صنف نورمان الإدراك المعرفي إلى نوعين: تجريبي (Experiential) وانعكاسي/تأملي (Reflective)[cite: 1998]."
+            },
+            {
+                chapter: "Mod4",
+                question: "69. Which type of cognition involves mental effort, attention, judgment, and decision-making?",
+                options: ["Experiential", "Fast thinking", "Reflective", "Incidental"],
+                correct: 2,
+                explanation: "الإدراك التأملي (Reflective) هو الذي يتطلب جهداً ذهنياً وانتباهاً وحكماً واتخاذ قرارات[cite: 1998]."
+            },
+            {
+                chapter: "Mod4",
+                question: "70. Kahneman (2011) classified cognition into 'Fast' and:",
+                options: ["Experiential", "Reflective", "Slow thinking", "Deliberate"],
+                correct: 2,
+                explanation: "صنف كانيمان الإدراك إلى تفكير سريع (Fast) وتفكير بطيء (Slow thinking)[cite: 1998]."
+            },
+            {
+                chapter: "Mod4",
+                question: "71. Which cognitive process involves information acquisition from the world and transformation into experiences?",
+                options: ["Learning", "Perception", "Memory", "Attention"],
+                correct: 1,
+                explanation: "الإدراك الحسي (Perception) هو عملية اكتساب المعلومات من العالم الخارجي وتحويلها إلى تجارب[cite: 1958]."
+            },
+            {
+                chapter: "Mod4",
+                question: "72. Which of the following is TRUE regarding Recognition vs. Recall in user interfaces?",
+                options: ["Recall is always easier than recognition.", "Command-based interfaces rely heavily on recognition.", "Graphical interfaces promote recognition rather than recall.", "There is no difference in cognitive load between them."],
+                correct: 2,
+                explanation: "الواجهات الرسومية (Graphical interfaces) تدعم التعرف (Recognition) كونه أسهل بكثير وأقل عبئاً من التذكر (Recall) الذي تتطلبه واجهات الأوامر[cite: 1958]."
+            },
+            {
+                chapter: "Mod4",
+                question: "73. Studying for an exam or learning to cook is an example of:",
+                options: ["Incidental learning", "Intentional learning", "Experiential cognition", "Fast thinking"],
+                correct: 1,
+                explanation: "الدراسة وتعلم الطبخ يتطلبان جهداً مقصوداً وتركيزاً، لذا يُصنفان كتعلم متعمد (Intentional learning)[cite: 1957]."
+            },
+            {
+                chapter: "Mod4",
+                question: "74. Reading, speaking, and listening have different cognitive demands. Which is generally considered to require the LEAST cognitive effort?",
+                options: ["Reading", "Speaking", "Listening", "Writing"],
+                correct: 2,
+                explanation: "يعتبر الاستماع (Listening) أقل تطلباً للجهد المعرفي مقارنة بالقراءة أو التحدث[cite: 1998]."
+            },
+            {
+                chapter: "Mod4",
+                question: "75. To support rapid decision-making and planning, an interface should:",
+                options: ["Provide long and complex instructions.", "Use simple and memorable functions.", "Force the user to rely on recall.", "Require heavy multitasking."],
+                correct: 1,
+                explanation: "لدعم اتخاذ القرار السريع، يجب على الواجهة استخدام وظائف بسيطة وسهلة التذكر (Use simple and memorable functions)[cite: 1949]."
+            },
+            {
+                chapter: "Mod4",
+                question: "76. The distance from the user to the physical system is described by the:",
+                options: ["Gulf of evaluation", "Gulf of execution", "Mental model gap", "Cognitive load distance"],
+                correct: 1,
+                explanation: "فجوة التنفيذ (Gulf of execution) هي المسافة بين أهداف المستخدم والنظام المادي[cite: 1998]."
+            },
+            {
+                chapter: "Mod4",
+                question: "77. The distance from the physical system back to the user is described by the:",
+                options: ["Gulf of evaluation", "Gulf of execution", "External cognition", "Feedback loop"],
+                correct: 0,
+                explanation: "فجوة التقييم (Gulf of evaluation) تمثل مدى قدرة المستخدم على إدراك حالة النظام بعد اتخاذ الإجراء[cite: 1998]."
+            },
+            {
+                chapter: "Mod4",
+                question: "78. Which cognitive framework involves interactions among people, the artifacts they use, and the environment?",
+                options: ["External cognition", "Distributed cognition", "Gulf of execution", "Mental models"],
+                correct: 1,
+                explanation: "الإدراك الموزع (Distributed cognition) يشمل تفاعل الأشخاص مع الأدوات والبيئة المحيطة لتوزيع العبء المعرفي[cite: 1998]."
+            },
+            {
+                chapter: "Mod4",
+                question: "79. Using diaries, reminders, calendars, and notes to reduce memory load is an example of:",
+                options: ["External cognition", "Distributed cognition", "Fast thinking", "Mental models"],
+                correct: 0,
+                explanation: "استخدام الأدوات الخارجية كالمذكرات لتخفيف العبء على الذاكرة هو تطبيق لمفهوم الإدراك الخارجي (External cognition)[cite: 1998]."
+            },
+            {
+                chapter: "Mod4",
+                question: "80. When designing speech-based menus and instructions for Voice User Interfaces, they should be:",
+                options: ["Long and detailed", "Read rapidly without pauses", "Short", "Without any intonation"],
+                correct: 2,
+                explanation: "تعليمات وقوائم التوجيه الصوتي يجب أن تكون قصيرة (Short) ليسهل على المستخدم تذكرها واستيعابها[cite: 1998]."
+            },
+
+            // ================= MODULE 5 (20 Questions) =================
+            {
+                chapter: "Mod5",
+                question: "81. Affective computing refers to:",
+                options: ["How to make computers more effective.", "How to automate the measurement of feelings and behaviour using AI.", "How to predict user's emotions and aspects of their behaviour.", "How to use computers to recognize and express emotions as humans do."],
+                correct: 3,
+                explanation: "الحوسبة العاطفية (Affective computing) هي كيفية استخدام الحواسيب للتعرف على المشاعر والتعبير عنها كما يفعل البشر[cite: 1983, 2004]."
+            },
+            {
+                chapter: "Mod5",
+                question: "82. What is the role of emotional AI in HCI?",
+                options: ["To track memory performance", "To improve task switching", "To predict user emotions", "To simplify interface navigation"],
+                correct: 2,
+                explanation: "الذكاء الاصطناعي العاطفي يهدف إلى أتمتة قياس المشاعر باستخدام الذكاء الاصطناعي للتنبؤ بمشاعر المستخدم (To predict user emotions)[cite: 1966, 2013]."
+            },
+            {
+                chapter: "Mod5",
+                question: "83. Emotional interaction is concerned with:",
+                options: ["How we feel and react when interacting with technologies", "Understanding the emotions and feelings of humans", "The process of users expressing their feelings verbally", "The development of emotional support systems"],
+                correct: 0,
+                explanation: "التفاعل العاطفي يهتم بـ (كيف نشعر ونتفاعل عند استخدام التقنيات)[cite: 1986, 2005]."
+            },
+            {
+                chapter: "Mod5",
+                question: "84. What is the main purpose of persuasive technologies?",
+                options: ["To reduce cognitive load", "To improve emotional feedback", "To enhance usability", "To change behavior"],
+                correct: 3,
+                explanation: "التقنيات المقنعة (Persuasive technologies) تُصمم بهدف التأثير على الأشخاص لتغيير سلوكياتهم (To change behavior)[cite: 1981, 2012]."
+            },
+            {
+                chapter: "Mod5",
+                question: "85. Which technology is designed to measure emotions by analyzing physical responses?",
+                options: ["Multitasking systems", "Facial recognition (or biosensors)", "Accelerometer", "Problem-solving modules"],
+                correct: 1,
+                explanation: "تقنيات مثل التعرف على الوجه، وأجهزة الاستشعار الحيوية (Biosensors)، تستخدم لقياس التعبيرات وردود الفعل العاطفية[cite: 1961, 2012]."
+            },
+            {
+                chapter: "Mod5",
+                question: "86. What is an effective method of emotional feedback in user interfaces?",
+                options: ["Clear error messages", "External cognition", "Fast memory processing", "Affective computing"],
+                correct: 3,
+                explanation: "الحوسبة العاطفية (Affective computing) توفر طرقاً فعالة لتقديم وتلقي التغذية الراجعة العاطفية في واجهات المستخدم[cite: 1968, 2013]."
+            },
+            {
+                chapter: "Mod5",
+                question: "87. Anthony Ortony's model of emotional design shows three levels, including visceral, which refers to:",
+                options: ["Immediate, sensory reactions to a product or interface.", "Cognitive assessments of a product's functionality and usability.", "Long-term, reflective evaluations of a product's utility.", "Social interactions and behavioural responses to a design."],
+                correct: 0,
+                explanation: "المستوى الحشوي (Visceral) في نموذج أورتوني يشير إلى ردود الفعل الحسية والفورية تجاه المنتج وتتعلق بالمظهر والصوت[cite: 1989, 2005]."
+            },
+            {
+                chapter: "Mod5",
+                question: "88. In Anthony Ortony's model, which level is about 'use' and equates with traditional values of usability?",
+                options: ["Visceral design", "Behavioral design", "Reflective design", "Conceptual design"],
+                correct: 1,
+                explanation: "المستوى السلوكي (Behavioral design) هو المتعلق بالاستخدام والأنشطة الروتينية وقيم قابلية الاستخدام (usability)[cite: 1959]."
+            },
+            {
+                chapter: "Mod5",
+                question: "89. In Anthony Ortony's model, which level is about considering the meaning and personal value of a product?",
+                options: ["Reflective design", "Behavioral design", "Visceral design", "Aesthetic design"],
+                correct: 0,
+                explanation: "المستوى الانعكاسي/التأملي (Reflective design) يهتم بالمعنى والقيمة الشخصية التي يمثلها المنتج للمستخدم[cite: 1959]."
+            },
+            {
+                chapter: "Mod5",
+                question: "90. Anthropomorphism in interaction design is:",
+                options: ["Using voice commands only.", "Attributing human-like qualities to inanimate objects.", "Designing interfaces with multiple colors.", "Designing for animal interaction."],
+                correct: 1,
+                explanation: "التجسيد (Anthropomorphism) هو إضفاء صفات بشرية على الأشياء غير الحية (مثل الأنظمة والواجهات) لجعلها أكثر متعة وقبولاً[cite: 1971, 2015]."
+            },
+            {
+                chapter: "Mod5",
+                question: "91. Shneiderman’s classic guidelines for error messages includes:",
+                options: ["Use UPPERCASE and long code numbers", "Avoid using terms like FATAL, INVALID, or BAD", "Avoid Audio warnings", "Messages should not be precise"],
+                correct: 1,
+                explanation: "من قواعد شنايدرمان لرسائل الخطأ: تجنب استخدام الكلمات السلبية والمخيفة مثل FATAL, INVALID, BAD[cite: 1958]."
+            },
+            {
+                chapter: "Mod5",
+                question: "92. Telepresence in HCI refers to:",
+                options: ["The physical presence of two people in the same room.", "Occurrence of two or more things together in the same place and time.", "One party being present with another party, who is present in a physical space, such as a meeting room.", "The feeling of being there with a real person when in virtual reality."],
+                correct: 2,
+                explanation: "التواجد عن بعد (Telepresence) يعني حضور شخص تقنياً مع شخص آخر متواجد فعلياً في مساحة مادية مثل غرفة الاجتماعات[cite: 1957, 2002, 2008]."
+            },
+            {
+                chapter: "Mod5",
+                question: "93. Social presence refers to:",
+                options: ["The feeling of being there with a real person when in virtual reality.", "Physical presence in the same room.", "Using a telepresence robot.", "Writing a message on a social media wall."],
+                correct: 0,
+                explanation: "التواجد الاجتماعي (Social presence) يشير إلى الشعور بالتواجد مع شخص حقيقي داخل بيئة الواقع الافتراضي[cite: 1957]."
+            },
+            {
+                chapter: "Mod5",
+                question: "94. The following is NOT a defining aspect of social engagement:",
+                options: ["Compulsory participation", "Social exchange where people give or receive something from others", "Participation in activities of a social group", "Voluntary, unpaid participation"],
+                correct: 0,
+                explanation: "المشاركة الإلزامية (Compulsory participation) ليست من خصائص المشاركة الاجتماعية (Social engagement) التي تعتمد على الطوعية[cite: 2003, 2008]."
+            },
+            {
+                chapter: "Mod5",
+                question: "95. Keeping aware of what others are doing and letting others know what you are doing are essential aspects of:",
+                options: ["Process of designing", "Collaboration and socializing", "User-centered approach", "Texting"],
+                correct: 1,
+                explanation: "مشاركة الحالة والوعي بما يفعله الآخرون يعتبر أساسياً في (Collaboration and socializing) التعاون والتنشئة الاجتماعية[cite: 1959]."
+            },
+            {
+                chapter: "Mod5",
+                question: "96. One of the challenges with texting is:",
+                options: ["It replaced the use of telephones", "It uses texting etiquettes", "It cannot accurately convey tone, emotion, and facial expressions", "It takes less expectation to read and respond"],
+                correct: 2,
+                explanation: "من تحديات المراسلة النصية أنها تفشل في النقل الدقيق لنبرة الصوت والمشاعر وتعبيرات الوجه[cite: 1960]."
+            },
+            {
+                chapter: "Mod5",
+                question: "97. Which technology has significantly changed the way people manage their social lives?",
+                options: ["Social media", "Cloud computing", "Virtual Reality", "Artificial Intelligence"],
+                correct: 0,
+                explanation: "وسائل التواصل الاجتماعي (Social media) غيرت بشكل جذري طريقة تواصل الناس وإدارتهم لحياتهم الاجتماعية[cite: 1953]."
+            },
+            {
+                chapter: "Mod5",
+                question: "98. Videoconferencing is considered a basic channel for:",
+                options: ["Meetings and discussion in many universities.", "Programming logic.", "Database management.", "Designing prototypes."],
+                correct: 0,
+                explanation: "عُدّت مؤتمرات الفيديو (Videoconferencing) وسيلة أساسية للاجتماعات والمناقشات في العديد من الجامعات والمؤسسات[cite: 1957]."
+            },
+            {
+                chapter: "Mod5",
+                question: "99. Affective computing uses sensing technologies to measure all of the following EXCEPT:",
+                options: ["Galvanic Skin Response (GSR)", "Facial expressions", "Body movement", "Database performance"],
+                correct: 3,
+                explanation: "الحوسبة العاطفية تقيس الـ GSR وتعابير الوجه وحركة الجسم لفهم المشاعر، ولا علاقة لها بأداء قواعد البيانات (Database performance)[cite: 1958]."
+            },
+            {
+                chapter: "Mod5",
+                question: "100. Emotional Intelligence in the context of HCI involves:",
+                options: ["Programming robots to repair themselves.", "Understanding relationships between facial expressions, body language, gestures, and tone of voice.", "Predicting stock market crashes.", "Using fast thinking to solve equations."],
+                correct: 1,
+                explanation: "الذكاء العاطفي يتضمن فهم العلاقة بين تعابير الوجه ولغة الجسد والإيماءات ونبرة الصوت للتعرف على المشاعر[cite: 1957]."
+            }
+        ];
+
+        let questions = [];
+        let userAnswers = [];
+        let currentIdx = 0;
+        let currentFilter = 'ALL';
+        let currentLimit = 100;
+
+        const questionCounter = document.getElementById('question-counter');
+        const chapterBadge = document.getElementById('chapter-badge');
+        const statusBadge = document.getElementById('status-badge');
+        const scoreTracker = document.getElementById('score-tracker');
+        const progressBar = document.getElementById('progress-bar');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const explanationBox = document.getElementById('explanation-box');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const quizContainer = document.getElementById('quiz-container');
+        const resultContainer = document.getElementById('result-container');
+        const finalScoreText = document.getElementById('final-score-text');
+        const finalDetailsText = document.getElementById('final-details-text');
+        const retryWrongBtn = document.getElementById('retry-wrong-btn');
+        const wrongCountNum = document.getElementById('wrong-count-num');
+
+        function filterChapter(ch) {
+            currentFilter = ch;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`btn-${ch}`).classList.add('active');
+            applyFilterAndLimit(false);
+        }
+
+        function setQuestionLimit(limit) {
+            currentLimit = limit === 100 ? allQuestions.length : limit;
+            document.querySelectorAll('.limit-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`limit-${limit}`).classList.add('active');
+            applyFilterAndLimit(true);
+        }
+
+        function applyFilterAndLimit(shouldShuffle = false) {
+            let pool = (currentFilter === 'ALL') 
+                ? [...allQuestions] 
+                : allQuestions.filter(q => q.chapter === currentFilter);
+
+            if (shouldShuffle) {
+                for (let i = pool.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [pool[i], pool[j]] = [pool[j], pool[i]];
+                }
+            }
+
+            questions = pool.slice(0, Math.min(currentLimit, pool.length));
+            startQuizSession();
+        }
+
+        function shuffleCurrentPool() {
+            for (let i = questions.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [questions[i], questions[j]] = [questions[j], questions[i]];
+            }
+            startQuizSession();
+        }
+
+        let isAutoNext = false;
+        function toggleAutoNext() {
+            isAutoNext = !isAutoNext;
+            const icon = document.getElementById('auto-next-icon');
+            const btn = document.getElementById('auto-next-toggle');
+            if (isAutoNext) {
+                icon.className = 'fa-solid fa-toggle-on text-emerald-500 text-sm transition-all';
+                btn.classList.remove('text-gray-400');
+                btn.classList.add('text-emerald-500');
+            } else {
+                icon.className = 'fa-solid fa-toggle-off text-gray-500 text-sm transition-all';
+                btn.classList.remove('text-emerald-500');
+                btn.classList.add('text-gray-400');
+            }
+        }
+
+        function startQuizSession() {
+            currentIdx = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            updateScoreTracker();
+            resultContainer.classList.add('hidden');
+            quizContainer.classList.remove('hidden');
+            loadQuestion();
+        }
+
+        function getCurrentScore() {
+            return userAnswers.reduce((acc, ans, idx) => {
+                return acc + (ans === questions[idx].correct ? 1 : 0);
+            }, 0);
+        }
+
+        function updateScoreTracker() {
+            const currentScore = getCurrentScore();
+            document.getElementById('score-tracker').innerText = `الصحيحة: ${currentScore}`;
+            if (document.getElementById('score-tracker-mobile')) {
+                document.getElementById('score-tracker-mobile').innerText = currentScore;
+            }
+        }
+
+        function loadQuestion() {
+            const q = questions[currentIdx];
+            const savedAnswer = userAnswers[currentIdx];
+
+            questionCounter.innerText = `السؤال ${currentIdx + 1} من ${questions.length}`;
+            chapterBadge.innerText = q.chapter;
+            progressBar.style.width = `${((currentIdx + 1) / questions.length) * 100}%`;
+            questionText.innerText = q.question;
+
+            const telegramUsername = "jory976";
+            const qNumMatch = q.question.match(/^\d+/);
+            const qOriginalNum = qNumMatch ? qNumMatch[0] : (currentIdx + 1);
+            const reportMessage = `السلام عليكم فهد، عندي ملاحظة في كويزات IT352 (Modules 1-5):\n- رقم السؤال: (${qOriginalNum})\n- الوحدة: (${q.chapter})\n- السؤال: "${q.question}"\n\nالملاحظة: `;
+            document.getElementById('report-btn').href = `https://t.me/${telegramUsername}?text=${encodeURIComponent(reportMessage)}`;
+            
+            prevBtn.disabled = (currentIdx === 0);
+            nextBtn.innerHTML = (currentIdx === questions.length - 1) 
+                ? `النتيجة النهائية <i class="fa-solid fa-flag-checkered mr-2"></i>` 
+                : `التالي <i class="fa-solid fa-arrow-left mr-2"></i>`;
+
+            optionsContainer.innerHTML = '';
+
+            if (savedAnswer === null) {
+                statusBadge.className = "bg-gray-800 text-gray-400 text-xs px-3 py-1 rounded-full shadow-sm";
+                statusBadge.innerText = "لم تتم الإجابة";
+                statusBadge.classList.remove('hidden');
+                explanationBox.classList.add('hidden');
+            } else if (savedAnswer === q.correct) {
+                statusBadge.className = "bg-emerald-500/20 text-emerald-500 text-xs px-3 py-1 rounded-full font-bold shadow-sm";
+                statusBadge.innerText = "إجابة صحيحة";
+                statusBadge.classList.remove('hidden');
+            } else {
+                statusBadge.className = "bg-rose-500/20 text-rose-500 text-xs px-3 py-1 rounded-full font-bold shadow-sm";
+                statusBadge.innerText = "إجابة خاطئة";
+                statusBadge.classList.remove('hidden');
+            }
+
+            q.options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                
+                if (savedAnswer === null) {
+                    btn.className = "option-btn w-full text-left p-4 rounded-xl border border-gray-700 bg-gray-900/60 text-gray-200 font-medium flex justify-between items-center gap-3";
+                    btn.innerHTML = `<span>${opt}</span> <i class="fa-regular fa-circle text-gray-500 shrink-0"></i>`;
+                    btn.onclick = () => selectAnswer(index);
+                } else {
+                    btn.disabled = true;
+                    if (index === q.correct) {
+                        btn.className = "w-full text-left p-4 rounded-xl border border-emerald-500 bg-emerald-500/20 text-white font-bold flex justify-between items-center gap-3";
+                        btn.innerHTML = `<span>${opt}</span> <i class="fa-solid fa-circle-check text-emerald-500 shrink-0"></i>`;
+                    } else if (index === savedAnswer && savedAnswer !== q.correct) {
+                        btn.className = "w-full text-left p-4 rounded-xl border border-rose-500 bg-rose-500/20 text-white font-bold flex justify-between items-center gap-3";
+                        btn.innerHTML = `<span>${opt}</span> <i class="fa-solid fa-circle-xmark text-rose-500 shrink-0"></i>`;
+                    } else {
+                        btn.className = "w-full text-left p-4 rounded-xl border border-gray-800 bg-gray-900/40 text-gray-500 font-medium flex justify-between items-center gap-3 opacity-60";
+                        btn.innerHTML = `<span>${opt}</span> <i class="fa-regular fa-circle text-gray-600 shrink-0"></i>`;
+                    }
+                }
+                optionsContainer.appendChild(btn);
+            });
+
+            if (savedAnswer !== null) {
+                explanationBox.innerHTML = `<strong class="text-cyan">توضيح:</strong> ${q.explanation}`;
+                explanationBox.classList.remove('hidden');
+            }
+        }
+
+        function selectAnswer(selectedIdx) {
+            userAnswers[currentIdx] = selectedIdx;
+            updateScoreTracker();
+            loadQuestion();
+
+            if (isAutoNext && selectedIdx === questions[currentIdx].correct) {
+                setTimeout(() => {
+                    nextQuestion();
+                }, 400);
+            }
+        }
+
+        function nextQuestion() {
+            if (currentIdx < questions.length - 1) {
+                currentIdx++;
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentIdx > 0) {
+                currentIdx--;
+                loadQuestion();
+            }
+        }
+
+        function showResults() {
+            quizContainer.classList.add('hidden');
+            resultContainer.classList.remove('hidden');
+            
+            const finalScore = getCurrentScore();
+            const total = questions.length;
+            const percentage = Math.round((finalScore / total) * 100);
+            
+            let wrongOnlyCount = 0;
+            let unansweredCount = 0;
+            
+            questions.forEach((q, idx) => {
+                if (userAnswers[idx] === null) {
+                    unansweredCount++;
+                } else if (userAnswers[idx] !== q.correct) {
+                    wrongOnlyCount++;
+                }
+            });
+
+            finalScoreText.innerText = `حصلت على ${finalScore} من ${total} (${percentage}%)`;
+            finalDetailsText.innerText = `إجابات صحيحة: ${finalScore} | إجابات خاطئة: ${wrongOnlyCount} | لم تتم الإجابة: ${unansweredCount}`;
+
+            const reviewPoolCount = wrongOnlyCount + unansweredCount;
+            if (reviewPoolCount > 0) {
+                wrongCountNum.innerText = reviewPoolCount;
+                retryWrongBtn.classList.remove('hidden');
+            } else {
+                retryWrongBtn.classList.add('hidden');
+            }
+        }
+
+        function retryWrongQuestions() {
+            const wrongQuestions = questions.filter((q, idx) => userAnswers[idx] !== q.correct);
+            if (wrongQuestions.length > 0) {
+                questions = wrongQuestions;
+                startQuizSession();
+            }
+        }
+
+        applyFilterAndLimit(false);
+    </script>
+</body>
+</html>
