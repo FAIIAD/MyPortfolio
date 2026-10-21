@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT353 - Modules 1 to 5 (Part 2) | FZ</title>
+    
+    <!-- خط ثمانية، خط Open Sans، والأيقونات -->
+    <link href="https://cdn.jsdelivr.net/npm/@dawod/thmanyah-font-web/index.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- قراءة المظهر المحفوظ فور فتح الصفحة -->
+    <script>
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+        } else {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+
+    <!-- إعدادات الألوان الجديدة في Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#0f111a',     // خلفية داكنة ليلية عصرية
+                        card: '#1b1e2b',     // لون البطاقات الداكنة
+                        primary: '#8b5cf6',  // البنفسجي (Violet)
+                        secondary: '#d946ef' // الفوشيا (Fuchsia)
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { 
+            font-family: 'Thmanyah Sans', sans-serif; 
+            transition: background-color 0.3s ease, color 0.3s ease; 
+        }
+        h1, h2, h3, h4 { font-family: 'Thmanyah Serif Display', serif; }
+        
+        /* خط Open Sans لأسئلة الاختبار والخيارات الإنجليزية */
+        #question-text {
+            font-family: 'Open Sans', sans-serif !important;
+        }
+
+        .option-btn { transition: all 0.2s ease; }
+        .option-btn:hover:not(:disabled) {
+            border-color: #8b5cf6;
+            background-color: rgba(139, 92, 246, 0.1);
+            transform: translateX(-4px);
+        }
+        .filter-btn.active, .limit-btn.active {
+            background: linear-gradient(to right, #8b5cf6, #d946ef) !important;
+            color: white !important;
+            border-color: transparent !important;
+        }
+
+        /* تنسيقات الوضع الفاتح مع تباين ممتاز */
+        html:not(.dark) body { background-color: #f8fafc; color: #0f111a; }
+        html:not(.dark) header, html:not(.dark) footer { background-color: rgba(255, 255, 255, 0.85); border-color: #e2e8f0; }
+        html:not(.dark) .bg-card, html:not(.dark) .bg-card\/60, html:not(.dark) .bg-card\/40 { background-color: #ffffff; border-color: #cbd5e1; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        html:not(.dark) .bg-gray-900\/60, html:not(.dark) .bg-gray-900\/40 { background-color: #f1f5f9; border-color: #cbd5e1; color: #1e293b; }
+        html:not(.dark) .bg-gray-800, html:not(.dark) .bg-gray-800\/80, html:not(.dark) .bg-gray-800\/60 { background-color: #e2e8f0; border-color: #cbd5e1; color: #334155; }
+        html:not(.dark) .text-white { color: #0f111a; }
+        html:not(.dark) .text-gray-200, html:not(.dark) .text-gray-300 { color: #1e293b; }
+        html:not(.dark) .text-gray-400, html:not(.dark) .text-gray-500, html:not(.dark) .text-gray-600 { color: #475569; }
+        html:not(.dark) .border-gray-700, html:not(.dark) .border-gray-800, html:not(.dark) .border-gray-800\/80 { border-color: #cbd5e1; }
+    </style>
+</head>
+<body class="bg-dark text-gray-200 min-h-screen flex flex-col justify-between relative overflow-x-hidden">
+
+    <header class="bg-dark/70 backdrop-blur-md border-b border-gray-800 py-4 px-6 sticky top-0 z-50 transition-colors duration-300">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-lg md:text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">IT353 - Modules 1 to 5 (Bank 2)</h1>
+            
+            <div class="flex items-center gap-3 md:gap-4">
+                <!-- زر تبديل المظهر المنزلق فقط -->
+                <button id="theme-toggle" onclick="toggleTheme()" aria-label="تبديل المظهر" dir="ltr" class="relative w-16 h-8 rounded-full bg-slate-200 dark:bg-gray-800 border border-slate-300 dark:border-gray-700 flex items-center justify-between px-2 transition-colors duration-300 focus:outline-none shrink-0 cursor-pointer">
+                    <i class="fa-solid fa-sun text-amber-500 text-xs"></i>
+                    <i class="fa-solid fa-moon text-primary text-xs"></i>
+                    <span class="absolute top-1 left-1 w-6 h-6 rounded-full bg-white dark:bg-card border border-slate-200 dark:border-gray-600 shadow-md transform transition-transform duration-300 translate-x-0 dark:translate-x-8 flex items-center justify-center">
+                        <i id="theme-icon" class="fa-solid fa-moon text-primary text-xs"></i>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 flex-grow flex flex-col items-center justify-center">
+
+        <!-- لوحة التحكم -->
+        <div class="w-full max-w-3xl mb-6 space-y-4 bg-card/40 p-4 rounded-2xl border border-gray-800">
+            <div class="flex flex-wrap items-center justify-center gap-2">
+                <span class="text-xs text-gray-400 font-bold ml-2">الوحدة:</span>
+                <button onclick="filterChapter('ALL')" id="btn-ALL" class="filter-btn active text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">الكل (100)</button>
+                <button onclick="filterChapter('Mod1')" id="btn-Mod1" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Mod 1 (20)</button>
+                <button onclick="filterChapter('Mod2')" id="btn-Mod2" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Mod 2 (20)</button>
+                <button onclick="filterChapter('Mod3')" id="btn-Mod3" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Mod 3 (20)</button>
+                <button onclick="filterChapter('Mod4')" id="btn-Mod4" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Mod 4 (20)</button>
+                <button onclick="filterChapter('Mod5')" id="btn-Mod5" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Mod 5 (20)</button>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-center gap-2 pt-2 border-t border-gray-800/80">
+                <span class="text-xs text-gray-400 font-bold ml-2">عدد الأسئلة:</span>
+                <button onclick="setQuestionLimit(10)" id="limit-10" class="limit-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">10</button>
+                <button onclick="setQuestionLimit(20)" id="limit-20" class="limit-btn text-xs px-4 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">20 سؤال</button>
+                <button onclick="setQuestionLimit(40)" id="limit-40" class="limit-btn text-xs px-4 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">40 سؤال</button>
+                <button onclick="setQuestionLimit(60)" id="limit-60" class="limit-btn text-xs px-4 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">60 سؤال</button>
+                <button onclick="setQuestionLimit(100)" id="limit-100" class="limit-btn active text-xs px-4 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">100 (الكل)</button>
+            </div>
+        </div>
+
+        <div class="w-full max-w-3xl bg-card/60 backdrop-blur-md border border-gray-800 rounded-2xl p-6 md:p-8 shadow-xl">
+            
+            <div id="quiz-container">
+                <!-- العداد والأدوات -->
+                <div class="flex flex-wrap justify-between items-center mb-4 text-sm text-gray-400 gap-3">
+                    <div class="flex items-center gap-2">
+                        <span id="question-counter" class="font-bold text-primary bg-primary/10 border border-primary/20 px-3 py-1 rounded-full shadow-sm">السؤال 1 من 100</span>
+                        <span id="chapter-badge" class="bg-gray-800 text-gray-300 text-xs px-3 py-1 rounded-full border border-gray-700 shadow-sm">Mod1</span>
+                        <span id="status-badge" class="hidden text-xs px-3 py-1 rounded-full font-bold shadow-sm"></span>
+                    </div>
+                    
+                    <div class="flex items-center gap-2 md:gap-3 mr-auto">
+                        <div class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 font-bold px-3 py-1.5 rounded-full text-xs flex items-center gap-1.5 shadow-sm">
+                            <i class="fa-solid fa-check-double"></i>
+                            <span id="score-tracker" class="hidden sm:inline">الصحيحة: 0</span>
+                            <span id="score-tracker-mobile" class="sm:hidden">0</span>
+                        </div>
+                        
+                        <button onclick="shuffleCurrentPool()" title="خلط الأسئلة الحالية والبدء من جديد" class="text-gray-400 hover:text-primary transition-all duration-300 text-xs bg-gray-800 hover:bg-gray-700 px-3 md:px-4 py-1.5 rounded-full border border-gray-700 flex items-center shadow-sm">
+                            <i class="fa-solid fa-shuffle sm:ml-1.5"></i> <span class="hidden sm:inline">خلط</span>
+                        </button>
+
+                        <button id="auto-next-toggle" onclick="toggleAutoNext()" title="تجاوز تلقائي للسؤال التالي عند الإجابة الصحيحة" class="text-gray-400 hover:text-emerald-500 transition-all duration-300 text-xs bg-gray-800 hover:bg-gray-700 px-3 md:px-4 py-1.5 rounded-full border border-gray-700 flex items-center gap-1.5 shadow-sm">
+                            <i id="auto-next-icon" class="fa-solid fa-toggle-off text-gray-500 text-sm transition-all"></i> 
+                            <span class="hidden sm:inline">تجاوز تلقائي</span>
+                        </button>
+
+                        <a id="report-btn" href="#" target="_blank" title="الإبلاغ عن خطأ عبر تلجرام" class="text-gray-400 hover:text-[#24A1DE] transition-all duration-300 text-xs bg-gray-800 hover:bg-gray-700 px-3 md:px-4 py-1.5 rounded-full border border-gray-700 flex items-center gap-1.5 shadow-sm">
+                            <i class="fa-brands fa-telegram text-[#24A1DE] text-sm"></i> <span class="hidden sm:inline">إبلاغ</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- شريط التقدم -->
+                <div class="w-full bg-gray-800 h-3 rounded-full mb-8 overflow-hidden shadow-inner border border-gray-700/50">
+                    <div id="progress-bar" class="bg-gradient-to-r from-primary to-secondary h-full transition-all duration-500 ease-out" style="width: 1%"></div>
+                </div>
+
+                <!-- نص السؤال -->
+                <h2 id="question-text" dir="ltr" class="text-lg md:text-xl font-bold text-white mb-6 text-left leading-relaxed whitespace-pre-line"></h2>
+
+                <!-- الخيارات -->
+                <div id="options-container" dir="ltr" class="space-y-3 text-left mb-6"></div>
+
+                <!-- صندوق الشرح -->
+                <div id="explanation-box" class="hidden p-4 rounded-xl bg-gray-800/80 border border-gray-700 text-sm text-gray-300 mb-6 leading-relaxed shadow-inner"></div>
+
+                <!-- أزرار التنقل -->
+                <div class="flex items-center justify-between gap-3 pt-5 border-t border-gray-800/80">
+                    <button id="prev-btn" onclick="prevQuestion()" class="px-5 py-3 rounded-full border border-gray-700 bg-gray-800/60 hover:bg-gray-800 hover:border-primary hover:text-primary text-gray-300 font-bold transition-all duration-300 disabled:opacity-40 disabled:pointer-events-none shadow-sm hover:shadow-md">
+                        <i class="fa-solid fa-arrow-right ml-2"></i> السابق
+                    </button>
+
+                    <button onclick="showResults()" class="px-4 py-3 rounded-full border border-gray-700 hover:bg-gray-800 hover:border-rose-500/60 hover:text-rose-400 text-gray-400 text-sm font-bold transition-all duration-300 shadow-sm hover:shadow-md">
+                        إنهاء الاختبار
+                    </button>
+
+                    <button id="next-btn" onclick="nextQuestion()" class="flex-1 max-w-[220px] bg-gradient-to-r from-primary to-secondary hover:from-secondary hover:to-primary text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5">
+                        التالي <i class="fa-solid fa-arrow-left mr-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- شاشة النتيجة النهائية -->
+            <div id="result-container" class="hidden text-center py-8">
+                <div class="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-6 text-primary text-4xl">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-white mb-3">انتهى الاختبار!</h2>
+                <p id="final-score-text" class="text-xl text-gray-300 font-bold mb-2"></p>
+                <p id="final-details-text" class="text-sm text-gray-400 mb-8"></p>
+                
+                <div class="flex flex-wrap justify-center gap-4">
+                    <button id="retry-wrong-btn" onclick="retryWrongQuestions()" class="hidden bg-rose-600 hover:bg-rose-500 text-white font-bold py-3 px-8 rounded-full shadow-[0_0_20px_rgba(225,29,72,0.4)] transition-all">
+                        <i class="fa-solid fa-triangle-exclamation ml-2"></i> إعادة الأسئلة الخاطئة فقط (<span id="wrong-count-num">0</span>)
+                    </button>
+
+                    <button onclick="applyFilterAndLimit(false)" class="bg-gradient-to-r from-primary to-secondary text-white font-bold py-3 px-8 rounded-full hover:shadow-[0_0_20px_rgba(139,92,246,0.5)] transition-all">
+                        <i class="fa-solid fa-rotate-right ml-2"></i> اختبار جديد
+                    </button>
+
+                    <button onclick="applyFilterAndLimit(true)" class="border border-primary text-primary hover:bg-primary/10 font-bold py-3 px-8 rounded-full transition-all">
+                        <i class="fa-solid fa-shuffle ml-2"></i> خلط والبدء من جديد
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="text-center py-6 text-gray-600 text-sm border-t border-gray-800">
+         Created by FZ &copy; 2026
+    </footer>
+
+    <script>
+        const themeIcon = document.getElementById('theme-icon');
+        function updateThemeIcon() {
+            if (document.documentElement.classList.contains('dark')) {
+                themeIcon.className = 'fa-solid fa-moon text-primary text-xs';
+            } else {
+                themeIcon.className = 'fa-solid fa-sun text-amber-500 text-xs';
+            }
+        }
+        updateThemeIcon();
+
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+            const isDark = document.documentElement.classList.contains('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            updateThemeIcon();
+        }
+
+        const allQuestions = [
+            // ================= MODULE 1 (20 Questions) =================
+            { chapter: "Mod1", question: "1. In the historical perspective of systems analysis and design, during which decade did major breakthroughs with 4GL, CASE tools, and object-oriented methods occur?", options: ["1960s", "1970s", "1980s", "1990s"], correct: 2, explanation: "شهدت فترة الثمانينات (1980s) طفرة كبيرة مع ظهور لغات الجيل الرابع (4GL) وأدوات CASE والطرق الموجهة للكائنات[cite: 1537]." },
+            { chapter: "Mod1", question: "2. During the 1990s, the focus of modern systems analysis and design shifted primarily toward:", options: ["Processes the software performed", "System integration, GUI applications, client/server platforms, and the Internet", "Advent of 3GL and faster computers", "Wireless PDAs and component-based applications"], correct: 1, explanation: "في التسعينات (1990s)، تحول التركيز نحو تكامل الأنظمة، وتطبيقات الواجهات الرسومية (GUI)، ومنصات العميل/الخادم، والإنترنت[cite: 1537]." },
+            { chapter: "Mod1", question: "3. Which model views the Systems Development Life Cycle (SDLC) as a spiral where developers constantly cycle through phases at different levels of detail?", options: ["Waterfall Model", "Evolutionary Model", "Agile Manifesto", "Object-Oriented Model"], correct: 1, explanation: "النموذج التطوري (Evolutionary view of SDLC) يعتبر دورة الحياة كحلزون (Spiral) يدور باستمرار عبر المراحل بمستويات تفصيل مختلفة[cite: 1539]." },
+            { chapter: "Mod1", question: "4. In the Analysis phase of the SDLC, what is the specific sub-phase that focuses on studying requirements and structuring them according to their interrelationships while eliminating redundancies?", options: ["Requirements determination", "Requirements analysis (structuring)", "Logical design", "Physical design"], correct: 1, explanation: "تنقسم مرحلة التحليل إلى مرحلتين فرعيتين: تحديد المتطلبات، وتحليل المتطلبات (Requirements Analysis) التي تدرس المتطلبات وتهيكلها وتزيل التكرار[cite: 1542]." },
+            { chapter: "Mod1", question: "5. Which part of the SDLC Design phase describes all functional features of the system chosen for development independently of any computer platform?", options: ["Physical design", "Logical design", "System concept development", "Requirements determination"], correct: 1, explanation: "التصميم المنطقي (Logical design) يصف جميع الميزات الوظيفية للنظام بشكل مستقل عن أي منصة حاسوبية[cite: 1543]." },
+            { chapter: "Mod1", question: "6. In which part of the Design phase are logical specifications transformed into technology-specific details from which programming and system construction can be accomplished?", options: ["Logical design", "Architecture design", "Physical design", "Implementation design"], correct: 2, explanation: "في التصميم المادي/الفيزيائي (Physical design)، يتم تحويل المواصفات المنطقية إلى تفاصيل تقنية محددة لبناء النظام وبرمجته[cite: 1543]." },
+            { chapter: "Mod1", question: "7. Which activity in the Implementation phase involves loading application software on existing or new hardware and introducing and training users on the new system?", options: ["Coding", "Testing", "Installation", "Support"], correct: 2, explanation: "في نشاط التثبيت (Installation)، يصبح النظام الجديد جزءاً من الأنشطة اليومية ويتم تثبيت البرمجيات وتدريب المستخدمين[cite: 1544]." },
+            { chapter: "Mod1", question: "8. Current systems development practice combines analysis, design, and the beginning of implementation into a single iterative loop known as the:", options: ["Plan-execute-monitor-close loop", "Analysis-design-code-test loop", "Inception-elaboration-construction-transition loop", "Abstract-store-recontextualize loop"], correct: 1, explanation: "الممارسات الحالية (خاصة في الأجايل) تدمج هذه الأنشطة في حلقة واحدة تسمى (Analysis-design-code-test loop) والتي تمثل قلب تطوير النظم[cite: 1547, 1548]." },
+            { chapter: "Mod1", question: "9. Which of the following is a major problem associated with the Traditional Waterfall SDLC?", options: ["Users are given too much control over project deadlines.", "It locks users into previously determined requirements even though they might have changed.", "It lacks any formal structure or phases.", "It relies exclusively on two-person programming teams."], correct: 1, explanation: "من أبرز مشاكل نموذج الشلال التقليدي أنه يقيد المستخدمين بمتطلبات حُددت مسبقاً حتى لو تغيرت ظروف العمل لاحقاً[cite: 1549]." },
+            { chapter: "Mod1", question: "10. According to the Manifesto for Agile Software Development, which of the following is valued MORE than 'comprehensive documentation'?", options: ["Processes and tools", "Contract negotiation", "Working software", "Following a plan"], correct: 2, explanation: "ينص بيان الأجايل على تفضيل البرمجيات الصالحة للعمل (Working software) على التوثيق الشامل[cite: 1552]." },
+            { chapter: "Mod1", question: "11. According to the Agile Manifesto, 'Customer collaboration' is valued over:", options: ["Processes and tools", "Contract negotiation", "Following a plan", "Comprehensive documentation"], correct: 1, explanation: "يُقدّر بيان الأجايل التعاون مع العميل (Customer collaboration) أكثر من التفاوض على العقود (Contract negotiation)[cite: 1552]." },
+            { chapter: "Mod1", question: "12. When comparing Agile and Traditional approaches, which type of organizational culture do Agile methods thrive in?", options: ["A culture where people thrive on order with clear practices and procedures.", "A culture where people feel comfortable and empowered by having many degrees of freedom (thriving on chaos).", "A strictly hierarchical culture with minimal user interaction.", "A culture that relies heavily on Big Design Up Front."], correct: 1, explanation: "تزدهر منهجيات الأجايل في ثقافة يشعر فيها الأفراد بالتمكين والحرية العالية (Thriving on chaos)، بينما تزدهر الطرق التقليدية في ثقافة النظام الصارم (Thriving on order)[cite: 1554]." },
+            { chapter: "Mod1", question: "13. What are the four phases of Object-Oriented Analysis and Design (OOAD)-based development?", options: ["Planning, Analysis, Design, Implementation", "Inception, Elaboration, Construction, Transition", "Discover, Define, Develop, Deliver", "Initiation, Planning, Execution, Closedown"], correct: 1, explanation: "مراحل التطوير المبني على OOAD هي: الاستهلال (Inception)، التفصيل (Elaboration)، البناء (Construction)، والانتقال (Transition)[cite: 1557]." },
+            { chapter: "Mod1", question: "14. Which of the following is a recognized benefit of Outsourcing information systems?", options: ["Increasing the internal maintenance burden", "Freeing up internal resources and reducing time to market", "Eliminating the need for any contract negotiations", "Ensuring 100% control over proprietary source code"], correct: 1, explanation: "من فوائد التعهيد (Outsourcing): تحرير الموارد الداخلية، تقليل وقت الوصول للسوق، وزيادة كفاءة العمليات[cite: 1562]." },
+            { chapter: "Mod1", question: "15. How can companies and individuals primarily make money with Open-Source Software?", options: ["By patenting the open-source code and suing users.", "By providing maintenance and services, or selling a more fully featured version of the free software.", "By charging mandatory licensing fees for downloading the source code.", "By locking users into proprietary hardware."], correct: 1, explanation: "يتم تحقيق الربح من البرمجيات مفتوحة المصدر بطريقتين: تقديم خدمات الصيانة والدعم، أو توفير نسخة مجانية وبيع نسخة أخرى بمميزات كاملة[cite: 1567]." },
+            { chapter: "Mod1", question: "16. Compared to packaged applications, what is a potential disadvantage of In-House Development?", options: ["It cannot be customized to meet specific needs.", "It can lead to a larger maintenance burden.", "It requires zero internal staff.", "The source code is owned by an outside vendor."], correct: 1, explanation: "التطوير الداخلي (In-house development) يمكن أن يؤدي إلى عبء صيانة أكبر مقارنة بالطرق الأخرى كالتطبيقات الجاهزة[cite: 1568]." },
+            { chapter: "Mod1", question: "17. When comparing sources of software components, when should an organization go to 'Enterprise-wide solutions vendors' (like SAP or Oracle)?", options: ["When the supported task is generic and cost is the only issue.", "For complete systems that cross functional boundaries.", "When the system must be built from scratch by internal staff.", "For instant access to a simple, single-user office application."], correct: 1, explanation: "يُفضل اللجوء لمزودي حلول المؤسسات (ERP/Enterprise solutions) عند الحاجة لأنظمة كاملة تعبر الحدود الوظيفية بين الإدارات[cite: 1569, 1570]." },
+            { chapter: "Mod1", question: "18. In software reuse, which enabling technology focuses on creating general-purpose pieces of software (single objects or functional groupings) that can be used interchangeably in many different programs?", options: ["Component-based development", "Waterfall development", "Ad hoc scripting", "Turnkey packaging"], correct: 0, explanation: "التطوير القائم على المكونات (Component-based development) يركز على إنشاء قطع برمجية عامة الغرض يمكن استخدامها بشكل تبادلي في برامج مختلفة[cite: 1573]." },
+            { chapter: "Mod1", question: "19. What are the three basic steps of Software Reuse?", options: ["Planning, Coding, Testing", "Abstraction, Storage, and Recontextualization", "Ad hoc, Facilitated, and Managed", "Inception, Elaboration, and Transition"], correct: 1, explanation: "الخطوات الثلاث الأساسية لإعادة استخدام البرمجيات هي: التجريد (Abstraction)، التخزين (Storage)، وإعادة السياق/الفهم (Recontextualization)[cite: 1576]." },
+            { chapter: "Mod1", question: "20. In the steps of software reuse, what does 'Recontextualization' involve?", options: ["Designing a reusable piece of software from scratch.", "Putting software assets on a shelf.", "Making the reusable asset understandable to developers who want to use it in their systems.", "Mandating corporate policies for software certification."], correct: 2, explanation: "إعادة السياق (Recontextualization) تتضمن جعل الأصل البرمجي القابل لإعادة الاستخدام مفهوماً للمطورين الذين يرغبون في استخدامه في أنظمتهم[cite: 1576]." },
+
+            // ================= MODULE 2 (20 Questions) =================
+            { chapter: "Mod2", question: "21. On a System Service Request (SSR) form, what are the three typical choices for 'Type of Request'?", options: ["Planning, Analysis, and Design", "New System, System Enhancement, and System Error Correction", "Hardware, Software, and Network", "Urgent, Normal, and Low Priority"], correct: 1, explanation: "في نموذج طلب خدمة النظام (SSR)، تكون أنواع الطلبات عادةً: نظام جديد (New System)، تحسين نظام (System Enhancement)، أو تصحيح خطأ (System Error Correction)[cite: 1590]." },
+            { chapter: "Mod2", question: "22. Which project manager activity is described as 'Managing conflict within a project team to assure that conflict is not too high or too low'?", options: ["Customer relations", "Technical problem solving", "Conflict management", "Risk and change management"], correct: 2, explanation: "إدارة الصراع (Conflict management) تعني إدارة الخلافات داخل فريق المشروع لضمان ألا تكون مرتفعة جداً أو منخفضة جداً[cite: 1592]." },
+            { chapter: "Mod2", question: "23. Environmental scanning, risk and opportunity identification and assessment, and forecasting are skills associated with which project manager activity?", options: ["Leadership", "Team management", "Customer relations", "Risk and change management"], correct: 3, explanation: "هذه المهارات (المسح البيئي، وتحديد المخاطر والفرص، والتنبؤ) ترتبط بنشاط إدارة المخاطر والتغيير (Risk and change management)[cite: 1592]." },
+            { chapter: "Mod2", question: "24. During Project Initiation, what is the 'Project Workbook'?", options: ["A financial ledger used by the accounting department.", "An online repository of all project-related documents that is accessible by all team members.", "A personal diary kept secretly by the project manager.", "A user manual given to customers after system installation."], correct: 1, explanation: "دفتر عمل المشروع (Project workbook) هو مستودع إلكتروني لجميع المستندات المتعلقة بالمشروع ويمكن لجميع أعضاء الفريق الوصول إليه[cite: 1595]." },
+            { chapter: "Mod2", question: "25. Which project initiation document is a short (typically one page), high-level document prepared for the customer that describes what the project will deliver and outlines key elements?", options: ["System Service Request", "Project Charter", "Work Breakdown Structure", "Technical Specification"], correct: 1, explanation: "ميثاق المشروع (Project charter) هو وثيقة قصيرة (عادة من صفحة واحدة) عالية المستوى تعد للعميل وتصف ما سيقدمه المشروع وعناصره الرئيسية[cite: 1595]." },
+            { chapter: "Mod2", question: "26. Which of the following is NOT one of the six project initiation activities?", options: ["Establishing the Project Initiation Team", "Developing the Project Charter", "Conducting Postproject Reviews", "Establishing the Project Management Environment and Project Workbook"], correct: 2, explanation: "إجراء مراجعات ما بعد المشروع (Conducting Postproject Reviews) هو من أنشطة إغلاق المشروع (Closedown) وليس من أنشطة البدء[cite: 1594, 1601]." },
+            { chapter: "Mod2", question: "27. During the Project Planning phase, which activity addresses questions such as 'Who are the stakeholders?' and 'What information does each stakeholder need, and at what interval?'", options: ["Developing a Preliminary Schedule", "Developing a Communication Plan", "Determining Project Standards and Procedures", "Creating a Preliminary Budget"], correct: 1, explanation: "تطوير خطة التواصل (Developing a communication plan) يجيب عن الأسئلة المتعلقة بأصحاب المصلحة وما هي المعلومات التي يحتاجونها ومتى يتم إنتاجها[cite: 1598]." },
+            { chapter: "Mod2", question: "28. In which project planning activity does the team specify how various deliverables are produced and tested, and decide which tools and SDLC modifications will be used?", options: ["Describing Project Scope", "Determining Project Standards and Procedures", "Identifying and Assessing Risk", "Setting a Baseline Project Plan"], correct: 1, explanation: "تحديد معايير وإجراءات المشروع (Determining project standards and procedures) يحدد كيفية إنتاج واختبار المخرجات والأدوات المستخدمة[cite: 1598]." },
+            { chapter: "Mod2", question: "29. Which of the following is one of the five main activities performed during the Project Execution phase?", options: ["Developing the Project Charter", "Monitoring Project Progress against the Baseline Project Plan", "Dividing the Project into Manageable Tasks", "Closing the Customer Contract"], correct: 1, explanation: "مراقبة تقدم المشروع مقابل خطة المشروع الأساسية (Monitoring Project Progress against the BPP) هي إحدى الأنشطة الخمسة في مرحلة التنفيذ[cite: 1599]." },
+            { chapter: "Mod2", question: "30. A slipped completion date for an activity or an unforeseen change in personnel due to sickness or resignation typically triggers which Project Execution activity?", options: ["Establishing Management Procedures", "Managing Changes to the Baseline Project Plan", "Conducting Postproject Reviews", "Developing a Preliminary Schedule"], correct: 1, explanation: "تأخر مواعيد الإنجاز أو التغييرات غير المتوقعة في الموظفين تستدعي نشاط إدارة التغييرات على خطة المشروع الأساسية (Managing changes to the BPP)[cite: 1600]." },
+            { chapter: "Mod2", question: "31. In the Project Closedown phase, when does a 'natural termination' of a project occur?", options: ["When the project runs out of budget before completion.", "When the requirements of the project have been met and the project is a success.", "When key personnel resign from the team.", "When technology changes make the project obsolete."], correct: 1, explanation: "الانتهاء الطبيعي (Natural termination) يحدث عندما يتم تلبية متطلبات المشروع ويكتمل بنجاح[cite: 1601]." },
+            { chapter: "Mod2", question: "32. What are the three main activities of the Project Closedown phase?", options: ["Initiating, Planning, and Executing", "Closing Down the Project, Conducting Postproject Reviews, and Closing the Customer Contract", "Coding, Testing, and Installation", "Abstraction, Storage, and Recontextualization"], correct: 1, explanation: "أنشطة إغلاق المشروع الثلاثة هي: إغلاق المشروع، إجراء مراجعات ما بعد المشروع، وإغلاق عقد العميل[cite: 1601]." },
+            { chapter: "Mod2", question: "33. During which Project Closedown activity do you determine the strengths and weaknesses of project deliverables and figure out what went wrong in order to improve the process for the next project?", options: ["Closing down the project", "Conducting postproject reviews", "Closing the customer contract", "Maintaining the project workbook"], correct: 1, explanation: "في نشاط إجراء مراجعات ما بعد المشروع (Conducting postproject reviews)، تتم المراجعة مع الإدارة والعملاء لتحديد نقاط القوة والضعف لتحسين المشاريع القادمة[cite: 1602]." },
+            { chapter: "Mod2", question: "34. In a Network Diagram, how is available slack time typically represented, compared to a Gantt chart?", options: ["By the color of the horizontal bars.", "By data within activity rectangles (earliest start and latest finish).", "It cannot be determined in a network diagram.", "By dotted arrows pointing backward."], correct: 1, explanation: "يُظهر المخطط الشبكي وقت الركود (Slack time) من خلال البيانات الموجودة داخل مستطيلات الأنشطة، بينما يظهره مخطط جانت بصرياً عبر الأشرطة[cite: 1605]." },
+            { chapter: "Mod2", question: "35. Using the PERT formula, what is the Expected Time (ET) for an activity if the optimistic time (o) = 4 weeks, realistic time (r) = 5 weeks, and pessimistic time (p) = 12 weeks?", options: ["5 weeks", "6 weeks", "7 weeks", "8 weeks"], correct: 1, explanation: "بتطبيق معادلة PERT: ET = (4 + 4*5 + 12) / 6 = (4 + 20 + 12) / 6 = 36 / 6 = 6 أسابيع[cite: 1608]." },
+            { chapter: "Mod2", question: "36. Using the PERT formula, calculate the Expected Time (ET) if optimistic time (o) = 2 days, realistic time (r) = 4 days, and pessimistic time (p) = 6 days.", options: ["3 days", "4 days", "4.5 days", "5 days"], correct: 1, explanation: "بتطبيق المعادلة: ET = (2 + 4*4 + 6) / 6 = (2 + 16 + 6) / 6 = 24 / 6 = 4 أيام[cite: 1608]." },
+            { chapter: "Mod2", question: "37. In critical path calculation, how is Activity Slack Time mathematically calculated?", options: ["TE + TL", "TL - TE (Latest expected completion time minus Earliest expected completion time)", "ET / 6", "Optimistic time minus Pessimistic time"], correct: 1, explanation: "يُحسب وقت الركود (Slack time) بطرح أبكر وقت متوقع للإنجاز (TE) منأخر وقت متوقع للإنجاز (TL)، أي: TL - TE[cite: 1612, 1613]." },
+            { chapter: "Mod2", question: "38. If an activity has an earliest expected completion time (TE) of 18.5 weeks and a latest expected completion time (TL) of 21 weeks, what is its slack time and is it on the critical path?", options: ["Slack = 0 weeks; Yes, it is on the critical path.", "Slack = 2.5 weeks; No, it is NOT on the critical path.", "Slack = 2.5 weeks; Yes, it is on the critical path.", "Slack = 39.5 weeks; No, it is NOT on the critical path."], correct: 1, explanation: "وقت الركود = 21 - 18.5 = 2.5 أسبوع. وبما أن وقت الركود أكبر من صفر، فهذا النشاط لا يقع على المسار الحرج (Not on critical path)[cite: 1613]." },
+            { chapter: "Mod2", question: "39. Any activity that lies on the critical path will always have a slack time equal to:", options: ["1 week", "Its Expected Time (ET)", "Zero (0)", "The total project duration"], correct: 2, explanation: "جميع الأنشطة التي تقع على المسار الحرج (Critical Path) يكون وقت التأخير المسموح بها (Slack time) مساوياً للصفر (TE = TL)[cite: 1613]." },
+            { chapter: "Mod2", question: "40. Assessing each team member and providing an appraisal for personnel files and salary determination is performed during which activity?", options: ["Establishing the project initiation team", "Executing the baseline project plan", "Closing down the project", "Closing the customer contract"], correct: 2, explanation: "تقييم أعضاء الفريق لتحديد الرواتب وملفات الموظفين يتم أثناء نشاط إغلاق المشروع (Closing down the project) في المرحلة النهائية[cite: 1602]." },
+
+            // ================= MODULE 3 (20 Questions) =================
+            { chapter: "Mod3", question: "41. What are the three primary activities of project identification and selection?", options: ["Initiation, Planning, and Execution", "Identifying potential projects, Classifying and ranking projects, and Selecting projects", "Top-down, Bottom-up, and Middle-out planning", "Mission statement, Objective statement, and Competitive strategy"], correct: 1, explanation: "تتكون عملية تحديد واختيار المشروع من 3 أنشطة رئيسية: تحديد المشاريع المحتملة، تصنيف وترتيب المشاريع، واختيار مشاريع التطوير[cite: 1627]." },
+            { chapter: "Mod3", question: "42. When projects are identified by 'Top Management' or a 'Steering Committee', which characteristic is most likely true compared to Functional Area or Development Group selection?", options: ["Narrow, nonstrategic focus", "Fewer users and management layers involved", "Greater strategic focus and largest project size/duration", "Less concern with cost-benefit analysis"], correct: 2, explanation: "اختيار المشاريع من قبل الإدارة العليا (Top Management) أو لجنة التوجيه يتميز بتركيز استراتيجي أكبر وحجم ومدة مشروع أطول[cite: 1628]." },
+            { chapter: "Mod3", question: "43. Which project selection source is characterized by 'Integration with existing systems focus, fewer development delays, and less concern with cost-benefit analysis'?", options: ["Top Management", "Steering Committee", "User Department (Functional Area)", "Development Group"], correct: 3, explanation: "مجموعة التطوير (Development Group) تركز على التكامل مع الأنظمة الحالية وتتميز بتأخيرات تطوير أقل واهتمام أقل بتحليل التكلفة والعائد[cite: 1628]." },
+            { chapter: "Mod3", question: "44. When classifying and ranking IS development projects, which evaluation criterion assesses the 'extent to which the project is viewed as helping the organization achieve its strategic objectives and long-term goals'?", options: ["Value Chain Analysis", "Strategic Alignment", "Potential Benefits", "Technical Difficulty/Risks"], correct: 1, explanation: "المواءمة الاستراتيجية (Strategic Alignment) تقيس مدى مساهمة المشروع في مساعدة المنظمة على تحقيق أهدافها الاستراتيجية وطويلة المدى[cite: 1629]." },
+            { chapter: "Mod3", question: "45. Which evaluation criterion for ranking projects measures the 'number of individuals and the length of time needed to complete the project'?", options: ["Resource Availability", "Potential Benefits", "Project Size/Duration", "Strategic Alignment"], correct: 2, explanation: "معيار حجم/مدة المشروع (Project Size/Duration) يقيم عدد الأفراد وطول الوقت اللازم لإنجاز المشروع[cite: 1629]." },
+            { chapter: "Mod3", question: "46. Which of the following is NOT a typical decision outcome of the actual project selection process?", options: ["Accept Project", "Reject Project", "Refocus Project or Proof of Concept", "Skip Analysis and begin Coding immediately"], correct: 3, explanation: "مخرجات قرار اختيار المشروع تشمل: القبول، الرفض، التأجيل، إعادة التركيز (Refocus)، تطوير المستخدم النهائي، أو إثبات المفهوم (Proof of Concept)[cite: 1631]." },
+            { chapter: "Mod3", question: "47. Which technique uses weights and ratings across various requirements and constraints to calculate a total score for deciding among different projects or alternative system designs?", options: ["Value Chain Analysis", "Multicriteria Analysis", "PERT Calculation", "Functional Decomposition"], correct: 1, explanation: "التحليل متعدد المعايير (Multicriteria Analysis) يستخدم الأوزان والتقييمات لحساب مجموع النقاط للمفاضلة بين المشاريع أو البدائل[cite: 1632]." },
+            { chapter: "Mod3", question: "48. Which of the following factors highlights the need for improved information systems project identification and selection?", options: ["IS costs are dropping to near zero in most organizations.", "Application backlogs often extend three years or more, forcing frustrated end users to create redundant systems.", "Data redundancy has been completely eliminated by modern hardware.", "Maintenance costs of old systems are negligible."], correct: 1, explanation: "من الأسباب التي تدعو لتحسين اختيار المشاريع: ارتفاع تكاليف النظم إلى 40%، خروج تكرار البيانات عن السيطرة، وتراكم طلبات التطبيقات (Backlogs) لأكثر من 3 سنوات[cite: 1635]." },
+            { chapter: "Mod3", question: "49. Corporate Strategic Planning is a three-step ongoing process. What are these three steps?", options: ["Current Enterprise, Future Enterprise, and Strategic Plan", "Mission, Vision, and Values", "Top-down, Bottom-up, and Hybrid", "Planning, Analysis, and Design"], correct: 0, explanation: "خطوات التخطيط الاستراتيجي للشركات الثلاث هي: المؤسسة الحالية (Current Enterprise)، المؤسسة المستقبلية (Future Enterprise)، والخطة الاستراتيجية (Strategic Plan)[cite: 1636, 1642]." },
+            { chapter: "Mod3", question: "50. In generic competitive strategies, competing in an industry on the basis of product or service cost to the consumer (e.g., Hyundai in the automobile industry) is known as:", options: ["Product Differentiation", "Product Focus or Niche", "Low-Cost Producer", "Value Chain Integration"], correct: 2, explanation: "استراتيجية المنتج منخفض التكلفة (Low-Cost Producer) تعكس التنافس في الصناعة على أساس تقليل تكلفة المنتج أو الخدمة للمستهلك[cite: 1639]." },
+            { chapter: "Mod3", question: "51. Capitalizing on a key product criterion requested by the market (such as high quality, style, or performance) is which generic competitive strategy?", options: ["Low-Cost Producer", "Product Differentiation", "Product Focus or Niche", "Bottom-Up Strategy"], correct: 1, explanation: "تمييز المنتج (Product Differentiation) يعتمد على استغلال معيار رئيسي يطلبه السوق مثل الجودة العالية أو الأداء لتمييز المنتجات عن المنافسين[cite: 1639]." },
+            { chapter: "Mod3", question: "52. Information Systems Planning (ISP) is a three-step process that parallels corporate strategic planning. What are the three steps of ISP?", options: ["Current Situation, Future Situation, and Schedule of Projects", "Initiation, Feasibility, and Baseline Plan", "Data Entities, Functions, and Matrices", "Hardware, Software, and Networks"], correct: 0, explanation: "خطوات تخطيط نظم المعلومات (ISP) الثلاث هي: الوضع الحالي (Current Situation)، الوضع المستقبلي (Future Situation)، وجدول المشاريع (Schedule of Projects)[cite: 1641, 1642]." },
+            { chapter: "Mod3", question: "53. Which of the following is an advantage of Top-Down IS Planning described as 'planners gaining sufficient management acceptance of the role of IS in helping them achieve business objectives'?", options: ["Broader Perspective", "Improved Integration", "Improved Management Support", "Better Understanding"], correct: 2, explanation: "تحسين دعم الإدارة (Improved Management Support) يعني أنه بدون التخطيط من الأعلى، قد يفتقر المخططون لقبول ودعم الإدارة لدور نظم المعلومات[cite: 1644]." },
+            { chapter: "Mod3", question: "54. In IS Planning Matrices, which matrix identifies which organizational units are located in or interact with a specific business location?", options: ["Location-to-Function", "Location-to-Unit", "Unit-to-Function", "Function-to-Objective"], correct: 1, explanation: "مصفوفة (الموقع إلى الوحدة - Location-to-Unit) تحدد الوحدات التنظيمية الموجودة في موقع عمل معين أو التي تتفاعل معه[cite: 1647]." },
+            { chapter: "Mod3", question: "55. Which IS Planning Matrix identifies the relationships between organizational entities and each business function?", options: ["Unit-to-Function", "Function-to-Process", "Process-to-Information System", "Location-to-Function"], correct: 0, explanation: "مصفوفة (الوحدة إلى الوظيفة - Unit-to-Function) تحدد العلاقات بين الكيانات/الوحدات التنظيمية وكل وظيفة عمل[cite: 1647]." },
+            { chapter: "Mod3", question: "56. Which IS Planning Matrix identifies which data are created, updated, accessed, or deleted in each system?", options: ["Process-to-Data Entity", "Function-to-Data Entity", "Data Entity-to-Information System", "Information System-to-Objective"], correct: 2, explanation: "مصفوفة (كيان البيانات إلى نظام المعلومات - Data Entity-to-Information System) تحدد البيانات التي يتم إنشاؤها أو تحديثها أو الوصول إليها أو حذفها في كل نظام[cite: 1647]." },
+            { chapter: "Mod3", question: "57. Which of the following is one of the seven main sections/components of an Information Systems Plan?", options: ["Source Code Repository", "Informational Inventory and Long-Range IS Strategies", "Employee Salary Appraisals", "Detailed Database Normalization Tables"], correct: 1, explanation: "مكونات خطة نظم المعلومات تشمل: مهمة المنظمة، الجرد المعلوماتي (Informational Inventory)، مهمة وأهداف النظام، القيود، الاستراتيجيات طويلة المدى، الخطة قصيرة المدى، والاستنتاجات[cite: 1649]." },
+            { chapter: "Mod3", question: "58. Which Electronic Commerce business model involves transactions directly between two separate businesses?", options: ["B2C", "C2C", "B2B", "G2C"], correct: 2, explanation: "نموذج (Business-to-Business - B2B) يمثل التعاملات التجارية الإلكترونية بين شركة وشركة أخرى[cite: 1652]." },
+            { chapter: "Mod3", question: "59. In Electronic Commerce business models, what does 'T2T' stand for?", options: ["Team-to-Team", "Technology-to-Technology", "Thing-to-Thing", "Transaction-to-Transaction"], correct: 2, explanation: "يرمز T2T إلى (Thing-to-Thing) ضمن نماذج أعمال التجارة الإلكترونية المرتبطة بإنترنت الأشياء[cite: 1652]." },
+            { chapter: "Mod3", question: "60. When designing and building Internet applications, questions such as 'What is the connection device? (e.g., Web browser, tablet, smartphone, smart watch)' fall under which concern?", options: ["User concern", "Connection Speed concern", "Access Method concern", "Database Security concern"], correct: 2, explanation: "السؤال عن جهاز الاتصال (متصفح، جهاز لوحي، هاتف ذكي، ساعة ذكية) يندرج تحت قضية طريقة الوصول (Access Method)[cite: 1653]." },
+
+            // ================= MODULE 4 (20 Questions) =================
+            { chapter: "Mod4", question: "61. Which of the following is a category of Tangible Benefits derived from the creation of an information system?", options: ["Improved employee morale", "Cost reduction and avoidance, and error reduction", "Better corporate image in the community", "Increased job satisfaction"], correct: 1, explanation: "الفوائد الملموسة (Tangible benefits) التي يمكن قياسها بالدولار تشمل: تقليل التكاليف وتجنبها، تقليل الأخطاء، زيادة المرونة، وزيادة سرعة النشاط[cite: 1670]." },
+            { chapter: "Mod4", question: "62. In Net Present Value (NPV) calculations, what does 'PVn' represent?", options: ["The total sum of all costs over the project life.", "The present value of Y dollars n years from now based on a discount rate of i.", "The ratio of cash receipts to cash outlays.", "The exact year when cumulative cash flow equals zero."], correct: 1, explanation: "يمثل PVn القيمة الحالية لمبلغ Y من الدولارات بعد عدد n من السنوات بناءً على معدل خصم i، وNPV هو مجموع هذه القيم[cite: 1678]." },
+            { chapter: "Mod4", question: "63. Which financial measurement calculates the 'time value of money' by summing the present values across all years of a project?", options: ["Return on Investment (ROI)", "Break-Even Analysis (BEA)", "Net Present Value (NPV)", "Total Cost of Ownership (TCO)"], correct: 2, explanation: "صافي القيمة الحالية (NPV) يحسب القيمة الزمنية للنقود عن طريق جمع القيم الحالية للتدفقات النقدية عبر السنوات[cite: 1678]." },
+            { chapter: "Mod4", question: "64. Which of the following is a potential consequence of NOT assessing and managing technical risks in a project?", options: ["Guaranteed reduction in total cost of ownership.", "Failure to achieve adequate system performance levels and failure to integrate with existing systems.", "Automatic approval of the Baseline Project Plan.", "Elimination of all recurring costs."], correct: 1, explanation: "عدم تقييم وإدارة المخاطر التقنية قد يؤدي إلى الفشل في تحقيق مستويات أداء كافية للنظام والفشل في دمجه مع الأجهزة والبرمجيات الحالية[cite: 1682]." },
+            { chapter: "Mod4", question: "65. How do project structure, project size, and familiarity with the application area affect project implementation risk?", options: ["High structure, small size, and high familiarity result in the HIGHEST risk.", "Low degree of structure, large project size, and low familiarity with the application area increase project implementation risk.", "Project size and familiarity have no effect on technical feasibility.", "Large projects with low structure have zero technical risk."], correct: 1, explanation: "تزداد مخاطر تنفيذ المشروع عندما تكون درجة هيكلة المشروع منخفضة، وحجم المشروع كبيراً، وألفة الفريق بمنطقة التطبيق قليلة[cite: 1684]." },
+            { chapter: "Mod4", question: "66. The process of assessing potential legal and contractual ramifications due to the construction of a system (such as copyright or labor laws) is called:", options: ["Political feasibility", "Operational feasibility", "Legal and contractual feasibility", "Schedule feasibility"], correct: 2, explanation: "الجدوى القانونية والتعاقدية (Legal and contractual feasibility) تقيم التبعات القانونية والتعاقدية المحتملة لبناء النظام[cite: 1686]." },
+            { chapter: "Mod4", question: "67. What are the four main sections of the Baseline Project Plan (BPP) document?", options: ["Initiation, Planning, Execution, and Closedown", "Introduction, System description, Feasibility assessment, and Management issues", "Problem statement, Objectives, Deliverables, and Duration", "Context diagram, Level-0 DFD, E-R diagram, and Code"], correct: 1, explanation: "الأقسام الأربعة الرئيسية لوثيقة خطة المشروع الأساسية (BPP) هي: المقدمة، وصف النظام، تقييم الجدوى، والقضايا الإدارية[cite: 1688]." },
+            { chapter: "Mod4", question: "68. Which of the following is one of the six sections included in the Project Scope Statement (PSS)?", options: ["Detailed source code", "Problem statement, Project objectives, and Business benefits", "Employee performance appraisals", "Database normalization rules"], correct: 1, explanation: "يتكون بيان نطاق المشروع (PSS) من 6 أقسام: بيان المشكلة، أهداف المشروع، وصف المشروع، فوائد الأعمال، المخرجات، والمدة المتوقعة[cite: 1689]." },
+            { chapter: "Mod4", question: "69. Which diagram is commonly used to visually depict the Project Scope by showing the system boundaries and external entities?", options: ["Gantt chart", "Entity-Relationship diagram", "Context-level Data Flow Diagram (DFD)", "Class diagram"], correct: 2, explanation: "يُستخدم مخطط تدفق البيانات على مستوى السياق (Context-level DFD) لتوضيح نطاق المشروع (Project Scope) بصرياً[cite: 1691]." },
+            { chapter: "Mod4", question: "70. When depicting Project Scope, which of the following elements should be identified?", options: ["Only the programming languages to be used.", "Organizational units affected, current systems that will interact/change, people affected, and range of potential system capabilities.", "Only the one-time hardware acquisition costs.", "The exact lines of code per module."], correct: 1, explanation: "تحديد نطاق المشروع يشمل: الوحدات التنظيمية المتأثرة، الأنظمة الحالية التي ستتفاعل أو تتغير، الأشخاص المتأثرين، ونطاق قدرات النظام المحتملة[cite: 1690]." },
+            { chapter: "Mod4", question: "71. In a structured walk-through review, which participant role is responsible for ensuring that the review meeting is planned, organized, and conducted properly?", options: ["Presenter", "Coordinator", "Standard-bearer", "Maintenance oracle"], correct: 1, explanation: "المنسق (Coordinator) في جلسة المراجعة الهيكلية هو المسؤول عن التخطيط والتنظيم والتأكد من سير الاجتماع بشكل صحيح[cite: 1693]." },
+            { chapter: "Mod4", question: "72. In a structured walk-through, what is the role of the 'Standard-bearer'?", options: ["To take notes during the meeting.", "To present the system deliverable to the group.", "To assess the deliverable's adherence to organizational standards.", "To represent the end-user perspective."], correct: 2, explanation: "حامل المعايير (Standard-bearer) هو الدور المسؤول عن مراجعة مدى التزام المخرجات بالمعايير المعتمدة في المنظمة[cite: 1693]." },
+            { chapter: "Mod4", question: "73. In a structured walk-through, which role reviews the deliverable from the perspective of future system maintenance?", options: ["Coordinator", "Secretary", "Maintenance oracle", "Sponsor"], correct: 2, explanation: "خبير الصيانة (Maintenance oracle) يراجع المنتج من منظور قابلية الصيانة والتعديلات المستقبلية على النظام[cite: 1693]." },
+            { chapter: "Mod4", question: "74. Structured walk-throughs can be applied to review which of the following items?", options: ["Only the Baseline Project Plan (BPP).", "Only the final program code.", "BPP, system specifications, logical and physical designs, program code, test procedures, manuals, and documentation.", "Only financial budgets and employee salaries."], correct: 2, explanation: "يمكن تطبيق المراجعة الهيكلية (Walk-through) على أي منتج يتم إنشاؤه خلال عملية التطوير، بما في ذلك BPP، المواصفات، التصاميم، الأكواد، والأدلة[cite: 1693]." },
+            { chapter: "Mod4", question: "75. Which of the following is considered a 'One-time cost' for a new system?", options: ["Application software maintenance", "New hardware and software purchases, user training, and site preparation", "Incremental data storage expense", "Ongoing cloud subscription fees"], correct: 1, explanation: "التكاليف لمرة واحدة (One-time costs) ترتبط ببدء المشروع وتطويره، مثل شراء الأجهزة والبرمجيات الجديدة، تدريب المستخدمين، وتجهيز الموقع[cite: 1672, 1675]." },
+            { chapter: "Mod4", question: "76. Which of the following is considered a 'Recurring cost' for an information system?", options: ["Initial system development cost", "Initial site preparation", "Application software maintenance and incremental data storage expenses", "One-time data or system conversion"], correct: 2, explanation: "التكاليف المتكررة (Recurring costs) تنتج عن الاستخدام المستمر للنظام وتطوره، مثل صيانة البرمجيات وتكاليف التخزين الإضافية والاتصالات المستمرة[cite: 1672, 1676]." },
+            { chapter: "Mod4", question: "77. Opening new markets and increasing sales opportunities is classified under which category in economic feasibility?", options: ["Intangible costs", "One-time costs", "Tangible benefits", "Technical risks"], correct: 2, explanation: "فتح أسواق جديدة وزيادة فرص المبيعات يُصنف ضمن الفوائد الملموسة (Tangible benefits) التي يمكن قياسها مالياً[cite: 1670]." },
+            { chapter: "Mod4", question: "78. What is a key consideration regarding the timing of Project Initiation and Planning (PIP)?", options: ["Deciding when PIP ends and when analysis, the next phase of the SDLC, begins.", "Ensuring PIP takes at least 80% of the total project timeline.", "Making sure coding is finished before PIP starts.", "Conducting PIP only after system installation."], correct: 0, explanation: "من الاعتبارات الرئيسية عند إجراء البدء والتخطيط (PIP) هو تحديد متى ينتهي PIP ومتى تبدأ مرحلة التحليل (Analysis) التالية[cite: 1664]." },
+            { chapter: "Mod4", question: "79. Which of the following is a Project Planning task rather than a Project Initiation task?", options: ["Establish the project initiation team", "Establish a relationship with the customer", "Create a preliminary budget and develop a statement of work", "Establish the project workbook"], correct: 2, explanation: "إنشاء الميزانية الأولية وتطوير بيان العمل (Statement of work) هي من مهام تخطيط المشروع (Project Planning Tasks)، بينما البقية من مهام البدء[cite: 1665, 1666]." },
+            { chapter: "Mod4", question: "80. In a structured walk-through, who is responsible for explaining the work product to the review group?", options: ["The Secretary", "The Presenter", "The User", "The Standard-bearer"], correct: 1, explanation: "المُقدّم (Presenter)، وغالباً ما يكون محلل النظم أو مصمم المنتج، هو من يعرض ويشرح العمل لفريق المراجعة[cite: 1693]." },
+
+            // ================= MODULE 5 (20 Questions) =================
+            { chapter: "Mod5", question: "81. In the process of determining requirements, which characteristic means 'Your role is to find the best solution to a business problem or opportunity, considering all stakeholders fairly'?", options: ["Impertinence", "Impartiality", "Relaxing constraints", "Reframing"], correct: 1, explanation: "الحيادية (Impartiality) تعني أن دور المحلل هو إيجاد أفضل حل لمشكلة العمل دون تحيز لطرف على حساب الآخر[cite: 1705]." },
+            { chapter: "Mod5", question: "82. Which characteristic of requirements determination states that 'Every fact must fit with every other fact'?", options: ["Impertinence", "Relaxing constraints", "Attention to details", "Reframing"], correct: 2, explanation: "الاهتمام بالتفاصيل (Attention to details) يتطلب التأكد من أن كل حقيقة يتم جمعها تتطابق وتتناسق مع الحقائق الأخرى[cite: 1705]." },
+            { chapter: "Mod5", question: "83. Viewing analysis as a creative process that challenges yourself to look at the organization in new ways is known as:", options: ["Reframing", "Impartiality", "Formalizing", "Observing"], correct: 0, explanation: "إعادة التأطير (Reframing) تعني اعتبار التحليل عملية إبداعية والنظر إلى المنظمة ومشاكلها بطرق جديدة ومبتكرة[cite: 1705]." },
+            { chapter: "Mod5", question: "84. Which of the following is a deliverable from 'computerized sources' during requirements determination?", options: ["Interview transcripts", "Mission and strategy statements", "JAD session results, CASE repositories, and system prototype displays", "Procedure manuals and job descriptions"], correct: 2, explanation: "مخرجات المصادر المحوسبة تشمل نتائج جلسات JAD، مستودعات أدوات CASE، وشاشات وتقارير النماذج الأولية للنظام[cite: 1706]." },
+            { chapter: "Mod5", question: "85. According to the guidelines for effective interviewing, within how many hours should an analyst review their interview notes?", options: ["Within 12 hours", "Within 48 hours", "Within 1 week", "At the end of the SDLC"], correct: 1, explanation: "تنص إرشادات المقابلة الفعالة على ضرورة مراجعة الملاحظات خلال 48 ساعة حتى لا تُنسى التفاصيل المهمة[cite: 1710]." },
+            { chapter: "Mod5", question: "86. What is a primary advantage (Pro) of conducting Individual Interviews compared to Group Interviews?", options: ["They completely eliminate contradictions between interviewees.", "They are easier to schedule than group interviews.", "They allow the analyst to hear agreements and disagreements at once.", "Follow-up discussions are never needed."], correct: 1, explanation: "من إيجابيات المقابلات الفردية أنها أسهل في الجدولة وتحديد المواعيد مقارنة بالمقابلات الجماعية[cite: 1713]." },
+            { chapter: "Mod5", question: "87. What is a primary advantage of Interviewing Groups over Individual Interviews?", options: ["Easier to schedule", "More effective use of time, and the ability to hear agreements and disagreements at once (opportunity for synergies)", "Guarantees that no one dominates the conversation", "Requires no preparation or agenda"], correct: 1, explanation: "المقابلات الجماعية توفر استخداماً أكثر فعالية للوقت وتتيح سماع الاتفاقات والاختلافات في آن واحد وخلق التآزر (Synergies)[cite: 1714]." },
+            { chapter: "Mod5", question: "88. What is a potential limitation or bias associated with Directly Observing Users?", options: ["It relies entirely on outdated written manuals.", "Observation can cause people to change their normal operating behavior.", "It is less accurate than self-reporting questionnaires.", "It can only be done off-site in isolation."], correct: 1, explanation: "الملاحظة المباشرة ليست خالية تماماً من التحيز، لأن معرفة الموظفين بأنهم مراقبون قد تدفعهم لتغيير سلوكهم التشغيلي المعتاد[cite: 1716]." },
+            { chapter: "Mod5", question: "89. When analyzing business documents, which type of document explicitly indicates data flow in or out of a system?", options: ["Mission statement", "Business form", "Organization chart", "Job description"], correct: 1, explanation: "نموذج العمل (Business form) يوضح بشكل صريح تدفق البيانات الداخلة إلى النظام أو الخارجة منه[cite: 1718]." },
+            { chapter: "Mod5", question: "90. Which type of useful document enables the analyst to work backwards from the document to the data that generated it?", options: ["Written work procedure", "Report", "Interview guide", "Organization chart"], correct: 1, explanation: "التقرير (Report) يمكّن المحلل من العمل بشكل عكسي انطلاقاً من التقرير للوصول إلى البيانات التي ولّدته[cite: 1718]." },
+            { chapter: "Mod5", question: "91. Which of the following is a common issue or limitation when analyzing 'Written work procedures'?", options: ["They only show the informal system.", "They may involve duplication of effort, have missing procedures, be out of date, or contradict interview information.", "They are impossible for analysts to read.", "They only exist in agile environments."], correct: 1, explanation: "إجراءات العمل المكتوبة قد تعاني من مشاكل مثل: تكرار الجهد، نقص بعض الإجراءات، التقادم (Out of date)، أو التناقض مع معلومات المقابلات[cite: 1719]." },
+            { chapter: "Mod5", question: "92. In a Joint Application Design (JAD) session, what should the role of the Systems Analysts and IS Staff primarily be during the discussions?", options: ["To dominate the conversation and dictate requirements", "To facilitate the group process as session leader", "To mostly listen", "To act as the high-level executive sponsor"], correct: 2, explanation: "في جلسات JAD، يكون المستخدمون والمديرون هم المتحدثين النشطين، بينما يجب على محللي النظموموظفي نظم المعلومات الاستماع في الغالب (Should mostly listen)[cite: 1726]." },
+            { chapter: "Mod5", question: "93. How do Group Support Systems (GSS) support a JAD session?", options: ["By replacing the Session Leader with an AI robot.", "By enabling more participation as members type their answers into a computer and everyone sees what others have typed.", "By automatically writing the final production code in Java.", "By preventing users from voicing their opinions."], correct: 1, explanation: "تُستخدم أنظمة دعم المجموعات (GSS) لتمكين مشاركة أكبر، حيث يكتب الأعضاء إجاباتهم في الحاسوب ليراها الجميع دون خوف من المقاطعة[cite: 1727]." },
+            { chapter: "Mod5", question: "94. What type of CASE tools are typically used during a JAD session to enter system models, screen designs, and prototypes directly?", options: ["Lower CASE tools", "Upper CASE tools", "Reverse engineering compilers", "Hardware diagnostic tools"], correct: 1, explanation: "تُستخدم أدوات (Upper CASE tools) أثناء جلسات JAD لإدخال نماذج النظام وتصاميم الشاشات والنماذج الأولية مباشرة وعرضها للمستخدمين[cite: 1727]." },
+            { chapter: "Mod5", question: "95. In which type of prototyping do you begin by modeling parts of the target system and, if successful, evolve the rest of the system from those parts?", options: ["Throwaway prototyping", "Evolutionary prototyping", "Paper prototyping", "Static prototyping"], correct: 1, explanation: "في النمذجة التطورية (Evolutionary prototyping)، تبدأ بنمذجة أجزاء من النظام المستهدف، وإذا نجحت، يتم تطوير باقي النظام انطلاقاً من تلك الأجزاء[cite: 1729]." },
+            { chapter: "Mod5", question: "96. Prototyping is most useful under which of the following conditions?", options: ["When user requests are completely clear and simple.", "When user requests are not clear, designs are complex, and there is a history of communication problems between analysts and users.", "When thousands of users across different countries are involved.", "When formal documentation is the highest priority."], correct: 1, explanation: "تكون النمذجة الأولية أكثر فائدة عندما تكون طلبات المستخدم غير واضحة، التصاميم معقدة وتحتاج لشكل ملموس، أو يوجد تاريخ من مشاكل التواصل بين المحللين والمستخدمين[cite: 1730]." },
+            { chapter: "Mod5", question: "97. Which of the following is a recognized drawback (disadvantage) of Prototyping?", options: ["It requires too much formal documentation.", "It is too slow to build.", "Tendency to avoid formal documentation, and sharing data with other systems is often not considered.", "It cannot be used when tools are readily available."], correct: 2, explanation: "من سلبيات النمذجة الأولية: الميل لتجنب التوثيق الرسمي، صعوبة تكييفها لجمهور أوسع، إغفال مشاركة البيانات مع الأنظمة الأخرى، وتجاوز فحوصات SDLC[cite: 1730]." },
+            { chapter: "Mod5", question: "98. Which of the following is a primary goal of Business Process Reengineering (BPR)?", options: ["Making minor, incremental bug fixes to existing code.", "Reorganizing the complete flow of data in major sections of an organization and eliminating unnecessary steps.", "Preserving all traditional business rules without change.", "Avoiding the use of disruptive technologies."], correct: 1, explanation: "تهدف إعادة هندسة العمليات (BPR) إلى إعادة تنظيم التدفق الكامل للبيانات، إزالة الخطوات غير الضرورية، دمج الخطوات، والاستجابة للتغيرات المستقبلية[cite: 1732]." },
+            { chapter: "Mod5", question: "99. In eXtreme Programming (XP), what are the three phases of 'The Planning Game' used for requirements determination?", options: ["Initiation, Execution, and Closedown", "Abstraction, Storage, and Recontextualization", "Exploration, Steering, and Commitment", "Open, Axial, and Selective"], correct: 2, explanation: "تتكون لعبة التخطيط (The Planning Game) في البرمجة القصوى من ثلاث مراحل: الاستكشاف (Exploration)، التوجيه (Steering)، والالتزام (Commitment)[cite: 1735]." },
+            { chapter: "Mod5", question: "100. Which document used in traditional requirements determination formally describes how a job is performed, including the data and information used and created?", options: ["Business form", "Written work procedure", "Interview guide", "Context diagram"], correct: 1, explanation: "إجراء العمل المكتوب (Written work procedure) هو مستند يصف رسمياً كيفية أداء الوظيفة والبيانات المستخدمة والمنشأة خلالها[cite: 1718, 1719]." }
+        ];
+
+        let questions = [];
+        let userAnswers = [];
+        let currentIdx = 0;
+        let currentFilter = 'ALL';
+        let currentLimit = 100;
+
+        const questionCounter = document.getElementById('question-counter');
+        const chapterBadge = document.getElementById('chapter-badge');
+        const statusBadge = document.getElementById('status-badge');
+        const scoreTracker = document.getElementById('score-tracker');
+        const progressBar = document.getElementById('progress-bar');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const explanationBox = document.getElementById('explanation-box');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const quizContainer = document.getElementById('quiz-container');
+        const resultContainer = document.getElementById('result-container');
+        const finalScoreText = document.getElementById('final-score-text');
+        const finalDetailsText = document.getElementById('final-details-text');
+        const retryWrongBtn = document.getElementById('retry-wrong-btn');
+        const wrongCountNum = document.getElementById('wrong-count-num');
+
+        function filterChapter(ch) {
+            currentFilter = ch;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`btn-${ch}`).classList.add('active');
+            applyFilterAndLimit(false);
+        }
+
+        function setQuestionLimit(limit) {
+            currentLimit = limit === 100 ? allQuestions.length : limit;
+            document.querySelectorAll('.limit-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`limit-${limit}`).classList.add('active');
+            applyFilterAndLimit(true);
+        }
+
+        function applyFilterAndLimit(shouldShuffle = false) {
+            let pool = (currentFilter === 'ALL') 
+                ? [...allQuestions] 
+                : allQuestions.filter(q => q.chapter === currentFilter);
+
+            if (shouldShuffle) {
+                for (let i = pool.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [pool[i], pool[j]] = [pool[j], pool[i]];
+                }
+            }
+
+            questions = pool.slice(0, Math.min(currentLimit, pool.length));
+            startQuizSession();
+        }
+
+        function shuffleCurrentPool() {
+            for (let i = questions.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [questions[i], questions[j]] = [questions[j], questions[i]];
+            }
+            startQuizSession();
+        }
+
+        let isAutoNext = false;
+        function toggleAutoNext() {
+            isAutoNext = !isAutoNext;
+            const icon = document.getElementById('auto-next-icon');
+            const btn = document.getElementById('auto-next-toggle');
+            if (isAutoNext) {
+                icon.className = 'fa-solid fa-toggle-on text-emerald-500 text-sm transition-all';
+                btn.classList.remove('text-gray-400');
+                btn.classList.add('text-emerald-500');
+            } else {
+                icon.className = 'fa-solid fa-toggle-off text-gray-500 text-sm transition-all';
+                btn.classList.remove('text-emerald-500');
+                btn.classList.add('text-gray-400');
+            }
+        }
+
+        function startQuizSession() {
+            currentIdx = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            updateScoreTracker();
+            resultContainer.classList.add('hidden');
+            quizContainer.classList.remove('hidden');
+            loadQuestion();
+        }
+
+        function getCurrentScore() {
+            return userAnswers.reduce((acc, ans, idx) => {
+                return acc + (ans === questions[idx].correct ? 1 : 0);
+            }, 0);
+        }
+
+        function updateScoreTracker() {
+            const currentScore = getCurrentScore();
+            document.getElementById('score-tracker').innerText = `الصحيحة: ${currentScore}`;
+            if (document.getElementById('score-tracker-mobile')) {
+                document.getElementById('score-tracker-mobile').innerText = currentScore;
+            }
+        }
+
+        function loadQuestion() {
+            const q = questions[currentIdx];
+            const savedAnswer = userAnswers[currentIdx];
+
+            questionCounter.innerText = `السؤال ${currentIdx + 1} من ${questions.length}`;
+            chapterBadge.innerText = q.chapter;
+            progressBar.style.width = `${((currentIdx + 1) / questions.length) * 100}%`;
+            questionText.innerText = q.question;
+
+            const telegramUsername = "Fahad_m7md";
+            const qNumMatch = q.question.match(/^\d+/);
+            const qOriginalNum = qNumMatch ? qNumMatch[0] : (currentIdx + 1);
+            const reportMessage = `IT353 (Bank 2 - Models 1-5):\n- رقم السؤال: (${qOriginalNum})\n- الوحدة: (${q.chapter})\n- السؤال: "${q.question}"\n\nالملاحظة: `;
+            document.getElementById('report-btn').href = `https://t.me/${telegramUsername}?text=${encodeURIComponent(reportMessage)}`;
+            
+            prevBtn.disabled = (currentIdx === 0);
+            nextBtn.innerHTML = (currentIdx === questions.length - 1) 
+                ? `النتيجة النهائية <i class="fa-solid fa-flag-checkered mr-2"></i>` 
+                : `التالي <i class="fa-solid fa-arrow-left mr-2"></i>`;
+
+            let optionsHTML = '';
+            q.options.forEach((opt, index) => {
+                if (savedAnswer === null) {
+                    optionsHTML += `<button onclick="selectAnswer(${index})" class="option-btn w-full text-left p-4 rounded-xl border border-gray-700 bg-gray-900/60 text-gray-200 font-medium flex justify-between items-center gap-3"><span>${opt}</span> <i class="fa-regular fa-circle text-gray-500 shrink-0"></i></button>`;
+                } else {
+                    if (index === q.correct) {
+                        optionsHTML += `<button disabled class="w-full text-left p-4 rounded-xl border border-emerald-500 bg-emerald-500/20 text-white font-bold flex justify-between items-center gap-3"><span>${opt}</span> <i class="fa-solid fa-circle-check text-emerald-500 shrink-0"></i></button>`;
+                    } else if (index === savedAnswer && savedAnswer !== q.correct) {
+                        optionsHTML += `<button disabled class="w-full text-left p-4 rounded-xl border border-rose-500 bg-rose-500/20 text-white font-bold flex justify-between items-center gap-3"><span>${opt}</span> <i class="fa-solid fa-circle-xmark text-rose-500 shrink-0"></i></button>`;
+                    } else {
+                        optionsHTML += `<button disabled class="w-full text-left p-4 rounded-xl border border-gray-800 bg-gray-900/40 text-gray-500 font-medium flex justify-between items-center gap-3 opacity-60"><span>${opt}</span> <i class="fa-regular fa-circle text-gray-600 shrink-0"></i></button>`;
+                    }
+                }
+            });
+            optionsContainer.innerHTML = optionsHTML;
+
+            if (savedAnswer === null) {
+                statusBadge.className = "bg-gray-800 text-gray-400 text-xs px-3 py-1 rounded-full shadow-sm";
+                statusBadge.innerText = "لم تتم الإجابة";
+                statusBadge.classList.remove('hidden');
+                explanationBox.classList.add('hidden');
+            } else {
+                if (savedAnswer === q.correct) {
+                    statusBadge.className = "bg-emerald-500/20 text-emerald-500 text-xs px-3 py-1 rounded-full font-bold shadow-sm";
+                    statusBadge.innerText = "إجابة صحيحة";
+                } else {
+                    statusBadge.className = "bg-rose-500/20 text-rose-500 text-xs px-3 py-1 rounded-full font-bold shadow-sm";
+                    statusBadge.innerText = "إجابة خاطئة";
+                }
+                statusBadge.classList.remove('hidden');
+                explanationBox.innerHTML = `<strong class="text-cyan">توضيح:</strong> ${q.explanation}`;
+                explanationBox.classList.remove('hidden');
+            }
+        }
+
+        window.selectAnswer = function(selectedIdx) {
+            userAnswers[currentIdx] = selectedIdx;
+            updateScoreTracker();
+            loadQuestion();
+
+            if (isAutoNext && selectedIdx === questions[currentIdx].correct) {
+                setTimeout(() => {
+                    nextQuestion();
+                }, 900);
+            }
+        };
+
+        function nextQuestion() {
+            if (currentIdx < questions.length - 1) {
+                currentIdx++;
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentIdx > 0) {
+                currentIdx--;
+                loadQuestion();
+            }
+        }
+
+        function showResults() {
+            quizContainer.classList.add('hidden');
+            resultContainer.classList.remove('hidden');
+            
+            const finalScore = getCurrentScore();
+            const total = questions.length;
+            const percentage = Math.round((finalScore / total) * 100);
+            
+            let wrongOnlyCount = 0;
+            let unansweredCount = 0;
+            
+            questions.forEach((q, idx) => {
+                if (userAnswers[idx] === null) {
+                    unansweredCount++;
+                } else if (userAnswers[idx] !== q.correct) {
+                    wrongOnlyCount++;
+                }
+            });
+
+            finalScoreText.innerText = `حصلت على ${finalScore} من ${total} (${percentage}%)`;
+            finalDetailsText.innerText = `إجابات صحيحة: ${finalScore} | إجابات خاطئة: ${wrongOnlyCount} | لم تتم الإجابة: ${unansweredCount}`;
+
+            const reviewPoolCount = wrongOnlyCount + unansweredCount;
+            if (reviewPoolCount > 0) {
+                wrongCountNum.innerText = reviewPoolCount;
+                retryWrongBtn.classList.remove('hidden');
+            } else {
+                retryWrongBtn.classList.add('hidden');
+            }
+        }
+
+        function retryWrongQuestions() {
+            const wrongQuestions = questions.filter((q, idx) => userAnswers[idx] !== q.correct);
+            if (wrongQuestions.length > 0) {
+                questions = wrongQuestions;
+                startQuizSession();
+            }
+        }
+
+        applyFilterAndLimit(false);
+    </script>
+</body>
+</html>
