@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT352 - Modules 1 to 5 (Slides Edition) | FZ</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/@dawod/thmanyah-font-web/index.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+        } else {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#0f111a',
+                        card: '#1b1e2b',
+                        primary: '#8b5cf6',
+                        secondary: '#d946ef'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { font-family: 'Thmanyah Sans', sans-serif; transition: background-color 0.3s ease, color 0.3s ease; }
+        h1, h2, h3, h4 { font-family: 'Thmanyah Serif Display', serif; }
+        #question-text { font-family: 'Open Sans', sans-serif !important; }
+        .option-btn { transition: all 0.2s ease; }
+        .option-btn:hover:not(:disabled) { border-color: #8b5cf6; background-color: rgba(139, 92, 246, 0.1); transform: translateX(-4px); }
+        .filter-btn.active, .limit-btn.active { background: linear-gradient(to right, #8b5cf6, #d946ef) !important; color: white !important; border-color: transparent !important; }
+        html:not(.dark) body { background-color: #f8fafc; color: #0f111a; }
+        html:not(.dark) header, html:not(.dark) footer { background-color: rgba(255, 255, 255, 0.85); border-color: #e2e8f0; }
+        html:not(.dark) .bg-card, html:not(.dark) .bg-card\/60 { background-color: #ffffff; border-color: #cbd5e1; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        html:not(.dark) .bg-gray-900\/60 { background-color: #f1f5f9; border-color: #cbd5e1; color: #1e293b; }
+        html:not(.dark) .bg-gray-800 { background-color: #e2e8f0; border-color: #cbd5e1; color: #334155; }
+        html:not(.dark) .text-white { color: #0f111a; }
+        html:not(.dark) .text-gray-300 { color: #1e293b; }
+        html:not(.dark) .text-gray-400, html:not(.dark) .text-gray-500 { color: #475569; }
+        html:not(.dark) .border-gray-700 { border-color: #cbd5e1; }
+    </style>
+</head>
+<body class="bg-dark text-gray-200 min-h-screen flex flex-col justify-between relative overflow-x-hidden">
+
+    <header class="bg-dark/70 backdrop-blur-md border-b border-gray-800 py-4 px-6 sticky top-0 z-50 transition-colors duration-300">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-lg md:text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">IT352 - Slides Modules 1 to 5</h1>
+            
+            <div class="flex items-center gap-3 md:gap-4">
+                <button id="theme-toggle" onclick="toggleTheme()" aria-label="تبديل المظهر" dir="ltr" class="relative w-16 h-8 rounded-full bg-slate-200 dark:bg-gray-800 border border-slate-300 dark:border-gray-700 flex items-center justify-between px-2 transition-colors duration-300 focus:outline-none shrink-0 cursor-pointer">
+                    <i class="fa-solid fa-sun text-amber-500 text-xs"></i>
+                    <i class="fa-solid fa-moon text-primary text-xs"></i>
+                    <span class="absolute top-1 left-1 w-6 h-6 rounded-full bg-white dark:bg-card border border-slate-200 dark:border-gray-600 shadow-md transform transition-transform duration-300 translate-x-0 dark:translate-x-8 flex items-center justify-center">
+                        <i id="theme-icon" class="fa-solid fa-moon text-primary text-xs"></i>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 flex-grow flex flex-col items-center justify-center">
+        <!-- لوحة التحكم -->
+        <div class="w-full max-w-3xl mb-6 space-y-4 bg-card/40 p-4 rounded-2xl border border-gray-800">
+            <div class="flex flex-wrap items-center justify-center gap-2">
+                <span class="text-xs text-gray-400 font-bold ml-2">الوحدة:</span>
+                <button onclick="filterChapter('ALL')" id="btn-ALL" class="filter-btn active text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">الكل (100)</button>
+                <button onclick="filterChapter('Mod1')" id="btn-Mod1" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Mod 1</button>
+                <button onclick="filterChapter('Mod2')" id="btn-Mod2" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Mod 2</button>
+                <button onclick="filterChapter('Mod3')" id="btn-Mod3" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Mod 3</button>
+                <button onclick="filterChapter('Mod4')" id="btn-Mod4" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Mod 4</button>
+                <button onclick="filterChapter('Mod5')" id="btn-Mod5" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Mod 5</button>
+            </div>
+            <div class="flex flex-wrap items-center justify-center gap-2 pt-2 border-t border-gray-800/80">
+                <span class="text-xs text-gray-400 font-bold ml-2">العدد:</span>
+                <button onclick="setQuestionLimit(20)" id="limit-20" class="limit-btn text-xs px-4 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">20</button>
+                <button onclick="setQuestionLimit(50)" id="limit-50" class="limit-btn text-xs px-4 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">50</button>
+                <button onclick="setQuestionLimit(100)" id="limit-100" class="limit-btn active text-xs px-4 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">الكل</button>
+            </div>
+        </div>
+
+        <div class="w-full max-w-3xl bg-card/60 backdrop-blur-md border border-gray-800 rounded-2xl p-6 md:p-8 shadow-xl">
+            <div id="quiz-container">
+                <div class="flex flex-wrap justify-between items-center mb-4 text-sm text-gray-400 gap-3">
+                    <div class="flex items-center gap-2">
+                        <span id="question-counter" class="font-bold text-primary bg-primary/10 border border-primary/20 px-3 py-1 rounded-full shadow-sm"></span>
+                        <span id="chapter-badge" class="bg-gray-800 text-gray-300 text-xs px-3 py-1 rounded-full border border-gray-700 shadow-sm"></span>
+                        <span id="status-badge" class="hidden text-xs px-3 py-1 rounded-full font-bold shadow-sm"></span>
+                    </div>
+                    <div class="flex items-center gap-2 md:gap-3 mr-auto">
+                        <div class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 font-bold px-3 py-1.5 rounded-full text-xs flex items-center gap-1.5 shadow-sm">
+                            <i class="fa-solid fa-check-double"></i>
+                            <span id="score-tracker" class="hidden sm:inline"></span>
+                            <span id="score-tracker-mobile" class="sm:hidden"></span>
+                        </div>
+                        <button onclick="shuffleCurrentPool()" title="خلط" class="text-gray-400 hover:text-primary transition-all text-xs bg-gray-800 px-3 py-1.5 rounded-full border border-gray-700 flex items-center">
+                            <i class="fa-solid fa-shuffle sm:ml-1.5"></i> <span class="hidden sm:inline">خلط</span>
+                        </button>
+                        <button id="auto-next-toggle" onclick="toggleAutoNext()" title="تجاوز تلقائي" class="text-gray-400 hover:text-emerald-500 transition-all text-xs bg-gray-800 px-3 py-1.5 rounded-full border border-gray-700 flex items-center gap-1.5">
+                            <i id="auto-next-icon" class="fa-solid fa-toggle-off text-gray-500 text-sm"></i> 
+                            <span class="hidden sm:inline">تجاوز تلقائي</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="w-full bg-gray-800 h-3 rounded-full mb-8 overflow-hidden shadow-inner border border-gray-700/50">
+                    <div id="progress-bar" class="bg-gradient-to-r from-primary to-secondary h-full transition-all duration-500 ease-out" style="width: 1%"></div>
+                </div>
+
+                <h2 id="question-text" dir="ltr" class="text-lg md:text-xl font-bold text-white mb-6 text-left leading-relaxed whitespace-pre-line"></h2>
+                <div id="options-container" dir="ltr" class="space-y-3 text-left mb-6"></div>
+                <div id="explanation-box" class="hidden p-4 rounded-xl bg-gray-800/80 border border-gray-700 text-sm text-gray-300 mb-6 leading-relaxed shadow-inner"></div>
+
+                <div class="flex items-center justify-between gap-3 pt-5 border-t border-gray-800/80">
+                    <button id="prev-btn" onclick="prevQuestion()" class="px-5 py-3 rounded-full border border-gray-700 bg-gray-800/60 hover:text-primary font-bold transition-all disabled:opacity-40 disabled:pointer-events-none">
+                        <i class="fa-solid fa-arrow-right ml-2"></i> السابق
+                    </button>
+                    <button onclick="showResults()" class="px-4 py-3 rounded-full border border-gray-700 hover:text-rose-400 text-gray-400 text-sm font-bold transition-all">
+                        إنهاء الاختبار
+                    </button>
+                    <button id="next-btn" onclick="nextQuestion()" class="flex-1 max-w-[220px] bg-gradient-to-r from-primary to-secondary text-white font-bold py-3 px-6 rounded-full transition-all">
+                        التالي <i class="fa-solid fa-arrow-left mr-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div id="result-container" class="hidden text-center py-8">
+                <div class="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-6 text-primary text-4xl">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-white mb-3">انتهى الاختبار!</h2>
+                <p id="final-score-text" class="text-xl text-gray-300 font-bold mb-2"></p>
+                <p id="final-details-text" class="text-sm text-gray-400 mb-8"></p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <button id="retry-wrong-btn" onclick="retryWrongQuestions()" class="hidden bg-rose-600 hover:bg-rose-500 text-white font-bold py-3 px-8 rounded-full transition-all">
+                        <i class="fa-solid fa-triangle-exclamation ml-2"></i> إعادة الأسئلة الخاطئة (<span id="wrong-count-num"></span>)
+                    </button>
+                    <button onclick="applyFilterAndLimit(false)" class="bg-gradient-to-r from-primary to-secondary text-white font-bold py-3 px-8 rounded-full transition-all">
+                        <i class="fa-solid fa-rotate-right ml-2"></i> اختبار جديد
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-center py-6 text-gray-600 text-sm border-t border-gray-800">
+        &copy; 2026 FZ — IT352 Slides Bank
+    </footer>
+
+    <script>
+        function updateThemeIcon() {
+            const icon = document.getElementById('theme-icon');
+            if (document.documentElement.classList.contains('dark')) {
+                icon.className = 'fa-solid fa-moon text-primary text-xs';
+            } else {
+                icon.className = 'fa-solid fa-sun text-amber-500 text-xs';
+            }
+        }
+        updateThemeIcon();
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+            updateThemeIcon();
+        }
+
+        const allQuestions = [
+            // ================= MODULE 1 =================
+            { chapter: "Mod1", question: "What is Interaction Design according to Sharp, Rogers, and Preece (2019)?", options: ["Designing systems for databases.", "Designing interactive products to support the way people communicate and interact in their everyday and working lives.", "The design of spaces for human communication.", "Designing complex algorithms for users."], correct: 1, explanation: "As stated in Slide 14, it is designing interactive products to support the way people communicate and interact in their everyday and working lives." },
+            { chapter: "Mod1", question: "According to Winograd (1997), Interaction Design is defined as:", options: ["The design of spaces for human communication and interaction.", "Designing algorithms.", "Designing smart cities.", "Designing software lifecycles."], correct: 0, explanation: "Slide 14 defines it as 'The design of spaces for human communication and interaction' by Winograd (1997)." },
+            { chapter: "Mod1", question: "What does 'Usability' mean in the context of interaction design?", options: ["Easy to learn, effective to use, and provides an enjoyable experience.", "Inexpensive and fast to build.", "Secure and robust.", "Using high-end graphical processing."], correct: 0, explanation: "Slide 14 states Usability means easy to learn, effective to use, and provides an enjoyable experience." },
+            { chapter: "Mod1", question: "Which of the following is considered an academic discipline contributing to Interaction Design?", options: ["Graphic design", "Film industry", "Product design", "Ergonomics"], correct: 3, explanation: "Slide 16 lists Ergonomics under Academic Disciplines, whereas Graphic design and Film industry are Design Practices." },
+            { chapter: "Mod1", question: "Which of the following is considered a 'Design Practice' in Interaction Design?", options: ["Psychology", "Informatics", "Industrial Design", "Computer Science"], correct: 2, explanation: "Slide 16 lists Industrial Design under Design Practices." },
+            { chapter: "Mod1", question: "What is a disadvantage (con) of involving people from different backgrounds in Interaction Design?", options: ["More ideas are generated.", "It is difficult to communicate and progress forward the designs being created.", "It limits creativity.", "It reduces the budget."], correct: 1, explanation: "Slide 19 states a con is: 'Difficult to communicate and progress forward the designs being create'." },
+            { chapter: "Mod1", question: "Which term describes 'All aspects of the end-user's interaction with the company, its services, and its products' (Nielsen and Norman, 2014)?", options: ["User interface", "User experience", "Accessibility", "Inclusiveness"], correct: 1, explanation: "Slide 21 uses this definition for The User Experience." },
+            { chapter: "Mod1", question: "The iPod phenomenon succeeded primarily because of:", options: ["Its low price.", "The quality of the overall user experience.", "Its open-source software.", "Its command-line interface."], correct: 1, explanation: "Slide 22 indicates that the quality of the overall user experience was key to the iPod's success." },
+            { chapter: "Mod1", question: "Which of the following is NOT an essential aspect of Interaction Design?", options: ["Users involvement throughout the development of the project.", "Iterative process.", "Avoiding user feedback to speed up deployment.", "Identification and specification of usability and user experience goals."], correct: 2, explanation: "Slide 23 lists user involvement, identifying UX goals, and an iterative process as essential aspects." },
+            { chapter: "Mod1", question: "The extent to which an interactive product is accessible by as many people as possible is defined as:", options: ["Usability", "Inclusiveness", "Effectiveness", "Accessibility"], correct: 3, explanation: "Slide 26 defines Accessibility." },
+            { chapter: "Mod1", question: "Making products and services that accommodate the widest possible number of people (regardless of disability, education, age) defines:", options: ["Accessibility", "Usability", "Inclusiveness", "Learnability"], correct: 2, explanation: "Slide 27 defines Inclusiveness." },
+            { chapter: "Mod1", question: "Which usability goal asks if the product is capable of allowing people to learn, carry out their work efficiently, and access information?", options: ["Efficiency", "Effectiveness", "Safety", "Utility"], correct: 1, explanation: "Slide 30 defines Effectiveness with this question." },
+            { chapter: "Mod1", question: "Which usability goal focuses on sustaining a high level of productivity once users have learned how to use a product?", options: ["Effectiveness", "Safety", "Efficiency", "Memorability"], correct: 2, explanation: "Slide 30 links sustaining a high level of productivity to Efficiency." },
+            { chapter: "Mod1", question: "Which usability goal considers the range of errors that are possible using the product and measures to permit users to recover easily?", options: ["Safety", "Utility", "Efficiency", "Effectiveness"], correct: 0, explanation: "Slide 30 links error recovery to Safety." },
+            { chapter: "Mod1", question: "Which of the following is an UNDESIRABLE aspect of User Experience Goals?", options: ["Satisfying", "Engaging", "Patronizing", "Provocative"], correct: 2, explanation: "Slide 31 lists 'Patronizing', 'Boring', 'Frustrating', etc. as undesirable aspects." },
+            { chapter: "Mod1", question: "Which of the following is a DESIRABLE aspect of User Experience Goals?", options: ["Gimmicky", "Cutesy", "Making one feel stupid", "Cognitively stimulating"], correct: 3, explanation: "Slide 31 lists 'Cognitively stimulating' as a desirable aspect." },
+            { chapter: "Mod1", question: "Sending information back to the user about what has been done (e.g., sound, highlighting, animation) is known as:", options: ["Consistency", "Visibility", "Feedback", "Affordance"], correct: 2, explanation: "Slide 33 defines Feedback." },
+            { chapter: "Mod1", question: "Designing operations to act the same within an application is called:", options: ["External consistency", "Internal consistency", "Feedback", "Safety"], correct: 1, explanation: "Slide 34 defines Internal consistency." },
+            { chapter: "Mod1", question: "Designing the same operations and interfaces across applications and devices is called:", options: ["Internal consistency", "External consistency", "Learnability", "Utility"], correct: 1, explanation: "Slide 34 defines External consistency." },
+            { chapter: "Mod1", question: "In the example of the coffee maker's 'bad design', why was the light on the switch confusing?", options: ["It was too bright.", "The user expected more coffee to be associated with more light (light on).", "It was green instead of red.", "It didn't turn off when unplugged."], correct: 1, explanation: "Slide 9 explains the confusion is because users expect more coffee to be associated with more light." },
+
+            // ================= MODULE 2 =================
+            { chapter: "Mod2", question: "The double diamond of design approach consists of four phases which are:", options: ["Plan, Design, Build, Test", "Discover, Define, Develop, Deliver", "Research, Analyze, Implement, Maintain", "Identify, Propose, Create, Evaluate"], correct: 1, explanation: "Slide 10 lists the four phases: Discover, Define, Develop, Deliver." },
+            { chapter: "Mod2", question: "In the double diamond of design, which phase involves gathering insights about the problem?", options: ["Discover", "Define", "Develop", "Deliver"], correct: 0, explanation: "Slide 10: Discover: Designers try to gather insights about the problem." },
+            { chapter: "Mod2", question: "Which phase of the double diamond approach involves creating, prototyping, testing, and iterating solutions?", options: ["Define", "Discover", "Develop", "Deliver"], correct: 2, explanation: "Slide 10: Develop: Solutions or concepts are created, prototyped, tested, and iterated." },
+            { chapter: "Mod2", question: "Interaction design involves all of the following EXCEPT:", options: ["Discovering requirements", "Producing prototypes", "Ignoring user goals to speed up the process", "Involving trade-offs to balance conflicting requirements"], correct: 2, explanation: "Slide 22 states interaction design considers users and their goals; ignoring them is incorrect." },
+            { chapter: "Mod2", question: "When users have patchy input and the process is very stressful, this degree of involvement is called:", options: ["Full time", "Part time", "Long term", "Short term"], correct: 1, explanation: "Slide 25 describes Part time user involvement as patchy input, and very stressful." },
+            { chapter: "Mod2", question: "A User-centered approach is based on all of the following EXCEPT:", options: ["Early focus on users and tasks", "Empirical measurement", "Iterative design", "Systems design focus"], correct: 3, explanation: "Slide 26 lists Early focus on users and tasks, Empirical measurement, and Iterative design." },
+            { chapter: "Mod2", question: "Which of the following is one of the four basic activities of Interaction Design?", options: ["Writing code algorithms", "Designing alternatives", "Marketing the product", "Hardware manufacturing"], correct: 1, explanation: "Slide 28 lists the four basic activities, including Designing alternatives." },
+            { chapter: "Mod2", question: "In interaction design, 'Conceptual design' involves:", options: ["Detailing the colors, sounds, and images.", "Producing the conceptual model outlining what people can do with a product.", "Writing the final code.", "Marketing the application."], correct: 1, explanation: "Slide 30: Conceptual design involves producing the conceptual model for the product." },
+            { chapter: "Mod2", question: "In interaction design, 'Concrete design' considers:", options: ["The detail of the product including colors, sounds, and images to use.", "The database structure.", "The abstraction of user tasks.", "The business model."], correct: 0, explanation: "Slide 30: Concrete design considers the detail of the product including the colors, sounds, and images." },
+            { chapter: "Mod2", question: "The process of determining the usability and acceptability of the product or design is known as:", options: ["Prototyping", "Discovering", "Evaluating", "Conceptualizing"], correct: 2, explanation: "Slide 32: Evaluation is the process of determining the usability and acceptability of the product." },
+            { chapter: "Mod2", question: "According to Google Design Sprints, what are the five stages?", options: ["Discover, Define, Develop, Deliver, Test", "Unpack, Sketch, Decide, Prototype, Test", "Plan, Analyze, Design, Build, Maintain", "Research, Ideate, Create, Evaluate, Launch"], correct: 1, explanation: "Slide 34 shows the Google Design Sprints stages: Unpack, Sketch, Decide, Prototype, Test." },
+            { chapter: "Mod2", question: "The framework for 'Research in the Wild' studies (Rogers and Marshall, 2017) connects which four components?", options: ["Theory, Technology, Design, In Situ Studies", "Hardware, Software, Users, Environment", "Planning, Prototyping, Evaluating, Delivering", "Users, Tasks, Context, Goals"], correct: 0, explanation: "Slide 36 illustrates the framework connecting Theory, Technology, Design, and In Situ Studies." },
+            { chapter: "Mod2", question: "When users rarely know what they need and what is possible, what must designers do?", options: ["Wait for users to write the requirements.", "Explore the problem space and investigate user activities to see what can be improved.", "Build the system without user input.", "Copy competitors directly."], correct: 1, explanation: "Slide 40: Designers must explore the problem space, investigate who users are, and investigate user activities." },
+            { chapter: "Mod2", question: "Which of the following is a way to generate and choose among alternatives?", options: ["Cross-fertilization of ideas from different perspectives.", "Avoiding user evaluations.", "Accepting the first idea to save time.", "Working in complete isolation."], correct: 0, explanation: "Slide 41 suggests 'Cross-fertilization of ideas from different perspectives' to generate alternatives." },
+            { chapter: "Mod2", question: "Integrating interaction design activities with agile software development is promising because:", options: ["It prevents early feedback.", "It relies on strict non-iterative phases.", "It incorporates tight iterations and handles emergent requirements.", "It eliminates the need for user testing."], correct: 2, explanation: "Slide 42: Integrating with agile is promising because it incorporates tight iterations, champions early feedback, and handles emergent requirements." },
+            { chapter: "Mod2", question: "Which degree of user involvement provides consistent input but may cause users to lose touch with other users?", options: ["Part time", "Short term", "Long term", "Virtual contributions"], correct: 2, explanation: "Slide 25 states Long term involvement is consistent, but users lose touch with other users." },
+            { chapter: "Mod2", question: "What is an example of 'Virtual contributions from thousands of users'?", options: ["Face-to-face focus groups", "Crowdsourcing design ideas and Online Feedback Exchange (OFE) systems", "A single user testing session in a lab", "A long-term embedded user in the development team"], correct: 1, explanation: "Slide 25 lists Online Feedback Exchange (OFE) systems and Crowdsourcing design ideas under virtual contributions." },
+            { chapter: "Mod2", question: "Empirical measurement in a user-centered approach involves:", options: ["Guessing how users will behave.", "Using predefined algorithms only.", "Observing, recording, and analyzing users' reactions and performance to scenarios, simulations, and prototypes.", "Launching the product immediately."], correct: 2, explanation: "Slide 26: Empirical measurement means users' reactions and performance to scenarios, simulations, and prototypes are observed, recorded, and analyzed." },
+            { chapter: "Mod2", question: "Why is 'Prototyping' important in the interaction design lifecycle?", options: ["It replaces quality assurance testing.", "It is the most effective way for users to evaluate designs by interacting with them.", "It generates the final production code automatically.", "It avoids the need to talk to users."], correct: 1, explanation: "Slide 31: The most effective way for users to evaluate such designs is to interact with them, which is achieved through prototyping." },
+            { chapter: "Mod2", question: "What does 'Iterative design' entail in a user-centered approach?", options: ["Designing the whole system once perfectly.", "Finding problems with user testing, fixing them, and carrying out more tests.", "Skipping testing if the design looks good.", "Waiting until the end of the project to test."], correct: 1, explanation: "Slide 26: Iterative design means finding problems with user testing, fixing them, and carrying out more tests." },
+
+            // ================= MODULE 3 =================
+            { chapter: "Mod3", question: "What is an 'Assumption' in the context of conceptualizing design?", options: ["Stating something to be true when it is still open to question.", "Taking something for granted when it needs further investigation.", "A fully proven scientific fact.", "The final product delivery."], correct: 1, explanation: "Slide 10 defines an assumption as 'Taking something for granted when it needs further investigation'." },
+            { chapter: "Mod3", question: "What is a 'Claim' in the context of conceptualizing design?", options: ["Taking something for granted.", "Stating something to be true when it is still open to question.", "An established design pattern.", "A completed prototype."], correct: 1, explanation: "Slide 11 defines a claim as 'Stating something to be true when it is still open to question'." },
+            { chapter: "Mod3", question: "Which of the following is a benefit of conceptualizing?", options: ["It writes the software code automatically.", "It encourages design teams to ask specific questions and establishes a common ground.", "It removes the need for user testing.", "It limits the design space early on."], correct: 1, explanation: "Slide 17 lists Orientation (encouraging specific questions), Open-mindedness, and Common ground as benefits of conceptualizing." },
+            { chapter: "Mod3", question: "According to Johnson and Henderson (2002), a conceptual model is:", options: ["A detailed breakdown of programming functions.", "A high-level description of how a system is organized and operates.", "The physical hardware layout of a device.", "A user manual."], correct: 1, explanation: "Slide 19: '...a high-level description of how a system is organized and operates'." },
+            { chapter: "Mod3", question: "Which interaction type is used for issuing commands and selecting options (e.g., Tell the time, print a file)?", options: ["Conversing", "Exploring", "Instructing", "Manipulating"], correct: 2, explanation: "Slide 27 and 28: Instructing is used for issuing commands and selecting options." },
+            { chapter: "Mod3", question: "Which interaction type involves interacting with a system as if having a dialog with another human (e.g., search engines, virtual agents)?", options: ["Instructing", "Conversing", "Manipulating", "Responding"], correct: 1, explanation: "Slide 27 and 30: Conversing involves having a conversation with another human or conversational system." },
+            { chapter: "Mod3", question: "Which interaction type involves dragging, selecting, opening, closing, and zooming actions on virtual objects?", options: ["Manipulating", "Instructing", "Exploring", "Responding"], correct: 0, explanation: "Slide 27 and 32: Manipulating is designed for interacting with objects by manipulating them." },
+            { chapter: "Mod3", question: "Direct Manipulation (DM) was coined by Ben Shneiderman (1983). Which is an essential property of it?", options: ["Command-line syntax only.", "Rapid reversible actions with immediate feedback on object of interest.", "Audio-only output.", "Lack of continuous representation."], correct: 1, explanation: "Slide 33 lists 'Rapid reversible actions with immediate feedback on object of interest' as an essential property." },
+            { chapter: "Mod3", question: "Which of the following is a disadvantage (con) of Direct Manipulation?", options: ["It is helpful for novices.", "Error messages are rarely needed.", "Not all tasks can be described by objects; some are better achieved through delegating.", "Users gain confidence."], correct: 2, explanation: "Slide 34 lists 'Not all tasks can be described by objects' and 'Some tasks are better achieved through delegating' as cons." },
+            { chapter: "Mod3", question: "Which interaction type is designed for moving through virtual or physical environments (e.g., flying over 3D cities)?", options: ["Responding", "Exploring", "Conversing", "Instructing"], correct: 1, explanation: "Slide 27 and 35: Exploring is the interface for moving through a virtual environment or physical space." },
+            { chapter: "Mod3", question: "When the system takes the initiative to alert the user (e.g., fitness tracker notifying a milestone), this interaction type is:", options: ["Responding", "Exploring", "Manipulating", "Instructing"], correct: 0, explanation: "Slide 27 and 37: Responding is when the system initiates the interaction and alerts the user." },
+            { chapter: "Mod3", question: "What is the difference between Interaction Type and Interface Style?", options: ["They mean exactly the same thing.", "Interaction type is what the user is doing (e.g., conversing); Interface style is the kind of interface used (e.g., menu-based or voice).", "Interaction type refers to hardware; Interface style refers to software.", "Interaction type is visual; Interface style is auditory."], correct: 1, explanation: "Slide 39: Interaction type is a description of what the user is doing. Interface style is the kind of interface used to support the interaction." },
+            { chapter: "Mod3", question: "A general approach adopted by a community for carrying out research (e.g., ubiquitous computing, IoT) is called a:", options: ["Theory", "Framework", "Paradigm", "Claim"], correct: 2, explanation: "Slide 41 defines a Paradigm as a general approach adopted by a community for carrying out research." },
+            { chapter: "Mod3", question: "An explanation of a phenomenon that can help identify factors relevant to the design and evaluation of interactive products is a:", options: ["Theory", "Paradigm", "Vision", "Framework"], correct: 0, explanation: "Slide 42 defines Theory as an explanation of a phenomenon." },
+            { chapter: "Mod3", question: "A set of interrelated concepts and/or specific questions for 'what to look for' that provide advice on how to design user experiences is a:", options: ["Framework", "Paradigm", "Vision", "Theory"], correct: 0, explanation: "Slide 43 defines a Framework as a set of interrelated concepts and/or specific questions for 'what to look for'." },
+            { chapter: "Mod3", question: "A driving force that frames research and provides concrete scenarios of how society can use next-generation technologies is a:", options: ["Framework", "Vision", "Theory", "Claim"], correct: 1, explanation: "Slide 42 defines Visions as a driving force providing concrete scenarios for next-gen technologies." },
+            { chapter: "Mod3", question: "Which of the following is a PRO of using interface metaphors?", options: ["They break cultural rules.", "They limit the designer's imagination.", "They make learning new systems easier by helping users understand the underlying conceptual model.", "They force users to understand the system only in terms of the metaphor."], correct: 2, explanation: "Slide 25 lists 'Makes learning new systems easier' and 'Helps users understand the underlying conceptual model' as Pros." },
+            { chapter: "Mod3", question: "Which of the following is a CON of using interface metaphors?", options: ["Can inadvertently use bad existing designs and transfer the bad parts over.", "Make learning difficult for everyone.", "They are entirely text-based.", "They prevent the use of color."], correct: 0, explanation: "Slide 25 lists 'Designers can inadvertently use bad existing designs and transfer the bad parts over' as a Con." },
+            { chapter: "Mod3", question: "The 'card' UI (like Google Now) is a popular interface metaphor because:", options: ["It relies strictly on text commands.", "It has a familiar form factor, easily flicked through, and structures content into meaningful chunks.", "It is only available in black and white.", "It hides all information until requested."], correct: 1, explanation: "Slide 24: It has a familiar form factor, can easily be flicked through, and structures content into meaningful chunks." },
+            { chapter: "Mod3", question: "When analyzing a problem space, what should designers ask?", options: ["How to maximize the price of the product?", "What programming language is the fastest?", "What are the problems with an existing product and how might the proposed design solve them?", "How to avoid user testing entirely?"], correct: 2, explanation: "Slide 14: Analyzing the problem space involves asking 'What are the problems with an existing product or user experience?' and 'How the proposed design will might sole these problems?'." },
+
+            // ================= MODULE 4 =================
+            { chapter: "Mod4", question: "According to Norman (1993), which type of cognition involves people perceiving, acting, and reacting to events (e.g., driving a car)?", options: ["Reflective", "Experiential", "Slow thinking", "Intentional"], correct: 1, explanation: "Slide 8: Experiential: where people perceive, act, and react to events." },
+            { chapter: "Mod4", question: "According to Norman (1993), which type of cognition involves mental effort, attention, judgment, and decision-making (e.g., designing, writing a report)?", options: ["Reflective", "Experiential", "Fast thinking", "Incidental"], correct: 0, explanation: "Slide 8: Reflective: involves mental effort, attention, judgment, and decision-making." },
+            { chapter: "Mod4", question: "Kahneman (2011) classified cognition into 'Fast' and 'Slow' thinking. What characterizes 'Slow thinking'?", options: ["It is reflexive and effortless.", "It requires no concentration.", "It takes more time, is more logical and demanding, and requires greater concentration.", "It is only used when sleeping."], correct: 2, explanation: "Slide 8: Slow thinking takes more time and is considered to be more logical and demanding, requiring greater concentration." },
+            { chapter: "Mod4", question: "Recognizing and selecting things on which to concentrate at a point in time, from the range of possibilities available, defines:", options: ["Memory", "Learning", "Attention", "Perception"], correct: 2, explanation: "Slide 12 defines Attention as recognizing and selecting things on which to concentrate." },
+            { chapter: "Mod4", question: "What is a general finding from research on the effects of multitasking on attention?", options: ["It always improves performance.", "It is impossible for humans to do.", "It depends on the nature of the tasks and how much attention each demands.", "It only affects visual senses, not auditory."], correct: 2, explanation: "Slide 13: The general finding is that it depends on the nature of the tasks and how much attention each demands." },
+            { chapter: "Mod4", question: "Information acquisition from the world and transformation into experiences is defined as:", options: ["Memory", "Perception", "Learning", "Reasoning"], correct: 1, explanation: "Slide 14 defines Perception as information acquisition from the world and transformation into experiences." },
+            { chapter: "Mod4", question: "Which cognitive process involves recalling knowledge to act appropriately (e.g., recognizing someone's face)?", options: ["Attention", "Perception", "Memory", "Decision-making"], correct: 2, explanation: "Slide 17 defines Memory as the recalling of knowledge to act appropriately." },
+            { chapter: "Mod4", question: "Which of the following is true regarding recognition versus recall?", options: ["Recall is easier than recognition.", "We recognize things much better than being able to recall things.", "Command-based interfaces rely on recognition.", "Graphical interfaces rely entirely on recall."], correct: 1, explanation: "Slide 17 & 18: We recognize things much better than being able to recall things. GUIs provide options to recognize." },
+            { chapter: "Mod4", question: "Learning that occurs without deliberate effort (e.g., recognizing people's faces or what you did today) is called:", options: ["Intentional learning", "Incidental learning", "Reflective cognition", "Slow thinking"], correct: 1, explanation: "Slide 20 defines Incidental learning as learning that occurs without deliberate effort." },
+            { chapter: "Mod4", question: "Which statement is generally true regarding reading, speaking, and listening?", options: ["Listening requires more cognitive effort than reading.", "Speaking is the fastest method of information acquisition.", "Listening requires less cognitive effort than reading or speaking.", "Everyone prefers reading to listening."], correct: 2, explanation: "Slide 22 states: Listening requires less cognitive effort than reading or speaking." },
+            { chapter: "Mod4", question: "What is a cognitive framework used to explain how users develop an understanding of a system through learning about and using it?", options: ["External cognition", "Mental models", "Distributed cognition", "Gulf of execution"], correct: 1, explanation: "Slide 28: Users develop an understanding of a system (Mental models) through learning about and using it." },
+            { chapter: "Mod4", question: "The distance from the user to the physical system is known as the:", options: ["Gulf of evaluation", "Gulf of execution", "Distributed cognition gap", "Mental model gap"], correct: 1, explanation: "Slide 31: The gulf of execution is the distance from the user to the physical system." },
+            { chapter: "Mod4", question: "The distance from the physical system to the user is known as the:", options: ["Gulf of evaluation", "Gulf of execution", "Perceptual gap", "Reflective distance"], correct: 0, explanation: "Slide 31: The gulf of evaluation is the distance from the physical system to the user." },
+            { chapter: "Mod4", question: "Which cognitive model involves interactions among people, the artifacts they use, and the environment in which they are working?", options: ["Mental models", "Gulfs of execution", "Distributed cognition", "External cognition"], correct: 2, explanation: "Slide 32: Distributed cognition model involves interactions among people, the artifacts they use, and the environment." },
+            { chapter: "Mod4", question: "Using diaries, reminders, calendars, and shopping lists to reduce memory load is an example of:", options: ["Distributed cognition", "External cognition", "Incidental learning", "Fast thinking"], correct: 1, explanation: "Slide 33: External cognition involves externalizing to reduce memory load (use of diaries, reminders, etc.)." },
+            { chapter: "Mod4", question: "To capture users' attention effectively, interfaces should:", options: ["Be cluttered with as much information as possible.", "Avoid using color or sound.", "Use perceptual boundaries (windows), color, sound, and flashing lights appropriately.", "Require the user to read long manuals."], correct: 2, explanation: "Slide 13 recommends structuring information using perceptual boundaries, color, sound, and flashing lights to capture attention." },
+            { chapter: "Mod4", question: "To reduce cognitive load, a design recommendation is to:", options: ["Avoid long and complicated procedures for carrying out tasks.", "Use command-line interfaces heavily.", "Hide all icons.", "Make the user memorize multiple passwords."], correct: 0, explanation: "Slide 19 recommends reducing cognitive load by avoiding long and complicated procedures." },
+            { chapter: "Mod4", question: "Which of the following processes involves reflective cognition?", options: ["Problem-solving, planning, reasoning, and decision-making.", "Reacting to a sudden loud noise.", "Recognizing a familiar color.", "Walking on a flat surface."], correct: 0, explanation: "Slide 24 states that problem-solving, planning, reasoning, and decision-making all involve reflective cognition." },
+            { chapter: "Mod4", question: "Speech-based menus and instructions should be:", options: ["Very detailed and long.", "Read with no intonation.", "Short.", "Spoken as fast as possible."], correct: 2, explanation: "Slide 23 recommends: Speech-based menus and instructions should be short." },
+            { chapter: "Mod4", question: "When a person presses an elevator button multiple times because they think it will ensure the elevator arrives faster, they are exhibiting an erroneous:", options: ["Gulf of execution", "Mental model", "External cognition", "Distributed cognition"], correct: 1, explanation: "Slide 29 provides the elevator button example as an erroneous mental model." },
+
+            // ================= MODULE 5 =================
+            { chapter: "Mod5", question: "Conversational rules that enable people to coordinate their talk with one another were proposed by Sacks et al. Which of the following is NOT one of those rules?", options: ["The current speaker chooses the next speaker by asking a question.", "Another person decides to start speaking.", "The current speaker continues talking.", "The system automatically mutes all speakers."], correct: 3, explanation: "Slide 11 lists Rule 1 (speaker chooses next), Rule 2 (another starts speaking), and Rule 3 (current continues). Muting is not a human conversational rule." },
+            { chapter: "Mod5", question: "Which term refers to one party being present with another party, who is present in a physical space, such as a meeting room (often using robots or screens)?", options: ["Social presence", "Telepresence", "External cognition", "Visceral presence"], correct: 1, explanation: "Slide 15 defines Telepresence." },
+            { chapter: "Mod5", question: "Which term refers to the feeling of being there with a real person when in virtual reality?", options: ["Telepresence", "Social presence", "Physical presence", "Distributed presence"], correct: 1, explanation: "Slide 15 defines Social presence as the feeling of being there with a real person when in VR." },
+            { chapter: "Mod5", question: "Participation in activities of a social group, often involving voluntary, unpaid social exchange, is defined as:", options: ["Social interaction", "Social engagement", "Telepresence", "Affective computing"], correct: 1, explanation: "Slide 17 defines Social engagement as participation in activities of a social group, voluntary, unpaid." },
+            { chapter: "Mod5", question: "Emotional interaction is concerned with:", options: ["How fast a system processes data.", "How we feel and react when interacting with technologies.", "Only the physical design of the hardware.", "The cost-effectiveness of the software."], correct: 1, explanation: "Slide 29: Emotional interaction is concerned with how we feel and react when interacting with technologies." },
+            { chapter: "Mod5", question: "According to the claims from the emotional model, when people are happy, they are:", options: ["Focused narrowly with tense muscles.", "More likely to be less tolerant.", "Less focused, their bodies relax, and they can be more creative.", "Unable to make decisions."], correct: 2, explanation: "Slide 32 states: When happy, we are less focused and our bodies relax... overlooking minor problems and be more creative." },
+            { chapter: "Mod5", question: "In Anthony Ortony's model of emotional design, which level refers to making products look, feel, and sound good (automatic sensory reactions)?", options: ["Behavioral design", "Reflective design", "Visceral design", "Conceptual design"], correct: 2, explanation: "Slide 33: Visceral design is at the lowest level... refers to making products look, feel, and sound good." },
+            { chapter: "Mod5", question: "In Anthony Ortony's model, which level is about 'use' and equates with traditional values of usability (routine operations)?", options: ["Reflective design", "Visceral design", "Behavioral design", "Social design"], correct: 2, explanation: "Slide 33: Behavioral design is about use, and it equates with traditional values of usability." },
+            { chapter: "Mod5", question: "In Anthony Ortony's model, which level is about considering the meaning and personal value of a product?", options: ["Visceral design", "Behavioral design", "Reflective design", "Interaction design"], correct: 2, explanation: "Slide 33: Reflective design is about considering the meaning and personal value of a product." },
+            { chapter: "Mod5", question: "What is a common cause of frustrating interfaces?", options: ["Providing clear, context-sensitive help.", "A system requires users to carry out too many steps to perform a task.", "A minimalist and aesthetically-pleasing design.", "High system responsiveness."], correct: 1, explanation: "Slide 37 lists 'a system requires users to carry out too many steps to perform a task' as a cause of frustration." },
+            { chapter: "Mod5", question: "According to Shneiderman’s classic guidelines for error messages, designers should AVOID using terms like:", options: ["'Please try again'", "'Error code 404'", "'FATAL', 'INVALID', or 'BAD'", "'Context-sensitive help'"], correct: 2, explanation: "Slide 38: Avoid using terms like FATAL, INVALID, or BAD." },
+            { chapter: "Mod5", question: "How to use computers to recognize and express emotions as humans do is defined as:", options: ["Affective computing", "Telepresence", "Social engagement", "Anthropomorphism"], correct: 0, explanation: "Slide 40: Affective computing is how to use computers to recognize and express emotions as humans do." },
+            { chapter: "Mod5", question: "Emotional AI aims to:", options: ["Replace all human workers.", "Automate the measurement of feelings and behavior using AI to infer them from facial expressions and voice.", "Create faster database queries.", "Eliminate all user interfaces."], correct: 1, explanation: "Slide 40: Emotional AI aims to automate the measurement of feelings and behavior using AI to infer them from facial expressions and voice." },
+            { chapter: "Mod5", question: "Which of the following technologies is typically used to measure facial expressions in affective computing?", options: ["Biosensors on fingers", "Accelerometers", "Cameras", "Motion capture systems"], correct: 2, explanation: "Slide 42 lists Cameras for measuring facial expressions." },
+            { chapter: "Mod5", question: "Attributing human-like qualities to inanimate objects is known as:", options: ["Telepresence", "Affective computing", "Anthropomorphism", "Emotional intelligence"], correct: 2, explanation: "Slide 45 defines Anthropomorphism as Attributing human-like qualities to inanimate objects." },
+            { chapter: "Mod5", question: "A benefit of anthropomorphism in human-computer interaction is that it can:", options: ["Make the user experience enjoyable and make people feel at ease by reducing anxiety.", "Make the system run twice as fast.", "Completely remove the need for graphical interfaces.", "Prevent the user from making any errors."], correct: 0, explanation: "Slide 45: Make user experience enjoyable and motivating... Make people feel at ease by reducing anxiety." },
+            { chapter: "Mod5", question: "Technologies designed specifically to persuade people to change their behaviors (e.g., Nintendo’s Pocket Pikachu motivating children to exercise) are known as:", options: ["Persuasive Technologies", "Telepresence rooms", "Virtual Reality headsets", "Command-line tools"], correct: 0, explanation: "Slide 41 & 43: Persuasive Technologies and Behavioral Change (e.g., Nintendo's Pocket Pikachu)." },
+            { chapter: "Mod5", question: "Biosensors placed on fingers or palms are typically used to measure:", options: ["Facial expressions", "Galvanic Skin Response (GSR)", "Intonation in speech", "Body movement"], correct: 1, explanation: "Slide 42: Biosensors placed on fingers or palms to measure GSR." },
+            { chapter: "Mod5", question: "Which of the following is an example of 'Emotional data analysis' in practice?", options: ["A website adapting its content to match a user's emotional state detected via facial expressions.", "A user typing a query into a search engine.", "A system crashing and showing a blue screen.", "Using a mouse to click a standard link."], correct: 0, explanation: "Slide 43 gives the example: Website can adapt its ad, movie storyline, or content to match user’s emotional state." },
+            { chapter: "Mod5", question: "When frightened or angry, the emotional model claims that humans:", options: ["Are less focused and bodies relax.", "Overlook minor problems and become creative.", "Focus narrowly and our bodies respond by tensing muscles and sweating.", "Make decisions perfectly and calmly."], correct: 2, explanation: "Slide 32: When frightened or angry, we focus narrowly and our bodies respond by tensing muscles and sweating." }
+        ];
+
+        let questions = [];
+        let userAnswers = [];
+        let currentIdx = 0;
+        let currentFilter = 'ALL';
+        let currentLimit = 100;
+
+        const questionCounter = document.getElementById('question-counter');
+        const chapterBadge = document.getElementById('chapter-badge');
+        const statusBadge = document.getElementById('status-badge');
+        const scoreTracker = document.getElementById('score-tracker');
+        const progressBar = document.getElementById('progress-bar');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const explanationBox = document.getElementById('explanation-box');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const quizContainer = document.getElementById('quiz-container');
+        const resultContainer = document.getElementById('result-container');
+        const finalScoreText = document.getElementById('final-score-text');
+        const finalDetailsText = document.getElementById('final-details-text');
+        const retryWrongBtn = document.getElementById('retry-wrong-btn');
+        const wrongCountNum = document.getElementById('wrong-count-num');
+
+        function filterChapter(ch) {
+            currentFilter = ch;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`btn-${ch}`).classList.add('active');
+            applyFilterAndLimit(false);
+        }
+
+        function setQuestionLimit(limit) {
+            currentLimit = limit === 100 ? allQuestions.length : limit;
+            document.querySelectorAll('.limit-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`limit-${limit}`).classList.add('active');
+            applyFilterAndLimit(true);
+        }
+
+        function applyFilterAndLimit(shouldShuffle = false) {
+            let pool = (currentFilter === 'ALL') ? [...allQuestions] : allQuestions.filter(q => q.chapter === currentFilter);
+            if (shouldShuffle) {
+                for (let i = pool.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [pool[i], pool[j]] = [pool[j], pool[i]];
+                }
+            }
+            questions = pool.slice(0, Math.min(currentLimit, pool.length));
+            startQuizSession();
+        }
+
+        function shuffleCurrentPool() {
+            for (let i = questions.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [questions[i], questions[j]] = [questions[j], questions[i]];
+            }
+            startQuizSession();
+        }
+
+        let isAutoNext = false;
+        function toggleAutoNext() {
+            isAutoNext = !isAutoNext;
+            const icon = document.getElementById('auto-next-icon');
+            const btn = document.getElementById('auto-next-toggle');
+            if (isAutoNext) {
+                icon.className = 'fa-solid fa-toggle-on text-emerald-500 text-sm transition-all';
+                btn.classList.remove('text-gray-400');
+                btn.classList.add('text-emerald-500');
+            } else {
+                icon.className = 'fa-solid fa-toggle-off text-gray-500 text-sm transition-all';
+                btn.classList.remove('text-emerald-500');
+                btn.classList.add('text-gray-400');
+            }
+        }
+
+        function startQuizSession() {
+            currentIdx = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            updateScoreTracker();
+            resultContainer.classList.add('hidden');
+            quizContainer.classList.remove('hidden');
+            loadQuestion();
+        }
+
+        function getCurrentScore() {
+            return userAnswers.reduce((acc, ans, idx) => acc + (ans === questions[idx].correct ? 1 : 0), 0);
+        }
+
+        function updateScoreTracker() {
+            const currentScore = getCurrentScore();
+            document.getElementById('score-tracker').innerText = `الصحيحة: ${currentScore}`;
+            if (document.getElementById('score-tracker-mobile')) {
+                document.getElementById('score-tracker-mobile').innerText = currentScore;
+            }
+        }
+
+        function loadQuestion() {
+            const q = questions[currentIdx];
+            const savedAnswer = userAnswers[currentIdx];
+
+            questionCounter.innerText = `السؤال ${currentIdx + 1} من ${questions.length}`;
+            chapterBadge.innerText = q.chapter;
+            progressBar.style.width = `${((currentIdx + 1) / questions.length) * 100}%`;
+            questionText.innerText = q.question;
+
+            const telegramUsername = "jory976";
+            const qOriginalNum = (currentIdx + 1);
+            const reportMessage = `السلام عليكم فهد، عندي ملاحظة في كويزات IT352 (Slides 1-5):\n- الوحدة: (${q.chapter})\n- السؤال: "${q.question}"\n\nالملاحظة: `;
+            document.getElementById('report-btn').href = `https://t.me/${telegramUsername}?text=${encodeURIComponent(reportMessage)}`;
+            
+            prevBtn.disabled = (currentIdx === 0);
+            nextBtn.innerHTML = (currentIdx === questions.length - 1) ? `النتيجة النهائية <i class="fa-solid fa-flag-checkered mr-2"></i>` : `التالي <i class="fa-solid fa-arrow-left mr-2"></i>`;
+
+            optionsContainer.innerHTML = '';
+
+            if (savedAnswer === null) {
+                statusBadge.className = "bg-gray-800 text-gray-400 text-xs px-3 py-1 rounded-full shadow-sm";
+                statusBadge.innerText = "لم تتم الإجابة";
+                statusBadge.classList.remove('hidden');
+                explanationBox.classList.add('hidden');
+            } else if (savedAnswer === q.correct) {
+                statusBadge.className = "bg-emerald-500/20 text-emerald-500 text-xs px-3 py-1 rounded-full font-bold shadow-sm";
+                statusBadge.innerText = "إجابة صحيحة";
+                statusBadge.classList.remove('hidden');
+            } else {
+                statusBadge.className = "bg-rose-500/20 text-rose-500 text-xs px-3 py-1 rounded-full font-bold shadow-sm";
+                statusBadge.innerText = "إجابة خاطئة";
+                statusBadge.classList.remove('hidden');
+            }
+
+            q.options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                if (savedAnswer === null) {
+                    btn.className = "option-btn w-full text-left p-4 rounded-xl border border-gray-700 bg-gray-900/60 text-gray-200 font-medium flex justify-between items-center gap-3";
+                    btn.innerHTML = `<span>${opt}</span> <i class="fa-regular fa-circle text-gray-500 shrink-0"></i>`;
+                    btn.onclick = () => selectAnswer(index);
+                } else {
+                    btn.disabled = true;
+                    if (index === q.correct) {
+                        btn.className = "w-full text-left p-4 rounded-xl border border-emerald-500 bg-emerald-500/20 text-white font-bold flex justify-between items-center gap-3";
+                        btn.innerHTML = `<span>${opt}</span> <i class="fa-solid fa-circle-check text-emerald-500 shrink-0"></i>`;
+                    } else if (index === savedAnswer && savedAnswer !== q.correct) {
+                        btn.className = "w-full text-left p-4 rounded-xl border border-rose-500 bg-rose-500/20 text-white font-bold flex justify-between items-center gap-3";
+                        btn.innerHTML = `<span>${opt}</span> <i class="fa-solid fa-circle-xmark text-rose-500 shrink-0"></i>`;
+                    } else {
+                        btn.className = "w-full text-left p-4 rounded-xl border border-gray-800 bg-gray-900/40 text-gray-500 font-medium flex justify-between items-center gap-3 opacity-60";
+                        btn.innerHTML = `<span>${opt}</span> <i class="fa-regular fa-circle text-gray-600 shrink-0"></i>`;
+                    }
+                }
+                optionsContainer.appendChild(btn);
+            });
+
+            if (savedAnswer !== null) {
+                explanationBox.innerHTML = `<strong class="text-cyan">توضيح:</strong> ${q.explanation}`;
+                explanationBox.classList.remove('hidden');
+            }
+        }
+
+        function selectAnswer(selectedIdx) {
+            userAnswers[currentIdx] = selectedIdx;
+            updateScoreTracker();
+            loadQuestion();
+            if (isAutoNext && selectedIdx === questions[currentIdx].correct) {
+                setTimeout(() => nextQuestion(), 400);
+            }
+        }
+
+        function nextQuestion() {
+            if (currentIdx < questions.length - 1) {
+                currentIdx++;
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentIdx > 0) {
+                currentIdx--;
+                loadQuestion();
+            }
+        }
+
+        function showResults() {
+            quizContainer.classList.add('hidden');
+            resultContainer.classList.remove('hidden');
+            
+            const finalScore = getCurrentScore();
+            const total = questions.length;
+            const percentage = Math.round((finalScore / total) * 100);
+            
+            let wrongOnlyCount = 0;
+            let unansweredCount = 0;
+            
+            questions.forEach((q, idx) => {
+                if (userAnswers[idx] === null) unansweredCount++;
+                else if (userAnswers[idx] !== q.correct) wrongOnlyCount++;
+            });
+
+            finalScoreText.innerText = `حصلت على ${finalScore} من ${total} (${percentage}%)`;
+            finalDetailsText.innerText = `إجابات صحيحة: ${finalScore} | إجابات خاطئة: ${wrongOnlyCount} | لم تتم الإجابة: ${unansweredCount}`;
+
+            const reviewPoolCount = wrongOnlyCount + unansweredCount;
+            if (reviewPoolCount > 0) {
+                wrongCountNum.innerText = reviewPoolCount;
+                retryWrongBtn.classList.remove('hidden');
+            } else {
+                retryWrongBtn.classList.add('hidden');
+            }
+        }
+
+        function retryWrongQuestions() {
+            const wrongQuestions = questions.filter((q, idx) => userAnswers[idx] !== q.correct);
+            if (wrongQuestions.length > 0) {
+                questions = wrongQuestions;
+                startQuizSession();
+            }
+        }
+
+        applyFilterAndLimit(false);
+    </script>
+</body>
+</html>
