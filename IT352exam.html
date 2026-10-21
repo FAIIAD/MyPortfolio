@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IT352 - Slides Modules 1 to 5 | FZ</title>
+    <title>IT352 - Modules 1 to 5 | FZ</title>
     
     <link href="https://cdn.jsdelivr.net/npm/@dawod/thmanyah-font-web/index.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
@@ -27,18 +27,11 @@
         h1, h2, h3, h4 { font-family: 'Thmanyah Serif Display', serif; }
         #question-text { font-family: 'Open Sans', sans-serif !important; }
         .filter-btn.active, .limit-btn.active { background: linear-gradient(to right, #8b5cf6, #d946ef) !important; color: white !important; border-color: transparent !important; }
-        html:not(.dark) body { background-color: #f8fafc; color: #0f111a; }
-        html:not(.dark) header, html:not(.dark) footer { background-color: rgba(255, 255, 255, 0.85); border-color: #e2e8f0; }
-        html:not(.dark) .bg-card { background-color: #ffffff; border-color: #cbd5e1; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
-        html:not(.dark) .text-white { color: #0f111a; }
-        html:not(.dark) .text-gray-300 { color: #1e293b; }
-        html:not(.dark) .text-gray-400, html:not(.dark) .text-gray-500 { color: #475569; }
-        html:not(.dark) .border-gray-700 { border-color: #cbd5e1; }
     </style>
 </head>
-<body class="bg-dark text-gray-200 min-h-screen flex flex-col justify-between relative overflow-x-hidden">
+<body class="bg-slate-50 dark:bg-dark text-slate-800 dark:text-gray-200 min-h-screen flex flex-col justify-between relative overflow-x-hidden transition-colors duration-300">
 
-    <header class="bg-dark/70 backdrop-blur-md border-b border-gray-800 py-4 px-6 sticky top-0 z-50 transition-colors duration-300">
+    <header class="bg-white/80 dark:bg-dark/70 backdrop-blur-md border-b border-slate-200 dark:border-gray-800 py-4 px-6 sticky top-0 z-50 transition-colors duration-300">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-lg md:text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">IT352 - Slides Modules 1 to 5</h1>
             <div class="flex items-center gap-3 md:gap-4">
@@ -54,84 +47,88 @@
     </header>
 
     <main class="container mx-auto px-4 py-8 flex-grow flex flex-col items-center justify-center">
-        <div class="w-full max-w-3xl mb-6 space-y-4 bg-card/40 p-4 rounded-2xl border border-gray-800">
+        <!-- لوحة التحكم -->
+        <div class="w-full max-w-3xl mb-6 space-y-4 bg-white/60 dark:bg-card/40 p-4 rounded-2xl border border-slate-200 dark:border-gray-800 shadow-sm dark:shadow-none transition-colors duration-300">
             <div class="flex flex-wrap items-center justify-center gap-2">
-                <span class="text-xs text-gray-400 font-bold ml-2">الوحدة:</span>
-                <button onclick="filterChapter('ALL')" id="btn-ALL" class="filter-btn active text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">الكل (100)</button>
-                <button onclick="filterChapter('Mod1')" id="btn-Mod1" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Mod 1</button>
-                <button onclick="filterChapter('Mod2')" id="btn-Mod2" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Mod 2</button>
-                <button onclick="filterChapter('Mod3')" id="btn-Mod3" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Mod 3</button>
-                <button onclick="filterChapter('Mod4')" id="btn-Mod4" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Mod 4</button>
-                <button onclick="filterChapter('Mod5')" id="btn-Mod5" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Mod 5</button>
+                <span class="text-xs text-slate-500 dark:text-gray-400 font-bold ml-2">الوحدة:</span>
+                <button onclick="filterChapter('ALL')" id="btn-ALL" class="filter-btn active text-xs px-3 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">الكل (100)</button>
+                <button onclick="filterChapter('Mod1')" id="btn-Mod1" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">Mod 1</button>
+                <button onclick="filterChapter('Mod2')" id="btn-Mod2" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">Mod 2</button>
+                <button onclick="filterChapter('Mod3')" id="btn-Mod3" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">Mod 3</button>
+                <button onclick="filterChapter('Mod4')" id="btn-Mod4" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">Mod 4</button>
+                <button onclick="filterChapter('Mod5')" id="btn-Mod5" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">Mod 5</button>
             </div>
-            <div class="flex flex-wrap items-center justify-center gap-2 pt-2 border-t border-gray-800/80">
-                <span class="text-xs text-gray-400 font-bold ml-2">العدد:</span>
-                <button onclick="setQuestionLimit(20)" id="limit-20" class="limit-btn text-xs px-4 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">20</button>
-                <button onclick="setQuestionLimit(50)" id="limit-50" class="limit-btn text-xs px-4 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">50</button>
-                <button onclick="setQuestionLimit(100)" id="limit-100" class="limit-btn active text-xs px-4 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">الكل</button>
+            <div class="flex flex-wrap items-center justify-center gap-2 pt-2 border-t border-slate-200 dark:border-gray-800/80 transition-colors duration-300">
+                <span class="text-xs text-slate-500 dark:text-gray-400 font-bold ml-2">العدد:</span>
+                <button onclick="setQuestionLimit(10)" id="limit-10" class="limit-btn text-xs px-3 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">10</button>
+                <button onclick="setQuestionLimit(20)" id="limit-20" class="limit-btn text-xs px-3 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">20</button>
+                <button onclick="setQuestionLimit(30)" id="limit-30" class="limit-btn text-xs px-3 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">30</button>
+                <button onclick="setQuestionLimit(40)" id="limit-40" class="limit-btn text-xs px-3 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">40</button>
+                <button onclick="setQuestionLimit(50)" id="limit-50" class="limit-btn text-xs px-3 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">50</button>
+                <button onclick="setQuestionLimit(75)" id="limit-75" class="limit-btn text-xs px-3 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">75</button>
+                <button onclick="setQuestionLimit(100)" id="limit-100" class="limit-btn active text-xs px-3 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">الكل</button>
             </div>
         </div>
 
-        <div class="w-full max-w-3xl bg-card/60 backdrop-blur-md border border-gray-800 rounded-2xl p-6 md:p-8 shadow-xl">
+        <div class="w-full max-w-3xl bg-white dark:bg-card/60 backdrop-blur-md border border-slate-200 dark:border-gray-800 rounded-2xl p-6 md:p-8 shadow-xl dark:shadow-none transition-colors duration-300">
             <div id="quiz-container">
-                <div class="flex flex-wrap justify-between items-center mb-4 text-sm text-gray-400 gap-3">
+                <div class="flex flex-wrap justify-between items-center mb-4 text-sm text-slate-500 dark:text-gray-400 gap-3">
                     <div class="flex items-center gap-2">
                         <span id="question-counter" class="font-bold text-primary bg-primary/10 border border-primary/20 px-3 py-1 rounded-full shadow-sm"></span>
-                        <span id="chapter-badge" class="bg-gray-800 text-gray-300 text-xs px-3 py-1 rounded-full border border-gray-700 shadow-sm"></span>
+                        <span id="chapter-badge" class="bg-slate-100 dark:bg-gray-800 text-slate-600 dark:text-gray-300 text-xs px-3 py-1 rounded-full border border-slate-200 dark:border-gray-700 shadow-sm"></span>
                         <span id="status-badge" class="hidden text-xs px-3 py-1 rounded-full font-bold shadow-sm"></span>
                     </div>
                     <div class="flex items-center gap-2 md:gap-3 mr-auto">
-                        <div class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 font-bold px-3 py-1.5 rounded-full text-xs flex items-center gap-1.5 shadow-sm">
+                        <div class="bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/30 text-emerald-600 dark:text-emerald-500 font-bold px-3 py-1.5 rounded-full text-xs flex items-center gap-1.5 shadow-sm">
                             <i class="fa-solid fa-check-double"></i>
                             <span id="score-tracker" class="hidden sm:inline"></span>
                             <span id="score-tracker-mobile" class="sm:hidden"></span>
                         </div>
-                        <button onclick="shuffleCurrentPool()" title="خلط" class="text-gray-400 hover:text-primary transition-all text-xs bg-gray-800 px-3 py-1.5 rounded-full border border-gray-700 flex items-center">
+                        <button onclick="shuffleCurrentPool()" title="خلط" class="text-slate-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-all text-xs bg-slate-100 dark:bg-gray-800 px-3 py-1.5 rounded-full border border-slate-200 dark:border-gray-700 flex items-center">
                             <i class="fa-solid fa-shuffle sm:ml-1.5"></i> <span class="hidden sm:inline">خلط</span>
                         </button>
-                        <button id="auto-next-toggle" onclick="toggleAutoNext()" title="تجاوز تلقائي" class="text-gray-400 hover:text-emerald-500 transition-all text-xs bg-gray-800 px-3 py-1.5 rounded-full border border-gray-700 flex items-center gap-1.5">
-                            <i id="auto-next-icon" class="fa-solid fa-toggle-off text-gray-500 text-sm"></i> 
+                        <button id="auto-next-toggle" onclick="toggleAutoNext()" title="تجاوز تلقائي" class="text-slate-500 dark:text-gray-400 hover:text-emerald-500 dark:hover:text-emerald-500 transition-all text-xs bg-slate-100 dark:bg-gray-800 px-3 py-1.5 rounded-full border border-slate-200 dark:border-gray-700 flex items-center gap-1.5">
+                            <i id="auto-next-icon" class="fa-solid fa-toggle-off text-slate-400 dark:text-gray-500 text-sm"></i> 
                             <span class="hidden sm:inline">تجاوز تلقائي</span>
                         </button>
                     </div>
                 </div>
 
-                <div class="w-full bg-gray-800 h-3 rounded-full mb-8 overflow-hidden shadow-inner border border-gray-700/50">
+                <div class="w-full bg-slate-100 dark:bg-gray-800 h-3 rounded-full mb-8 overflow-hidden shadow-inner border border-slate-200 dark:border-gray-700/50">
                     <div id="progress-bar" class="bg-gradient-to-r from-primary to-secondary h-full transition-all duration-500 ease-out" style="width: 1%"></div>
                 </div>
 
-                <h2 id="question-text" dir="ltr" class="text-lg md:text-xl font-bold text-white mb-6 text-left leading-relaxed whitespace-pre-line"></h2>
+                <h2 id="question-text" dir="ltr" class="text-lg md:text-xl font-bold text-slate-900 dark:text-white mb-6 text-left leading-relaxed whitespace-pre-line"></h2>
                 
-                <!-- تم تحسين هذه المنطقة لضمان ظهور الخيارات 100% -->
                 <div id="options-container" dir="ltr" class="space-y-3 text-left mb-6"></div>
                 
-                <div id="explanation-box" class="hidden p-4 rounded-xl bg-gray-800/80 border border-gray-700 text-sm text-gray-300 mb-6 leading-relaxed shadow-inner"></div>
+                <div id="explanation-box" class="hidden p-4 rounded-xl bg-slate-50 dark:bg-gray-800/80 border border-slate-200 dark:border-gray-700 text-sm text-slate-700 dark:text-gray-300 mb-6 leading-relaxed shadow-inner"></div>
 
-                <div class="flex items-center justify-between gap-3 pt-5 border-t border-gray-800/80">
-                    <button id="prev-btn" onclick="prevQuestion()" class="px-5 py-3 rounded-full border border-gray-700 bg-gray-800/60 hover:text-primary font-bold transition-all disabled:opacity-40 disabled:pointer-events-none">
+                <div class="flex items-center justify-between gap-3 pt-5 border-t border-slate-200 dark:border-gray-800/80">
+                    <button id="prev-btn" onclick="prevQuestion()" class="px-5 py-3 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-gray-800/60 hover:text-primary dark:hover:text-primary text-slate-600 dark:text-gray-300 font-bold transition-all disabled:opacity-40 disabled:pointer-events-none shadow-sm hover:shadow-md">
                         <i class="fa-solid fa-arrow-right ml-2"></i> السابق
                     </button>
-                    <button onclick="showResults()" class="px-4 py-3 rounded-full border border-gray-700 hover:text-rose-400 text-gray-400 text-sm font-bold transition-all">
+                    <button onclick="showResults()" class="px-4 py-3 rounded-full border border-slate-300 dark:border-gray-700 hover:text-rose-500 dark:hover:text-rose-400 text-slate-500 dark:text-gray-400 text-sm font-bold transition-all bg-white dark:bg-transparent shadow-sm hover:shadow-md">
                         إنهاء الاختبار
                     </button>
-                    <button id="next-btn" onclick="nextQuestion()" class="flex-1 max-w-[220px] bg-gradient-to-r from-primary to-secondary text-white font-bold py-3 px-6 rounded-full transition-all">
+                    <button id="next-btn" onclick="nextQuestion()" class="flex-1 max-w-[220px] bg-gradient-to-r from-primary to-secondary text-white font-bold py-3 px-6 rounded-full transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5">
                         التالي <i class="fa-solid fa-arrow-left mr-2"></i>
                     </button>
                 </div>
             </div>
 
             <div id="result-container" class="hidden text-center py-8">
-                <div class="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-6 text-primary text-4xl">
+                <div class="w-20 h-20 bg-primary/10 dark:bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-6 text-primary text-4xl shadow-inner">
                     <i class="fa-solid fa-trophy"></i>
                 </div>
-                <h2 class="text-3xl font-bold text-white mb-3">انتهى الاختبار!</h2>
-                <p id="final-score-text" class="text-xl text-gray-300 font-bold mb-2"></p>
-                <p id="final-details-text" class="text-sm text-gray-400 mb-8"></p>
+                <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-3">انتهى الاختبار!</h2>
+                <p id="final-score-text" class="text-xl text-slate-700 dark:text-gray-300 font-bold mb-2"></p>
+                <p id="final-details-text" class="text-sm text-slate-500 dark:text-gray-400 mb-8"></p>
                 <div class="flex flex-wrap justify-center gap-4">
-                    <button id="retry-wrong-btn" onclick="retryWrongQuestions()" class="hidden bg-rose-600 hover:bg-rose-500 text-white font-bold py-3 px-8 rounded-full transition-all">
+                    <button id="retry-wrong-btn" onclick="retryWrongQuestions()" class="hidden bg-rose-600 hover:bg-rose-500 text-white font-bold py-3 px-8 rounded-full transition-all shadow-md">
                         <i class="fa-solid fa-triangle-exclamation ml-2"></i> إعادة الخاطئة (<span id="wrong-count-num"></span>)
                     </button>
-                    <button onclick="applyFilterAndLimit(false)" class="bg-gradient-to-r from-primary to-secondary text-white font-bold py-3 px-8 rounded-full transition-all">
+                    <button onclick="applyFilterAndLimit(false)" class="bg-gradient-to-r from-primary to-secondary text-white font-bold py-3 px-8 rounded-full transition-all shadow-md">
                         <i class="fa-solid fa-rotate-right ml-2"></i> اختبار جديد
                     </button>
                 </div>
@@ -139,7 +136,7 @@
         </div>
     </main>
 
-    <footer class="text-center py-6 text-gray-600 text-sm border-t border-gray-800">
+    <footer class="text-center py-6 text-slate-500 dark:text-gray-600 text-sm border-t border-slate-200 dark:border-gray-800">
         &copy; 2026 FZ — IT352 Slides Bank
     </footer>
 
@@ -335,12 +332,12 @@
             const btn = document.getElementById('auto-next-toggle');
             if (isAutoNext) {
                 icon.className = 'fa-solid fa-toggle-on text-emerald-500 text-sm transition-all';
-                btn.classList.remove('text-gray-400');
-                btn.classList.add('text-emerald-500');
+                btn.classList.remove('text-slate-400', 'dark:text-gray-400');
+                btn.classList.add('text-emerald-500', 'dark:text-emerald-500');
             } else {
-                icon.className = 'fa-solid fa-toggle-off text-gray-500 text-sm transition-all';
-                btn.classList.remove('text-emerald-500');
-                btn.classList.add('text-gray-400');
+                icon.className = 'fa-solid fa-toggle-off text-slate-400 dark:text-gray-500 text-sm transition-all';
+                btn.classList.remove('text-emerald-500', 'dark:text-emerald-500');
+                btn.classList.add('text-slate-500', 'dark:text-gray-400');
             }
         }
 
@@ -377,23 +374,22 @@
             prevBtn.disabled = (currentIdx === 0);
             nextBtn.innerHTML = (currentIdx === questions.length - 1) ? `النتيجة النهائية <i class="fa-solid fa-flag-checkered mr-2"></i>` : `التالي <i class="fa-solid fa-arrow-left mr-2"></i>`;
 
-            // حقن الخيارات باستخدام HTML مباشر لتفادي أي مشاكل في العرض
             let optionsHTML = '';
             q.options.forEach((opt, index) => {
                 if (savedAnswer === null) {
-                    optionsHTML += `<button onclick="selectAnswer(${index})" class="w-full text-left p-4 rounded-xl border border-gray-700 bg-gray-900/60 text-gray-200 font-medium flex justify-between items-center gap-3 hover:border-primary hover:bg-primary/10 hover:-translate-x-1 transition-all"><span>${opt}</span> <i class="fa-regular fa-circle text-gray-500 shrink-0"></i></button>`;
+                    optionsHTML += `<button onclick="selectAnswer(${index})" class="w-full text-left p-4 rounded-xl border border-slate-300 dark:border-gray-700 bg-white dark:bg-gray-900/60 text-slate-700 dark:text-gray-200 font-medium flex justify-between items-center gap-3 hover:border-primary dark:hover:border-primary hover:bg-primary/5 dark:hover:bg-primary/10 hover:-translate-x-1 transition-all"><span>${opt}</span> <i class="fa-regular fa-circle text-slate-400 dark:text-gray-500 shrink-0"></i></button>`;
                 } else {
                     let btnClass = "w-full text-left p-4 rounded-xl border font-bold flex justify-between items-center gap-3 transition-all ";
                     let iconClass = "";
                     if (index === q.correct) {
-                        btnClass += "border-emerald-500 bg-emerald-500/20 text-white";
-                        iconClass = "fa-solid fa-circle-check text-emerald-500 shrink-0";
+                        btnClass += "border-emerald-500 bg-emerald-50 dark:bg-emerald-500/20 text-emerald-700 dark:text-white";
+                        iconClass = "fa-solid fa-circle-check text-emerald-600 dark:text-emerald-500 shrink-0";
                     } else if (index === savedAnswer && savedAnswer !== q.correct) {
-                        btnClass += "border-rose-500 bg-rose-500/20 text-white";
-                        iconClass = "fa-solid fa-circle-xmark text-rose-500 shrink-0";
+                        btnClass += "border-rose-500 bg-rose-50 dark:bg-rose-500/20 text-rose-700 dark:text-white";
+                        iconClass = "fa-solid fa-circle-xmark text-rose-600 dark:text-rose-500 shrink-0";
                     } else {
-                        btnClass += "border-gray-800 bg-gray-900/40 text-gray-500 opacity-60";
-                        iconClass = "fa-regular fa-circle text-gray-600 shrink-0";
+                        btnClass += "border-slate-200 dark:border-gray-800 bg-slate-50 dark:bg-gray-900/40 text-slate-400 dark:text-gray-500 opacity-60";
+                        iconClass = "fa-regular fa-circle text-slate-300 dark:text-gray-600 shrink-0";
                     }
                     optionsHTML += `<button disabled class="${btnClass}"><span>${opt}</span> <i class="${iconClass}"></i></button>`;
                 }
@@ -401,12 +397,12 @@
             optionsContainer.innerHTML = optionsHTML;
 
             if (savedAnswer === null) {
-                statusBadge.className = "bg-gray-800 text-gray-400 text-xs px-3 py-1 rounded-full shadow-sm";
+                statusBadge.className = "bg-slate-200 dark:bg-gray-800 text-slate-500 dark:text-gray-400 text-xs px-3 py-1 rounded-full shadow-sm";
                 statusBadge.innerText = "لم تتم الإجابة";
                 statusBadge.classList.remove('hidden');
                 explanationBox.classList.add('hidden');
             } else {
-                statusBadge.className = (savedAnswer === q.correct) ? "bg-emerald-500/20 text-emerald-500 text-xs px-3 py-1 rounded-full font-bold shadow-sm" : "bg-rose-500/20 text-rose-500 text-xs px-3 py-1 rounded-full font-bold shadow-sm";
+                statusBadge.className = (savedAnswer === q.correct) ? "bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-500 text-xs px-3 py-1 rounded-full font-bold shadow-sm" : "bg-rose-100 dark:bg-rose-500/20 text-rose-600 dark:text-rose-500 text-xs px-3 py-1 rounded-full font-bold shadow-sm";
                 statusBadge.innerText = (savedAnswer === q.correct) ? "إجابة صحيحة" : "إجابة خاطئة";
                 statusBadge.classList.remove('hidden');
                 explanationBox.innerHTML = `<strong class="text-cyan">توضيح:</strong> ${q.explanation}`;
@@ -414,7 +410,6 @@
             }
         }
 
-        // يجب تعريف selectAnswer بشكل عام لتصل إليها أزرار الـ HTML
         window.selectAnswer = function(selectedIdx) {
             userAnswers[currentIdx] = selectedIdx;
             updateScoreTracker();
