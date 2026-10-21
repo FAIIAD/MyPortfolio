@@ -71,16 +71,47 @@
         html:not(.dark) .text-gray-200, html:not(.dark) .text-gray-300 { color: #1e293b; }
         html:not(.dark) .text-gray-400, html:not(.dark) .text-gray-500, html:not(.dark) .text-gray-600 { color: #475569; }
         html:not(.dark) .border-gray-700, html:not(.dark) .border-gray-800, html:not(.dark) .border-gray-800\/80 { border-color: #cbd5e1; }
+        /* تأثير اللمعان (Shine) والتوهج للزر */
+        @keyframes shine-sweep {
+            0% { transform: translateX(-150%) skewX(-25deg); }
+            20%, 100% { transform: translateX(250%) skewX(-25deg); }
+        }
+        .btn-shine {
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+            border-color: rgba(139, 92, 246, 0.8) !important;
+            color: #8b5cf6 !important;
+        }
+        .btn-shine::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.5), transparent);
+            animation: shine-sweep 3s infinite ease-in-out;
+        }
+        html:not(.dark) .btn-shine::after {
+            background: linear-gradient(to right, transparent, rgba(139, 92, 246, 0.3), transparent);
+        }
     </style>
 </head>
 <body class="bg-dark text-gray-200 min-h-screen flex flex-col justify-between relative overflow-x-hidden">
 
- <header class="bg-dark/70 backdrop-blur-md border-b border-gray-800 py-4 px-6 sticky top-0 z-50 transition-colors duration-300">
+<header class="bg-dark/70 backdrop-blur-md border-b border-gray-800 py-4 px-6 sticky top-0 z-50 transition-colors duration-300">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-lg md:text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">IT353 - Models 1 to 5</h1>
             
             <div class="flex items-center gap-3 md:gap-4">
-                <!-- زر تبديل المظهر المنزلق فقط (بدون زر الرئيسية) -->
+                <!-- رابط الاختبار الآخر بجوار زر المظهر -->
+                <a href="it353-ai-generated-exam.html" class="btn-shine text-xs md:text-sm font-bold transition-all flex items-center gap-1.5 border px-3 md:px-4 py-1.5 rounded-full hover:bg-primary/10 hover:scale-105">
+                    <i class="fa-solid fa-file-lines"></i>
+                    <span>اختبار اخر</span>
+                </a>
+
+                <!-- زر تبديل المظهر المنزلق -->
                 <button id="theme-toggle" onclick="toggleTheme()" aria-label="تبديل المظهر" dir="ltr" class="relative w-16 h-8 rounded-full bg-slate-200 dark:bg-gray-800 border border-slate-300 dark:border-gray-700 flex items-center justify-between px-2 transition-colors duration-300 focus:outline-none shrink-0 cursor-pointer">
                     <i class="fa-solid fa-sun text-amber-500 text-xs"></i>
                     <i class="fa-solid fa-moon text-primary text-xs"></i>
