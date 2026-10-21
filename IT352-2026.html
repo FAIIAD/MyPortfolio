@@ -1,1 +1,147 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT352 - Main Portal | FZ</title>
+    
+    <!-- خط ثمانية، خط Open Sans، والأيقونات -->
+    <link href="https://cdn.jsdelivr.net/npm/@dawod/thmanyah-font-web/index.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- قراءة المظهر المحفوظ فور فتح الصفحة -->
+    <script>
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+        } else {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
 
+    <!-- إعدادات الألوان في Tailwind (متطابقة مع صفحات الاختبار) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#0f111a',
+                        card: '#1b1e2b',
+                        primary: '#8b5cf6',
+                        secondary: '#d946ef'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { 
+            font-family: 'Thmanyah Sans', sans-serif; 
+            transition: background-color 0.3s ease, color 0.3s ease; 
+        }
+        h1, h2, h3, h4 { font-family: 'Thmanyah Serif Display', serif; }
+        
+        .en-text { font-family: 'Open Sans', sans-serif !important; }
+
+        /* تنسيقات الوضع الفاتح */
+        html:not(.dark) body { background-color: #f8fafc; color: #0f111a; }
+        html:not(.dark) header, html:not(.dark) footer { background-color: rgba(255, 255, 255, 0.85); border-color: #e2e8f0; }
+        html:not(.dark) .bg-card { background-color: #ffffff; border-color: #cbd5e1; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        html:not(.dark) .text-gray-400 { color: #475569; }
+        html:not(.dark) .text-white { color: #0f111a; }
+    </style>
+</head>
+<body class="bg-dark text-gray-200 min-h-screen flex flex-col relative overflow-x-hidden">
+
+    <!-- الشريط العلوي -->
+    <header class="bg-dark/70 backdrop-blur-md border-b border-gray-800 py-4 px-6 sticky top-0 z-50 transition-colors duration-300">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-lg md:text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">IT352 - Human Computer Interaction</h1>
+            
+            <button id="theme-toggle" onclick="toggleTheme()" aria-label="تبديل المظهر" dir="ltr" class="relative w-16 h-8 rounded-full bg-slate-200 dark:bg-gray-800 border border-slate-300 dark:border-gray-700 flex items-center justify-between px-2 transition-colors duration-300 focus:outline-none shrink-0 cursor-pointer">
+                <i class="fa-solid fa-sun text-amber-500 text-xs"></i>
+                <i class="fa-solid fa-moon text-primary text-xs"></i>
+                <span class="absolute top-1 left-1 w-6 h-6 rounded-full bg-white dark:bg-card border border-slate-200 dark:border-gray-600 shadow-md transform transition-transform duration-300 translate-x-0 dark:translate-x-8 flex items-center justify-center">
+                    <i id="theme-icon" class="fa-solid fa-moon text-primary text-xs"></i>
+                </span>
+            </button>
+        </div>
+    </header>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="container mx-auto px-4 py-12 flex-grow flex flex-col items-center justify-center">
+        
+        <div class="text-center mb-12">
+            <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-primary/10 text-primary text-4xl mb-6">
+                <i class="fa-solid fa-laptop-code"></i>
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">بوابة اختبارات IT352</h2>
+            <p class="text-gray-400 max-w-lg mx-auto leading-relaxed">اختر نوع الاختبار الذي ترغب في مراجعته والتدرب عليه من الخيارات أدناه.</p>
+        </div>
+
+        <!-- شبكة البطاقات (الروابط) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
+            
+            <!-- رابط اختبارات الميد السابقة -->
+            <a href="Old-Exams.html" class="group relative bg-card border border-gray-800 rounded-3xl p-8 hover:border-primary transition-all duration-300 hover:shadow-[0_0_30px_rgba(139,92,246,0.15)] flex flex-col items-center text-center overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-10 -mt-10 transition-all duration-500 group-hover:bg-primary/20"></div>
+                
+                <div class="w-16 h-16 rounded-2xl bg-gray-800/50 group-hover:bg-primary/10 flex items-center justify-center text-2xl text-gray-400 group-hover:text-primary transition-colors duration-300 mb-6 border border-gray-700/50 group-hover:border-primary/30 z-10">
+                    <i class="fa-solid fa-file-signature"></i>
+                </div>
+                
+                <h3 class="text-xl font-bold text-white mb-3 z-10 en-text">Old Exams Bank</h3>
+                <p class="text-sm text-gray-400 leading-relaxed z-10">تجميعات وأسئلة من اختبارات الميد تيرم السابقة لمقرر تفاعل الإنسان والحاسوب.</p>
+                
+                <div class="mt-8 text-primary font-bold text-sm flex items-center gap-2 opacity-0 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 z-10">
+                    ابدأ الاختبار <i class="fa-solid fa-arrow-left text-xs"></i>
+                </div>
+            </a>
+
+            <!-- رابط الاختبار المولد بالذكاء الاصطناعي -->
+            <a href="AI-Generated-Exam.html" class="group relative bg-card border border-gray-800 rounded-3xl p-8 hover:border-secondary transition-all duration-300 hover:shadow-[0_0_30px_rgba(217,70,239,0.15)] flex flex-col items-center text-center overflow-hidden">
+                <div class="absolute top-0 left-0 w-32 h-32 bg-secondary/5 rounded-full blur-3xl -ml-10 -mt-10 transition-all duration-500 group-hover:bg-secondary/20"></div>
+                
+                <div class="w-16 h-16 rounded-2xl bg-gray-800/50 group-hover:bg-secondary/10 flex items-center justify-center text-2xl text-gray-400 group-hover:text-secondary transition-colors duration-300 mb-6 border border-gray-700/50 group-hover:border-secondary/30 z-10">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </div>
+                
+                <h3 class="text-xl font-bold text-white mb-3 z-10 en-text">AI-Generated Exam</h3>
+                <p class="text-sm text-gray-400 leading-relaxed z-10">بنك أسئلة شامل (100 سؤال) تم توليده حصرياً من ملفات شرائح المحاضرات للوحدات 1 إلى 5.</p>
+                
+                <div class="mt-8 text-secondary font-bold text-sm flex items-center gap-2 opacity-0 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 z-10">
+                    ابدأ الاختبار <i class="fa-solid fa-arrow-left text-xs"></i>
+                </div>
+            </a>
+
+        </div>
+    </main>
+
+    <footer class="text-center py-6 text-gray-600 text-sm border-t border-gray-800">
+        &copy; 2026 FZ — IT352 Portal
+    </footer>
+
+    <!-- سكربت تبديل المظهر -->
+    <script>
+        const themeIcon = document.getElementById('theme-icon');
+        function updateThemeIcon() {
+            if (document.documentElement.classList.contains('dark')) {
+                themeIcon.className = 'fa-solid fa-moon text-primary text-xs';
+            } else {
+                themeIcon.className = 'fa-solid fa-sun text-amber-500 text-xs';
+            }
+        }
+        updateThemeIcon();
+
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+            const isDark = document.documentElement.classList.contains('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            updateThemeIcon();
+        }
+    </script>
+</body>
+</html>
