@@ -36,7 +36,7 @@
         body { 
             font-family: 'Thmanyah Sans', sans-serif; 
             transition: background-color 0.3s ease, color 0.3s ease; 
-            -webkit-tap-highlight-color: transparent; /* إزالة المربع الرمادي عند النقر في الآيفون */
+            -webkit-tap-highlight-color: transparent;
         }
         h1, h2, h3, h4 { font-family: 'Thmanyah Serif Display', serif; }
         #question-text { font-family: 'Open Sans', sans-serif !important; }
@@ -49,7 +49,7 @@
             border-color: transparent !important;
         }
 
-        /* تأثير اللمعان للزر الجديد */
+        /* تأثير اللمعان للزر */
         @keyframes shine-sweep {
             0% { transform: translateX(-150%) skewX(-25deg); }
             20%, 100% { transform: translateX(250%) skewX(-25deg); }
@@ -80,10 +80,10 @@
 
     <header class="bg-white/80 dark:bg-dark/70 backdrop-blur-md border-b border-slate-200 dark:border-gray-800 py-3 px-4 md:px-6 sticky top-0 z-50 transition-colors duration-300">
         <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-sm md:text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">IT353 - Modules 1 to 5 (من اختبارات سابقة)</h1>
+            <h1 class="text-sm md:text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">IT353 - Modules 1 to 5 (Bank 2)</h1>
             
             <div class="flex items-center gap-2 md:gap-4">
-                <!-- زر الاختبار الإضافي اللامع -->
+                <!-- زر الاختبار الإضافي -->
                 <a href="IT353-ai-generated-exam.html" class="btn-shine text-[10px] md:text-sm font-bold transition-all flex items-center gap-1.5 border px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-white dark:bg-gray-800/50 hover:bg-primary/10">
                     <i class="fa-solid fa-file-lines"></i>
                     <span>اختبار آخر</span>
@@ -126,8 +126,11 @@
             </div>
         </div>
 
-        <div class="w-full max-w-3xl bg-white dark:bg-card/60 backdrop-blur-md border border-slate-200 dark:border-gray-800 rounded-2xl p-4 md:p-8 shadow-xl dark:shadow-none transition-colors duration-300">
-            <div id="quiz-container">
+        <!-- تم تحديد ارتفاع أدنى للبطاقة لضمان ثبات الأزرار -->
+        <div class="w-full max-w-3xl bg-white dark:bg-card/60 backdrop-blur-md border border-slate-200 dark:border-gray-800 rounded-2xl p-4 pb-0 md:p-8 md:pb-0 shadow-xl dark:shadow-none transition-colors duration-300 flex flex-col min-h-[520px] md:min-h-[580px] relative">
+            
+            <div id="quiz-container" class="flex flex-col flex-grow w-full h-full">
+                <!-- العداد والأدوات -->
                 <div class="flex flex-wrap justify-between items-center mb-5 text-sm text-slate-500 dark:text-gray-400 gap-2 md:gap-3">
                     <div class="flex items-center gap-1.5 md:gap-2">
                         <span id="question-counter" class="font-bold text-[10px] md:text-xs text-primary bg-primary/10 border border-primary/20 px-2.5 py-1 rounded-full shadow-sm"></span>
@@ -161,13 +164,15 @@
                     <div id="progress-bar" class="bg-gradient-to-r from-primary to-secondary h-full transition-all duration-500 ease-out" style="width: 1%"></div>
                 </div>
 
-                <h2 id="question-text" dir="ltr" class="text-base md:text-xl font-bold text-slate-900 dark:text-white mb-6 text-left leading-relaxed whitespace-pre-line"></h2>
-                
-                <div id="options-container" dir="ltr" class="space-y-2.5 md:space-y-3 text-left mb-6"></div>
-                
-                <div id="explanation-box" class="hidden p-3 md:p-4 rounded-xl bg-slate-50 dark:bg-gray-800/80 border border-slate-200 dark:border-gray-700 text-xs md:text-sm text-slate-700 dark:text-gray-300 mb-6 leading-relaxed shadow-inner"></div>
+                <!-- مساحة السؤال والخيارات قابلة للتمدد -->
+                <div class="flex-grow w-full pb-4">
+                    <h2 id="question-text" dir="ltr" class="text-base md:text-xl font-bold text-slate-900 dark:text-white mb-6 text-left leading-relaxed whitespace-pre-line"></h2>
+                    <div id="options-container" dir="ltr" class="space-y-2.5 md:space-y-3 text-left mb-6"></div>
+                    <div id="explanation-box" class="hidden p-3 md:p-4 rounded-xl bg-slate-50 dark:bg-gray-800/80 border border-slate-200 dark:border-gray-700 text-xs md:text-sm text-slate-700 dark:text-gray-300 mb-6 leading-relaxed shadow-inner"></div>
+                </div>
 
-                <div class="flex items-center justify-between gap-2 pt-4 border-t border-slate-200 dark:border-gray-800/80">
+                <!-- الأزرار السفلية أصبحت ملتصقة بأسفل البطاقة (Sticky Footer) ولا تتأثر بحجم السؤال -->
+                <div class="mt-auto sticky bottom-0 z-20 bg-white/95 dark:bg-[#1b1e2b]/95 backdrop-blur-md flex items-center justify-between gap-2 pt-4 pb-4 px-4 -mx-4 -mb-4 md:pt-5 md:pb-8 md:px-8 md:-mx-8 md:-mb-8 border-t border-slate-200 dark:border-gray-800/80 rounded-b-2xl shadow-[0_-5px_15px_rgba(0,0,0,0.03)] dark:shadow-[0_-5px_15px_rgba(0,0,0,0.2)]">
                     <button id="prev-btn" onclick="prevQuestion()" class="px-3 md:px-5 py-2.5 md:py-3 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-gray-800/60 hover:text-primary text-slate-600 dark:text-gray-300 text-xs md:text-sm font-bold transition-all disabled:opacity-40 disabled:pointer-events-none shadow-sm">
                         <i class="fa-solid fa-arrow-right ml-1 md:ml-2"></i> <span class="hidden sm:inline">السابق</span>
                     </button>
@@ -182,7 +187,8 @@
                 </div>
             </div>
 
-            <div id="result-container" class="hidden text-center py-8">
+            <!-- شاشة النتيجة النهائية -->
+            <div id="result-container" class="hidden flex-col items-center justify-center flex-grow w-full text-center py-8">
                 <div class="w-16 h-16 md:w-20 md:h-20 bg-primary/10 dark:bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6 text-primary text-3xl md:text-4xl shadow-inner">
                     <i class="fa-solid fa-trophy"></i>
                 </div>
@@ -190,7 +196,7 @@
                 <p id="final-score-text" class="text-lg md:text-xl text-slate-700 dark:text-gray-300 font-bold mb-2"></p>
                 <p id="final-details-text" class="text-xs md:text-sm text-slate-500 dark:text-gray-400 mb-6 md:mb-8"></p>
                 
-                <div class="flex flex-col sm:flex-row justify-center gap-3 md:gap-4">
+                <div class="flex flex-col sm:flex-row justify-center gap-3 md:gap-4 w-full px-4">
                     <button id="retry-wrong-btn" onclick="retryWrongQuestions()" class="hidden bg-rose-600 text-white text-sm font-bold py-3 px-6 rounded-full shadow-md">
                         إعادة الخاطئة (<span id="wrong-count-num"></span>)
                     </button>
