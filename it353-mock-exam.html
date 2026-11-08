@@ -5,7 +5,7 @@
     <!-- إعدادات مخصصة للآيفون والجوال لمنع التقريب العشوائي عند النقر -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="icon" type="image/png" href="favicon.png">
-    <title>IT353 - Modules 1 to 5 (من اختبارات سابقة)</title>
+    <title>IT353 - Comprehensive Final Bank (Modules 1 to 13)</title>
     
     <link href="https://cdn.jsdelivr.net/npm/@dawod/thmanyah-font-web/index.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
@@ -81,7 +81,7 @@
 
     <header class="bg-white/80 dark:bg-dark/70 backdrop-blur-md border-b border-slate-200 dark:border-gray-800 py-3 px-4 md:px-6 sticky top-0 z-50 transition-colors duration-300">
         <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-sm md:text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">IT353 - Modules 1 to 5 (Bank 2)</h1>
+            <h1 class="text-sm md:text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">IT353 - Modules 1 to 13 (Final Bank - 150 Qs)</h1>
             
             <div class="flex items-center gap-2 md:gap-4">
                 <!-- زر الاختبار الإضافي -->
@@ -107,12 +107,22 @@
         <div class="w-full max-w-3xl mb-6 space-y-4 bg-white/60 dark:bg-card/40 p-3 md:p-4 rounded-2xl border border-slate-200 dark:border-gray-800 shadow-sm dark:shadow-none transition-colors duration-300">
             <div class="flex flex-wrap items-center justify-center gap-1.5 md:gap-2">
                 <span class="text-[10px] md:text-xs text-slate-500 dark:text-gray-400 font-bold ml-1">الوحدة:</span>
-                <button onclick="filterChapter('ALL')" id="btn-ALL" class="filter-btn active text-[10px] md:text-xs px-2.5 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">الكل (100)</button>
+                <button onclick="filterChapter('ALL')" id="btn-ALL" class="filter-btn active text-[10px] md:text-xs px-2.5 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">الكل (150)</button>
+                <button onclick="filterChapter('MID')" id="btn-MID" class="filter-btn text-[10px] md:text-xs px-2.5 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">Mod 1-5 (25%)</button>
+                <button onclick="filterChapter('POST5')" id="btn-POST5" class="filter-btn text-[10px] md:text-xs px-2.5 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">Mod 6-13 (75%)</button>
                 <button onclick="filterChapter('Mod1')" id="btn-Mod1" class="filter-btn text-[10px] md:text-xs px-2.5 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">Mod 1</button>
                 <button onclick="filterChapter('Mod2')" id="btn-Mod2" class="filter-btn text-[10px] md:text-xs px-2.5 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">Mod 2</button>
                 <button onclick="filterChapter('Mod3')" id="btn-Mod3" class="filter-btn text-[10px] md:text-xs px-2.5 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">Mod 3</button>
                 <button onclick="filterChapter('Mod4')" id="btn-Mod4" class="filter-btn text-[10px] md:text-xs px-2.5 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">Mod 4</button>
                 <button onclick="filterChapter('Mod5')" id="btn-Mod5" class="filter-btn text-[10px] md:text-xs px-2.5 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">Mod 5</button>
+                <button onclick="filterChapter('Mod6')" id="btn-Mod6" class="filter-btn text-[10px] md:text-xs px-2.5 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">Mod 6</button>
+                <button onclick="filterChapter('Mod7')" id="btn-Mod7" class="filter-btn text-[10px] md:text-xs px-2.5 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">Mod 7</button>
+                <button onclick="filterChapter('Mod8')" id="btn-Mod8" class="filter-btn text-[10px] md:text-xs px-2.5 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">Mod 8</button>
+                <button onclick="filterChapter('Mod9')" id="btn-Mod9" class="filter-btn text-[10px] md:text-xs px-2.5 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">Mod 9</button>
+                <button onclick="filterChapter('Mod10')" id="btn-Mod10" class="filter-btn text-[10px] md:text-xs px-2.5 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">Mod 10</button>
+                <button onclick="filterChapter('Mod11')" id="btn-Mod11" class="filter-btn text-[10px] md:text-xs px-2.5 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">Mod 11</button>
+                <button onclick="filterChapter('Mod12')" id="btn-Mod12" class="filter-btn text-[10px] md:text-xs px-2.5 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">Mod 12</button>
+                <button onclick="filterChapter('Mod13')" id="btn-Mod13" class="filter-btn text-[10px] md:text-xs px-2.5 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">Mod 13</button>
             </div>
 
             <div class="flex flex-wrap items-center justify-center gap-1.5 md:gap-2 pt-2 border-t border-slate-200 dark:border-gray-800/80 transition-colors duration-300">
@@ -120,10 +130,10 @@
                 <button onclick="setQuestionLimit(10)" id="limit-10" class="limit-btn text-[10px] md:text-xs px-3 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">10</button>
                 <button onclick="setQuestionLimit(20)" id="limit-20" class="limit-btn text-[10px] md:text-xs px-3 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">20</button>
                 <button onclick="setQuestionLimit(30)" id="limit-30" class="limit-btn text-[10px] md:text-xs px-3 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">30</button>
-                <button onclick="setQuestionLimit(40)" id="limit-40" class="limit-btn text-[10px] md:text-xs px-3 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">40</button>
                 <button onclick="setQuestionLimit(50)" id="limit-50" class="limit-btn text-[10px] md:text-xs px-3 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">50</button>
                 <button onclick="setQuestionLimit(75)" id="limit-75" class="limit-btn text-[10px] md:text-xs px-3 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">75</button>
-                <button onclick="setQuestionLimit(100)" id="limit-100" class="limit-btn active text-[10px] md:text-xs px-3 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">الكل</button>
+                <button onclick="setQuestionLimit(100)" id="limit-100" class="limit-btn text-[10px] md:text-xs px-3 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">100</button>
+                <button onclick="setQuestionLimit(150)" id="limit-150" class="limit-btn active text-[10px] md:text-xs px-3 py-1.5 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-card text-slate-600 dark:text-gray-300 font-bold transition-all">الكل (150)</button>
             </div>
         </div>
 
@@ -172,7 +182,7 @@
                     <div id="explanation-box" class="hidden p-3 md:p-4 rounded-xl bg-slate-50 dark:bg-gray-800/80 border border-slate-200 dark:border-gray-700 text-xs md:text-sm text-slate-700 dark:text-gray-300 mb-6 leading-relaxed shadow-inner"></div>
                 </div>
 
-                <!-- الأزرار السفلية أصبحت ملتصقة بأسفل البطاقة (Sticky Footer) ولا تتأثر بحجم السؤال -->
+                <!-- الأزرار السفلية ملتصقة بأسفل البطاقة (Sticky Footer) -->
                 <div class="mt-auto sticky bottom-0 z-20 bg-white/95 dark:bg-[#1b1e2b]/95 backdrop-blur-md flex items-center justify-between gap-2 pt-4 pb-4 px-4 -mx-4 -mb-4 md:pt-5 md:pb-8 md:px-8 md:-mx-8 md:-mb-8 border-t border-slate-200 dark:border-gray-800/80 rounded-b-2xl shadow-[0_-5px_15px_rgba(0,0,0,0.03)] dark:shadow-[0_-5px_15px_rgba(0,0,0,0.2)]">
                     <button id="prev-btn" onclick="prevQuestion()" class="px-3 md:px-5 py-2.5 md:py-3 rounded-full border border-slate-300 dark:border-gray-700 bg-white dark:bg-gray-800/60 hover:text-primary text-slate-600 dark:text-gray-300 text-xs md:text-sm font-bold transition-all disabled:opacity-40 disabled:pointer-events-none shadow-sm">
                         <i class="fa-solid fa-arrow-right ml-1 md:ml-2"></i> <span class="hidden sm:inline">السابق</span>
@@ -233,719 +243,1830 @@
         }
 
         const allQuestions = [
-            // ================= MODULE 1 (20 Questions) =================
+            // ================= MODULE 1 (8 Questions) =================
             {
                 chapter: "Mod1",
-                question: "1. The complex organizational process whereby computer-based information systems are developed and maintained is known as:",
-                options: ["Application Software", "Systems Analysis and Design", "Business Process Reengineering", "Project Management"],
-                correct: 1,
-                explanation: "تحليل وتصميم النظم هو العملية التنظيمية المعقدة التي يتم من خلالها تطوير وصيانة نظم المعلومات."
-            },
-            {
-                chapter: "Mod1",
-                question: "2. Which of the following refers to computer software designed to support organizational functions or processes?",
-                options: ["System Software", "Application Software", "Methodologies", "Techniques"],
-                correct: 1,
-                explanation: "برمجيات التطبيقات (Application Software) مصممة خصيصاً لدعم وظائف وعمليات المنظمة."
-            },
-            {
-                chapter: "Mod1",
-                question: "3. An organizational role most responsible for the analysis and design of information systems is:",
-                options: ["Programmer", "Database Administrator", "Systems Analyst", "Project Sponsor"],
-                correct: 2,
-                explanation: "محلل النظم (Systems Analyst) هو المسؤول الرئيسي عن دراسة مشاكل واحتياجات المنظمة لتطوير أنظمة المعلومات."
-            },
-            {
-                chapter: "Mod1",
-                question: "4. Comprehensive, multiple-step approaches to systems development that will guide your work and influence the quality of your final product are called:",
-                options: ["Methodologies", "Techniques", "Tools", "Software"],
-                correct: 0,
-                explanation: "المنهجيات (Methodologies) هي أساليب شاملة ومتعددة الخطوات لتطوير النظم توجه عملك وتؤثر على جودة المنتج النهائي."
-            },
-            {
-                chapter: "Mod1",
-                question: "5. Particular processes that an analyst will follow to ensure the work is well thought out, complete, and comprehensible to others are called:",
-                options: ["Tools", "Systems", "Techniques", "Prototypes"],
-                correct: 2,
-                explanation: "التقنيات (Techniques) هي العمليات المحددة التي يتبعها المحلل لضمان إنجاز العمل بشكل مدروس وكامل."
-            },
-            {
-                chapter: "Mod1",
-                question: "6. Typical computer programs that make it easy to use and benefit from techniques are known as:",
-                options: ["Methodologies", "Tools", "Techniques", "Frameworks"],
-                correct: 1,
-                explanation: "الأدوات (Tools) هي البرامج الحاسوبية التي تسهل استخدام التقنيات وتطبيق المنهجيات في تطوير النظم."
-            },
-            {
-                chapter: "Mod1",
-                question: "7. Which phase of the Systems Development Life Cycle (SDLC) involves identifying, analyzing, prioritizing, and arranging an organization's total information system needs?",
-                options: ["Analysis", "Implementation", "Design", "Planning"],
+                question: "1. Which statement best describes information systems analysis and design?",
+                options: [
+                    "Configuring the hardware and network used to run applications",
+                    "Testing a completed system before it is placed into service",
+                    "Writing and executing program code for a defined specification",
+                    "Developing and maintaining computer-based information systems within an organization"
+                ],
                 correct: 3,
-                explanation: "مرحلة التخطيط (Planning) هي المرحلة الأولى التي يتم فيها تحديد وتحليل وترتيب أولويات احتياجات النظام بشكل كامل."
+                explanation: "تحليل وتصميم النظم هو العملية التنظيمية المعقدة لتطوير وصيانة نظم المعلومات الحاسوبية داخل المنظمة."
             },
             {
                 chapter: "Mod1",
-                question: "8. The phase of the SDLC in which system requirements are studied and structured is:",
-                options: ["Planning", "Design", "Analysis", "Implementation"],
-                correct: 2,
-                explanation: "مرحلة التحليل (Analysis) هي المرحلة الثانية التي يتم فيها دراسة وهيكلة متطلبات النظام."
-            },
-            {
-                chapter: "Mod1",
-                question: "9. The phase in which the description of the recommended solution is converted into logical and physical system specifications is called:",
-                options: ["Planning", "Analysis", "Implementation", "Design"],
-                correct: 3,
-                explanation: "مرحلة التصميم (Design) هي المرحلة الثالثة حيث تُحوّل الحلول الموصى بها إلى مواصفات منطقية وفيزيائية."
-            },
-            {
-                chapter: "Mod1",
-                question: "10. In which SDLC phase do analysts turn system specifications into a working system that is tested and then put into use?",
-                options: ["Implementation", "Maintenance", "Design", "Analysis"],
+                question: "2. A development team adopts a phased approach for its projects, uses interviews to gather requirements, and records system diagrams in a software package. How should these three elements be classified, in that order?",
+                options: [
+                    "Methodology, technique, tool",
+                    "Technique, methodology, tool",
+                    "Methodology, tool, technique",
+                    "Tool, technique, methodology"
+                ],
                 correct: 0,
-                explanation: "في مرحلة التنفيذ (Implementation)، يتم تحويل مواصفات النظام إلى نظام فعّال يعمل ويُختبر ليدخل حيز الاستخدام."
+                explanation: "النهج المرحلي يمثل المنهجية (Methodology)، والمقابلات تمثل التقنية (Technique)، وبرنامج الرسم يمثل الأداة (Tool)."
             },
             {
                 chapter: "Mod1",
-                question: "11. The final phase of the SDLC where an information system is systematically repaired and improved is:",
-                options: ["Maintenance", "Implementation", "Design", "Testing"],
-                correct: 0,
-                explanation: "الصيانة (Maintenance) هي المرحلة النهائية التي يتم فيها إصلاح وتحسين النظام بشكل منهجي."
-            },
-            {
-                chapter: "Mod1",
-                question: "12. An approach to software development with short, incremental development cycles, automated tests, and two-person programming teams is known as:",
-                options: ["Traditional Waterfall", "eXtreme Programming", "Joint Application Design", "Prototyping"],
-                correct: 1,
-                explanation: "البرمجة القصوى (eXtreme Programming) هي نهج يعتمد على دورات تطوير قصيرة واختبارات آلية وعمل المبرمجين في أزواج."
-            },
-            {
-                chapter: "Mod1",
-                question: "13. Turning over responsibility for some or all of an organization's information systems applications and operations to an outside firm is called:",
-                options: ["In-house development", "Cloud computing", "Outsourcing", "Software Reuse"],
-                correct: 2,
-                explanation: "التعهيد (Outsourcing) يعني نقل مسؤولية تطوير أو تشغيل النظم جزئياً أو كلياً إلى شركة خارجية."
-            },
-            {
-                chapter: "Mod1",
-                question: "14. Off-the-shelf software systems that cannot be modified to meet the specific, individual needs of a particular organization are called:",
-                options: ["Open-source systems", "Turnkey systems", "Cloud systems", "In-house systems"],
-                correct: 1,
-                explanation: "الأنظمة الجاهزة للتشغيل (Turnkey systems) هي برمجيات جاهزة لا يمكن تعديلها لتلبية الاحتياجات الفردية المحددة للمنظمة."
-            },
-            {
-                chapter: "Mod1",
-                question: "15. The provision of applications or related services over the Internet, where customers do not have to invest in the hardware and software resources needed, is called:",
-                options: ["Cloud computing", "Open-source software", "Outsourcing", "Turnkey systems"],
-                correct: 0,
-                explanation: "الحوسبة السحابية (Cloud computing) تتيح تقديم التطبيقات والخدمات عبر الإنترنت دون حاجة العميل للاستثمار في البنية التحتية."
-            },
-            {
-                chapter: "Mod1",
-                question: "16. Software that is freely available, not just the final product but the source code itself, is known as:",
-                options: ["Packaged software", "Open-source software", "Cloud software", "Turnkey software"],
-                correct: 1,
-                explanation: "البرمجيات مفتوحة المصدر (Open-source software) تتيح الكود المصدري للمنتج النهائي بشكل مجاني للجميع."
-            },
-            {
-                chapter: "Mod1",
-                question: "17. The use of previously written software resources (objects and components) in new applications is called:",
-                options: ["Software Reuse", "Prototyping", "Outsourcing", "Cloud Computing"],
-                correct: 0,
-                explanation: "إعادة استخدام البرمجيات (Software Reuse) تعني استخدام الموارد أو المكونات البرمجية المكتوبة مسبقاً في تطبيقات جديدة."
-            },
-            {
-                chapter: "Mod1",
-                question: "18. Which approach to software reuse mandates the development and sharing of reusable assets, and establishes organizational policies for documentation and packaging?",
-                options: ["Ad hoc", "Facilitated", "Managed", "Designed"],
-                correct: 2,
-                explanation: "في النهج المدار (Managed reuse)، يُفرض تطوير ومشاركة الأصول القابلة لإعادة الاستخدام وتُوضع سياسات تنظيمية لذلك."
-            },
-            {
-                chapter: "Mod1",
-                question: "19. Which of the following is NOT an approach of software reuse?",
-                options: ["Analyzed reuse", "Designed reuse", "Ad hoc reuse", "Managed reuse"],
-                correct: 0,
-                explanation: "مناهج إعادة الاستخدام المعروفة هي (Ad hoc, Facilitated, Managed, Designed) ولا يوجد ما يسمى (Analyzed reuse)."
-            },
-            {
-                chapter: "Mod1",
-                question: "20. What is the correct order of the Systems Development Life Cycle (SDLC) phases?",
+                question: "3. What is the correct order of the Systems Development Life Cycle (SDLC) phases?",
                 options: [
                     "Planning, Design, Analysis, Implementation, Maintenance",
-                    "Design, Planning, Analysis, Implementation, Maintenance",
                     "Planning, Analysis, Design, Implementation, Maintenance",
-                    "Analysis, Planning, Design, Implementation, Maintenance"
+                    "Analysis, Planning, Design, Implementation, Maintenance",
+                    "Design, Planning, Analysis, Implementation, Maintenance"
+                ],
+                correct: 1,
+                explanation: "الترتيب الصحيح لمراحل SDLC هو: التخطيط، التحليل، التصميم، التنفيذ، ثم الصيانة."
+            },
+            {
+                chapter: "Mod1",
+                question: "4. Which part of the design phase of the SDLC describes all functional features of the system independently of any computer platform?",
+                options: [
+                    "Physical design",
+                    "Logical design",
+                    "Semantic design",
+                    "Architectural design"
+                ],
+                correct: 1,
+                explanation: "التصميم المنطقي (Logical design) يصف جميع الخصائص الوظيفية للنظام بشكل مستقل عن أي منصة حاسوبية أو تقنية."
+            },
+            {
+                chapter: "Mod1",
+                question: "5. Which of the following best describes eXtreme Programming (XP)?",
+                options: [
+                    "A hardware installation technique focusing on performance testing",
+                    "An agile method using short, incremental cycles, pair programming, and automated continuous testing",
+                    "A software development approach emphasizing long development cycles and individual coding",
+                    "A project management tool used for scheduling and budgeting"
+                ],
+                correct: 1,
+                explanation: "البرمجة القصوى (XP) هي منهجية رشيقة تعتمد على دورات تطوير قصيرة، والبرمجة الزوجية (Pair programming)، والاختبارات الآلية المستمرة."
+            },
+            {
+                chapter: "Mod1",
+                question: "6. A small company uses a payroll application over the Internet. The provider operates and maintains the application, so the company does not purchase the infrastructure needed to run it. Which software delivery approach is illustrated?",
+                options: [
+                    "Cloud computing",
+                    "Turnkey software installed on company servers",
+                    "Component reuse",
+                    "In-house development"
+                ],
+                correct: 0,
+                explanation: "الحوسبة السحابية (Cloud computing) تتيح توفير التطبيقات عبر الإنترنت دون الحاجة للاستثمار في الأجهزة أو البنية التحتية."
+            },
+            {
+                chapter: "Mod1",
+                question: "7. A department has found an existing application that meets most of its needs. Its developers must inspect the source code and modify a calculation under a license that permits those changes. Which software source best fits this requirement?",
+                options: [
+                    "A non-customizable turnkey package",
+                    "A compiled package whose license prohibits modification",
+                    "A hosted service that provides no source-code access",
+                    "An open-source application"
+                ],
+                correct: 3,
+                explanation: "البرمجيات مفتوحة المصدر (Open-source software) تتيح الوصول إلى الكود المصدري وتعديله مجاناً."
+            },
+            {
+                chapter: "Mod1",
+                question: "8. Which of the following is NOT one of the four approaches to software reuse?",
+                options: [
+                    "Analyzed reuse",
+                    "Designed reuse",
+                    "Ad hoc reuse",
+                    "Managed reuse"
+                ],
+                correct: 0,
+                explanation: "مناهج إعادة الاستخدام الأربعة هي: Ad hoc, Facilitated, Managed, و Designed."
+            },
+
+            // ================= MODULE 2 (8 Questions) =================
+            {
+                chapter: "Mod2",
+                question: "9. What does the System Service Request (SSR) primarily address?",
+                options: [
+                    "Project scheduling and monitoring",
+                    "The resources needed for each phase",
+                    "Project budget and critical path scheduling",
+                    "Development or maintenance of an information system"
+                ],
+                correct: 3,
+                explanation: "طلب خدمة النظام (SSR) هو نموذج قياسي يُستخدم لطلب تطوير نظام جديد أو صيانة نظام قائم."
+            },
+            {
+                chapter: "Mod2",
+                question: "10. Which of the following is a key skill in the Conflict Management activity of a Project Manager?",
+                options: [
+                    "Problem solving and goal setting",
+                    "Interpreting system specifications",
+                    "Forecasting and resource redeployment",
+                    "Defining activities and sequences"
+                ],
+                correct: 0,
+                explanation: "حل المشكلات وتحديد الأهداف (Problem solving and goal setting) من المهارات الأساسية لإدارة النزاعات داخل فريق المشروع."
+            },
+            {
+                chapter: "Mod2",
+                question: "11. A project charter is typically:",
+                options: [
+                    "A list of tasks and dependencies",
+                    "A short, high-level document prepared for the customer describing project deliverables",
+                    "A detailed technical design document",
+                    "A collection of the tools that will be used while managing the project"
+                ],
+                correct: 1,
+                explanation: "ميثاق المشروع (Project charter) هو وثيقة قصيرة وعالية المستوى تُعد للعميل لتوضيح ما سيقدمه المشروع."
+            },
+            {
+                chapter: "Mod2",
+                question: "12. During development, a programmer leaves the project. The manager reassigns the unfinished work, revises the schedule, and informs stakeholders. Which project management phase includes these activities?",
+                options: [
+                    "Initiation",
+                    "Initial planning",
+                    "Execution",
+                    "Closedown"
                 ],
                 correct: 2,
-                explanation: "الترتيب الصحيح لدورة حياة تطوير النظم هو: التخطيط (Planning)، ثم التحليل (Analysis)، ثم التصميم (Design)، ثم التنفيذ (Implementation)، وأخيراً الصيانة (Maintenance)."
+                explanation: "إدارة التغييرات الطارئة على الموظفين والجدول الزمني وإبلاغ أصحاب المصلحة بحالة المشروع تتم في مرحلة التنفيذ (Execution)."
+            },
+            {
+                chapter: "Mod2",
+                question: "13. After a project is completed, the manager meets with customers and the development team to identify what worked well and what should improve on the next project. Which activity is taking place?",
+                options: [
+                    "Producing the first resource plan",
+                    "Preparing the preliminary budget",
+                    "Establishing the initiation team",
+                    "Conducting a postproject review"
+                ],
+                correct: 3,
+                explanation: "إجراء مراجعة ما بعد المشروع (Postproject review) يتم في مرحلة الإغلاق لتحديد نقاط القوة والضعف وتحسين المشاريع القادمة."
+            },
+            {
+                chapter: "Mod2",
+                question: "14. A manager wants a chart that makes task durations and overlapping work periods easy to compare. Which representation most directly meets this need?",
+                options: [
+                    "A list of project stakeholders and their reporting needs",
+                    "A written statement of the project's objectives",
+                    "A Gantt chart with a horizontal bar for each task",
+                    "A project budget grouped by expenditure category"
+                ],
+                correct: 2,
+                explanation: "مخطط جانت (Gantt chart) يعرض المهام كأشرطة أفقية تتناسب أطوالها مع مدة المهام ويوضح التداخل الزمني بينها."
+            },
+            {
+                chapter: "Mod2",
+                question: "15. What is the expected task duration using the PERT technique if the optimistic time (o) is 8 weeks, realistic time (r) is 10 weeks, and pessimistic time (p) is 12 weeks?",
+                options: [
+                    "9 weeks",
+                    "10 weeks",
+                    "10.5 weeks",
+                    "11 weeks"
+                ],
+                correct: 1,
+                explanation: "حساب الوقت المتوقع في PERT يتم بالمعادلة: ET = (o + 4r + p) / 6 = (8 + 4(10) + 12) / 6 = 60 / 6 = 10 أسابيع."
+            },
+            {
+                chapter: "Mod2",
+                question: "16. Task A takes 3 days. After A, tasks B and C run in parallel and take 4 and 6 days respectively. Task D takes 2 days and starts after both B and C finish. If B is revised to 8 days, how does the earliest project completion time change?",
+                options: [
+                    "It changes from 9 days to 13 days",
+                    "It remains 11 days because C was originally longer",
+                    "It changes from 15 days to 19 days",
+                    "It changes from 11 days to 13 days"
+                ],
+                correct: 3,
+                explanation: "في البداية كان المسار الحرج A-C-D (3 + 6 + 2 = 11 يوماً). بعد تعديل B إلى 8 أيام، يصبح المسار الحرج A-B-D (3 + 8 + 2 = 13 يوماً)."
             },
 
-            // ================= MODULE 2 (20 Questions) =================
+            // ================= MODULE 3 (7 Questions) =================
             {
-                chapter: "Mod2",
-                question: "21. A systems analyst with a diverse set of skills who is responsible for initiating, planning, executing, and closing down a project is a:",
-                options: ["Database Administrator", "Project manager", "Software Engineer", "Business Analyst"],
-                correct: 1,
-                explanation: "مدير المشروع (Project manager) هو محلل نظم يمتلك مهارات متنوعة ليكون مسؤولاً عن جميع مراحل إدارة المشروع."
-            },
-            {
-                chapter: "Mod2",
-                question: "22. A planned undertaking of related activities to reach an objective that has a beginning and an end is called a:",
-                options: ["System", "Methodology", "Project", "Deliverable"],
-                correct: 2,
-                explanation: "المشروع (Project) هو مسعى مخطط لأنشطة مترابطة للوصول إلى هدف معين، وله بداية ونهاية محددتان."
-            },
-            {
-                chapter: "Mod2",
-                question: "23. An end product of an SDLC phase is called a:",
-                options: ["Tool", "Deliverable", "Technique", "Prototype"],
-                correct: 1,
-                explanation: "المنتج النهائي (Deliverable) هو ما ينتج في نهاية كل مرحلة من مراحل دورة حياة تطوير النظم."
-            },
-            {
-                chapter: "Mod2",
-                question: "24. A standard form for requesting or proposing systems development work within an organization is known as:",
-                options: ["System Service Request (SSR)", "Baseline Project Plan (BPP)", "Project Scope Statement", "Gantt Chart"],
+                chapter: "Mod3",
+                question: "17. Which of the following best describes the three main activities involved in project identification and selection?",
+                options: [
+                    "Identifying, classifying/ranking, and selecting projects",
+                    "Coding, testing, and installing",
+                    "Designing, implementing, and maintaining",
+                    "Analysis, integration, and documentation"
+                ],
                 correct: 0,
-                explanation: "طلب خدمة النظام (System Service Request - SSR) هو نموذج قياسي يستخدم لطلب أو اقتراح أعمال تطوير النظم."
+                explanation: "مرحلة تحديد واختيار المشاريع تتكون من 3 أنشطة رئيسية: تحديد المشاريع المحتملة، تصنيفها وترتيبها، ثم اختيار المشاريع للتطوير."
             },
             {
-                chapter: "Mod2",
-                question: "25. A study that determines whether a requested system makes economic and operational sense for an organization is a:",
-                options: ["Project Charter", "Feasibility study", "Work breakdown structure", "Network diagram"],
+                chapter: "Mod3",
+                question: "18. Which analysis technique is used to analyze an organization's activities to determine where value is added to products or services and the costs incurred?",
+                options: [
+                    "SWOT analysis",
+                    "Value chain analysis",
+                    "Risk analysis",
+                    "Break-even analysis"
+                ],
                 correct: 1,
-                explanation: "دراسة الجدوى (Feasibility study) تحدد ما إذا كان النظام المطلوب منطقياً ومجدياً من الناحية الاقتصادية والتشغيلية."
+                explanation: "تحليل سلسلة القيمة (Value chain analysis) يدرس أنشطة المنظمة لتحديد أين تضاف القيمة للمنتجات والخدمات والتكاليف المرتبطة بها."
             },
             {
-                chapter: "Mod2",
-                question: "26. The first phase of the project management process, in which activities are performed to assess the size, scope, and complexity of the project, is:",
-                options: ["Planning", "Execution", "Initiation", "Closedown"],
-                correct: 2,
-                explanation: "مرحلة البدء (Initiation) هي المرحلة الأولى التي يتم فيها تقييم حجم ونطاق وتعقيد المشروع."
+                chapter: "Mod3",
+                question: "19. Which statement best describes the multicriteria analysis (scoring model) technique?",
+                options: [
+                    "Selecting new projects based on business structure diagrams",
+                    "Using weighted evaluation criteria to compare IS project alternatives",
+                    "Detecting operational inefficiencies that impact system performance",
+                    "Ranking system proposals solely based on financial return"
+                ],
+                correct: 1,
+                explanation: "التحليل متعدد المعايير (Multicriteria analysis) يستخدم معايير تقييم موزونة للمقارنة والاختيار بين المشاريع أو البدائل."
             },
             {
-                chapter: "Mod2",
-                question: "27. The second phase of the project management process, which focuses on defining clear, discrete activities and the work needed to complete them, is:",
-                options: ["Execution", "Initiation", "Closedown", "Planning"],
+                chapter: "Mod3",
+                question: "20. What is Incremental Commitment in systems analysis and design?",
+                options: [
+                    "Starting a project without user involvement",
+                    "Using only financial criteria for selection",
+                    "Approving all projects at once",
+                    "A strategy in which the project is reviewed after each phase and continuation is re-justified"
+                ],
                 correct: 3,
-                explanation: "مرحلة التخطيط (Planning) هي المرحلة الثانية وتركز على تحديد أنشطة واضحة ومنفصلة والعمل المطلوب لإنجازها."
+                explanation: "الالتزام التدريجي (Incremental commitment) يعني مراجعة المشروع بعد كل مرحلة وإعادة تبرير استمراره."
             },
             {
-                chapter: "Mod2",
-                question: "28. The third phase of the project management process, in which the plans created in the prior phases are put into action, is:",
-                options: ["Planning", "Initiation", "Execution", "Closedown"],
-                correct: 2,
-                explanation: "مرحلة التنفيذ (Executing) هي المرحلة الثالثة حيث يتم وضع الخطط موضع التنفيذ."
-            },
-            {
-                chapter: "Mod2",
-                question: "29. The final phase of the project management process that focuses on bringing a project to an end is:",
-                options: ["Execution", "Planning", "Closedown", "Initiation"],
-                correct: 2,
-                explanation: "مرحلة الإغلاق (Closedown) هي المرحلة النهائية التي تركز على إنهاء المشروع بشكل سليم."
-            },
-            {
-                chapter: "Mod2",
-                question: "30. The process of dividing the project into manageable tasks and logically ordering them to ensure a smooth evolution between tasks is called:",
-                options: ["Network diagramming", "Critical path scheduling", "Work breakdown structure", "PERT calculation"],
-                correct: 2,
-                explanation: "هيكل تجزئة العمل (Work breakdown structure - WBS) هو عملية تقسيم المشروع إلى مهام قابلة للإدارة وترتيبها منطقياً."
-            },
-            {
-                chapter: "Mod2",
-                question: "31. A graphical representation of a project that shows each task as a horizontal bar whose length is proportional to its time for completion is a:",
-                options: ["Flowchart", "Gantt chart", "Network diagram", "PERT chart"],
-                correct: 1,
-                explanation: "مخطط جانت (Gantt chart) يمثل المشروع برسم بياني يُظهر كل مهمة كشريط أفقي يتناسب طوله مع وقت إنجازها."
-            },
-            {
-                chapter: "Mod2",
-                question: "32. A diagram that depicts project tasks and their interrelationships is known as a:",
-                options: ["Gantt chart", "Flow diagram", "Network diagram", "Context diagram"],
-                correct: 2,
-                explanation: "المخطط الشبكي (Network Diagram) هو رسم يوضح مهام المشروع والعلاقات المتبادلة بينها (الاعتماديات)."
-            },
-            {
-                chapter: "Mod2",
-                question: "33. What does PERT stand for in project management?",
-                options: ["Project Evaluation Review Technique", "Program Evaluation Review Technique", "Project Estimation Resource Technique", "Process Evaluation Review Tool"],
-                correct: 1,
-                explanation: "مصطلح PERT هو اختصار لـ Program Evaluation Review Technique، وهي تقنية لتقدير مدة المهام."
-            },
-            {
-                chapter: "Mod2",
-                question: "34. The formula used to determine Expected Time (ET) in a PERT calculation is:",
-                options: ["ET = (o + 4r + p) / 6", "ET = (o + r + p) / 3", "ET = (o + 2r + p) / 4", "ET = (o + p) / 2"],
-                correct: 0,
-                explanation: "الصيغة المعتمدة لتقدير الوقت (ET) في أسلوب PERT هي بجمع الوقت المتفائل مع 4 أضعاف الوقت الواقعي والوقت المتشائم ثم القسمة على 6: ET = (o + 4r + p) / 6."
-            },
-            {
-                chapter: "Mod2",
-                question: "35. In critical path scheduling, the shortest time in which a project can be completed is defined by the:",
-                options: ["Slack time", "Expected time", "Critical path", "Optimistic time"],
-                correct: 2,
-                explanation: "المسار الحرج (Critical path) يمثل أطول مسار زمني في المشروع والذي يحدد أقصر وقت ممكن لإنجاز المشروع بالكامل."
-            },
-            {
-                chapter: "Mod2",
-                question: "36. The amount of time an activity can be delayed without delaying the entire project is called:",
-                options: ["Delay time", "Expected time", "Slack time", "Float duration"],
-                correct: 2,
-                explanation: "وقت الركود أو الفراغ (Slack time) هو الوقت الذي يمكن أن تتأخر فيه مهمة معينة دون أن تتسبب في تأخير المشروع بأكمله."
-            },
-            {
-                chapter: "Mod2",
-                question: "37. When comparing Gantt charts and Network diagrams, what does the Gantt chart visually show that a Network diagram does not?",
-                options: ["Task dependencies", "Time overlap of tasks", "Sequence of tasks", "Critical path only"],
-                correct: 1,
-                explanation: "مخطط جانت يُظهر بوضوح تداخل الأوقات بين المهام (Time overlap of tasks)، بينما لا يوضح المخطط الشبكي التداخل الزمني بوضوح."
-            },
-            {
-                chapter: "Mod2",
-                question: "38. A network diagram is mainly used to show:",
-                options: ["Task durations", "Project costs", "Stakeholder communication", "Task dependencies and sequencing"],
+                chapter: "Mod3",
+                question: "21. Corporate strategic planning begins with which foundational element that defines what business a company is in?",
+                options: [
+                    "A functional decomposition listing departmental activities",
+                    "Objective statements defining measurable organizational outcomes",
+                    "A competitive strategy outlining long-term enterprise positioning",
+                    "A mission statement describing the core purpose of the organization"
+                ],
                 correct: 3,
-                explanation: "المخطط الشبكي (Network diagram) يُستخدم بشكل أساسي لإظهار التسلسل والاعتماديات بين مهام المشروع (Task dependencies)."
+                explanation: "يبدأ التخطيط الاستراتيجي للشركات ببيان المهمة (Mission statement) الذي يوضح طبيعة العمل الذي تقوم به الشركة."
             },
             {
-                chapter: "Mod2",
-                question: "39. Which of the following is a widely used software tool for assisting with project management tasks like viewing Gantt or Network diagrams?",
-                options: ["Microsoft Word", "Microsoft Project", "Adobe Photoshop", "Visual Studio"],
-                correct: 1,
-                explanation: "برنامج Microsoft Project هو من الأدوات الشائعة والقوية للمساعدة في إدارة المشاريع وإنشاء مخططات جانت والشبكات."
+                chapter: "Mod3",
+                question: "22. In Information Systems Planning (ISP), which matrix shows which data are collected, used, updated, or deleted within each process?",
+                options: [
+                    "Process-to-Information System matrix",
+                    "Data Entity-to-Information System matrix",
+                    "Function-to-Data Entity matrix",
+                    "Process-to-Data Entity matrix"
+                ],
+                correct: 3,
+                explanation: "مصفوفة العملية إلى كيان البيانات (Process-to-Data Entity) تحدد البيانات التي يتم جمعها أو استخدامها أو تحديثها أو حذفها في كل عملية."
             },
             {
-                chapter: "Mod2",
-                question: "40. Influencing the activities of others toward the attainment of a common goal through the use of intelligence, personality, and abilities is an example of which project manager skill?",
-                options: ["Technical problem solving", "Customer relations", "Leadership", "Conflict management"],
-                correct: 2,
-                explanation: "القيادة (Leadership) هي مهارة توجيه أنشطة الآخرين والتأثير عليهم لتحقيق هدف مشترك باستخدام الذكاء والشخصية."
+                chapter: "Mod3",
+                question: "23. What is the Internet of Things (IoT)?",
+                options: [
+                    "A network used only by desktop computers",
+                    "A website for online shopping",
+                    "A system used only for sending emails",
+                    "Physical objects with an Internet address and connectivity that communicate with other Internet-enabled devices and systems"
+                ],
+                correct: 3,
+                explanation: "إنترنت الأشياء (IoT) يشمل الأجسام المادية المزودة بعنوان إنترنت واتصال شبكي للتواصل مع الأجهزة والأنظمة الأخرى."
             },
 
-            // ================= MODULE 3 (20 Questions) =================
+            // ================= MODULE 4 (7 Questions) =================
             {
-                chapter: "Mod3",
-                question: "41. The first phase of SDLC, Planning, consists of project initiation and planning, and:",
-                options: ["Requirements structuring", "Project execution", "Project identification and selection", "System design"],
-                correct: 2,
-                explanation: "مرحلة التخطيط تتكون من عملية (تحديد واختيار المشروع) بالإضافة إلى (بدء وتخطيط المشروع)."
-            },
-            {
-                chapter: "Mod3",
-                question: "42. Potential development projects are generally identified by which types of initiatives?",
-                options: ["Internal and External", "Hardware and Software", "Top-down and Bottom-up", "Qualitative and Quantitative"],
-                correct: 2,
-                explanation: "يتم تحديد المشاريع المحتملة من خلال مبادرات تبدأ من الإدارة العليا (Top-down) أو من الإدارات التشغيلية في الأسفل (Bottom-up)."
-            },
-            {
-                chapter: "Mod3",
-                question: "43. Analyzing an organization’s activities to determine where value is added to products and/or services and the costs incurred for doing so is known as:",
-                options: ["Value Chain Analysis", "Multicriteria Analysis", "SWOT Analysis", "Feasibility Analysis"],
+                chapter: "Mod4",
+                question: "24. One of the main outcomes from the project initiation and planning phase that contains the best estimate of a project's scope, benefits, costs, risks, and resource requirements is the:",
+                options: [
+                    "Baseline Project Plan (BPP)",
+                    "System Service Request (SSR)",
+                    "Project Workbook",
+                    "Break-even analysis"
+                ],
                 correct: 0,
-                explanation: "تحليل سلسلة القيمة (Value Chain Analysis) يُستخدم لتحليل الأنشطة لتحديد أين تضاف القيمة للمنتجات والخدمات والتكاليف المترتبة عليها."
+                explanation: "خطة المشروع الأساسية (BPP) هي المخرج الرئيسي لمرحلة بدء وتخطيط المشروع وتضم أفضل التقديرات للنطاق والفوائد والتكاليف والمخاطر."
             },
             {
-                chapter: "Mod3",
-                question: "44. A strategy in systems analysis and design in which the project is reviewed after each phase and continuation of the project is rejustified is called:",
-                options: ["Incremental commitment", "Rapid Application Development", "Throwaway prototyping", "Continuous integration"],
-                correct: 0,
-                explanation: "الالتزام التدريجي (Incremental commitment) هو استراتيجية تتم فيها مراجعة المشروع بعد كل مرحلة وإعادة تبرير استمراره."
-            },
-            {
-                chapter: "Mod3",
-                question: "45. An ongoing process that defines the mission, objectives, and strategies of an organization is:",
-                options: ["Information Systems Planning", "Corporate Strategic Planning", "Project Management", "Business Process Reengineering"],
-                correct: 1,
-                explanation: "التخطيط الاستراتيجي للشركات (Corporate Strategic Planning) هو عملية مستمرة تحدد مهمة المنظمة وأهدافها واستراتيجياتها."
-            },
-            {
-                chapter: "Mod3",
-                question: "46. What is the purpose of a Mission Statement in corporate planning?",
-                options: ["To explain financial budgets", "To define what business the company is in", "To allocate employee salaries", "To describe IT requirements"],
-                correct: 1,
-                explanation: "بيان المهمة (Mission Statement) يوضح ويُعرّف طبيعة الأعمال التي تقوم بها الشركة."
-            },
-            {
-                chapter: "Mod3",
-                question: "47. A series of statements that express an organization’s qualitative and quantitative goals for reaching a desired future position are:",
-                options: ["Mission statements", "Value chain points", "Objective statements", "Feasibility goals"],
-                correct: 2,
-                explanation: "بيانات الأهداف (Objective statements) تعبر عن الأهداف النوعية والكمية التي تسعى المنظمة للوصول إليها في المستقبل."
-            },
-            {
-                chapter: "Mod3",
-                question: "48. The method by which an organization attempts to achieve its mission and objectives is called its:",
-                options: ["Competitive strategy", "Information system plan", "Incremental commitment", "Operational directive"],
-                correct: 0,
-                explanation: "الاستراتيجية التنافسية (Competitive strategy) هي الطريقة التي تتبعها المنظمة لتحقيق مهمتها وأهدافها."
-            },
-            {
-                chapter: "Mod3",
-                question: "49. An orderly means of assessing the information needs of an organization and defining the systems, databases, and technologies that will best satisfy those needs is:",
-                options: ["Corporate Strategic Planning", "Information Systems Planning (ISP)", "Project Initiation", "Requirements Determination"],
-                correct: 1,
-                explanation: "تخطيط نظم المعلومات (ISP) هو وسيلة منظمة لتقييم احتياجات المعلومات للمنظمة وتحديد الأنظمة والتقنيات التي تلبيها."
-            },
-            {
-                chapter: "Mod3",
-                question: "50. Which IS planning approach attempts to gain a broad understanding of information system needs of the entire organization?",
-                options: ["Bottom-up planning", "Top-down planning", "Incremental planning", "Radical planning"],
-                correct: 1,
-                explanation: "التخطيط من الأعلى للأسفل (Top-down planning) يهدف إلى فهم واسع وشامل لاحتياجات نظام المعلومات في المنظمة بأكملها."
-            },
-            {
-                chapter: "Mod3",
-                question: "51. Which IS planning approach identifies IS development projects based on solving specific operational business problems or taking advantage of specific opportunities?",
-                options: ["Top-down planning", "Strategic planning", "Bottom-up planning", "Global planning"],
-                correct: 2,
-                explanation: "التخطيط من الأسفل للأعلى (Bottom-up planning) يبدأ بتحديد المشاريع بناءً على حل مشاكل تشغيلية محددة أو استغلال فرص معينة."
-            },
-            {
-                chapter: "Mod3",
-                question: "52. Which of the following is an advantage to the Top-Down Planning approach?",
-                options: ["Faster development", "Integration with existing systems focus", "Fewer users and management layers involved", "Broader Perspective"],
+                chapter: "Mod4",
+                question: "25. Which of the following is an example of a tangible benefit?",
+                options: [
+                    "Increased customer satisfaction",
+                    "Improved employee morale",
+                    "Improved company reputation",
+                    "Cost reduction and avoidance"
+                ],
                 correct: 3,
-                explanation: "من مميزات النهج من الأعلى للأسفل أنه يوفر منظوراً أوسع (Broader Perspective) وتكاملاً أفضل للنظم."
+                explanation: "الفوائد الملموسة (Tangible benefits) يمكن قياسها نقدياً بدقة، مثل خفض وتجنب التكاليف."
             },
             {
-                chapter: "Mod3",
-                question: "53. In IS Planning Matrices, which matrix identifies which business functions are being performed at various organizational locations?",
-                options: ["Unit-to-Function", "Location-to-Function", "Function-to-Process", "Process-to-Data Entity"],
-                correct: 1,
-                explanation: "مصفوفة (الموقع إلى الوظيفة - Location-to-Function) تحدد الوظائف التجارية التي يتم أداؤها في المواقع التنظيمية المختلفة."
-            },
-            {
-                chapter: "Mod3",
-                question: "54. Which matrix identifies which data are captured, used, updated, or deleted within each process?",
-                options: ["Data Entity-to-Information System", "Function-to-Data Entity", "Process-to-Data Entity", "Information System-to-Objective"],
-                correct: 2,
-                explanation: "مصفوفة (العملية إلى كيان البيانات - Process-to-Data Entity) تبين البيانات التي يتم التقاطها أو استخدامها أو تعديلها داخل كل عملية."
-            },
-            {
-                chapter: "Mod3",
-                question: "55. A large worldwide network of networks that use a common protocol to communicate with each other is the:",
-                options: ["Intranet", "Internet", "Local Area Network", "Wide Area Network"],
-                correct: 1,
-                explanation: "الإنترنت (Internet) هو شبكة عالمية ضخمة من الشبكات التي تستخدم بروتوكولاً مشتركاً للتواصل."
-            },
-            {
-                chapter: "Mod3",
-                question: "56. Internet-based communication to support day-to-day government, business, and consumer activities is known as:",
-                options: ["Electronic commerce (EC)", "Cloud Computing", "Outsourcing", "Social Networking"],
+                chapter: "Mod4",
+                question: "26. A cost associated with project start-up and development or system start-up is defined as a:",
+                options: [
+                    "One-time cost",
+                    "Recurring cost",
+                    "Intangible cost",
+                    "Ongoing operational cost"
+                ],
                 correct: 0,
-                explanation: "التجارة الإلكترونية (Electronic commerce - EC) هي الاتصالات المعتمدة على الإنترنت لدعم الأنشطة اليومية للأعمال والمستهلكين."
+                explanation: "التكلفة لمرة واحدة (One-time cost) ترتبط ببدء وتطوير المشروع أو بدء تشغيل النظام."
             },
             {
-                chapter: "Mod3",
-                question: "57. A broad class of physical objects that feature an Internet address and connectivity that communicate between these objects and other Internet-enabled devices is called:",
-                options: ["Cloud computing", "Software as a Service (SaaS)", "Internet-of-Things (IoT)", "E-commerce"],
+                chapter: "Mod4",
+                question: "27. Which financial measurement technique uses a discount rate to determine the present value of future cash outlays and receipts?",
+                options: [
+                    "Break-Even Analysis (BEA)",
+                    "Return on Investment (ROI)",
+                    "Net Present Value (NPV)",
+                    "Total Cost of Ownership (TCO)"
+                ],
                 correct: 2,
-                explanation: "إنترنت الأشياء (IoT) يضم مجموعة واسعة من الأشياء المادية التي تملك عنوان إنترنت وتتصل مع أجهزة وأنظمة أخرى."
+                explanation: "صافي القيمة الحالية (NPV) يستخدم معدل الخصم (Discount rate) لحساب القيمة الحالية للتدفقات النقدية المستقبلية."
             },
             {
-                chapter: "Mod3",
-                question: "58. An electronic commerce business model that focuses on transactions between a business and an individual consumer is:",
-                options: ["B2B", "C2C", "B2G", "B2C"],
+                chapter: "Mod4",
+                question: "28. Which type of feasibility assesses the degree to which a proposed system solves business problems or takes advantage of business opportunities?",
+                options: [
+                    "Operational feasibility",
+                    "Schedule feasibility",
+                    "Political feasibility",
+                    "Legal and contractual feasibility"
+                ],
+                correct: 0,
+                explanation: "الجدوى التشغيلية (Operational feasibility) تقيس مدى قدرة النظام المقترح على حل مشاكل العمل أو استغلال الفرص."
+            },
+            {
+                chapter: "Mod4",
+                question: "29. Which item is NOT a section of the Project Scope Statement (PSS)?",
+                options: [
+                    "Deliverables",
+                    "Problem statement",
+                    "Detailed physical database design",
+                    "Business benefits"
+                ],
+                correct: 2,
+                explanation: "بيان نطاق المشروع (PSS) يشمل بيان المشكلة، الأهداف، الوصف، فوائد الأعمال، المخرجات، والمدة المتوقعة، ولا يشمل التصميم الفيزيائي التفصيلي لقاعدة البيانات."
+            },
+            {
+                chapter: "Mod4",
+                question: "30. Walk-throughs (structured peer group reviews) can be applied to:",
+                options: [
+                    "Only hardware procurement forms",
+                    "Only the Baseline Project Plan",
+                    "Only program code",
+                    "BPP, specifications, designs, code, test procedures, and manuals/documentation"
+                ],
                 correct: 3,
-                explanation: "نموذج الأعمال (B2C - Business-to-Consumer) يركز على التعاملات التجارية بين الشركة والمستهلك الفردي."
-            },
-            {
-                chapter: "Mod3",
-                question: "59. The primary deliverable from the first part of the planning phase is a:",
-                options: ["Functional prototype", "Schedule of specific IS development projects", "Compiled software code", "User manual"],
-                correct: 1,
-                explanation: "المُخْرَج الرئيسي من الجزء الأول من مرحلة التخطيط هو جدول للمشاريع المحددة لتطوير نظم المعلومات (Schedule of specific IS development projects)."
-            },
-            {
-                chapter: "Mod3",
-                question: "60. What is the primary focus of project identification in systems development?",
-                options: ["Determining project budget", "Allocating resources to projects", "Identifying potential development projects", "Assessing project risks"],
-                correct: 2,
-                explanation: "التركيز الأساسي لعملية تحديد المشروع (Project identification) هو التعرف على المشاريع المحتملة التي يمكن تطويرها."
+                explanation: "المراجعات الهيكلية (Walk-throughs) يمكن تطبيقها على أي منتج خلال تطوير النظام مثل خطة المشروع، المواصفات، التصاميم، الأكواد، إجراءات الاختبار، والأدلة."
             },
 
-            // ================= MODULE 4 (20 Questions) =================
+            // ================= MODULE 5 (7 Questions) =================
             {
-                chapter: "Mod4",
-                question: "61. The justification for an information system, presented in terms of the tangible and intangible economic benefits and costs and the technical and organizational feasibility is called a:",
-                options: ["Business case", "Project charter", "Baseline Project Plan", "System Service Request"],
+                chapter: "Mod5",
+                question: "31. An analyst recommends a familiar supplier before examining alternatives and overlooks two reports with conflicting transaction totals. Which two requirements-determination qualities are most clearly missing?",
+                options: [
+                    "Impartiality and attention to details",
+                    "Impertinence and reframing",
+                    "Relaxing constraints and impertinence",
+                    "Reframing and relaxing constraints"
+                ],
                 correct: 0,
-                explanation: "حالة العمل (Business case) هي التبرير لإنشاء نظام معلومات، وتُعرض فيها الفوائد والتكاليف والجدوى الفنية والتنظيمية."
+                explanation: "الحيادية (Impartiality) تتطلب عدم التحيز المسبق، والانتباه للتفاصيل (Attention to details) يتطلب التأكد من توافق جميع الحقائق والأرقام."
             },
             {
-                chapter: "Mod4",
-                question: "62. A major outcome and deliverable from the project initiation and planning phase that contains the best estimate of a project’s scope, benefits, costs, risks, and resource requirements is the:",
-                options: ["Project Scope Statement", "Baseline Project Plan (BPP)", "Feasibility Report", "Business Plan"],
-                correct: 1,
-                explanation: "خطة المشروع الأساسية (BPP) هي مستند رئيسي يحتوي على أفضل التقديرات لنطاق المشروع وفوائده وتكاليفه ومخاطره."
-            },
-            {
-                chapter: "Mod4",
-                question: "63. A document prepared for the customer that describes what the project will deliver and outlines generally at a high level all work required to complete the project is the:",
-                options: ["Project Scope Statement (PSS)", "Baseline Project Plan", "Gantt Chart", "Business Case"],
-                correct: 0,
-                explanation: "بيان نطاق المشروع (Project Scope Statement) يوضح للعميل ما سيقدمه المشروع والأعمال المطلوبة لإنجازه بمستوى عالٍ من التجريد."
-            },
-            {
-                chapter: "Mod4",
-                question: "64. The process of identifying the financial benefits and costs associated with a development project is known as:",
-                options: ["Technical feasibility", "Economic feasibility", "Operational feasibility", "Political feasibility"],
-                correct: 1,
-                explanation: "الجدوى الاقتصادية (Economic feasibility) هي عملية تُعنى بتحديد التكاليف والفوائد المالية المرتبطة بالمشروع."
-            },
-            {
-                chapter: "Mod4",
-                question: "65. A benefit derived from the creation of an information system that can be measured in dollars and with certainty is a:",
-                options: ["Intangible benefit", "Qualitative benefit", "Tangible benefit", "Strategic benefit"],
-                correct: 2,
-                explanation: "الفائدة الملموسة (Tangible benefit) هي التي يمكن قياسها بشكل دقيق وبقيمة نقدية مؤكدة."
-            },
-            {
-                chapter: "Mod4",
-                question: "66. A cost associated with an information system that cannot be easily measured in terms of dollars or with certainty is an:",
-                options: ["Tangible cost", "Intangible cost", "One-time cost", "Recurring cost"],
-                correct: 1,
-                explanation: "التكلفة غير الملموسة (Intangible cost) هي تكلفة تصعب ترجمتها لقيمة مالية دقيقة أو مؤكدة."
-            },
-            {
-                chapter: "Mod4",
-                question: "67. A cost associated with project start-up and development or system start-up is a:",
-                options: ["Recurring cost", "Variable cost", "One-time cost", "Indirect cost"],
-                correct: 2,
-                explanation: "التكلفة لمرة واحدة (One-time cost) تدفع لتأسيس وتطوير وبدء تشغيل النظام ولا تتكرر بشكل مستمر."
-            },
-            {
-                chapter: "Mod4",
-                question: "68. A cost resulting from the ongoing evolution and use of a system is a:",
-                options: ["Recurring cost", "Sunk cost", "One-time cost", "Capital cost"],
-                correct: 0,
-                explanation: "التكلفة المتكررة (Recurring cost) هي المصاريف المستمرة الناتجة عن تشغيل واستخدام وصيانة النظام."
-            },
-            {
-                chapter: "Mod4",
-                question: "69. The cost of owning and operating a system, including the total cost of acquisition, as well as all costs associated with its ongoing use and maintenance, is called:",
-                options: ["Net Present Value", "Return on Investment", "Total Cost of Ownership (TCO)", "Break-even point"],
-                correct: 2,
-                explanation: "إجمالي تكلفة الملكية (TCO) يشمل جميع التكاليف منذ شراء النظام وحتى تكاليف التشغيل والصيانة المستمرة."
-            },
-            {
-                chapter: "Mod4",
-                question: "70. The ratio of cash receipts to cash outlays is used to determine the:",
-                options: ["Return on Investment (ROI)", "Net Present Value (NPV)", "Break-Even Analysis", "Total Cost of Ownership"],
-                correct: 0,
-                explanation: "العائد على الاستثمار (ROI) هو نسبة الإيرادات (المنافع المالية) إلى التكاليف (المصروفات النقدية)."
-            },
-            {
-                chapter: "Mod4",
-                question: "71. A type of cost–benefit analysis to identify at what point (if ever) benefits equal costs is:",
-                options: ["Return on Investment", "Net Present Value", "Break-even analysis", "Cost-ratio analysis"],
-                correct: 2,
-                explanation: "تحليل نقطة التعادل (Break-even analysis) يحدد الزمن الذي تتساوى فيه التكاليف مع الفوائد ويبدأ المشروع بتحقيق الربح."
-            },
-            {
-                chapter: "Mod4",
-                question: "72. The process of assessing the development organization’s ability to construct a proposed system, taking into account various project risk factors, is:",
-                options: ["Operational feasibility", "Technical feasibility", "Schedule feasibility", "Economic feasibility"],
-                correct: 1,
-                explanation: "الجدوى الفنية (Technical feasibility) تقيّم قدرة المنظمة التقنية وخبراتها في بناء النظام المقترح وتحديد مخاطره."
-            },
-            {
-                chapter: "Mod4",
-                question: "73. The process of assessing the degree to which a proposed system solves business problems or takes advantage of business opportunities is:",
-                options: ["Economic feasibility", "Schedule feasibility", "Operational feasibility", "Political feasibility"],
-                correct: 2,
-                explanation: "الجدوى التشغيلية (Operational feasibility) تقيس مدى توافق النظام مع بيئة العمل وكفاءته في حل المشاكل واستغلال الفرص."
-            },
-            {
-                chapter: "Mod4",
-                question: "74. The process of assessing the degree to which the potential time frame and completion dates for all major activities meet organizational deadlines is:",
-                options: ["Schedule feasibility", "Legal feasibility", "Political feasibility", "Technical feasibility"],
-                correct: 0,
-                explanation: "جدوى الجدول الزمني (Schedule feasibility) تتحقق من إمكانية إنهاء المشروع ضمن الإطار الزمني والمواعيد النهائية المطلوبة."
-            },
-            {
-                chapter: "Mod4",
-                question: "75. The process of evaluating how key stakeholders within the organization view the proposed system is:",
-                options: ["Operational feasibility", "Legal feasibility", "Political feasibility", "Economic feasibility"],
-                correct: 2,
-                explanation: "الجدوى السياسية (Political feasibility) تتعلق بكيفية رؤية وتقبل أصحاب المصلحة (Stakeholders) للنظام الجديد."
-            },
-            {
-                chapter: "Mod4",
-                question: "76. A peer group review of any product created during the systems development process is called a:",
-                options: ["JAD session", "Walk-through", "Nominal Group Technique", "Focus group"],
-                correct: 1,
-                explanation: "المراجعة الهيكلية (Walk-through) هي جلسة مراجعة تتم بواسطة الزملاء لتقييم أي منتج تم إنشاؤه أثناء عملية التطوير."
-            },
-            {
-                chapter: "Mod4",
-                question: "77. In a structured walk-through, who is responsible for making detailed notes of the happenings?",
-                options: ["The presenter", "The sponsor", "The maintenance oracle", "The secretary"],
+                chapter: "Mod5",
+                question: "32. Which of the following interview questions is closed-ended?",
+                options: [
+                    "Describe the difficulties you face when processing a refund.",
+                    "How would you improve the current booking procedure?",
+                    "What happens when an order arrives without a customer number?",
+                    "Which shift do you work: morning, evening, or night?"
+                ],
                 correct: 3,
-                explanation: "الكاتب أو المدون (The secretary) هو الشخص المسؤول عن تدوين الملاحظات التفصيلية خلال جلسات المراجعة أو JAD."
+                explanation: "السؤال المغلق (Closed-ended) يطلب من المجيب الاختيار من بين إجابات محددة مسبقاً (صباحي، مسائي، أو ليلي)."
             },
             {
-                chapter: "Mod4",
-                question: "78. Which of the following is NOT typically a section of the Baseline Project Plan (BPP)?",
-                options: ["Introduction", "Feasibility assessment", "Coding standards", "Management issues"],
-                correct: 2,
-                explanation: "خطة المشروع الأساسية (BPP) تتضمن المقدمة ووصف النظام وتقييم الجدوى والقضايا الإدارية، ولا تتضمن معايير كتابة الأكواد (Coding standards)."
-            },
-            {
-                chapter: "Mod4",
-                question: "79. The discount rate is used to determine the present value of cash outlays and receipts in which financial measurement?",
-                options: ["Net Present Value (NPV)", "Break-Even Analysis", "Return on Investment (ROI)", "Payback Period"],
+                chapter: "Mod5",
+                question: "33. Before discussing possible system improvements, each participant writes ideas independently. A facilitator then records the ideas for the group to discuss and prioritize. Which technique is being used?",
+                options: [
+                    "Nominal Group Technique (NGT)",
+                    "Individual interviewing",
+                    "Direct observation",
+                    "Document analysis"
+                ],
                 correct: 0,
-                explanation: "في حساب صافي القيمة الحالية (NPV)، يتم استخدام معدل الخصم (Discount rate) لتحويل التدفقات النقدية المستقبلية لقيمتها الحالية."
+                explanation: "تقنية المجموعة الاسمية (NGT) تبدأ بعمل الأعضاء بشكل منفصل لكتابة أفكارهم قبل جمعها ومناقشتها وترتيبها بإشراف الميسر."
             },
             {
-                chapter: "Mod4",
-                question: "80. A short, high-level document prepared for the customer that describes what the project will deliver is typically known as the:",
-                options: ["Baseline Project Plan", "System Service Request", "Project Scope Statement", "Project network diagram"],
+                chapter: "Mod5",
+                question: "34. What is the difference between a formal system and an informal system?",
+                options: [
+                    "Formal is the official way a system works in documentation; informal is how it actually works in practice",
+                    "Formal uses more employees; informal uses fewer",
+                    "Formal is faster; informal is slower",
+                    "Formal systems are always computerized; informal systems are manual"
+                ],
+                correct: 0,
+                explanation: "النظام الرسمي (Formal) هو الموصوف في وثائق وإجراءات المنظمة، بينما غير الرسمي (Informal) هو كيف يعمل النظام فعلياً في الواقع وتكشفه المقابلات والملاحظة."
+            },
+            {
+                chapter: "Mod5",
+                question: "35. In a Joint Application Design (JAD) session, the person who makes detailed notes of the happenings is called the:",
+                options: [
+                    "JAD session leader",
+                    "Sponsor",
+                    "Scribe",
+                    "Systems Analyst"
+                ],
                 correct: 2,
-                explanation: "بيان نطاق المشروع (Project Scope Statement) هو وثيقة مختصرة توضح للعميل ما سيقدمه المشروع بشكل عام."
+                explanation: "المدون (Scribe) هو الشخص المسؤول عن تسجيل وتدوين تفاصيل وأنشطة جلسة JAD."
+            },
+            {
+                chapter: "Mod5",
+                question: "36. A prototype works well for three users in one branch. Management proposes adopting it across all branches, although shared data and the needs of other users have not been examined. Which response best addresses a recognized limitation of prototyping?",
+                options: [
+                    "Replace user consultation with further screen design so that every branch receives the same interface",
+                    "Treat the three users' approval as evidence that every branch has the same requirements",
+                    "Review wider user needs and data sharing before treating the prototype as suitable for all branches",
+                    "Stop requirements review because the prototype already performs the demonstrated tasks"
+                ],
+                correct: 2,
+                explanation: "من عيوب النمذجة الأولية (Prototyping) صعوبة تكييفها لجمهور أوسع من المستخدمين وإغفال مشاركة البيانات مع الأنظمة الأخرى، لذا يجب مراجعتها أولاً."
+            },
+            {
+                chapter: "Mod5",
+                question: "37. The search for, and implementation of, radical change in business processes to achieve breakthrough improvements in products and services is:",
+                options: [
+                    "Business Process Reengineering (BPR)",
+                    "Evolutionary Prototyping",
+                    "Joint Application Design (JAD)",
+                    "Document Analysis"
+                ],
+                correct: 0,
+                explanation: "إعادة هندسة العمليات التجارية (BPR) تبحث عن التغيير الجذري وتطبقه لتحقيق تحسينات هائلة في المنتجات والخدمات."
             },
 
-            // ================= MODULE 5 (20 Questions) =================
+            // ================= MODULE 6 (15 Questions) =================
             {
-                chapter: "Mod5",
-                question: "81. Gathering information on what the system should do from sources like users, observation, and reports is called:",
-                options: ["Requirements structuring", "System implementation", "Requirements determination", "Logical design"],
-                correct: 2,
-                explanation: "تحديد المتطلبات (Requirements determination) هو عملية جمع المعلومات حول ما يجب أن يقوم به النظام من مختلف المصادر المتاحة."
-            },
-            {
-                chapter: "Mod5",
-                question: "82. Conversational questions in interviews that have no specific answers in mind are called:",
-                options: ["Open-ended questions", "Closed-ended questions", "Probing questions", "Structured questions"],
+                chapter: "Mod6",
+                question: "38. Graphically representing the functions, or processes, that capture, manipulate, store, and distribute data between a system and its environment and between components within a system is known as:",
+                options: [
+                    "Process modeling",
+                    "Conceptual data modeling",
+                    "Object-oriented programming",
+                    "Network scheduling"
+                ],
                 correct: 0,
-                explanation: "الأسئلة المفتوحة (Open-ended questions) هي أسئلة حوارية لا تتطلب إجابات محددة مسبقاً وتسمح للمتحدث بالتعبير بحرية."
+                explanation: "نمذجة العمليات (Process modeling) تمثل بيانياً الوظائف أو العمليات التي تلتقط وتعالج وتخزن وتوزع البيانات."
             },
             {
-                chapter: "Mod5",
-                question: "83. Questions in interviews that ask those responding to choose from among a set of specified responses are called:",
-                options: ["Open-ended questions", "Nominal questions", "Closed-ended questions", "Unstructured questions"],
+                chapter: "Mod6",
+                question: "39. Which of the following statements best describes Data Flow Diagrams (DFDs) compared to system flowcharts?",
+                options: [
+                    "DFDs depict physical systems and their hardware constraints",
+                    "DFDs focus on technological implementation details",
+                    "DFDs show the logical data flow independent of technology",
+                    "DFDs primarily represent relationships between database tables"
+                ],
                 correct: 2,
-                explanation: "الأسئلة المغلقة (Closed-ended questions) تلزم المجيب باختيار إجابة من بين مجموعة خيارات محددة."
+                explanation: "مخططات تدفق البيانات (DFDs) توضح التدفق المنطقي للبيانات بشكل مستقل عن التكنولوجيا، بينما تصور مخططات الانسياب (Flowcharts) التفاصيل الفيزيائية."
             },
             {
-                chapter: "Mod5",
-                question: "84. A facilitated process that supports idea generation by groups, starting with members working alone before pooling ideas, is:",
-                options: ["Joint Application Design (JAD)", "Nominal Group Technique (NGT)", "Business Process Reengineering (BPR)", "Prototyping"],
-                correct: 1,
-                explanation: "تقنية المجموعة الاسمية (NGT) تبدأ بعمل الأفراد بمفردهم لتوليد الأفكار قبل جمعها ومناقشتها وتصفيتها تحت إشراف ميسر."
-            },
-            {
-                chapter: "Mod5",
-                question: "85. Watching users do their jobs to obtain more accurate information than self-reporting provides is known as:",
-                options: ["Direct Observation", "Document Analysis", "Group Interviewing", "JAD Sessions"],
-                correct: 0,
-                explanation: "الملاحظة المباشرة (Direct Observation) هي مراقبة المستخدمين أثناء أداء عملهم للحصول على بيانات أكثر دقة وموثوقية."
-            },
-            {
-                chapter: "Mod5",
-                question: "86. The official way a system works as described in organizational documentation is the:",
-                options: ["Formal system", "Informal system", "Logical system", "Prototyped system"],
-                correct: 0,
-                explanation: "النظام الرسمي (Formal system) هو الطريقة المعتمدة والموثقة رسمياً لعمل النظام في المنظمة."
-            },
-            {
-                chapter: "Mod5",
-                question: "87. The way a system actually works in practice, which can be revealed through interviews and observation, is the:",
-                options: ["Formal system", "Informal system", "Automated system", "Documented system"],
-                correct: 1,
-                explanation: "النظام غير الرسمي (Informal system) يمثل الطريقة الفعلية التي يعمل بها النظام على أرض الواقع، وقد يختلف عن التوثيق الرسمي."
-            },
-            {
-                chapter: "Mod5",
-                question: "88. A structured process in which users, managers, and analysts work together for several days in intensive meetings to specify requirements is:",
-                options: ["Nominal Group Technique", "Direct Observation", "Joint Application Design (JAD)", "Business Process Reengineering"],
+                chapter: "Mod6",
+                question: "40. In a Data Flow Diagram (DFD), work or actions performed on data inside the system are represented by a:",
+                options: [
+                    "Data store",
+                    "Source/sink",
+                    "Process",
+                    "Data flow"
+                ],
                 correct: 2,
-                explanation: "تصميم التطبيقات المشترك (JAD) هو عملية يجتمع فيها المعنيون لأيام في ورش عمل مكثفة لتحديد المتطلبات بدقة وسرعة."
+                explanation: "العملية (Process) تمثل العمل أو الإجراءات التي يتم تنفيذها على البيانات داخل النظام."
             },
             {
-                chapter: "Mod5",
-                question: "89. In a JAD session, who is responsible for facilitating the group process?",
-                options: ["Sponsor", "Session Leader", "Systems Analyst", "Scribe"],
-                correct: 1,
-                explanation: "قائد الجلسة (Session Leader) هو الشخص المتخصص الذي يُدير ويسهل سير عملية النقاش داخل جلسات JAD."
-            },
-            {
-                chapter: "Mod5",
-                question: "90. An iterative process in which requirements are converted to a working system that is continually revised through collaboration is:",
-                options: ["Prototyping", "BPR", "JAD", "SDLC"],
-                correct: 0,
-                explanation: "النمذجة الأولية (Prototyping) هي عملية تكرارية لتحويل المتطلبات إلى نسخة مبدئية تعمل ويتم تعديلها بالتعاون مع المستخدمين."
-            },
-            {
-                chapter: "Mod5",
-                question: "91. A type of prototyping that does NOT preserve the prototype after the development process is successful is called:",
-                options: ["Evolutionary prototyping", "Throwaway prototyping", "Agile prototyping", "Iterative prototyping"],
-                correct: 1,
-                explanation: "النمذجة المستهلكة (Throwaway prototyping) هي عملية يتم فيها بناء نموذج أولي لغرض الفهم فقط ثم يتم التخلص منه وبناء النظام الفعلي."
-            },
-            {
-                chapter: "Mod5",
-                question: "92. The search for, and implementation of, radical change in business processes to achieve breakthrough improvements is:",
-                options: ["Agile Development", "Prototyping", "Business Process Reengineering (BPR)", "Joint Application Design"],
-                correct: 2,
-                explanation: "إعادة هندسة العمليات التجارية (BPR) تهدف لإحداث تغيير جذري في العمليات لتحقيق قفزات نوعية في الأداء والمنتجات."
-            },
-            {
-                chapter: "Mod5",
-                question: "93. Technologies that enable breaking long-held business rules that inhibit organizations from making radical business changes are called:",
-                options: ["Legacy technologies", "Disruptive technologies", "Incremental technologies", "Prototyping tools"],
-                correct: 1,
-                explanation: "التقنيات المزعزعة أو المدمرة (Disruptive technologies) هي تقنيات تكسر القواعد القديمة وتمكّن المنظمات من إحداث تغييرات جذرية."
-            },
-            {
-                chapter: "Mod5",
-                question: "94. Agile Methodologies for requirements determination emphasize which of the following?",
-                options: ["Strict adherence to plans", "Heavy formal documentation", "Continual user involvement", "Avoiding changes in requirements"],
-                correct: 2,
-                explanation: "تركز المنهجيات الرشيقة (Agile) بشكل كبير على المشاركة المستمرة للمستخدم (Continual user involvement) طوال دورة التطوير."
-            },
-            {
-                chapter: "Mod5",
-                question: "95. Which Agile approach focuses heavily on user goals, roles, and tasks?",
-                options: ["The Planning Game", "Scrum", "eXtreme Programming", "Agile usage-centered design"],
+                chapter: "Mod6",
+                question: "41. In a DFD, data at rest inside the system is represented by a:",
+                options: [
+                    "Process",
+                    "Source/sink",
+                    "Data flow",
+                    "Data store"
+                ],
                 correct: 3,
-                explanation: "التصميم المرتكز على الاستخدام في بيئة الأجايل (Agile usage-centered design) يركز تحديداً على أهداف وأدوار ومهام المستخدمين."
+                explanation: "مخزن البيانات (Data store) يمثل البيانات الساكنة أو المخزنة داخل النظام."
             },
             {
-                chapter: "Mod5",
-                question: "96. The Planning Game is a technique based on which specific agile methodology?",
-                options: ["Scrum", "Kanban", "eXtreme Programming (XP)", "Prototyping"],
-                correct: 2,
-                explanation: "لعبة التخطيط (The Planning Game) هي إحدى الممارسات والتقنيات الأساسية المعتمدة في البرمجة القصوى (eXtreme Programming)."
-            },
-            {
-                chapter: "Mod5",
-                question: "97. A set of activities designed to produce a specific output for a particular customer or market is defined as a:",
-                options: ["Disruptive technology", "Key business process", "System prototype", "Formal system"],
+                chapter: "Mod6",
+                question: "42. In a DFD, an external entity that is the origin or destination of data outside the system is called a:",
+                options: [
+                    "Process",
+                    "Source/sink",
+                    "Data store",
+                    "Rule"
+                ],
                 correct: 1,
-                explanation: "العملية التجارية الأساسية (Key business process) هي مجموعة الأنشطة المصممة لإنتاج مخرجات محددة لعميل أو سوق معين."
+                explanation: "المصدر أو المصب (Source/sink) هو كيان خارجي يمثل أصل البيانات أو وجهتها النهائية خارج حدود النظام."
             },
             {
-                chapter: "Mod5",
-                question: "98. Which of the following is NOT a traditional method for determining requirements?",
-                options: ["Joint Application Design (JAD)", "Interviewing individuals", "Observing workers", "Studying business documents"],
+                chapter: "Mod6",
+                question: "43. According to DFD diagramming rules, how should Prozesse and Data Stores be labeled?",
+                options: [
+                    "Processes with noun phrases; Data stores with verb phrases",
+                    "Processes with verb phrases; Data stores with noun phrases",
+                    "Both with verb phrases",
+                    "Both with noun phrases"
+                ],
+                correct: 1,
+                explanation: "تُسمى العمليات (Processes) بعبارات فعلية (Verb phrases)، بينما تُسمى مخازن البيانات والكيانات الخارجية بعبارات اسمية (Noun phrases)."
+            },
+            {
+                chapter: "Mod6",
+                question: "44. Which of the following is TRUE regarding Data Flow Diagram (DFD) rules?",
+                options: [
+                    "Data flow can go directly from a process to itself",
+                    "Joined data flows must refer to different data items",
+                    "No data moves directly between external entities without going through a process",
+                    "Data can move directly from a source to a data store without a process"
+                ],
+                correct: 2,
+                explanation: "لا يمكن للبيانات أن تنتقل مباشرة بين الكيانات الخارجية أو إلى مخزن بيانات دون المرور عبر عملية (Process)."
+            },
+            {
+                chapter: "Mod6",
+                question: "45. What does a Context Diagram in a DFD represent?",
+                options: [
+                    "The decomposition of major processes into sub-processes",
+                    "The system's detailed database tables and primary keys",
+                    "The organizational/system boundaries, external entities, and major information flows using a single process symbol and no data stores",
+                    "The timing and synchronization of multiple processes within the system"
+                ],
+                correct: 2,
+                explanation: "مخطط السياق (Context diagram) يُظهر حدود النظام والكيانات الخارجية وتدفقات المعلومات الرئيسية باستخدام رمز عملية واحد فقط وبدون أي مخازن بيانات."
+            },
+            {
+                chapter: "Mod6",
+                question: "46. Which DFD level represents a system's major processes, data flows, and data stores at a high level of detail (labeled 1.0, 2.0, etc.)?",
+                options: [
+                    "Context DFD",
+                    "Level-0 DFD",
+                    "Level-1 DFD",
+                    "Primitive DFD"
+                ],
+                correct: 1,
+                explanation: "مخطط المستوى الصفري (Level-0 DFD) يمثل العمليات الرئيسية للنظام وتدفقات ومخازن البيانات بمستوى عالٍ من التجريد (تُرقم 1.0، 2.0، إلخ)."
+            },
+            {
+                chapter: "Mod6",
+                question: "47. A Level-1 DFD results from:",
+                options: [
+                    "Combining all external entities into one symbol",
+                    "The decomposition of a process on a Level-0 diagram into sub-processes (e.g., 4.1, 4.2)",
+                    "Drawing the system without any data stores",
+                    "Converting an E-R diagram into SQL tables"
+                ],
+                correct: 1,
+                explanation: "مخطط المستوى الأول (Level-1 DFD) ينتج عن تفكيك (Decomposition) إحدى العمليات الرئيسية في مخطط Level-0 إلى عمليات فرعية."
+            },
+            {
+                chapter: "Mod6",
+                question: "48. Which of the following best describes 'balancing' in Data Flow Diagrams (DFDs)?",
+                options: [
+                    "Checking that all data stores have unique names",
+                    "The conservation of inputs and outputs to a DFD process when that process is decomposed to a lower level",
+                    "Making sure every entity connects to at least one data store",
+                    "Making sure every process has an equal number of inputs and outputs"
+                ],
+                correct: 1,
+                explanation: "الموازنة (Balancing) تعني الحفاظ على تطابق عدد ونوع المدخلات والمخرجات للعملية عند تفكيكها إلى مستوى أدنى في DFD."
+            },
+            {
+                chapter: "Mod6",
+                question: "49. The lowest logical level of decomposition in a DFD, where processes have been reduced to a single decision, calculation, or database operation, is called a:",
+                options: [
+                    "Context DFD",
+                    "Level-0 DFD",
+                    "Primitive DFD",
+                    "Balanced DFD"
+                ],
+                correct: 2,
+                explanation: "مخطط تدفق البيانات الأولي (Primitive DFD) هو أدنى مستوى منطقي من التفكيك حيث لا يلزم تقسيم العمليات أكثر."
+            },
+            {
+                chapter: "Mod6",
+                question: "50. The process of discovering discrepancies between two or more sets of data flow diagrams or discrepancies within a single DFD is called:",
+                options: [
+                    "Gap analysis",
+                    "Value chain analysis",
+                    "Break-even analysis",
+                    "Multicriteria analysis"
+                ],
                 correct: 0,
-                explanation: "تصميم التطبيقات المشترك (JAD) يُعتبر من الطرق الحديثة/المعاصرة (Contemporary Methods) وليس من الطرق التقليدية (Traditional)."
+                explanation: "تحليل الفجوات (Gap analysis) هو عملية اكتشاف التناقضات أو أوجه القصور بين مجموعتين أو أكثر من مخططات DFD أو داخل مخطط واحد."
             },
             {
-                chapter: "Mod5",
-                question: "99. In the process of determining requirements, questioning everything is a characteristic of:",
-                options: ["Impartiality", "Relaxing constraints", "Impertinence", "Reframing"],
-                correct: 2,
-                explanation: "الوقاحة الإيجابية أو الشك المنهجي (Impertinence) تعني أن على المحلل ألا يسلم بالأمور كما هي بل يجب أن يسأل ويستفسر عن كل شيء."
+                chapter: "Mod6",
+                question: "51. What is the primary purpose of a decision table in logical modeling, and which item is NOT part of it?",
+                options: [
+                    "To specify possible conditions and actions for a decision; 'Attribute' is not part of it",
+                    "To analyze timing of processes; 'Action stub' is not part of it",
+                    "To identify database keys; 'Condition stub' is not part of it",
+                    "To schedule project tasks; 'Rules' are not part of it"
+                ],
+                correct: 0,
+                explanation: "جدول القرارات (Decision table) يحدد الشروط والإجراءات الممكنة لاتخاذ قرار، ويتكون من Condition stubs و Action stubs و Rules، ولا يتضمن Attribute."
             },
             {
-                chapter: "Mod5",
-                question: "100. During requirements determination, assuming that anything is possible and eliminating the infeasible is a characteristic of:",
-                options: ["Attention to details", "Relaxing constraints", "Impertinence", "Impartiality"],
+                chapter: "Mod6",
+                question: "52. In a decision table, a condition whose value does not affect which actions are taken for two or more rules is called an:",
+                options: [
+                    "Indifferent condition",
+                    "Reflex condition",
+                    "Exclusive condition",
+                    "Primary condition"
+                ],
+                correct: 0,
+                explanation: "الشرط غير المؤثر (Indifferent condition) هو الشرط الذي لا تؤثر قيمته على الإجراءات المتخذة لقاعدتين أو أكثر في جدول القرارات."
+            },
+
+            // ================= MODULE 7 (14 Questions) =================
+            {
+                chapter: "Mod7",
+                question: "53. Which statement best describes a use case in systems analysis?",
+                options: [
+                    "A functional decomposition summarizing internal database tables",
+                    "A depiction of a system's behavior or functionality as a sequence of interactions between an actor and the system",
+                    "A static representation outlining all data entities and their attributes",
+                    "A technical specification describing hardware and network components"
+                ],
                 correct: 1,
-                explanation: "تخفيف القيود (Relaxing constraints) يتطلب من المحلل افتراض أن كل شيء ممكن في البداية ثم البدء باستبعاد الأمور غير الممكنة لاحقاً."
+                explanation: "حالة الاستخدام (Use case) تصور سلوك النظام أو وظيفته كسلسلة من التفاعلات المترابطة بين الفاعل (Actor) والنظام لتحقيق هدف معين."
+            },
+            {
+                chapter: "Mod7",
+                question: "54. Which statement accurately characterizes an actor in a use case diagram?",
+                options: [
+                    "An internal subsystem responsible for automated database triggers",
+                    "An external entity (person or system) representing a role interacting with the system, placed outside the system boundary",
+                    "An ellipse placed inside the system boundary",
+                    "A dotted arrow connecting two use cases"
+                ],
+                correct: 1,
+                explanation: "الفاعل (Actor) هو كيان خارجي يمثل دوراً يتفاعل مع النظام، ويُوضع خارج حدود النظام (System boundary) برمز رجل العصا (Stick figure)."
+            },
+            {
+                chapter: "Mod7",
+                question: "55. In a use case diagram, how are the system boundary and individual use cases represented?",
+                options: [
+                    "System boundary as an ellipse; use cases as rectangles",
+                    "System boundary as a box; use cases as ellipses labeled with verb-noun phrases",
+                    "System boundary as a diamond; use cases as circles",
+                    "System boundary as a stick figure; use cases as rounded rectangles"
+                ],
+                correct: 1,
+                explanation: "حدود النظام (System boundary) تُمثل بصندوق (Box)، بينما تُمثل كل حالة استخدام بشكل بيضاوي (Ellipse) بداخلها عبارة فعلية."
+            },
+            {
+                chapter: "Mod7",
+                question: "56. In a use case diagram, how are actors connected to use cases, and how are use cases connected to each other?",
+                options: [
+                    "Actors to use cases with solid lines; use cases to each other with dotted arrows",
+                    "Actors to use cases with dotted arrows; use cases to each other with solid lines",
+                    "Both with solid lines only",
+                    "Both with hollow triangles"
+                ],
+                correct: 0,
+                explanation: "يرتبط الفاعل بحالة الاستخدام بخط متصل (Association line)، بينما ترتبط حالات الاستخدام ببعضها بواسطة أسهم منقطة (Arrows)."
+            },
+            {
+                chapter: "Mod7",
+                question: "57. Which relationship in a use case diagram represents optional or conditional behavior added to a base use case?",
+                options: [
+                    "An <<include>> relationship",
+                    "An <<extend>> relationship",
+                    "An association relationship",
+                    "A composition relationship"
+                ],
+                correct: 1,
+                explanation: "علاقة الامتداد (<<extend>>) تضيف سلوكاً جديداً أو شروطاً اختيارية لحالة الاستخدام الأساسية، ويشير السهم نحو الحالة الأساسية الموسعة."
+            },
+            {
+                chapter: "Mod7",
+                question: "58. Which relationship between two use cases indicates that one use case mandatorily uses the shared functionality contained in another use case?",
+                options: [
+                    "An <<extend>> relationship",
+                    "An <<include>> relationship",
+                    "A generalization relationship",
+                    "A fork relationship"
+                ],
+                correct: 1,
+                explanation: "علاقة التضمين (<<include>>) تعني أن حالة استخدام تستخدم وظيفة مشتركة موجودة في حالة استخدام أخرى، ويشير السهم نحو الحالة المُستخدَمة."
+            },
+            {
+                chapter: "Mod7",
+                question: "59. In Cockburn's written use case template, which part specifies what must be true before the use case can start?",
+                options: [
+                    "Minimal guarantee",
+                    "Trigger",
+                    "Preconditions",
+                    "Success guarantee"
+                ],
+                correct: 2,
+                explanation: "الشروط المسبقة (Preconditions) في قالب Cockburn تحدد الأشياء والحالة التي يجب أن تكون متحققة قبل بدء حالة الاستخدام."
+            },
+            {
+                chapter: "Mod7",
+                question: "60. In Cockburn's written use case template, what does the 'Trigger' represent?",
+                options: [
+                    "The least amount promised to the stakeholder",
+                    "The event that initiates the use case",
+                    "The people who have a vested interest in the system",
+                    "The perspective from which the description is written"
+                ],
+                correct: 1,
+                explanation: "المُحفز (Trigger) هو الحدث الذي يطلق أو يبدأ حالة الاستخدام."
+            },
+            {
+                chapter: "Mod7",
+                question: "61. Which diagram shows the conditional logic for the sequence of system activities needed to accomplish a business process?",
+                options: [
+                    "Entity-Relationship diagram",
+                    "Class diagram",
+                    "Activity diagram",
+                    "Context diagram"
+                ],
+                correct: 2,
+                explanation: "مخطط النشاط (Activity diagram) يوضح المنطق الشرطي لتسلسل أنشطة النظام اللازمة لإنجاز عملية تجارية."
+            },
+            {
+                chapter: "Mod7",
+                question: "62. In an Activity Diagram, which symbol illustrates a choice (branch) or a merge, and which symbol illustrates parallel activities?",
+                options: [
+                    "Diamond for branch/merge; horizontal bar (fork/join) for parallel activities",
+                    "Rounded rectangle for branch/merge; diamond for parallel activities",
+                    "Filled circle for branch/merge; ellipse for parallel activities",
+                    "Box for branch/merge; stick figure for parallel activities"
+                ],
+                correct: 0,
+                explanation: "في مخطط النشاط، يُستخدم المعين (Diamond) للتفرع الشرطي (Branch) والدمج (Merge)، ويُستخدم الخط الأفقي (Fork/Join) للأنشطة المتوازية."
+            },
+            {
+                chapter: "Mod7",
+                question: "63. In an Activity Diagram for complex systems, what is a 'swimlane' used for?",
+                options: [
+                    "To calculate database storage capacity",
+                    "A column that represents the organizational unit or actor responsible for certain activities",
+                    "To encrypt network traffic between servers",
+                    "To eliminate all conditional logic from the diagram"
+                ],
+                correct: 1,
+                explanation: "المسار (Swimlane) هو عمود في مخطط النشاط يمثل الوحدة التنظيمية أو الفاعل المسؤول عن تنفيذ أنشطة معينة."
+            },
+            {
+                chapter: "Mod7",
+                question: "64. What are the four basic concepts in Business Process Modeling Notation (BPMN)?",
+                options: [
+                    "Entities, Attributes, Identifiers, and Cardinalities",
+                    "Event, Activity, Gateway, and Flow",
+                    "Actor, Use Case, System Boundary, and Include",
+                    "Tables, Keys, Indexes, and Views"
+                ],
+                correct: 1,
+                explanation: "المفاهيم الأربعة الأساسية في BPMN هي: الحدث (Event)، النشاط (Activity)، البوابة (Gateway)، والتدفق (Flow)."
+            },
+            {
+                chapter: "Mod7",
+                question: "65. In BPMN, how are starting events, ending events, and gateways symbolized?",
+                options: [
+                    "Starting event: thin-walled circle; Ending event: thick-walled circle; Gateway: diamond",
+                    "Starting event: rectangle; Ending event: diamond; Gateway: circle",
+                    "Starting event: thick circle; Ending event: thin circle; Gateway: rounded rectangle",
+                    "All three are represented by triangles"
+                ],
+                correct: 0,
+                explanation: "في BPMN، يُمثل الحدث برسوم دائرية (جدار رفيع للبداية وجدار سميك للنهاية)، والنشاط بمستطيل دائري الزوايا، والبوابة (Gateway) بمعين."
+            },
+            {
+                chapter: "Mod7",
+                question: "66. In BPMN gateways, what is the difference between an XOR ('X') gateway, an AND ('+') gateway, and an OR ('O') gateway?",
+                options: [
+                    "XOR follows all paths; AND follows only one path; OR follows no paths",
+                    "XOR follows only one path; AND follows all paths in parallel; OR follows at least one path (up to all paths)",
+                    "XOR is for manual tasks; AND is for automated tasks; OR is for database storage",
+                    "They all mean the exact same thing"
+                ],
+                correct: 1,
+                explanation: "بوابة XOR تسمح بمسار واحد فقط، وبوابة AND (+) تنفذ جميع المسارات بالتوازي، وبوابة OR (O) تنفذ مساراً واحداً على الأقل أو أكثر."
+            },
+
+            // ================= MODULE 8 (14 Questions) =================
+            {
+                chapter: "Mod8",
+                question: "67. What is a conceptual data model, and what is its primary deliverable during the analysis phase?",
+                options: [
+                    "A physical description of SQL Server tables; deliverable is compiled code",
+                    "A detailed logical representation of organizational data independent of any DBMS; primary deliverable is an Entity-Relationship (E-R) diagram",
+                    "A network topology diagram; deliverable is a router configuration",
+                    "A user-interface layout; deliverable is a CSS file"
+                ],
+                correct: 1,
+                explanation: "نموذج البيانات المفاهيمي هو تمثيل منطقي مفصل لبيانات المنظمة مستقل عن أي نظام إدارة قواعد بيانات (DBMS)، ومخرجه الرئيسي هو مخطط E-R."
+            },
+            {
+                chapter: "Mod8",
+                question: "68. In Entity-Relationship (E-R) modeling, what is the difference between an entity type and an entity instance?",
+                options: [
+                    "An entity type is a single occurrence; an entity instance is a collection of entities",
+                    "An entity type is a collection of entities sharing common properties; an entity instance is a single occurrence of an entity type",
+                    "An entity type is a relationship; an entity instance is a derived attribute",
+                    "There is no difference between them"
+                ],
+                correct: 1,
+                explanation: "نوع الكيان (Entity type) هو مجموعة الكيانات التي تشترك في خصائص عامة (مثل STUDENT)، بينما حالة الكيان (Entity instance) هي وجود مفرد واحد منه."
+            },
+            {
+                chapter: "Mod8",
+                question: "69. In E-R modeling, an attribute (or combination of attributes) that uniquely identifies each instance of an entity type is called a:",
+                options: [
+                    "Multivalued attribute",
+                    "Candidate key",
+                    "Foreign key",
+                    "Optional attribute"
+                ],
+                correct: 1,
+                explanation: "المفتاح المرشح (Candidate key) هو الصفة أو مجموعة الصفات التي تميز كل حالة من حالات الكيان بشكل فريد، والذي يُختار منه يُسمى المعرف (Identifier)."
+            },
+            {
+                chapter: "Mod8",
+                question: "70. Which of the following describes a multivalued attribute in an E-R model?",
+                options: [
+                    "An attribute that can have more than one value for a single entity instance",
+                    "An attribute whose value is calculated from other attributes",
+                    "An attribute that uniquely identifies an entity",
+                    "An attribute that must always be null"
+                ],
+                correct: 0,
+                explanation: "الصفة متعددة القيم (Multivalued attribute) هي صفة يمكن أن تحمل أكثر من قيمة واحدة لنفس حالة الكيان (مثل أرقام الهواتف أو المهارات)."
+            },
+            {
+                chapter: "Mod8",
+                question: "71. In E-R modeling, what do 'degree' of a relationship and 'cardinality' represent?",
+                options: [
+                    "Degree is the number of attributes; cardinality is the data type",
+                    "Degree is the number of entity types participating in a relationship (unary=1, binary=2, ternary=3); cardinality is the number of instances of one entity associated with each instance of another",
+                    "Degree is the number of tables; cardinality is the number of primary keys",
+                    "Degree is the minimum instances; cardinality is the number of classes"
+                ],
+                correct: 1,
+                explanation: "درجة العلاقة (Degree) هي عدد أنواع الكيانات المشاركة فيها (أحادية، ثنائية، ثلاثية)، بينما التعدادية (Cardinality) هي عدد حالات الكيان المرتبطة بكل حالة من الكيان الآخر."
+            },
+            {
+                chapter: "Mod8",
+                question: "72. Which of the following is a type of business rule that preserves the integrity of the logical data model by ensuring every instance has a non-null unique identifier?",
+                options: [
+                    "Entity integrity rule",
+                    "Network latency constraint",
+                    "System performance rule",
+                    "Parallel processing rule"
+                ],
+                correct: 0,
+                explanation: "قواعد الأعمال تشمل سلامة الكيان (Entity integrity)، وسلامة المراجع (Referential integrity)، والنطاقات (Domains)، وعمليات التحفيز (Triggering operations)."
+            },
+            {
+                chapter: "Mod8",
+                question: "73. In UML Class Diagrams, how is a class represented and what is 'encapsulation'?",
+                options: [
+                    "A circle with two sections; encapsulation is deleting attributes",
+                    "A rectangle with three compartments (name, attributes, operations); encapsulation is hiding internal implementation details from external view",
+                    "A diamond with four compartments; encapsulation is duplicating data",
+                    "An ellipse; encapsulation is connecting actors to use cases"
+                ],
+                correct: 1,
+                explanation: "تُمثل الفئة (Class) بمستطيل مقسم إلى 3 أجزاء (الاسم، الصفات، العمليات)، والتغليف (Encapsulation) هو إخفاء تفاصيل التنفيذ الداخلية للكائن عن العرض الخارجي."
+            },
+            {
+                chapter: "Mod8",
+                question: "74. In a class diagram, which type of operation is used to create a new instance of a class?",
+                options: [
+                    "Constructor operation",
+                    "Query operation",
+                    "Update operation",
+                    "Class-scope operation"
+                ],
+                correct: 0,
+                explanation: "عملية البناء (Constructor operation) تُستخدم لإنشاء نسخة جديدة (Instance) من الفئة."
+            },
+            {
+                chapter: "Mod8",
+                question: "75. In a class diagram, what is the difference between a query operation and an update operation?",
+                options: [
+                    "Query alters the state of an object; update does not alter the state",
+                    "Query accesses the state of an object without altering it; update alters the state of an object",
+                    "Query deletes the class; update creates a new class",
+                    "Both alter the primary key of the database"
+                ],
+                correct: 1,
+                explanation: "عملية الاستعلام (Query operation) تقرأ حالة الكائن دون تغييرها، بينما عملية التحديث (Update operation) تغير حالة الكائن."
+            },
+            {
+                chapter: "Mod8",
+                question: "76. When an association between classes has attributes or operations of its own, it is modeled as an:",
+                options: [
+                    "Abstract operation",
+                    "Associative class",
+                    "Actor",
+                    "External sink"
+                ],
+                correct: 1,
+                explanation: "الفئة الترابطية (Associative class) تُستخدم عندما يكون للعلاقة نفسها صفات أو عمليات خاصة بها."
+            },
+            {
+                chapter: "Mod8",
+                question: "77. In class diagrams, what is the difference between an abstract class and a concrete class?",
+                options: [
+                    "Abstract classes have direct instances; concrete classes have no direct instances",
+                    "Abstract classes have no direct instances (only their descendants do); concrete classes can have direct instances",
+                    "Abstract classes cannot have attributes; concrete classes cannot have operations",
+                    "There is no difference"
+                ],
+                correct: 1,
+                explanation: "الفئة المجردة (Abstract class) لا تملك كائنات مباشرة (Direct instances)، بينما الفئة الملموسة (Concrete class) يمكن إنشاء كائنات مباشرة منها."
+            },
+            {
+                chapter: "Mod8",
+                question: "78. In generalization/specialization relationships, which constraint specifies that if an instance of a supertype is a member of one subtype, it cannot simultaneously be a member of any other subtype?",
+                options: [
+                    "Disjoint rule",
+                    "Overlapping rule",
+                    "Complete rule",
+                    "Incomplete rule"
+                ],
+                correct: 0,
+                explanation: "قاعدة عدم التداخل (Disjoint rule) تنص على أن الكائن ينتمي إلى فئة فرعية واحدة فقط ولا يمكن أن ينتمي لأكثر من فئة فرعية في نفس الوقت."
+            },
+            {
+                chapter: "Mod8",
+                question: "79. The concept in object-oriented modeling where the same operation may apply to two or more classes in different ways is called:",
+                options: [
+                    "Normalization",
+                    "Polymorphism",
+                    "Multiplicity",
+                    "Cardinality"
+                ],
+                correct: 1,
+                explanation: "تعدد الأشكال (Polymorphism) يعني إمكانية تطبيق نفس العملية على فئتين أو أكثر بطرق تنفيذ مختلفة."
+            },
+            {
+                chapter: "Mod8",
+                question: "80. In class diagrams, what is the difference between Aggregation and Composition?",
+                options: [
+                    "Aggregation uses a solid diamond; Composition uses a hollow diamond",
+                    "Aggregation (hollow diamond) is a 'part-of' relationship; Composition (solid diamond) is a stronger 'part-of' relationship where parts belong to only one whole object and live and die with it",
+                    "Aggregation deletes components automatically; Composition never deletes components",
+                    "Aggregation is for databases; Composition is for networks"
+                ],
+                correct: 1,
+                explanation: "التجميع (Aggregation) يُرسم بمعين مفرغ، بينما التركيب (Composition) يُرسم بمعين مصمت وهو علاقة أقوى حيث تعيش الأجزاء وتموت مع الكائن الكلي."
+            },
+
+            // ================= MODULE 9 (14 Questions) =================
+            {
+                chapter: "Mod9",
+                question: "81. In the database design process, what is the difference between a logical database model and a physical database design?",
+                options: [
+                    "Logical describes data using a notation corresponding to a DBMS (e.g., relations); Physical prescribes technical specifications for computer files and storage",
+                    "Logical selects hard drives; Physical interviews users",
+                    "Logical is done during maintenance; Physical is done during planning",
+                    "There is no difference between them"
+                ],
+                correct: 0,
+                explanation: "التصميم المنطقي لقاعدة البيانات يصف البيانات بتنظيم يتوافق مع DBMS (مثل الجداول العلائقية)، بينما التصميم الفيزيائي يحدد المواصفات التقنية للملفات والتخزين."
+            },
+            {
+                chapter: "Mod9",
+                question: "82. What is a 'relation' in the context of relational database models?",
+                options: [
+                    "A diamond symbol connecting two entities",
+                    "A two-dimensional table of data consisting of rows (records) and columns (attributes)",
+                    "A procedural programming script",
+                    "A network cable connecting client and server"
+                ],
+                correct: 1,
+                explanation: "العلاقة (Relation) في قواعد البيانات العلائقية هي جدول ثنائي الأبعاد يتكون من صفوف (سجلات) وأعمدة (صفات)."
+            },
+            {
+                chapter: "Mod9",
+                question: "83. A relation that contains a minimum amount of redundancy and allows users to insert, modify, and delete rows without errors or inconsistencies is called a:",
+                options: [
+                    "Well-structured relation",
+                    "Unnormalized relation",
+                    "Composite table",
+                    "Hashed file"
+                ],
+                correct: 0,
+                explanation: "العلاقة جيدة الهيكلة (Well-structured relation) تحتوي على أقل قدر من التكرار وتسمح بالإدخال والتعديل والحذف دون أخطاء أو تناقضات (Anomalies)."
+            },
+            {
+                chapter: "Mod9",
+                question: "84. What is the process of converting complex data structures into simple, stable data structures (well-structured relations)?",
+                options: [
+                    "Normalization",
+                    "Denormalization",
+                    "Encapsulation",
+                    "Polymorphism"
+                ],
+                correct: 0,
+                explanation: "التطبيع (Normalization) هو عملية تحويل هياكل البيانات المعقدة إلى علاقات بسيطة ومستقرة وجيدة الهيكلة."
+            },
+            {
+                chapter: "Mod9",
+                question: "85. Which normal form requires that each field (cell) holds only a single simple value (no multivalued attributes or repeating groups) and each record is unique?",
+                options: [
+                    "First Normal Form (1NF)",
+                    "Second Normal Form (2NF)",
+                    "Third Normal Form (3NF)",
+                    "Zero Normal Form"
+                ],
+                correct: 0,
+                explanation: "الصيغة المعيارية الأولى (1NF) تشترط أن تحتوي كل خلية في الجدول على قيمة مفردة بسيطة واحدة وأن يكون كل صف فريداً."
+            },
+            {
+                chapter: "Mod9",
+                question: "86. What is functional dependency in database normalization, and what does Emp_ID → Name mean?",
+                options: [
+                    "Two attributes are unrelated; Name determines Emp_ID",
+                    "A constraint where the value of one attribute is determined by the value of another; Name is functionally dependent on Emp_ID",
+                    "A process of creating foreign keys; Emp_ID is optional",
+                    "A physical file organization; Emp_ID is a multivalued attribute"
+                ],
+                correct: 1,
+                explanation: "الاعتمادية الوظيفية (Functional dependency) تعني أن قيمة صفة تحدد قيمة صفة أخرى؛ فـ Emp_ID → Name تعني أن الاسم يعتمد وظيفياً على رقم الموظف."
+            },
+            {
+                chapter: "Mod9",
+                question: "87. A relation for which every nonprimary key attribute is functionally dependent on the whole primary key (no partial dependencies) is in:",
+                options: [
+                    "First Normal Form (1NF)",
+                    "Second Normal Form (2NF)",
+                    "Unnormalized Form",
+                    "Zero Redundancy Form"
+                ],
+                correct: 1,
+                explanation: "تكون العلاقة في الصيغة المعيارية الثانية (2NF) إذا كانت كل صفة غير رئيسية تعتمد وظيفياً بشكل كامل على المفتاح الرئيسي بأكمله."
+            },
+            {
+                chapter: "Mod9",
+                question: "88. Under which condition is a 1NF relation automatically in Second Normal Form (2NF)?",
+                options: [
+                    "When the relation has more than 10 columns",
+                    "When the primary key consists of only one single attribute (or there are no nonprimary key attributes)",
+                    "When all attributes are text strings",
+                    "When the table is stored on a file server"
+                ],
+                correct: 1,
+                explanation: "إذا كان المفتاح الرئيسي يتكون من صفة واحدة فقط (Single attribute)، فإن العلاقة تكون تلقائياً في 2NF لعدم إمكانية وجود اعتماد جزئي."
+            },
+            {
+                chapter: "Mod9",
+                question: "89. A relation is in Third Normal Form (3NF) if it is in 2NF and:",
+                options: [
+                    "It contains at least two foreign keys",
+                    "There are no functional dependencies between nonprimary key attributes (no transitive dependencies)",
+                    "All columns are indexed",
+                    "Every attribute is a primary key"
+                ],
+                correct: 1,
+                explanation: "تكون العلاقة في الصيغة المعيارية الثالثة (3NF) إذا كانت في 2NF ولا توجد أي اعتماديات متعدية (Transitive dependencies) بين الصفات غير الرئيسية."
+            },
+            {
+                chapter: "Mod9",
+                question: "90. Which of the following lists the four correct steps for transforming an E-R diagram into normalized relations?",
+                options: [
+                    "Represent entities, Represent relationships, Normalize the relations, Merge the relations",
+                    "Represent entities, Denormalize the database, Create forms, Test modules",
+                    "Draw DFD, Create use cases, Write SQL, Install hardware",
+                    "Select data types, Arrange rows, Hash keys, Delete duplicates"
+                ],
+                correct: 0,
+                explanation: "الخطوات الأربع لتحويل مخطط E-R إلى علاقات هي: تمثيل الكيانات، تمثيل العلاقات، تطبيع العلاقات (Normalize)، ثم دمج العلاقات (Merge)."
+            },
+            {
+                chapter: "Mod9",
+                question: "91. In physical file and database design, what is the difference between a 'Field' and a 'Data type'?",
+                options: [
+                    "A field is a table; a data type is a database",
+                    "A field is the smallest unit of application data recognized by system software; a data type is a coding scheme recognized by system software for representing organizational data",
+                    "A field is a coding scheme; a data type is a row in a table",
+                    "Both refer to network protocols"
+                ],
+                correct: 1,
+                explanation: "الحقل (Field) هو أصغر وحدة بيانات تطبيقية يتعرف عليها النظام، بينما نوع البيانات (Data type) هو نظام الترميز لتمثيل البيانات (مثل VARCHAR أو NUMBER)."
+            },
+            {
+                chapter: "Mod9",
+                question: "92. Which of the following is a physical database data integrity control method that ensures the validity of relationships between tables (foreign keys matching primary keys)?",
+                options: [
+                    "Referential integrity",
+                    "Default value",
+                    "Range control",
+                    "Null value control"
+                ],
+                correct: 0,
+                explanation: "سلامة المراجع (Referential integrity) تضمن صحة العلاقات بين الجداول، إلى جانب طرق التحكم الأخرى: القيمة الافتراضية، التحكم بالنطاق، والتحكم بالقيم الفارغة."
+            },
+            {
+                chapter: "Mod9",
+                question: "93. Which file organization method uses an algorithm to determine the physical storage location (address) of a record based on its key value?",
+                options: [
+                    "Sequential file organization",
+                    "Indexed file organization",
+                    "Hashed file organization",
+                    "Circular file organization"
+                ],
+                correct: 2,
+                explanation: "تنظيم الملفات المجزأة (Hashed file organization) يستخدم خوارزمية لحساب موقع تخزين السجل مباشرة بناءً على قيمة المفتاح."
+            },
+            {
+                chapter: "Mod9",
+                question: "94. What are the two primary goals when designing physical tables in a database?",
+                options: [
+                    "Efficient use of secondary storage and data processing speed",
+                    "Eliminating all primary keys and reducing network cables",
+                    "Creating user manuals and training staff",
+                    "Writing HTML and CSS rules"
+                ],
+                correct: 0,
+                explanation: "الهدفان الرئيسيان عند تصميم الجداول الفيزيائية هما الاستخدام الفعال لوحدات التخزين الثانوية وسرعة معالجة واسترجاع البيانات."
+            },
+
+            // ================= MODULE 10 (14 Questions) =================
+            {
+                chapter: "Mod10",
+                question: "95. What is the primary objective of designing forms and reports during the system design phase?",
+                options: [
+                    "To analyze business processes and identify project risks",
+                    "To transform information gathered during analysis into a coherent user-interface design for system inputs and outputs",
+                    "To select the network topology for the LAN",
+                    "To write backend database triggers"
+                ],
+                correct: 1,
+                explanation: "الهدف الأساسي من تصميم النماذج والتقارير هو تحويل المعلومات التي جُمعت خلال مرحلة التحليل إلى تصميم متماسك لمدخلات ومخرجات النظام."
+            },
+            {
+                chapter: "Mod10",
+                question: "96. What is the fundamental difference between a 'form' and a 'report'?",
+                options: [
+                    "A form contains predefined data and areas for additional data entry; a report contains only predefined data and is a passive document used solely for reading or viewing",
+                    "A form is passive and used only for reading; a report is used for data input",
+                    "A form is only printed on paper; a report is only displayed on screen",
+                    "There is no difference between a form and a report"
+                ],
+                correct: 0,
+                explanation: "النموذج (Form) يتضمن بيانات محددة مسبقاً وحقولاً لإدخال بيانات إضافية، بينما التقرير (Report) وثيقة سلبية تحتوي فقط على بيانات محددة مسبقاً للقراءة أو العرض."
+            },
+            {
+                chapter: "Mod10",
+                question: "97. User-centered design of forms and reports requires understanding the target audience, including their tasks, goals, information needs, and:",
+                options: [
+                    "Network router configurations",
+                    "Database hashing algorithms",
+                    "Experience levels",
+                    "Departmental salary scales"
+                ],
+                correct: 2,
+                explanation: "التصميم المرتكز على المستخدم (User-centered design) يتطلب فهم الجمهور المستهدف ومهامهم وأهدافهم واحتياجاتهم المعلوماتية ومستويات خبرتهم (Experience levels)."
+            },
+            {
+                chapter: "Mod10",
+                question: "98. What is the very first step in the process of designing forms and reports?",
+                options: [
+                    "Writing the final program code",
+                    "Collecting initial requirements during requirements determination",
+                    "Conducting post-implementation maintenance",
+                    "Installing the database server"
+                ],
+                correct: 1,
+                explanation: "تبدأ عملية تصميم النماذج والتقارير بجمع المتطلبات الأولية (Initial requirements) خلال مرحلة تحديد المتطلبات."
+            },
+            {
+                chapter: "Mod10",
+                question: "99. Design specifications for forms and reports are the major deliverables to the implementation phase and contain which three sections?",
+                options: [
+                    "Introduction, Feasibility assessment, and Management issues",
+                    "Narrative overview, Sample design, and Testing and usability assessment",
+                    "Condition stubs, Action stubs, and Rules",
+                    "Entities, Attributes, and Relationships"
+                ],
+                correct: 1,
+                explanation: "تتكون مواصفات تصميم النماذج والتقارير من 3 أقسام: نظرة عامة سردية (Narrative overview)، نموذج التصميم (Sample design)، واختبار وتقييم قابلية الاستخدام."
+            },
+            {
+                chapter: "Mod10",
+                question: "100. In formatting forms and reports, what does a 'balanced layout' require, and what is its main advantage?",
+                options: [
+                    "Information distributed evenly on the screen or page; improves readability",
+                    "Information placed on the left side only; increases security",
+                    "Information arranged in random order; reduces file size",
+                    "Using flashing text everywhere; speeds up printing"
+                ],
+                correct: 0,
+                explanation: "التخطيط المتوازن (Balanced layout) يتطلب توزيع المعلومات بشكل متساوٍ ومتناسق على الشاشة أو الصفحة، مما يحسن قابلية القراءة (Readability)."
+            },
+            {
+                chapter: "Mod10",
+                question: "101. Which navigation guideline is recommended when designing multi-page forms or displays?",
+                options: [
+                    "Clearly showing the user where they are in the sequence (e.g., Page 1 of 3)",
+                    "Hiding navigation buttons until the user presses a secret key",
+                    "Displaying system memory usage at the top of every form",
+                    "Requiring users to re-enter their password on every page"
+                ],
+                correct: 0,
+                explanation: "من إرشادات التنقل الموصى بها أن توضح للمستخدم دائماً مكانه الحالي في التسلسل."
+            },
+            {
+                chapter: "Mod10",
+                question: "102. According to guidelines for displaying text on forms and reports, when should abbreviations and acronyms be used?",
+                options: [
+                    "Never under any circumstances",
+                    "On every label to save screen space",
+                    "Only when they are widely understood by the users and used consistently",
+                    "Only in error messages"
+                ],
+                correct: 2,
+                explanation: "يُجب عدم استخدام الاختصارات إلا إذا كانت مفهومة على نطاق واسع لدى المستخدمين وبشكل متسق."
+            },
+            {
+                chapter: "Mod10",
+                question: "103. Which type of report is produced at predefined intervals to support routine informational needs?",
+                options: [
+                    "Scheduled report",
+                    "Exception report",
+                    "Ad hoc report",
+                    "Drill-down report"
+                ],
+                correct: 0,
+                explanation: "التقارير المجدولة (Scheduled reports) تُنتج في فترات زمنية محددة مسبقاً لدعم الاحتياجات المعلوماتية الروتينية."
+            },
+            {
+                chapter: "Mod10",
+                question: "104. What is the purpose of a 'drill-down report'?",
+                options: [
+                    "To test network security vulnerabilities",
+                    "To provide details behind summary values when a user clicks or requests more information",
+                    "To delete old records from the database",
+                    "To print paper invoices automatically"
+                ],
+                correct: 1,
+                explanation: "التقرير التفصيلي المتدرج (Drill-down report) يعرض التفاصيل الكامنة وراء القيم الملخصة عند طلب المستخدم."
+            },
+            {
+                chapter: "Mod10",
+                question: "105. Usability is the overall evaluation of how a system performs in supporting a specific user for a specific task. What are the three core characteristics of usability?",
+                options: [
+                    "Speed, Accuracy, and Satisfaction",
+                    "Cost, Weight, and Color",
+                    "Hardware, Software, and Network",
+                    "Coding, Testing, and Installation"
+                ],
+                correct: 0,
+                explanation: "الخصائص الثلاث الأساسية لقابلية الاستخدام (Usability) هي: السرعة/الكفاءة (Speed)، الدقة (Accuracy)، والرضا (Satisfaction)."
+            },
+            {
+                chapter: "Mod10",
+                question: "106. Which usability success factor refers to the ability to adapt forms and reports to varying user needs and experience levels?",
+                options: [
+                    "Flexibility",
+                    "Consistency",
+                    "Format",
+                    "Understandability"
+                ],
+                correct: 0,
+                explanation: "عوامل نجاح قابلية الاستخدام الخمسة هي: الاتساق، الكفاءة، سهولة الفهم، التنسيق، والمرونة (Flexibility) التي تعني التكيف مع احتياجات المستخدمين المتنوعة."
+            },
+            {
+                chapter: "Mod10",
+                question: "107. In assessing usability, which measure refers to how well users remember how to use the system after a period of non-use?",
+                options: [
+                    "Learnability",
+                    "Efficiency",
+                    "Error rate",
+                    "Memorability"
+                ],
+                correct: 3,
+                explanation: "قابلية التذكر (Memorability) تقيس مدى تذكر المستخدمين لكيفية استخدام النظام بعد فترة من الانقطاع عن استخدامه."
+            },
+            {
+                chapter: "Mod10",
+                question: "108. Which of the following is NOT one of the standard methods used to collect information when assessing usability?",
+                options: [
+                    "Observation",
+                    "Keystroke capturing",
+                    "Questionnaires and Interviews",
+                    "Database denormalization"
+                ],
+                correct: 3,
+                explanation: "طرق تقييم قابلية الاستخدام تشمل الملاحظة (Observation)، المقابلات (Interviews)، التقاط ضغطات المفاتيح (Keystroke capturing)، والاستبيانات (Questionnaires)."
+            },
+
+            // ================= MODULE 11 (14 Questions) =================
+            {
+                chapter: "Mod11",
+                question: "109. Which statement best describes distributed information systems, and what is a primary benefit of deploying them across multiple locations?",
+                options: [
+                    "Systems executed within a single centralized unit; benefit is zero network cost",
+                    "Systems deployed across multiple locations requiring coordinated components; benefit is improved reliability, availability, and survivability",
+                    "Systems that do not use networks; benefit is single point of failure",
+                    "Systems intended only for offline calculators"
+                ],
+                correct: 1,
+                explanation: "الأنظمة الموزعة (Distributed systems) تنتشر عبر مواقع متعددة وتوفر موثوقية وتوافراً وقدرة أعلى على البقاء (Reliability & Survivability)."
+            },
+            {
+                chapter: "Mod11",
+                question: "110. In a basic file server-based LAN architecture, where does all data manipulation occur, and what is a major limitation of this architecture?",
+                options: [
+                    "On the file server; limitation is zero data movement",
+                    "At the client workstations; major limitations include excessive data movement across the network, need for powerful client workstations, and decentralized data control",
+                    "In the cloud; limitation is no local storage",
+                    "On the network router; limitation is slow printing"
+                ],
+                correct: 1,
+                explanation: "في بنية خادم الملفات (File server)، تتم معالجة البيانات على محطات عمل العملاء، مما يسبب حركة بيانات مفرطة عبر الشبكة وحاجة لأجهزة عميل قوية وتحكم لا مركزي بالبيانات."
+            },
+            {
+                chapter: "Mod11",
+                question: "111. In a Client/Server architecture, how is application processing divided between the client workstation and the database server?",
+                options: [
+                    "Client manages the user interface; Database server manages database storage and access",
+                    "Client stores the entire database; Server only displays the screen",
+                    "Client manages network routing; Server types user input",
+                    "Both perform the exact same tasks without division"
+                ],
+                correct: 0,
+                explanation: "في بنية العميل/الخادم (Client/Server)، تتولى محطة عمل العميل إدارة واجهة المستخدم، بينما يتولى خادم قاعدة البيانات تخزين البيانات والوصول إليها."
+            },
+            {
+                chapter: "Mod11",
+                question: "112. What is a primary advantage of adopting a Client/Server architecture over a traditional File Server architecture?",
+                options: [
+                    "Reduced network traffic and improved response times because processing is performed close to the source of data",
+                    "All tables are sent across the network for every query",
+                    "No database server is required",
+                    "It eliminates the need for graphical user interfaces"
+                ],
+                correct: 0,
+                explanation: "تقلل بنية العميل/الخادم من ازدحام وحركة البيانات في الشبكة (Reduced network traffic) وتحسن أوقات الاستجابة لأن المعالجة تتم بالقرب من مصدر البيانات."
+            },
+            {
+                chapter: "Mod11",
+                question: "113. Which of the following is NOT a characteristic of cloud computing?",
+                options: [
+                    "On-demand self-service",
+                    "Rapid elasticity",
+                    "Resource pooling",
+                    "Fixed capacity allocation"
+                ],
+                correct: 3,
+                explanation: "خصائص الحوسبة السحابية تشمل الخدمة الذاتية عند الطلب، المرونة السريعة (Rapid elasticity)، تجميع الموارد، الوصول الشبكي الواسع، والخدمة المقاسة، وليست السعة الثابتة."
+            },
+            {
+                chapter: "Mod11",
+                question: "114. Which of the following is NOT a standard cloud computing service model, and which model provides software applications via online delivery?",
+                options: [
+                    "HaaS is not a standard model; Software as a Service (SaaS) provides software via online delivery",
+                    "IaaS is not a standard model; PaaS provides software via online delivery",
+                    "SaaS is not a standard model; IaaS provides software via online delivery",
+                    "PaaS is not a standard model; HaaS provides software via online delivery"
+                ],
+                correct: 0,
+                explanation: "نماذج الخدمة السحابية القياسية هي IaaS و PaaS و SaaS (وليس HaaS)، ويقوم نموذج SaaS بتقديم البرمجيات الجاهزة عبر الإنترنت."
+            },
+            {
+                chapter: "Mod11",
+                question: "115. Which software architecture breaks down business processes into individual components (or services) that are commonly deployed using Web services?",
+                options: [
+                    "Service-Oriented Architecture (SOA)",
+                    "File Server Architecture",
+                    "Monolithic Mainframe Architecture",
+                    "Stand-alone PC Architecture"
+                ],
+                correct: 0,
+                explanation: "البنية الموجهة بالخدمات (SOA) تقسم العمليات التجارية إلى خدمات مستقلة، وتُعد خدمات الويب (Web services) الطريقة الأكثر شيوعاً لنشرها."
+            },
+            {
+                chapter: "Mod11",
+                question: "116. Which formats are commonly used by Web services for structured data exchange and communication between systems?",
+                options: [
+                    "BMP and JPEG images",
+                    "XML (eXtensible Markup Language) and JSON (JavaScript Object Notation)",
+                    "MP3 and WAV audio files",
+                    "Compiled EXE binaries only"
+                ],
+                correct: 1,
+                explanation: "تعتمد خدمات الويب (Web services) على ملفات XML و JSON لتبادل البيانات المهيكلة بين التطبيقات والأنظمة."
+            },
+            {
+                chapter: "Mod11",
+                question: "117. Why is enforcing 'Site Consistency' (standard look and feel) fundamental when designing Internet systems?",
+                options: [
+                    "It conveys a professional image and makes it easier for users to navigate and anticipate the meaning of links",
+                    "It prevents users from bookmarking pages",
+                    "It increases database redundancy",
+                    "It eliminates the need for system security"
+                ],
+                correct: 0,
+                explanation: "اتساق الموقع (Site consistency) يعطي انطباعاً احترافياً ويسهل على المستخدمين التنقل وتوقع معاني الروابط."
+            },
+            {
+                chapter: "Mod11",
+                question: "118. Which mechanism defines a set of reusable style rules that tell a Web browser how to present a document, ensuring consistent visual appearance across web pages?",
+                options: [
+                    "Cascading Style Sheets (CSS)",
+                    "Sequential File Indexing",
+                    "Entity-Relationship Diagrams",
+                    "PERT Charts"
+                ],
+                correct: 0,
+                explanation: "أوراق الأنماط المتتالية (CSS) تبسط صيانة الموقع وتضمن اتساق المظهر عبر جميع صفحات الويب من خلال ملف أنماط مرتبط واحد."
+            },
+            {
+                chapter: "Mod11",
+                question: "119. What is the main purpose of eXtensible Stylesheet Language (XSL)?",
+                options: [
+                    "To monitor network hardware temperatures",
+                    "To separate style from content when generating XML pages and display XML content across various client devices",
+                    "To encrypt database passwords",
+                    "To replace local area network cables"
+                ],
+                correct: 1,
+                explanation: "لغة XSL هي مواصفات متقدمة لفصل الأنماط (Style) عن المحتوى (Content) عند إنشاء وعرض صفحات XML على مختلف أجهزة العملاء."
+            },
+            {
+                chapter: "Mod11",
+                question: "120. In Internet system design, why must 'links live forever'?",
+                options: [
+                    "Because of customer bookmarks, links from other sites, search engine referrals, and the value added by old content",
+                    "Because HTML does not allow deleting files",
+                    "Because CSS files cannot be updated",
+                    "Because browsers block new URLs"
+                ],
+                correct: 0,
+                explanation: "يجب الحفاظ على الروابط دائماً بسبب الإشارات المرجعية للعملاء (Bookmarks)، والروابط من المواقع الأخرى، وإحالات محركات البحث، وقيمة المحتوى القديم."
+            },
+            {
+                chapter: "Mod11",
+                question: "121. What is the relationship between system security and ease of use in Internet systems?",
+                options: [
+                    "A more secure system is always much easier to use",
+                    "A secure system is often less 'user-friendly', and an easy-to-use system is often less secure, requiring an appropriate balance",
+                    "Security and ease of use have no effect on each other",
+                    "Internet systems do not require security"
+                ],
+                correct: 1,
+                explanation: "النظام الآمن غالباً ما يكون أقل سهولة في الاستخدام، والنظام السهل غالباً ما يكون أقل أماناً، لذا يجب تحقيق توازن مناسب بينهما."
+            },
+            {
+                chapter: "Mod11",
+                question: "122. How does a Content Management System (CMS) assist in website management?",
+                options: [
+                    "It manufactures computer processors",
+                    "It collects, organizes, and publishes website content from multiple organizational data sources stored in a single repository",
+                    "It replaces the need for an Internet connection",
+                    "It performs PERT critical path calculations"
+                ],
+                correct: 1,
+                explanation: "نظام إدارة المحتوى (CMS) هو تطبيق يجمع وينظم وينشر محتوى الموقع من مصادر متعددة ويحفظه في مستودع واحد لمنع تضارب التخطيطات وتقادم المعلومات."
+            },
+
+            // ================= MODULE 12 (14 Questions) =================
+            {
+                chapter: "Mod12",
+                question: "123. Why is the implementation phase of the SDLC considered so expensive and time-consuming?",
+                options: [
+                    "It is expensive because so many people are involved in the process, and time-consuming because of all the work that has to be completed",
+                    "It is expensive solely due to paper printing costs",
+                    "It involves only one analyst working alone",
+                    "It is the shortest and cheapest phase of the SDLC"
+                ],
+                correct: 0,
+                explanation: "تُعد مرحلة التنفيذ مكلفة بسبب كثرة الأشخاص المشاركين فيها، ومستهلكة للوقت بسبب حجم العمل الكبير الذي يجب إنجازه."
+            },
+            {
+                chapter: "Mod12",
+                question: "124. Which of the following is NOT a major activity of the software implementation phase?",
+                options: [
+                    "Coding",
+                    "Testing and Installation",
+                    "Documentation, Training, and Support",
+                    "Requirements gathering"
+                ],
+                correct: 3,
+                explanation: "أنشطة مرحلة التنفيذ تشمل البرمجة (Coding)، الاختبار (Testing)، التثبيت (Installation)، التوثيق، التدريب، والدعم؛ بينما جمع المتطلبات يتم في مرحلة التحليل."
+            },
+            {
+                chapter: "Mod12",
+                question: "125. When does software test planning begin, and what plans are developed during analysis and design?",
+                options: [
+                    "Begins after installation; no plans are written beforehand",
+                    "Begins early: a Master Test Plan is developed during analysis, and unit, integration, and system test plans are developed during design",
+                    "Begins only during maintenance",
+                    "Begins only when a system crashes"
+                ],
+                correct: 1,
+                explanation: "يبدأ التخطيط للاختبار مبكراً؛ حيث تُطوّر خطة الاختبار الرئيسية (Master test plan) في مرحلة التحليل، وخطط اختبار الوحدات والتكامل والنظام في مرحلة التصميم."
+            },
+            {
+                chapter: "Mod12",
+                question: "126. In software application testing, what is the difference between Static testing techniques and Dynamic testing techniques?",
+                options: [
+                    "Static techniques do not execute the code being tested; Dynamic techniques involve execution of the code",
+                    "Static techniques execute the code on a server; Dynamic techniques never run the code",
+                    "Static techniques are always automated; Dynamic techniques are always manual",
+                    "There is no difference"
+                ],
+                correct: 0,
+                explanation: "التقنيات الثابتة (Static) تختبر النظام دون تشغيل الكود (مثل المراجعات والفحص)، بينما التقنيات الديناميكية (Dynamic) تتضمن تشغيل وتنفيذ الكود فعلياً."
+            },
+            {
+                chapter: "Mod12",
+                question: "127. Match the following testing types: (1) Formal group activity manually examining code for known errors, (2) Informal manual check by the programmer, (3) Automated check by a compiler.",
+                options: [
+                    "1: Desk checking, 2: Syntax checking, 3: Inspection",
+                    "1: Inspection, 2: Desk checking, 3: Syntax checking",
+                    "1: Unit testing, 2: System testing, 3: Integration testing",
+                    "1: Parallel testing, 2: Direct testing, 3: Phased testing"
+                ],
+                correct: 1,
+                explanation: "الفحص الرسمي للكود بواسطة مجموعة هو (Inspection)، والمراجعة اليدوية غير الرسمية هي (Desk checking)، وفحص القواعد بواسطة المترجم هو (Syntax checking)."
+            },
+            {
+                chapter: "Mod12",
+                question: "128. In which type of testing is each module tested alone to discover errors in its code, and in which type are modules combined and tested incrementally?",
+                options: [
+                    "Unit testing tests each module alone; Integration testing combines modules and tests them incrementally",
+                    "Integration testing tests each module alone; Unit testing combines modules",
+                    "System testing tests a single line of code; Desk checking combines programs",
+                    "Acceptance testing is done before coding"
+                ],
+                correct: 0,
+                explanation: "اختبار الوحدة (Unit testing) يختبر كل وحدة برمجية بمفردها، بينما اختبار التكامل (Integration testing) يدمج الوحدات ويختبرها تدريجياً كـمجموعة."
+            },
+            {
+                chapter: "Mod12",
+                question: "129. What is the purpose of 'Installation' in the system implementation process?",
+                options: [
+                    "To verify the system meets legal requirements",
+                    "To replace the current information system with the new system (converting data, software, documentation, and work procedures)",
+                    "To write the initial Project Charter",
+                    "To draw the Context DFD"
+                ],
+                correct: 1,
+                explanation: "التثبيت (Installation) هو عملية الانتقال من النظام الحالي واستبداله بالنظام الجديد."
+            },
+            {
+                chapter: "Mod12",
+                question: "130. Which installation approach involves turning off the old system and turning on the new system immediately, and carries the highest risk?",
+                options: [
+                    "Parallel installation",
+                    "Phased installation",
+                    "Single-location (Pilot) installation",
+                    "Direct installation"
+                ],
+                correct: 3,
+                explanation: "التثبيت المباشر (Direct installation) يقوم بإيقاف النظام القديم وتشغيل الجديد فوراً، وهو الأعلى مخاطرة."
+            },
+            {
+                chapter: "Mod12",
+                question: "131. Which installation approach runs the old system alongside the new system until users and management are satisfied with the new system?",
+                options: [
+                    "Direct installation",
+                    "Parallel installation",
+                    "Single-location installation",
+                    "Phased installation"
+                ],
+                correct: 1,
+                explanation: "التثبيت المتوازي (Parallel installation) يشغّل النظام القديم جنباً إلى جنب مع النظام الجديد للتأكد من كفاءته قبل إيقاف القديم."
+            },
+            {
+                chapter: "Mod12",
+                question: "132. What is the difference between Single-location installation and Phased installation?",
+                options: [
+                    "Single-location changes to the new system in one site (or series of sites over time); Phased brings the new system online in functional components",
+                    "Single-location installs one module at a time everywhere; Phased installs the whole system in one office",
+                    "Both turn off the old system immediately everywhere",
+                    "Neither involves converting data"
+                ],
+                correct: 0,
+                explanation: "التثبيت أحادي الموقع (Single-location) يطبق النظام الجديد في موقع واحد أولاً، بينما التثبيت المرحلي (Phased) يطلق النظام على شكل مكونات وظيفية تدريجياً."
+            },
+            {
+                chapter: "Mod12",
+                question: "133. What is the difference between System Documentation and User Documentation?",
+                options: [
+                    "System documentation contains detailed information about design specifications and internal workings for maintenance personnel; User documentation explains how the application works and how to use it for end users",
+                    "System documentation is for customers; User documentation is for database administrators only",
+                    "System documentation is deleted after installation; User documentation is never written",
+                    "There is no difference"
+                ],
+                correct: 0,
+                explanation: "توثيق النظام (System documentation) يشرح المواصفات الداخلية والتصميم لموظفي الصيانة، بينما توثيق المستخدم (User documentation) يشرح للمستخدمين كيفية تشغيل واستخدام النظام."
+            },
+            {
+                chapter: "Mod12",
+                question: "134. What is the primary purpose of a 'Help Desk' in user support?",
+                options: [
+                    "To replace system testing during development",
+                    "To serve as a single point of contact staffed by IS personnel to provide user support for inquiries and problems",
+                    "To monitor competitors' websites",
+                    "To negotiate vendor hardware contracts"
+                ],
+                correct: 1,
+                explanation: "مكتب المساعدة (Help Desk) هو نقطة اتصال موحدة يديرها موظفو نظم المعلومات لتقديم الدعم للمستخدمين وحل استفساراتهم ومشاكلهم."
+            },
+            {
+                chapter: "Mod12",
+                question: "135. What are two of the main reasons why system implementations fail?",
+                options: [
+                    "Excessive system speed and high-resolution monitors",
+                    "Lack of management support and lack of user involvement in the development process",
+                    "Too much documentation and thorough testing",
+                    "Using normalized database tables"
+                ],
+                correct: 1,
+                explanation: "من أهم أسباب فشل تنفيذ الأنظمة: غياب دعم الإدارة العليا (Lack of management support) وعدم إشراك المستخدمين (Lack of user involvement)."
+            },
+            {
+                chapter: "Mod12",
+                question: "136. When does the analysis team's involvement typically end, and when does formal attention to documentation peak?",
+                options: [
+                    "Ends during planning; documentation peaks in analysis",
+                    "Ends at the completion of the implementation phase; formal attention to documentation is done during implementation",
+                    "Never ends; documentation is only written before coding",
+                    "Ends before testing begins"
+                ],
+                correct: 1,
+                explanation: "تنتهي مشاركة فريق التحليل بنهاية مرحلة التنفيذ (Implementation)، ويبلغ الاهتمام الرسمي بالتوثيق ذروته خلال هذه المرحلة لدعم الصيانة والمستخدمين."
+            },
+
+            // ================= MODULE 13 (14 Questions) =================
+            {
+                chapter: "Mod13",
+                question: "137. When does system maintenance typically begin, and what changes do maintenance activities involve?",
+                options: [
+                    "Begins only after 5 years; involves marketing plans",
+                    "Begins soon after the system is installed; involves software changes as well as changes to hardware and business procedures",
+                    "Begins during the planning phase; involves employee salary appraisals",
+                    "Begins before coding; involves only deleting files"
+                ],
+                correct: 1,
+                explanation: "تبدأ صيانة النظام بعد فترة وجيزة من تثبيته (Soon after installation)، وتشمل تغييرات البرمجيات والأجهزة وإجراءات العمل."
+            },
+            {
+                chapter: "Mod13",
+                question: "138. What are the four major activities that occur within the maintenance process, in order?",
+                options: [
+                    "Obtaining maintenance requests, Transforming requests into changes, Designing changes, Implementing changes",
+                    "Coding changes, Deleting documentation, Retiring servers, Hiring staff",
+                    "Planning budget, Buying hardware, Drawing context DFD, Installing LAN",
+                    "Unit testing, Parallel installation, JAD session, BPR"
+                ],
+                correct: 0,
+                explanation: "الأنشطة الأربعة الرئيسية في عملية الصيانة هي: الحصول على طلبات الصيانة، تحويل الطلبات إلى تغييرات (تحليلها)، تصميم التغييرات، ثم تنفيذ التغييرات."
+            },
+            {
+                chapter: "Mod13",
+                question: "139. Which type of maintenance accounts for about 75% of all maintenance activity, is urgent, repairs defects in design/coding/implementation, and adds little or no value to the organization?",
+                options: [
+                    "Corrective maintenance",
+                    "Adaptive maintenance",
+                    "Perfective maintenance",
+                    "Preventive maintenance"
+                ],
+                correct: 0,
+                explanation: "الصيانة التصحيحية (Corrective maintenance) تُصلح العيوب والأخطاء العاجلة، وتمثل 75% من أنشطة الصيانة، ولا تضيف وظائف أو قيمة جديدة للمنظمة."
+            },
+            {
+                chapter: "Mod13",
+                question: "140. Which type of maintenance involves making changes to an information system to evolve its functionality to changing business needs or migrate it to a different operating environment?",
+                options: [
+                    "Corrective maintenance",
+                    "Adaptive maintenance",
+                    "Perfective maintenance",
+                    "Preventive maintenance"
+                ],
+                correct: 1,
+                explanation: "الصيانة التكيفية (Adaptive maintenance) تعدل النظام ليتوافق مع احتياجات العمل المتغيرة أو لبيئة تشغيل مختلفة."
+            },
+            {
+                chapter: "Mod13",
+                question: "141. Which type of maintenance involves making enhancements to improve processing performance or interface usability, or adding desired (not necessarily required) system features?",
+                options: [
+                    "Corrective maintenance",
+                    "Adaptive maintenance",
+                    "Perfective maintenance",
+                    "Preventive maintenance"
+                ],
+                correct: 2,
+                explanation: "الصيانة التحسينية (Perfective maintenance) تضيف تحسينات للأداء أو لواجهة المستخدم أو ميزات جديدة مرغوبة."
+            },
+            {
+                chapter: "Mod13",
+                question: "142. Which type of maintenance makes changes to a system to reduce the chance of future system failure?",
+                options: [
+                    "Corrective maintenance",
+                    "Adaptive maintenance",
+                    "Perfective maintenance",
+                    "Preventive maintenance"
+                ],
+                correct: 3,
+                explanation: "الصيانة الوقائية (Preventive maintenance) تُجرى لتقليل احتمالية تعطل النظام في المستقبل."
+            },
+            {
+                chapter: "Mod13",
+                question: "143. 'Maintainability' refers to the ease with which software can be understood, corrected, adapted, and:",
+                options: [
+                    "Ignored",
+                    "Outsourced",
+                    "Enhanced",
+                    "Deleted"
+                ],
+                correct: 2,
+                explanation: "قابلية الصيانة (Maintainability) هي مدى سهولة فهم البرمجيات وتصحيحها وتكييفها وتحسينها (Enhanced)."
+            },
+            {
+                chapter: "Mod13",
+                question: "144. What are the three main factors that influence the maintainability and maintenance cost of a system?",
+                options: [
+                    "The number of latent defects, the number of customers, and documentation quality",
+                    "Office location, monitor size, and keyboard layout",
+                    "Internet speed, router brand, and cable color",
+                    "Number of actors, use cases, and swimlanes"
+                ],
+                correct: 0,
+                explanation: "العوامل الثلاثة الرئيسية المؤثرة في قابلية وتكلفة الصيانة هي: عدد العيوب الكامنة (Latent defects)، عدد العملاء، وجودة التوثيق (Documentation quality)."
+            },
+            {
+                chapter: "Mod13",
+                question: "145. What are the three organizational options for managing maintenance personnel?",
+                options: [
+                    "Separate maintenance and development groups; Combined (same people build and maintain); or Functional (located in end-user business units)",
+                    "Outsourcing only; Cloud only; Turnkey only",
+                    "Part-time students; Automated robots; External customers",
+                    "There is only one way to organize maintenance personnel"
+                ],
+                correct: 0,
+                explanation: "تُدار فرق الصيانة بثلاث طرق: فصل مجموعة الصيانة عن التطوير، أو دمجهم (نفس الفريق يبني ويصون)، أو توزيعهم داخل الوحدات الوظيفية للمستخدمين."
+            },
+            {
+                chapter: "Mod13",
+                question: "146. Which metric is used to measure maintenance effectiveness by showing the average length of time between two failures?",
+                options: [
+                    "Net Present Value (NPV)",
+                    "Mean Time Between Failures (MTBF)",
+                    "Return on Investment (ROI)",
+                    "Expected Time (ET)"
+                ],
+                correct: 1,
+                explanation: "متوسط الوقت بين الأعطال (MTBF) يقيس فعالية الصيانة، ويجب أن يزداد هذا المؤشر بمرور الوقت بعد عدة أشهر من الاستخدام."
+            },
+            {
+                chapter: "Mod13",
+                question: "147. What is Configuration Management, and what role does a 'system librarian' play?",
+                options: [
+                    "The process of ensuring that only authorized changes are made to a system; the system librarian controls the checking out and checking in of baseline source code modules",
+                    "Configuring LAN routers; the system librarian buys books for developers",
+                    "Deleting old databases; the system librarian interviews end users",
+                    "Designing web page layouts with CSS"
+                ],
+                correct: 0,
+                explanation: "إدارة التكوين (Configuration management) تضمن إجراء التغييرات المصرح بها فقط، ويتحكم أمين مكتبة النظام (System librarian) في استعارة وإرجاع وحدات الكود الأساسية (Baseline modules)."
+            },
+            {
+                chapter: "Mod13",
+                question: "148. In automated tools for maintenance of older systems, what is the difference between Reverse engineering tools and Re-engineering tools?",
+                options: [
+                    "Reverse engineering creates a representation of a system/module at a design level of abstraction from code; Re-engineering automatically alters an existing system to improve its quality or performance",
+                    "Reverse engineering deletes code; Re-engineering writes user manuals",
+                    "Reverse engineering tests networks; Re-engineering installs hardware",
+                    "They are identical"
+                ],
+                correct: 0,
+                explanation: "أدوات الهندسة العكسية (Reverse engineering) تنشئ تمثيلاً تصميمياً للنظام من الكود، بينما أدوات إعادة الهندسة (Re-engineering) تعدل النظام القائم تلقائياً لتحسين جودته أو أدائه."
+            },
+            {
+                chapter: "Mod13",
+                question: "149. What is the most common maintenance issue for websites that requires periodic checks using tools like LinkAlarm?",
+                options: [
+                    "Replacing server power supplies",
+                    "Validating links (checking for broken links)",
+                    "Rewriting the operating system kernel",
+                    "Changing the company's mission statement daily"
+                ],
+                correct: 1,
+                explanation: "التحقق من صحة الروابط وفحص الروابط المعطلة (Link validation / checking for broken links) هو القضية الأكثر شيوعاً في صيانة المواقع الإلكترونية."
+            },
+            {
+                chapter: "Mod13",
+                question: "150. Which of the following is a recommended practice during Website maintenance?",
+                options: [
+                    "Taking the entire website offline for weeks without notice",
+                    "Processing modified or new pages through an HTML code validation routine before publishing, and reregistering with search engines when content changes significantly",
+                    "Constantly changing the site layout every day to confuse frequent visitors",
+                    "Removing all timestamps from pages"
+                ],
+                correct: 1,
+                explanation: "من ممارسات صيانة المواقع: التحقق من صحة كود HTML قبل النشر، وإعادة تسجيل الموقع في محركات البحث عند تغير المحتوى بشكل كبير، وتجنب إرباك الزوار بالتغييرات المستمرة."
             }
         ];
 
@@ -954,7 +2075,7 @@
         let userAnswers = [];
         let currentIdx = 0;
         let currentFilter = 'ALL';
-        let currentLimit = 100;
+        let currentLimit = 150;
 
         // الربط مع عناصر الـ HTML
         const questionCounter = document.getElementById('question-counter');
@@ -983,16 +2104,23 @@
         }
 
         function setQuestionLimit(limit) {
-            currentLimit = limit === 100 ? allQuestions.length : limit;
+            currentLimit = limit === 150 ? allQuestions.length : limit;
             document.querySelectorAll('.limit-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById(`limit-${limit}`).classList.add('active');
             applyFilterAndLimit(true);
         }
 
         function applyFilterAndLimit(shouldShuffle = false) {
-            let pool = (currentFilter === 'ALL') 
-                ? [...allQuestions] 
-                : allQuestions.filter(q => q.chapter === currentFilter);
+            let pool = [];
+            if (currentFilter === 'ALL') {
+                pool = [...allQuestions];
+            } else if (currentFilter === 'MID') {
+                pool = allQuestions.filter(q => ['Mod1', 'Mod2', 'Mod3', 'Mod4', 'Mod5'].includes(q.chapter));
+            } else if (currentFilter === 'POST5') {
+                pool = allQuestions.filter(q => ['Mod6', 'Mod7', 'Mod8', 'Mod9', 'Mod10', 'Mod11', 'Mod12', 'Mod13'].includes(q.chapter));
+            } else {
+                pool = allQuestions.filter(q => q.chapter === currentFilter);
+            }
 
             if (shouldShuffle) {
                 for (let i = pool.length - 1; i > 0; i--) {
@@ -1068,7 +2196,7 @@
             const telegramUsername = "Fahad_m7md";
             const qNumMatch = q.question.match(/^\d+/);
             const qOriginalNum = qNumMatch ? qNumMatch[0] : (currentIdx + 1);
-            const reportMessage = `IT353 (Bank 2 - Models 1-5):\n- رقم السؤال: (${qOriginalNum})\n- الوحدة: (${q.chapter})\n- السؤال: "${q.question}"\n\nالملاحظة: `;
+            const reportMessage = `IT353 (Final Bank - Modules 1-13):\n- رقم السؤال: (${qOriginalNum})\n- الوحدة: (${q.chapter})\n- السؤال: "${q.question}"\n\nالملاحظة: `;
             document.getElementById('report-btn').href = `https://t.me/${telegramUsername}?text=${encodeURIComponent(reportMessage)}`;
             
             // حالة أزرار التنقل
@@ -1077,7 +2205,7 @@
                 ? `النتيجة النهائية <i class="fa-solid fa-flag-checkered mr-1 md:mr-2"></i>` 
                 : `التالي <i class="fa-solid fa-arrow-left mr-1 md:mr-2"></i>`;
 
-            // بناء الخيارات بطريقة برمجية وآمنة 100% (تجنب مشاكل innerHTML مع الأحداث)
+            // بناء الخيارات بطريقة برمجية وآمنة 100%
             optionsContainer.innerHTML = '';
             
             q.options.forEach((opt, index) => {
@@ -1088,7 +2216,6 @@
                     btn.className = "w-full text-left p-3 md:p-4 rounded-xl border border-slate-300 dark:border-gray-700 bg-white dark:bg-gray-900/60 text-slate-700 dark:text-gray-200 text-sm md:text-base font-medium flex justify-between items-center gap-2 md:gap-3 hover:border-primary dark:hover:border-primary hover:bg-primary/5 dark:hover:bg-primary/10 transition-all";
                     btn.innerHTML = `<span>${opt}</span> <i class="fa-regular fa-circle text-slate-400 dark:text-gray-500 shrink-0"></i>`;
                     
-                    // استخدام EventListener لضمان عمل النقر في جميع الأجهزة
                     btn.addEventListener('click', function() {
                         selectAnswer(index);
                     });
@@ -1137,7 +2264,7 @@
             if (isAutoNext && selectedIdx === questions[currentIdx].correct) {
                 setTimeout(() => {
                     nextQuestion();
-                }, 600); // تقليل المدة لـ 600ms لاستجابة أسرع في الجوال
+                }, 600);
             }
         }
 
