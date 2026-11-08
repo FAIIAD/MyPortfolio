@@ -108,12 +108,19 @@
             <!-- أزرار الفصول -->
             <div class="flex flex-wrap items-center justify-center gap-2">
                 <span class="text-xs text-gray-400 font-bold ml-2">الفصل:</span>
-                <button onclick="filterChapter('ALL')" id="btn-ALL" class="filter-btn active text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">الكل (80)</button>
+                <button onclick="filterChapter('ALL')" id="btn-ALL" class="filter-btn active text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">الكل (200)</button>
+                <button onclick="filterChapter('AFTER_M5')" id="btn-AFTER_M5" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-cyan/50 bg-card text-cyan font-bold transition-all">ما بعد M5 (120)</button>
                 <button onclick="filterChapter('Ch17')" id="btn-Ch17" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Ch 17 (16)</button>
                 <button onclick="filterChapter('Ch18')" id="btn-Ch18" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Ch 18 (16)</button>
                 <button onclick="filterChapter('Ch19')" id="btn-Ch19" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Ch 19 (16)</button>
                 <button onclick="filterChapter('Ch20')" id="btn-Ch20" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Ch 20 (16)</button>
                 <button onclick="filterChapter('Ch21')" id="btn-Ch21" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Ch 21 (16)</button>
+                <button onclick="filterChapter('Ch22')" id="btn-Ch22" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Ch 22 (20)</button>
+                <button onclick="filterChapter('Ch23')" id="btn-Ch23" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Ch 23 (20)</button>
+                <button onclick="filterChapter('Ch24')" id="btn-Ch24" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Ch 24 (20)</button>
+                <button onclick="filterChapter('Ch25')" id="btn-Ch25" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Ch 25 (20)</button>
+                <button onclick="filterChapter('Ch26')" id="btn-Ch26" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Ch 26 (20)</button>
+                <button onclick="filterChapter('Ch28_29')" id="btn-Ch28_29" class="filter-btn text-xs px-3 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">Ch 28&29 (20)</button>
             </div>
 
             <!-- أزرار عدد الأسئلة -->
@@ -121,8 +128,9 @@
                 <span class="text-xs text-gray-400 font-bold ml-2">عدد الأسئلة:</span>
                 <button onclick="setQuestionLimit(20)" id="limit-20" class="limit-btn text-xs px-4 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">20 سؤال</button>
                 <button onclick="setQuestionLimit(40)" id="limit-40" class="limit-btn text-xs px-4 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">40 سؤال</button>
-                <button onclick="setQuestionLimit(60)" id="limit-60" class="limit-btn text-xs px-4 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">60 سؤال</button>
-                <button onclick="setQuestionLimit(80)" id="limit-80" class="limit-btn active text-xs px-4 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">80 (الكل)</button>
+                <button onclick="setQuestionLimit(80)" id="limit-80" class="limit-btn text-xs px-4 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">80 سؤال</button>
+                <button onclick="setQuestionLimit(120)" id="limit-120" class="limit-btn text-xs px-4 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">120 سؤال</button>
+                <button onclick="setQuestionLimit(200)" id="limit-200" class="limit-btn active text-xs px-4 py-1.5 rounded-full border border-gray-700 bg-card text-gray-300 font-bold transition-all">200 (الكل)</button>
             </div>
         </div>
 
@@ -132,7 +140,7 @@
                 <div class="flex flex-wrap justify-between items-center mb-4 text-sm text-gray-400 gap-3">
                     <!-- القسم الأيمن: رقم السؤال والفصل -->
                     <div class="flex items-center gap-2">
-                        <span id="question-counter" class="font-bold text-cyan bg-cyan/10 border border-cyan/20 px-3 py-1 rounded-full shadow-sm">السؤال 1 من 42</span>
+                        <span id="question-counter" class="font-bold text-cyan bg-cyan/10 border border-cyan/20 px-3 py-1 rounded-full shadow-sm">السؤال 1 من 200</span>
                         <span id="chapter-badge" class="bg-gray-800 text-gray-300 text-xs px-3 py-1 rounded-full border border-gray-700 shadow-sm">Ch17</span>
                         <span id="status-badge" class="hidden text-xs px-3 py-1 rounded-full font-bold shadow-sm"></span>
                     </div>
@@ -225,7 +233,7 @@
         Created by FZ &copy; 2026 
     </footer>
 
-    <!-- برمجة الاختبار وقاعدة بيانات الـ 80 سؤال -->
+    <!-- برمجة الاختبار وقاعدة بيانات الـ 200 سؤال -->
     <script>
         // دالة تحديث ومزامنة المظهر بين الصفحات
         const themeIcon = document.getElementById('theme-icon');
@@ -1169,14 +1177,1398 @@
                 ],
                 correct: 0,
                 explanation: "القراءة غير القابلة للتكرار (Nonrepeatable read) تحدث عندما تعدل معاملة أخرى قيمة سجل موجود بين قراءتين لنفس المعاملة، بينما الشبح (Phantom) يحدث عندما تضيف معاملة أخرى صفوفاً جديدة تحقق شرط WHERE فتظهر في القراءة الثانية."
+            },
+
+            // ================= CHAPTER 22 - Modules 6 & 7 (20 Questions) =================
+            {
+                chapter: "Ch22",
+                question: "81. One of the primary purposes of database concurrency control is to enforce:",
+                options: [
+                    "Durability (through log records)",
+                    "Consistency (through check constraints)",
+                    "Atomicity (through rollbacks)",
+                    "Isolation (through mutual exclusion) among conflicting transactions"
+                ],
+                correct: 3,
+                explanation: "الغرض الأساسي من التحكم في التزامن (Concurrency Control) هو فرض العزل (Isolation) عبر الاستبعاد المتبادل بين المعاملات المتضاربة، وحفظ اتساق قاعدة البيانات، وحل تضاربات القراءة والكتابة."
+            },
+            {
+                chapter: "Ch22",
+                question: "82. Which operation removes permissions to Read and Write from a data item and makes it available to other transactions?",
+                options: ["Retrieving", "Locking", "Unlocking", "Indexing"],
+                correct: 2,
+                explanation: "عملية فك القفل (Unlocking) هي التي تزيل صلاحيات القراءة والكتابة عن عنصر البيانات وتجعله متاحاً للمعاملات الأخرى."
+            },
+            {
+                chapter: "Ch22",
+                question: "83. In Two-Phase Locking, how do Shared (read) mode and Exclusive (write) mode differ?",
+                options: [
+                    "More than one transaction can hold a shared lock on X simultaneously, whereas only one exclusive (write) lock can exist on X at any time with no other locks allowed",
+                    "Only one transaction can hold a shared lock on X, whereas multiple transactions can hold exclusive locks on X",
+                    "Shared locks allow writing, whereas exclusive locks only allow reading",
+                    "Both modes allow unlimited concurrent writes"
+                ],
+                correct: 0,
+                explanation: "القفل المشترك (Shared/Read) يسمح لأكثر من معاملة بقراءة العنصر X معاً، بينما القفل الحصري (Exclusive/Write) يمنع أي معاملة أخرى من قراءة أو كتابة العنصر X."
+            },
+            {
+                chapter: "Ch22",
+                question: "84. What component does the Lock Manager use to store the identity of the transaction locking a data item, the data item ID, lock mode, and pointer to the next locked item?",
+                options: ["System log", "Lock table", "Dirty page table", "Directory array"],
+                correct: 1,
+                explanation: "يستخدم مدير الأقفال (Lock Manager) جدول الأقفال (Lock table) -والذي يُنفذ غالباً كقائمة مترابطة Linked list- لحفظ معرف المعاملة والعنصر المقفل ونوع القفل."
+            },
+            {
+                chapter: "Ch22",
+                question: "85. A transaction is considered 'well-formed' if:",
+                options: [
+                    "It tries to unlock a free data item before reading",
+                    "It locks an already locked data item twice",
+                    "It locks the data item before it reads or writes to it, does not lock an already locked item, and does not unlock a free data item",
+                    "It locks the data item only after it finishes writing to it"
+                ],
+                correct: 2,
+                explanation: "تكون المعاملة حسنة التشكيل (Well-formed) إذا قامت بقفل العنصر قبل قراءته أو كتابته، ولم تقفل عنصراً مقفلاً بالفعل، ولم تحاول فك قفل عنصر حر."
+            },
+            {
+                chapter: "Ch22",
+                question: "86. What is 'Lock upgrade' and when can transaction Ti immediately perform it on item X?",
+                options: [
+                    "Converting write-lock(X) to read-lock(X)",
+                    "Converting an existing read-lock(X) to write-lock(X); allowed immediately if Ti holds the only read-lock on X (no other Tj holds a read-lock on X)",
+                    "Converting read-lock(X) to read-lock(X)",
+                    "Releasing all locks at once"
+                ],
+                correct: 1,
+                explanation: "ترقية القفل (Lock upgrade) هي تحويل قفل القراءة الحالي `read-lock(X)` إلى قفل كتابة `write-lock(X)`، وتتم فوراً إذا لم تكن هناك أي معاملة أخرى تشارك قفل القراءة على X، وإلا تضطر للانتظار."
+            },
+            {
+                chapter: "Ch22",
+                question: "87. The fundamental requirement for a transaction to follow the Two-Phase Locking (2PL) protocol is that the Growing (Locking) Phase and the Shrinking (Unlocking) Phase must be:",
+                options: [
+                    "Mutually exclusive, meaning all locking must precede the first unlock operation",
+                    "Executed simultaneously to maximize throughput",
+                    "Preceded by a validation phase",
+                    "Performed without a lock manager"
+                ],
+                correct: 0,
+                explanation: "الشرط الأساسي في بروتوكول القفل ثنائي الطور (2PL) هو أن يكون طور النمو (Growing/Locking) وطور الانكماش (Shrinking/Unlocking) متنافيين تماماً؛ فلا يمكن طلب أي قفل جديد بعد البدء في فك الأقفال."
+            },
+            {
+                chapter: "Ch22",
+                question: "88. In Two-Phase Locking, the phase in which a transaction releases locks and cannot obtain any new lock is called the:",
+                options: ["Growing phase", "Shrinking phase", "Validation phase", "Analysis phase"],
+                correct: 1,
+                explanation: "طور الانكماش (Shrinking phase) هو المرحلة التي تقوم فيها المعاملة بفك الأقفال تدريجياً ولا يُسمح لها بطلب أي قفل جديد خلالها."
+            },
+            {
+                chapter: "Ch22",
+                question: "89. Which variation of Two-Phase Locking prevents deadlock by requiring a transaction to lock all desired data items before it begins execution?",
+                options: [
+                    "Basic Two-Phase Locking",
+                    "Strict Two-Phase Locking",
+                    "Conservative Two-Phase Locking",
+                    "Abort Locking Algorithm"
+                ],
+                correct: 2,
+                explanation: "القفل ثنائي الطور المحافظ (Conservative 2PL) يمنع التوقف التام (Deadlock) عن طريق قفل جميع عناصر البيانات المطلوبة مسبقاً قبل بدء تنفيذ المعاملة."
+            },
+            {
+                chapter: "Ch22",
+                question: "90. Which is the most commonly used Two-Phase Locking algorithm where unlocking of write locks is performed only after a transaction terminates (commits or aborts)?",
+                options: [
+                    "Basic Two-Phase Locking",
+                    "Conservative Two-Phase Locking",
+                    "Strict Two-Phase Locking",
+                    "Optimistic Locking"
+                ],
+                correct: 2,
+                explanation: "الخوارزمية الصارمة (Strict 2PL) هي الأكثر شيوعاً، وفيها لا يتم فك أقفال المعاملة إلا بعد انتهائها (سواء بـ Commit أو Abort)."
+            },
+            {
+                chapter: "Ch22",
+                question: "91. Which data structure is maintained by the scheduler to detect deadlocks by checking for cycles?",
+                options: ["Infinite-graph", "Wait-for-graph", "Trivial-graph", "Pseudo-graph"],
+                correct: 1,
+                explanation: "يستخدم المجدول رسم الانتظار (Wait-for-graph) لاكتشاف التوقف التام (Deadlock detection)، حيث يدل وجود دورة (Cycle) في الرسم على حدوث Deadlock."
+            },
+            {
+                chapter: "Ch22",
+                question: "92. Which algorithms use transaction timestamps to avoid deadlocks by rolling back a victim transaction before a cycle can form?",
+                options: [
+                    "Wound-Wait and Wait-Die algorithms",
+                    "Sort-Merge and Hash-Join algorithms",
+                    "Apriori and FP-Growth algorithms",
+                    "DES and RSA algorithms"
+                ],
+                correct: 0,
+                explanation: "خوارزميتا Wound-Wait و Wait-Die تستخدمان الطوابع الزمنية (Timestamps) لتجنب التوقف التام (Deadlock avoidance) عبر التراجع عن إحدى المعاملات."
+            },
+            {
+                chapter: "Ch22",
+                question: "93. When a particular transaction consistently waits or is repeatedly selected as a victim and restarted without ever making progress, the phenomenon is called:",
+                options: ["Deadlock", "Starvation", "Cascading rollback", "Polyinstantiation"],
+                correct: 1,
+                explanation: "المجاعة (Starvation) تحدث عندما تنتظر معاملة معينة باستمرار أو يتم اختيارها كضحية وإعادة تشغيلها مراراً دون أن تحصل على فرصة لإكمال تنفيذها."
+            },
+            {
+                chapter: "Ch22",
+                question: "94. In timestamp-based concurrency control, what does a larger timestamp value indicate?",
+                options: [
+                    "An older transaction",
+                    "A more recent event or operation (younger transaction)",
+                    "An invalid transaction",
+                    "A read-only transaction"
+                ],
+                correct: 1,
+                explanation: "الطابع الزمني (Timestamp) هو متغير يتزايد باستمرار؛ لذا فإن القيمة الأكبر (Larger timestamp) تشير إلى حدث أو معاملة أحدث عمراً."
+            },
+            {
+                chapter: "Ch22",
+                question: "95. In the Basic Timestamp Ordering protocol, suppose transaction T issues `read_item(X)`. If `write_TS(X) > TS(T)`, what happens?",
+                options: [
+                    "The read operation is executed and read_TS(X) is updated",
+                    "A younger transaction has already written X, so T is aborted/rolled back and the read operation is rejected",
+                    "The write operation of the other transaction is ignored",
+                    "The database is shut down"
+                ],
+                correct: 1,
+                explanation: "إذا كان `write_TS(X) > TS(T)` فهذا يعني أن معاملة أحدث من T قد كتبت بالفعل قيمة جديدة على X، لذا يتم رفض عملية القراءة وإلغاء المعاملة T (Abort and Rollback)."
+            },
+            {
+                chapter: "Ch22",
+                question: "96. In Thomas's Write Rule for timestamp ordering, if transaction T issues `write_item(X)` and `write_TS(X) > TS(T)` (while `read_TS(X) <= TS(T)`), what action is taken?",
+                options: [
+                    "Abort and roll back T immediately",
+                    "Ignore the outdated write operation of T and continue execution",
+                    "Overwrite X and reset write_TS(X) to 0",
+                    "Wait until all transactions commit"
+                ],
+                correct: 1,
+                explanation: "في قاعدة كتابة توماس (Thomas's Write Rule)، إذا كان `write_TS(X) > TS(T)` ولم تقرأ معاملة أحدث القيمة، يتم ببساطة تجاهل عملية الكتابة القديمة واستكمال تنفيذ المعاملة T دون إلغائها."
+            },
+            {
+                chapter: "Ch22",
+                question: "97. Which lock type in Multiversion Two-Phase Locking allows a transaction T' to read the committed version of data item X while X is write-locked by a conflicting transaction T?",
+                options: [
+                    "Shared-intention-exclusive (SIX) Locks",
+                    "Intention-shared (IS) Locks",
+                    "Certify Locks",
+                    "Intention-exclusive (IX) Locks"
+                ],
+                correct: 2,
+                explanation: "في القفل ثنائي الطور متعدد النسخ (Multiversion 2PL)، تُستخدم أقفال التصديق (Certify Locks) للسماح للمعاملات الأخرى بقراءة النسخة المعتمدة من العنصر X بينما تقوم معاملة أخرى بالكتابة على نسخة محدثة X'."
+            },
+            {
+                chapter: "Ch22",
+                question: "98. In Validation (Optimistic) Concurrency Control schemes, what are the three phases in order, and during which phase is serializability checked?",
+                options: [
+                    "Growing, Shrinking, Commit; checked in Growing phase",
+                    "Read phase, Validation phase, Write phase; serializability is checked during the Validation phase before updates are written to the database",
+                    "Analysis, Redo, Undo; checked in Undo phase",
+                    "Lock, Execute, Unlock; checked in Lock phase"
+                ],
+                correct: 1,
+                explanation: "يتكون التحكم المتفائل (Optimistic/Validation CC) من 3 مراحل: القراءة (Read)، والتحقق (Validation)، والكتابة (Write)، ويتم فحص القابلية للتسلسل في مرحلة التحقق (Validation phase) قبل كتابة التحديثات لقاعدة البيانات."
+            },
+            {
+                chapter: "Ch22",
+                question: "99. In Multiple Granularity Locking, which intention lock mode indicates that the current node is locked in shared mode AND an exclusive lock(s) will be requested on some descendant node(s)?",
+                options: [
+                    "Intention-shared (IS)",
+                    "Intention-exclusive (IX)",
+                    "Shared-intention-exclusive (SIX)",
+                    "Certify (C)"
+                ],
+                correct: 2,
+                explanation: "الوضع `IS` يشير لطلب قفل مشترك على عقدة فرعية، والوضع `IX` يشير لطلب قفل حصري على عقدة فرعية، بينما الوضع `SIX` (Shared-intention-exclusive) يقفل العقدة الحالية في الوضع المشترك ويشير لطلب قفل حصري على بعض العقد الفرعية."
+            },
+            {
+                chapter: "Ch22",
+                question: "100. How does data item granularity affect concurrency control performance, and in what order are nodes locked and unlocked in Multiple Granularity Locking (MGL)?",
+                options: [
+                    "Coarse granularity gives high concurrency; nodes are locked bottom-up",
+                    "Degree of concurrency is low for coarse granularity and high for fine granularity; in MGL, the root must be locked first (top-down) and a node can be unlocked only if none of its children are currently locked (bottom-up)",
+                    "Granularity has no effect on concurrency; nodes can be locked in any random order",
+                    "Fine granularity locks the entire database with a single lock"
+                ],
+                correct: 1,
+                explanation: "كلما كانت الحبيبات كبيرة (Coarse كقاعدة البيانات كاملة) قلّت درجة التزامن، وكلما كانت دقيقة (Fine كسجل واحد) زادت درجة التزامن. وفي MGL يبدأ القفل من الجذر نزولاً (Top-down) ويتم فك القفل من الأبناء صعوداً (Bottom-up)."
+            },
+
+            // ================= CHAPTER 23 - Module 8 (20 Questions) =================
+            {
+                chapter: "Ch23",
+                question: "101. Which of the following is NOT a type of failure associated with database recovery?",
+                options: ["Transaction failure", "System failure", "Media failure", "Monitor failure"],
+                correct: 3,
+                explanation: "أنواع الأعطال المرتبطة باستعادة قواعد البيانات هي: فشل المعاملة (Transaction failure)، وفشل النظام (System failure)، وفشل وسائط التخزين (Media failure). أما عطل الشاشة (Monitor failure) فليس منها."
+            },
+            {
+                chapter: "Ch23",
+                question: "102. Which of the following is an example of 'Media failure'?",
+                options: [
+                    "Deadlock and incorrect synchronization",
+                    "Addressing error, application error, or operating system fault",
+                    "Disk head crash and power disruption affecting disk storage",
+                    "Dividing by zero in a transaction"
+                ],
+                correct: 2,
+                explanation: "تحطم رأس القرص (Disk head crash) هو مثال مباشر على فشل وسائط التخزين (Media failure)، بينما أخطاء العنونة ونظام التشغيل هي System failure، والـ Deadlock هو Transaction failure."
+            },
+            {
+                chapter: "Ch23",
+                question: "103. In database recovery terminology, what do BFIM and AFIM stand for?",
+                options: [
+                    "Binary File Index Manager and Active File Index Manager",
+                    "BeFore Image (data value prior to modification) and AFter Image (new data value after modification)",
+                    "Buffer Flush In Memory and Array Flush In Memory",
+                    "Backward File Mode and Forward File Mode"
+                ],
+                correct: 1,
+                explanation: "يرمز BFIM إلى (BeFore Image) أي قيمة العنصر قبل التعديل، ويرمز AFIM إلى (AFter Image) أي القيمة الجديدة للعنصر بعد التعديل."
+            },
+            {
+                chapter: "Ch23",
+                question: "104. Which data update strategy overwrites the disk version of the data item directly with the cache version, as opposed to writing the modified version at a separate disk location?",
+                options: ["Shadow update", "In-place update", "Deferred update", "Immediate update"],
+                correct: 1,
+                explanation: "التحديث في نفس المكان (In-place update) يقوم بالكتابة فوق النسخة القديمة على القرص مباشرة، بينما التحديث الظلي (Shadow update) يكتب النسخة المعدلة في موقع جديد منفصل على القرص."
+            },
+            {
+                chapter: "Ch23",
+                question: "105. In database cache management, which bit instructs the operating system NOT to flush the data item back to disk?",
+                options: ["Modified bit", "Pin-Unpin bit", "AFIM bit", "LSN bit"],
+                correct: 1,
+                explanation: "تُستخدم إشارة التثبيت (Pin-Unpin bit) لإصدار تعليمات لنظام التشغيل بعدم تفريغ (Not to flush) الصفحة من الذاكرة المخبأة إلى القرص، بينما يشير Modified bit إلى أن العنصر تم تعديله."
+            },
+            {
+                chapter: "Ch23",
+                question: "106. Which recovery operation restores the BFIMs onto disk (removing AFIMs), and which restores the AFIMs onto disk?",
+                options: [
+                    "Undo restores BFIMs onto disk; Redo restores AFIMs onto disk",
+                    "Redo restores BFIMs onto disk; Undo restores AFIMs onto disk",
+                    "Checkpoint restores BFIMs; Steal restores AFIMs",
+                    "Both Undo and Redo restore BFIMs"
+                ],
+                correct: 0,
+                explanation: "عملية التراجع (Undo) تستعيد القيم القديمة (BFIMs) إلى القرص، بينما عملية الإعادة (Redo) تعيد تطبيق القيم الجديدة (AFIMs) على القرص."
+            },
+            {
+                chapter: "Ch23",
+                question: "107. What are the two rules of the Write-Ahead Logging (WAL) protocol?",
+                options: [
+                    "1. For Undo: before an AFIM is flushed to disk (overwriting BFIM), its BFIM must be written to the log on stable store; 2. For Redo: before a transaction commits, all its AFIMs must be written to the log on stable store",
+                    "Data blocks must always be flushed to disk before log records are written",
+                    "Logs are only written after the database server shuts down",
+                    "BFIMs are never written to the log"
+                ],
+                correct: 0,
+                explanation: "ينص بروتوكول التسجيل المسبق (WAL) على أمرين: (لأجل Undo) يجب كتابة BFIM في السجل على القرص قبل الكتابة فوق البيانات الأصلية، و(لأجل Redo) يجب كتابة جميع الـ AFIMs في السجل على القرص قبل التزام المعاملة (Commit)."
+            },
+            {
+                chapter: "Ch23",
+                question: "108. Which of the following is NOT one of the steps in a standard Checkpointing operation?",
+                options: [
+                    "Suspend execution of transactions temporarily",
+                    "Force-write modified buffer data to disk",
+                    "Write a [checkpoint] record to the log, save the log to disk, and resume transaction execution",
+                    "Delete all committed tables from the database disk"
+                ],
+                correct: 3,
+                explanation: "خطوات نقطة التفتيش (Checkpointing) هي: تعليق تنفيذ المعاملات مؤقتاً، كتابة البيانات المعدلة في الذاكرة إلى القرص قسرياً، كتابة سجل `[checkpoint]` في الـ Log وحفظه على القرص، ثم استئناف تنفيذ المعاملات."
+            },
+            {
+                chapter: "Ch23",
+                question: "109. In buffer flushing terminology, what do 'Steal/No-Steal' and 'Force/No-Force' mean?",
+                options: [
+                    "Steal allows flushing cache pages before transaction commits (No-Steal does not); Force immediately flushes all updated pages to disk at commit time (No-Force defers flushing)",
+                    "Steal prevents flushing before commit; Force prevents flushing at commit",
+                    "Steal encrypts the buffer; Force deletes the buffer",
+                    "No-Steal/Force requires both Undo and Redo"
+                ],
+                correct: 0,
+                explanation: "سياسة Steal تسمح بكتابة صفحات من الذاكرة للقرص قبل التزام المعاملة (بينما No-Steal تمنع ذلك). وسياسة Force تجبر كتابة جميع الصفحات المعدلة للقرص فور التزام المعاملة (بينما No-Force تؤجل ذلك)."
+            },
+            {
+                chapter: "Ch23",
+                question: "110. Which buffer management combination corresponds to the Deferred Update (No-Undo/Redo) recovery scheme?",
+                options: [
+                    "Steal / No-Force (Undo/Redo)",
+                    "Steal / Force (Undo/No-Redo)",
+                    "No-Steal / No-Force (No-Undo/Redo)",
+                    "No-Steal / Force (No-Undo/No-Redo)"
+                ],
+                correct: 2,
+                explanation: "التحديث المؤجل (Deferred Update) لا يفرغ أي تعديل للقرص قبل الالتزام (لذا هو No-Steal ولا يحتاج لـ Undo)، ولا يجبر التفريغ الفوري للبيانات عند الالتزام مكتفياً بالسجل (لذا هو No-Force ويحتاج لـ Redo)."
+            },
+            {
+                chapter: "Ch23",
+                question: "111. Why is NO Undo required in the Deferred Update recovery scheme?",
+                options: [
+                    "Because transactions are never allowed to abort",
+                    "Because no AFIM is ever flushed to the database disk before a transaction commits",
+                    "Because the system log does not record write operations",
+                    "Because all updates are written directly to disk before logging"
+                ],
+                correct: 1,
+                explanation: "في التحديث المؤجل (Deferred Update)، لا حاجة لعملية التراجع (No Undo) لأنه لا يتم كتابة أي قيمة معدلة (AFIM) على القرص إطلاقاً قبل وصول المعاملة لنقطة الالتزام (Commit)."
+            },
+            {
+                chapter: "Ch23",
+                question: "112. In Deferred Update with concurrent users, what happens during recovery to transactions in the Commit table and Active table, and why is repeating a Redo safe?",
+                options: [
+                    "Commit table transactions are redone and Active table transactions are ignored; repeating Redo is safe because Redo is 'idempotent' (reapplying an AFIM multiple times gives the same result as applying it once)",
+                    "Active table transactions are redone and Commit table transactions are undone",
+                    "Both tables are undone backward",
+                    "Repeating Redo corrupts the database"
+                ],
+                correct: 0,
+                explanation: "في التحديث المؤجل، يتم عمل Redo للمعاملات الموجودة في جدول الالتزام (Commit table) وتجاهل المعاملات في الجدول النشط (Active table). وتكرار الـ Redo آمن لأنه عملية محايدة التكرار (Idempotent)."
+            },
+            {
+                chapter: "Ch23",
+                question: "113. In Immediate Update with concurrent execution (Undo/Redo algorithm), what actions does the recovery manager perform on transactions in the Active table and Commit table?",
+                options: [
+                    "Ignore transactions in the Active table and Undo transactions in the Commit table",
+                    "Undo transactions in the Active table and Redo transactions in the Commit table",
+                    "Redo all transactions in both tables",
+                    "Undo all transactions in both tables"
+                ],
+                correct: 1,
+                explanation: "في خوارزمية التحديث الفوري (Undo/Redo)، يقوم مدير الاسترداد بالتراجع (Undo) عن المعاملات غير المكتملة الموجودة في الجدول النشط (Active table)، وإعادة (Redo) المعاملات الملتزمة الموجودة في جدول الالتزام (Commit table)."
+            },
+            {
+                chapter: "Ch23",
+                question: "114. How does 'Shadow Paging' handle data updates and recovery?",
+                options: [
+                    "It overwrites the BFIM in-place and requires a massive log file",
+                    "The AFIM does not overwrite its BFIM but is written at a separate disk location, maintaining two page directories (current and shadow) so recovery requires no log in a single-user environment",
+                    "It stores all database tables in CPU registers",
+                    "It uses two-phase commit across multiple networks"
+                ],
+                correct: 1,
+                explanation: "في التصفح الظلي (Shadow Paging)، لا تكتب النسخة الجديدة (AFIM) فوق القديمة (BFIM) بل في صفحة جديدة، ويتم استخدام دليلين (Current directory و Shadow directory)، مما يلغي الحاجة للـ Undo/Redo."
+            },
+            {
+                chapter: "Ch23",
+                question: "115. What are the three main principles and the three recovery phases (in order) of the ARIES recovery algorithm?",
+                options: [
+                    "Principles: WAL, Repeating history during redo, Logging changes during undo (CLRs); Phases: 1. Analysis, 2. Redo, 3. Undo",
+                    "Principles: Shadow paging, No-Steal, Force; Phases: 1. Read, 2. Validate, 3. Write",
+                    "Principles: Two-phase locking; Phases: 1. Undo, 2. Redo, 3. Analysis",
+                    "Principles: Thomas Write Rule; Phases: 1. Growing, 2. Shrinking, 3. Commit"
+                ],
+                correct: 0,
+                explanation: "تعتمد خوارزمية ARIES على 3 مبادئ: التسجيل المسبق (WAL)، وتكرار التاريخ أثناء الإعادة (Repeating history during redo)، وتسجيل التغييرات أثناء التراجع (Logging changes during undo). ومراحلها بالترتيب: Analysis ثم Redo ثم Undo."
+            },
+            {
+                chapter: "Ch23",
+                question: "116. During the Analysis phase of ARIES, what does the recovery manager identify?",
+                options: [
+                    "It encrypts all user passwords",
+                    "It identifies the dirty (updated) pages in the buffer and the set of transactions active at the time of the crash, as well as the starting point for Redo",
+                    "It deletes all compensating log records",
+                    "It executes SQL SELECT queries for users"
+                ],
+                correct: 1,
+                explanation: "تقوم مرحلة التحليل (Analysis phase) في ARIES بتحديد الصفحات المتسخة (Dirty pages) في الذاكرة والمعاملات النشطة وقت التعطل، وتحدد النقطة المناسبة في السجل لبدء مرحلة الإعادة (Redo)."
+            },
+            {
+                chapter: "Ch23",
+                question: "117. In ARIES, what increases monotonically and indicates the disk address of the log record it is associated with?",
+                options: ["BFIM", "AFIM", "MSN", "LSN (Log Sequence Number)"],
+                correct: 3,
+                explanation: "رقم تسلسل السجل (LSN - Log Sequence Number) هو رقم فريد يتزايد بشكل رتيب (Monotonically) ويشير إلى عنوان القرص الخاص بسجل الـ Log المرتبط به."
+            },
+            {
+                chapter: "Ch23",
+                question: "118. In ARIES, if a crash occurs during recovery after some undo operations have been performed, why does ARIES NOT repeat the same undo actions?",
+                options: [
+                    "Because LSNs reset to zero after every undo",
+                    "Because Compensating Log Records (CLRs) are written to the log during undo",
+                    "Because BFIMs are ignored during undo",
+                    "Because ARIES never performs undo operations"
+                ],
+                correct: 1,
+                explanation: "أثناء التراجع (Undo)، تقوم خوارزمية ARIES بكتابة سجل تعويضي (Compensating Log Record - CLR) لكل عملية تراجع، مما يمنع تكرار نفس عمليات التراجع إذا حدث عطل جديد أثناء الاسترداد."
+            },
+            {
+                chapter: "Ch23",
+                question: "119. In ARIES, what information is stored in the 'Dirty Page Table' and what checkpointing technique does ARIES use to reduce overhead?",
+                options: [
+                    "Dirty Page Table stores the Page ID and the LSN of the earliest update to each dirty page in the buffer; ARIES uses 'fuzzy checkpointing'",
+                    "Dirty Page Table stores only committed transactions; ARIES uses 'rigid checkpointing'",
+                    "Dirty Page Table stores user credentials; ARIES disables checkpointing",
+                    "Dirty Page Table stores only clean pages on disk"
+                ],
+                correct: 0,
+                explanation: "يحتوي جدول الصفحات المتسخة (Dirty Page Table) على معرف الصفحة (Page ID) ورقم الـ LSN لأقدم تحديث لم يُفرغ بعد لتلك الصفحة. وتستخدم ARIES تقنية نقاط التفتيش الضبابية (Fuzzy checkpointing) لعدم إيقاف المعاملات."
+            },
+            {
+                chapter: "Ch23",
+                question: "120. In a multidatabase system using the Two-Phase Commit (2PC) protocol, what happens if any single node fails or cannot commit its part of the distributed transaction?",
+                options: [
+                    "Only the failed node rolls back while the other nodes commit",
+                    "The transaction is partially committed permanently",
+                    "The transaction is aborted across all nodes",
+                    "Recovery is skipped"
+                ],
+                correct: 2,
+                explanation: "في بروتوكول الالتزام ثنائي الطور (2PC) للأنظمة متعددة قواعد البيانات، لا تلتزم المعاملة إلا إذا وافقت جميع العقد الفردية على الحفظ؛ وإذا فشلت عقدة واحدة يتم إلغاء المعاملة (Aborted) عبر جميع العقد."
+            },
+
+            // ================= CHAPTER 24 - Module 9 (20 Questions) =================
+            {
+                chapter: "Ch24",
+                question: "121. What are the three main security threats to databases, and what are the four countermeasures used to protect against them?",
+                options: [
+                    "Threats: Loss of integrity, Loss of availability, Loss of confidentiality; Countermeasures: Access control, Inference control, Flow control, Encryption",
+                    "Threats: Normalization, Indexing, Tuning; Countermeasures: B-trees, Hashing, RAID, SAN",
+                    "Threats: Deadlock, Starvation, Dirty read; Countermeasures: Locks, Timestamps, Logs, Shadows",
+                    "Threats: Slow queries; Countermeasures: Pipelining and Materialization"
+                ],
+                correct: 0,
+                explanation: "التهديدات الثلاثة لأمن قواعد البيانات هي: فقدان السلامة (Integrity)، وفقدان التوافر (Availability)، وفقدان السرية (Confidentiality). والإجراءات المضادة الأربعة هي: Access control, Inference control, Flow control, و Encryption."
+            },
+            {
+                chapter: "Ch24",
+                question: "122. Which database security mechanism is used to review the system log to examine all accesses and operations applied to the database during a certain time period when tampering is suspected?",
+                options: ["Database tuning", "Database audit (using an audit trail)", "Polyinstantiation", "Fragmentation"],
+                correct: 1,
+                explanation: "عند الاشتباه في أي تلاعب بقاعدة البيانات، يتم إجراء تدقيق لقاعدة البيانات (Database audit) عبر مراجعة سجل العمليات المخصص للأمان والمسمى مسار التدقيق (Audit trail)."
+            },
+            {
+                chapter: "Ch24",
+                question: "123. Which of the following best defines Discretionary Access Control (DAC)?",
+                options: [
+                    "Access to objects is controlled by the owner of the object, who can grant or revoke privileges to other users",
+                    "Access to objects is strictly enforced based on system security labels (TS, S, C, U) that users cannot change",
+                    "Access is controlled solely by public-key encryption",
+                    "All users automatically have superuser privileges"
+                ],
+                correct: 0,
+                explanation: "في التحكم التقديري بالوصول (DAC)، يتم التحكم في الوصول إلى الكائنات (الجداول والعروض) من قِبل مالك الكائن، والذي يملك صلاحية منح (GRANT) أو سحب (REVOKE) الامتيازات."
+            },
+            {
+                chapter: "Ch24",
+                question: "124. What are the two levels of assigning discretionary privileges in a database system?",
+                options: [
+                    "The Hardware level and the Network level",
+                    "The Account level (independent of relations, e.g., CREATE TABLE) and the Relation/Table level (on specific relations or views)",
+                    "The Secret level and the Top Secret level",
+                    "The Physical level and the External level"
+                ],
+                correct: 1,
+                explanation: "تنقسم الامتيازات في DAC إلى مستويين: مستوى الحساب (Account level) وهو مستقل عن الجداول مثل صلاحية إنشاء جدول، ومستوى العلاقة أو الجدول (Relation level) ويتحكم في الوصول لكل جدول أو عرض (View)."
+            },
+            {
+                chapter: "Ch24",
+                question: "125. In the Access Matrix Model for discretionary privileges, what do the rows, columns, and cell entries M(i, j) represent?",
+                options: [
+                    "Rows represent subjects (users, accounts, programs), columns represent objects (relations, records, columns, views), and M(i,j) represents the privileges subject i holds on object j",
+                    "Rows represent disks, columns represent tracks, and M(i,j) represents block size",
+                    "Rows represent transactions, columns represent locks, and M(i,j) represents timestamps",
+                    "Rows represent encryption keys and columns represent ciphertexts"
+                ],
+                correct: 0,
+                explanation: "في نموذج مصفوفة الوصول (Access Matrix Model)، تمثل الصفوف الفاعلين (Subjects كالمستخدمين والحسابات)، وتمثل الأعمدة الكائنات (Objects كالجداول والعروض)، وتمثل الخلية M(i,j) نوع الصلاحيات الممنوحة."
+            },
+            {
+                chapter: "Ch24",
+                question: "126. Which SQL privilege gives an account the capability to reference a relation R when specifying integrity constraints (such as foreign keys)?",
+                options: ["SELECT privilege", "ALTER privilege", "REFERENCES privilege", "CREATE VIEW privilege"],
+                correct: 2,
+                explanation: "صلاحية `REFERENCES` على جدول R تمنح الحساب القدرة على الإشارة إلى الجدول R عند تعريف قيود التكامل المرجعي (Integrity constraints)."
+            },
+            {
+                chapter: "Ch24",
+                question: "127. What is the correct SQL statement to grant SELECT and UPDATE privileges on the DEPT relation to user AHMED?",
+                options: [
+                    "GRANT DML ON DEPT TO AHMED;",
+                    "GRANT SELECT, UPDATE ON DEPT TO AHMED;",
+                    "GRANT SELECT, UPDATE TO AHMED ON DEPT;",
+                    "GRANT ON DEPT TO AHMED FOR SELECT, UPDATE;"
+                ],
+                correct: 1,
+                explanation: "الصيغة الصحيحة في SQL لمنح الصلاحيات هي: `GRANT SELECT, UPDATE ON DEPT TO AHMED;`."
+            },
+            {
+                chapter: "Ch24",
+                question: "128. What does the following SQL statement do?\n`GRANT UPDATE ON EMPLOYEE (NAME) TO A4;`",
+                options: [
+                    "Gives user A4 permission to read the NAME column",
+                    "Revokes user A4's permission to update the EMPLOYEE table",
+                    "Gives user A4 permission to update ONLY the NAME column in the EMPLOYEE table",
+                    "Gives user A4 permission to update all columns in the EMPLOYEE table"
+                ],
+                correct: 2,
+                explanation: "امتيازات UPDATE و INSERT يمكن تخصيصها لأعمدة محددة؛ لذا فإن هذا الأمر يمنح المستخدم A4 صلاحية تحديث عمود NAME فقط في جدول EMPLOYEE."
+            },
+            {
+                chapter: "Ch24",
+                question: "129. If owner A grants a privilege on relation R to user B `WITH GRANT OPTION`, and B grants that privilege to user C, what happens when A revokes the privilege from B?",
+                options: [
+                    "User B loses the privilege, but user C keeps it permanently",
+                    "All privileges that B propagated based on that privilege (including C's privilege) are automatically revoked by the system",
+                    "No privileges are affected",
+                    "Owner A loses ownership of relation R"
+                ],
+                correct: 1,
+                explanation: "عندما يسحب المالك A الصلاحية من B باستخدام REVOKE، يقوم النظام تلقائياً بسحب جميع الصلاحيات التي قام B بنشرها لغيره (مثل C) بناءً على تلك الصلاحية."
+            },
+            {
+                chapter: "Ch24",
+                question: "130. What is the difference between Horizontal Propagation and Vertical Propagation limits of privileges?",
+                options: [
+                    "Horizontal propagation limits the number of accounts (i) to which B can directly grant a privilege; Vertical propagation limits the depth of the chain of granting privileges",
+                    "Horizontal propagation applies to rows; Vertical propagation applies to columns",
+                    "Horizontal propagation revokes privileges; Vertical propagation creates tables",
+                    "Both are identical and mean encrypting rows"
+                ],
+                correct: 0,
+                explanation: "الحد الأفقي للانتشار (Horizontal propagation) يحدد أقصى عدد من الحسابات التي يمكن للمستخدم منحها الصلاحية مباشرة، بينما الحد العمودي (Vertical propagation) يحدد عمق تسلسل منح الصلاحيات من مستخدم لآخر."
+            },
+            {
+                chapter: "Ch24",
+                question: "131. In Mandatory Access Control (MAC) using the Bell-LaPadula model, what is the hierarchy of typical security classes from highest to lowest?",
+                options: [
+                    "Unclassified (U) >= Confidential (C) >= Secret (S) >= Top Secret (TS)",
+                    "Top Secret (TS) >= Secret (S) >= Confidential (C) >= Unclassified (U)",
+                    "Secret (S) >= Top Secret (TS) >= Public (P)",
+                    "Admin >= User >= Guest"
+                ],
+                correct: 1,
+                explanation: "ترتيب التصنيفات الأمنية في نظام MAC من الأعلى للأدنى هو: سري للغاية (Top Secret - TS)، ثم سري (Secret - S)، ثم مكتوم/محدود (Confidential - C)، وأخيراً غير مصنف (Unclassified - U)."
+            },
+            {
+                chapter: "Ch24",
+                question: "132. In the Bell-LaPadula model for Mandatory Access Control, what do the 'Simple Security Property' and the 'Star (*)-Property' enforce?",
+                options: [
+                    "Simple Security Property enforces 'No read up' (class(S) >= class(O) to read); Star (*)-Property enforces 'No write down' (class(S) <= class(O) to write)",
+                    "Simple Security Property enforces 'No write up'; Star (*)-Property enforces 'No read down'",
+                    "Both allow any user to read Top Secret data",
+                    "Simple Security Property encrypts data; Star Property deletes data"
+                ],
+                correct: 0,
+                explanation: "خاصية الأمان البسيطة (Simple Security Property) تمنع القراءة من مستوى أعلى (No read up: `class(S) >= class(O)`)، وخاصية النجمة (Star *-property) تمنع الكتابة في مستوى أدنى (No write down: `class(S) <= class(O)`) لمنع تسرب المعلومات السرية."
+            },
+            {
+                chapter: "Ch24",
+                question: "133. In multilevel security relations, why does a 'Secret' user see different data in a table than a 'Top Secret' user, and what is it called when multiple tuples have the same apparent key at different classification levels?",
+                options: [
+                    "Due to multilevel views/filtering and Polyinstantiation (where several tuples share the same apparent key value with different attribute values for different clearance levels)",
+                    "Due to B+-tree indexing and hashing",
+                    "Because Secret users are blocked from logging in",
+                    "Due to two-phase locking deadlocks"
+                ],
+                correct: 0,
+                explanation: "يرى المستخدمون بيانات مختلفة حسب تصنيفهم الأمني بفضل التصفية (Filtering) والعروض متعددة المستويات (Multilevel views)، وتُسمى ظاهرة وجود عدة صفوف بنفس المفتاح الظاهري لتصنيفات أمنية مختلفة بـ التعددية المظهرية (Polyinstantiation)."
+            },
+            {
+                chapter: "Ch24",
+                question: "134. How do Discretionary Access Control (DAC) and Mandatory Access Control (MAC) compare in terms of flexibility and vulnerability?",
+                options: [
+                    "DAC has high flexibility but is vulnerable to malicious attacks like Trojan horses; MAC ensures a high degree of protection against illegal information flow but is too rigid",
+                    "MAC is more flexible than DAC and vulnerable to Trojan horses",
+                    "DAC prevents all illegal information flows and is too rigid",
+                    "Both have the exact same flexibility and security"
+                ],
+                correct: 0,
+                explanation: "يتميز DAC بمرونة عالية ولكنه عرضة لهجمات أحصنة طروادة (Trojan horses)، بينما يوفر MAC حماية صارمة تمنع التدفق غير القانوني للمعلومات لكنه جامد جداً (Too rigid)."
+            },
+            {
+                chapter: "Ch24",
+                question: "135. What is the basic notion of Role-Based Access Control (RBAC), and which SQL commands manage roles?",
+                options: [
+                    "Permissions are associated with roles, and users are assigned to appropriate roles; roles are created and removed using CREATE ROLE and DESTROY ROLE",
+                    "Every user is given a security clearance label TS or U",
+                    "Permissions are embedded inside hardware disk controllers",
+                    "Roles can only be used in single-user databases"
+                ],
+                correct: 0,
+                explanation: "في التحكم بالوصول القائم على الأدوار (RBAC)، ترتبط الصلاحيات بالأدوار (Roles) ويتم تعيين المستخدمين للأدوار المناسبة، وتُدار بأوامر `CREATE ROLE` و `DESTROY ROLE`."
+            },
+            {
+                chapter: "Ch24",
+                question: "136. What is the main security problem in Statistical Databases, and what are the countermeasures called?",
+                options: [
+                    "Problem: inferring confidential individual tuple values from a sequence of aggregate statistical queries (especially on small populations); Countermeasures: Inference control measures",
+                    "Problem: disk head crashes; Countermeasures: RAID",
+                    "Problem: SQL syntax errors; Countermeasures: Query parsing",
+                    "Problem: deadlock; Countermeasures: Wait-for graphs"
+                ],
+                correct: 0,
+                explanation: "المشكلة الأمنية في قواعد البيانات الإحصائية هي إمكانية استنتاج (Inferring) بيانات فردية سرية من خلال سلسلة من الاستعلامات الإحصائية التجميعية، وتُسمى إجراءات الحماية منها بضوابط الاستنتاج (Inference control measures)."
+            },
+            {
+                chapter: "Ch24",
+                question: "137. What does 'Flow Control' ensure, and what are 'Covert Channels'?",
+                options: [
+                    "Flow control ensures that information does not flow explicitly or implicitly into less protected objects; Covert channels (storage or timing channels) are improper pathways that allow information to pass from higher to lower classification levels",
+                    "Flow control regulates network bandwidth speed; Covert channels are fiber optic cables",
+                    "Flow control ensures data flows from confidential (C) to nonconfidential (N) freely",
+                    "Covert channels are encrypted backup tapes"
+                ],
+                correct: 0,
+                explanation: "يضمن التحكم في التدفق (Flow control) عدم انتقال المعلومات صراحةً أو ضمنياً إلى كائنات أقل حماية. والقنوات الخفية (Covert channels - سواء تخزينية أو زمنية) هي مسارات غير مشروعة تسرب المعلومات من تصنيف أعلى لتصنيف أدنى."
+            },
+            {
+                chapter: "Ch24",
+                question: "138. What is the purpose of Encryption, and how do DES and AES differ?",
+                options: [
+                    "Encryption maintains secure data in an insecure environment (recovered via decryption key); DES uses a 64-bit block size (16 cycles of substitution/permutation), whereas AES uses a 128-bit block size and is stronger",
+                    "DES uses a 128-bit block size, whereas AES uses a 32-bit block size",
+                    "Encryption is used to speed up query processing and compress indexes",
+                    "DES is a public-key algorithm using two keys, whereas AES uses no keys"
+                ],
+                correct: 0,
+                explanation: "التشفير يحافظ على أمان البيانات في البيئات غير الآمنة؛ ويعمل معيار DES على كتل بحجم 64 بت عبر 16 دورة، بينما يعمل معيار التشفير المتقدم AES على كتل بحجم 128 بت مما يجعله أصعب بكثير في الاختراق."
+            },
+            {
+                chapter: "Ch24",
+                question: "139. In Public-Key Encryption (such as RSA), how does a sender transmit a confidential message to a receiver?",
+                options: [
+                    "The sender encrypts the message using the receiver's public key, and the receiver decrypts it using the receiver's own private key",
+                    "The sender encrypts the message using the receiver's private key, and anyone can decrypt it using the public key",
+                    "Both sender and receiver share a single identical secret key",
+                    "The message is sent in plaintext without any key"
+                ],
+                correct: 0,
+                explanation: "في التشفير بالمفتاح العام (Public-key encryption)، يقوم المرسل بتشفير الرسالة باستخدام المفتاح العام للمستقبل (Receiver's public key)، ويقوم المستقبل بفك تشفيرها باستخدام مفتاحه الخاص السري (Receiver's private key)."
+            },
+            {
+                chapter: "Ch24",
+                question: "140. What is a 'Digital Signature' and how is it made unique for each use?",
+                options: [
+                    "An authentication mechanism using public-key techniques that associates an unforgettable mark unique to an individual with a body of text, made unique for each use by making it a function of the message together with a timestamp",
+                    "A scanned image of a handwritten signature stored in a BLOB column",
+                    "A password shared by all database users",
+                    "A symmetric DES key that never changes"
+                ],
+                correct: 0,
+                explanation: "التوقيع الرقمي (Digital signature) يستخدم تقنيات المفتاح العام لتوثيق هوية المرسل (Authentication)، ويكون فريداً في كل استخدام لأنه يُحسب كدالة لمحتوى الرسالة مع طابع زمني (Timestamp)."
+            },
+
+            // ================= CHAPTER 25 - Module 10 (20 Questions) =================
+            {
+                chapter: "Ch25",
+                question: "141. What is a Distributed Database (DDB) and what is the main advantage of a Distributed Database System?",
+                options: [
+                    "A collection of multiple logically related databases distributed over a computer network; main advantage is improved performance, reliability, availability, and scalability with distribution transparency",
+                    "A single database stored on one standalone PC with no network connection",
+                    "A collection of unrelated text files; main advantage is eliminating concurrency control",
+                    "A system that requires users to manually know the physical IP address of every tuple"
+                ],
+                correct: 0,
+                explanation: "قاعدة البيانات الموزعة (DDB) هي مجموعة من قواعد البيانات المترابطة منطقياً والموزعة عبر شبكة حاسوب، وتتميز بتحسين الأداء والموثوقية والتوافرية وقابلية التوسع مع إخفاء تفاصيل التوزيع عن المستخدم (Transparency)."
+            },
+            {
+                chapter: "Ch25",
+                question: "142. In distributed databases, what is the difference between Location Transparency, Naming Transparency, Replication Transparency, and Fragmentation Transparency?",
+                options: [
+                    "Location: issuing commands from any location without knowing physical placement; Naming: accessing any named object from any location; Replication: storing copies at multiple sites transparently; Fragmentation: splitting relations horizontally or vertically transparently",
+                    "Location transparency requires users to specify the site number in every SQL query",
+                    "Replication transparency forbids keeping more than one copy of any table",
+                    "Fragmentation transparency deletes columns permanently"
+                ],
+                correct: 0,
+                explanation: "شفافية الموقع (Location) تتيح الوصول للبيانات دون معرفة موقعها الفيزيائي، وشفافية التسمية (Naming) تتيح الوصول لأي كائن باسمه، وشفافية النسخ (Replication) تخفي تعدد النسخ، وشفافية التجزئة (Fragmentation) تخفي تقسيم الجداول."
+            },
+            {
+                chapter: "Ch25",
+                question: "143. How can a distributed database improve reliability and availability?",
+                options: [
+                    "By storing all data on a single RAID 0 disk",
+                    "Through data replication across multiple networked nodes, so if one site fails, other sites are available to continue operating",
+                    "By disabling network communication between sites",
+                    "By using mandatory access control"
+                ],
+                correct: 1,
+                explanation: "ترفع قواعد البيانات الموزعة الموثوقية (Reliability) والتوافرية (Availability) من خلال تكرار البيانات (Data replication) وتعدد العقد، فإذا تعطل موقع واحد يمكن للمواقع الأخرى مواصلة العمل."
+            },
+            {
+                chapter: "Ch25",
+                question: "144. In distributed databases, a horizontal subset of a relation which contains those tuples that satisfy a selection condition σ_Ci(R) is called:",
+                options: ["Replication", "Horizontal fragmentation", "Vertical fragmentation", "Mirroring"],
+                correct: 1,
+                explanation: "التجزئة الأفقية (Horizontal fragmentation) هي مجموعة فرعية من الصفوف (Tuples) التي تحقق شرط اختيار معين `σ_Ci(R)`."
+            },
+            {
+                chapter: "Ch25",
+                question: "145. What is 'Derived Horizontal Fragmentation'?",
+                options: [
+                    "Splitting a table by columns without its primary key",
+                    "The partitioning of a secondary relation based on the horizontal partitioning of a primary relation to which it is related via a foreign key",
+                    "Compressing a table using Huffman coding",
+                    "Replicating the entire database at all sites"
+                ],
+                correct: 1,
+                explanation: "التجزئة الأفقية المشتقة (Derived horizontal fragmentation) هي تقسيم جدول ثانوي بناءً على تقسيم جدول أساسي مرتبط به عبر مفتاح أجنبي (Foreign key)."
+            },
+            {
+                chapter: "Ch25",
+                question: "146. What is 'Complete Horizontal Fragmentation', and how is the original relation R reconstructed from its horizontal fragments?",
+                options: [
+                    "A set of horizontal fragments whose conditions include at least 75% of the tuples in R; reconstructed via JOIN",
+                    "A set of horizontal fragments whose conditions include all the tuples in R (every tuple satisfies C1 OR C2 OR ... OR Cn); reconstructed by applying a UNION operation",
+                    "A set of fragments that share only the primary key; reconstructed via INTERSECTION",
+                    "A set of columns; reconstructed via CARTESIAN PRODUCT"
+                ],
+                correct: 1,
+                explanation: "التجزئة الأفقية الكاملة (Complete horizontal fragmentation) هي مجموعة أجزاء أفقية تشمل شروطها جميع الصفوف في الجدول R، وتتم إعادة بناء الجدول الأصلي R منها بتطبيق عملية الاتحاد (UNION)."
+            },
+            {
+                chapter: "Ch25",
+                question: "147. What is required in every fragment of a 'Complete Vertical Fragmentation', and what operation reconstructs the relation R?",
+                options: [
+                    "Each vertical fragment is specified by a projection Π_Li(R), must include the primary key PK(R) (so Li ∩ Lj = PK(R) and ∪ Li = ATTRS(R)), and R is reconstructed using an OUTER UNION (or natural join on PK)",
+                    "Vertical fragments do not need to include the primary key",
+                    "Vertical fragments are defined by WHERE conditions only",
+                    "R is reconstructed using Set Difference"
+                ],
+                correct: 0,
+                explanation: "في التجزئة العمودية الكاملة (Complete vertical fragmentation)، يجب أن يتضمن كل جزء عمودي المفتاح الأساسي `PK(R)` للربط بين الأجزاء، وتضم الأجزاء معاً كافة خصائص الجدول، ويُعاد بناء الجدول بـ OUTER UNION / JOIN."
+            },
+            {
+                chapter: "Ch25",
+                question: "148. How is 'Mixed (Hybrid) Fragmentation' represented in relational algebra?",
+                options: [
+                    "By combining vertical and horizontal fragmentation using a SELECT-PROJECT operation: Π_Li(σ_Ci(R))",
+                    "By applying only a Cartesian product",
+                    "By dropping the primary key",
+                    "By encrypting the table"
+                ],
+                correct: 0,
+                explanation: "التجزئة المختلطة (Mixed/Hybrid fragmentation) تجمع بين التجزئة الأفقية والعمودية معاً وتُمثل بعملية اختيار وإسقاط `Π_Li(σ_Ci(R))`."
+            },
+            {
+                chapter: "Ch25",
+                question: "149. What is the difference between a Homogeneous and a Heterogeneous distributed database system?",
+                options: [
+                    "Homogeneous systems use the same DBMS software at all sites (even if OS differs); Heterogeneous systems use different DBMSs at different sites",
+                    "Homogeneous systems use different DBMSs at different sites; Heterogeneous systems use the same DBMS at all sites",
+                    "Homogeneous systems only support vertical fragmentation",
+                    "Heterogeneous systems do not use computer networks"
+                ],
+                correct: 0,
+                explanation: "النظام المتجانس (Homogeneous DDBS) يستخدم نفس برنامج إدارة قواعد البيانات (نفس الـ DBMS مثل Oracle) في جميع المواقع، بينما النظام غير المتجانس (Heterogeneous) يستخدم أنظمة DBMS مختلفة في المواقع المختلفة."
+            },
+            {
+                chapter: "Ch25",
+                question: "150. Within Heterogeneous Distributed Database Systems, how does a 'Federated' system differ from a 'Multidatabase' system?",
+                options: [
+                    "Federated manages data access through a single conceptual global schema (minimum local autonomy); Multidatabase has no single conceptual global schema and constructs schemas dynamically as needed",
+                    "Multidatabase has a single fixed global schema; Federated has no global schema",
+                    "Federated systems cannot execute SQL queries",
+                    "There is no difference between them"
+                ],
+                correct: 0,
+                explanation: "في النظام الموحد (Federated)، تُدار البيانات عبر مخطط مفاهيمي شامل واحد (Single global schema)، بينما في نظام قواعد البيانات المتعددة (Multidatabase) لا يوجد مخطط شامل واحد بل يُبنى ديناميكياً حسب حاجة التطبيق."
+            },
+            {
+                chapter: "Ch25",
+                question: "151. What is the primary optimization criterion in Distributed Query Processing when relations are located at different sites?",
+                options: [
+                    "Maximizing the number of network messages",
+                    "Minimizing the amount of data (bytes) transferred over the communication network",
+                    "Transferring all tables to the client PC before filtering",
+                    "Avoiding the use of projections"
+                ],
+                correct: 1,
+                explanation: "المعيار الأساسي لتحسين الاستعلامات في قواعد البيانات الموزعة هو تقليل حجم البيانات المنقولة عبر الشبكة (Minimizing data transfer) لأن تكلفة النقل الشبكي عالية."
+            },
+            {
+                chapter: "Ch25",
+                question: "152. Suppose relation Employee (10,000 rows × 100 bytes = 1,000,000 bytes) is at Site 1, Department (100 rows × 35 bytes = 3,500 bytes) is at Site 2, and a query at Site 3 needs a join result of 400,000 bytes. Which strategy minimizes data transfer?",
+                options: [
+                    "Strategy 1: Transfer both Employee and Department to Site 3 (1,003,500 bytes)",
+                    "Strategy 2: Transfer Employee to Site 2, join at Site 2, and send result to Site 3 (1,400,000 bytes)",
+                    "Strategy 3: Transfer Department to Site 1, execute join at Site 1, and send result to Site 3 (3,500 + 400,000 = 403,500 bytes)",
+                    "All three strategies transfer the exact same number of bytes"
+                ],
+                correct: 2,
+                explanation: "الاستراتيجية الثالثة هي الأفضل لأنها تنقل الجدول الأصغر (Department: 3,500 بايت) إلى الموقع 1 لعمل الربط هناك ثم ترسل النتيجة (400,000 بايت) للموقع 3 بإجمالي 403,500 بايت فقط."
+            },
+            {
+                chapter: "Ch25",
+                question: "153. What is the objective of the 'Semijoin' operation in distributed query processing?",
+                options: [
+                    "To double the size of tables before network transfer",
+                    "To reduce the number of tuples in a relation before transferring it to another site by first sending only the join column values",
+                    "To perform a Cartesian product across all sites",
+                    "To lock all sites simultaneously"
+                ],
+                correct: 1,
+                explanation: "الهدف من شبه الربط (Semijoin) هو تقليص عدد الصفوف في الجدول قبل نقله عبر الشبكة، وذلك بإرسال عمود الربط فقط أولاً ثم إرجاع الصفوف المطابقة فقط."
+            },
+            {
+                chapter: "Ch25",
+                question: "154. Which of the following is a concurrency control and recovery problem specific to Distributed Databases that is NOT present in centralized databases?",
+                options: [
+                    "Dealing with multiple copies of data items, failure of individual sites, communication link failure (network partition), distributed commit, and distributed deadlock",
+                    " syntax checking of SELECT statements",
+                    "Calculating blocking factor on a magnetic disk",
+                    "Creating a single-level primary index"
+                ],
+                correct: 0,
+                explanation: "تواجه قواعد البيانات الموزعة مشاكل خاصة لا توجد في المركزية، وهي: التعامل مع النسخ المتعددة، تعطل بعض المواقع الفردية، انقطاع روابط الاتصال (Network partition)، الالتزام الموزع (Distributed commit)، والتوقف التام الموزع (Distributed deadlock)."
+            },
+            {
+                chapter: "Ch25",
+                question: "155. In Distributed Concurrency Control, how does the 'Primary Site Technique' work, and what are its main disadvantages?",
+                options: [
+                    "A single site is designated as coordinator for all lock management; Disadvantages: the primary site can become a bottleneck (overloaded) and if it fails, the entire system becomes inaccessible (unless a backup site is used)",
+                    "Every site votes on every lock; Disadvantage: no coordinator exists",
+                    "Locks are not used at all",
+                    "Each tuple is locked at 10 sites simultaneously"
+                ],
+                correct: 0,
+                explanation: "تقنية الموقع الأساسي (Primary site technique) تعين موقعاً واحداً كمنسق لإدارة جميع الأقفال؛ وعيوبها احتمالية زيادة العبء (Overload) على الموقع الأساسي، وتوقف النظام بالكامل إذا تعطل هذا الموقع (لذا يُستخدم موقع احتياطي Backup site)."
+            },
+            {
+                chapter: "Ch25",
+                question: "156. How does the 'Primary Copy Technique' improve upon the Primary Site Technique in distributed concurrency control?",
+                options: [
+                    "Instead of a single site managing all locks, primary copies of different data items are distributed across various sites so no single site is overloaded (though maintaining a distributed directory is more complex)",
+                    "It eliminates all network communication",
+                    "It requires every site to abort active transactions every minute",
+                    "It stores all data at a single centralized server"
+                ],
+                correct: 0,
+                explanation: "في تقنية النسخة الأساسية (Primary copy technique)، يتم توزيع النسخ الأساسية للعناصر المختلفة على مواقع متعددة بدلاً من موقع واحد، مما يمنع تحميل موقع واحد فوق طاقته."
+            },
+            {
+                chapter: "Ch25",
+                question: "157. In the Primary Site approach, how does recovery from a coordinator failure differ when there is NO backup site versus when there IS a backup site?",
+                options: [
+                    "With no backup site: aborts and restarts all active transactions at all sites and elects a new coordinator; With a backup site: suspends active transactions, designates the backup site as primary, and resumes processing",
+                    "With a backup site: deletes the entire database; With no backup site: continues without a coordinator",
+                    "In both cases, all committed data is lost permanently",
+                    "Coordinator failure never requires recovery"
+                ],
+                correct: 0,
+                explanation: "في حال عدم وجود موقع احتياطي (No backup site) يتم إلغاء وإعادة تشغيل جميع المعاملات النشطة وانتخاب منسق جديد، بينما عند وجود موقع احتياطي (With backup site) يتم تعليق المعاملات النشطة مؤقتاً وترقية الموقع الاحتياطي ليصبح هو الأساسي دون إلغاء المعاملات."
+            },
+            {
+                chapter: "Ch25",
+                question: "158. How does 'Concurrency Control Based on Voting' work in a distributed database?",
+                options: [
+                    "There is no primary copy or coordinator; a lock request is sent to all sites holding the item, and if a majority of sites grant the lock within a timeout period, the transaction gets the item",
+                    "Only the oldest user in the company votes on locks",
+                    "A single primary site grants all locks without asking other sites",
+                    "Transactions execute without requesting any locks"
+                ],
+                correct: 0,
+                explanation: "في طريقة التصويت (Voting)، لا يوجد منسق مركزي؛ بل تُرسل طلبات القفل لجميع المواقع التي تملك نسخاً من العنصر، وإذا وافقت الأغلبية (Majority) يحصل الطلب على القفل، وإلا يُلغى بعد انتهاء مهلة الانتظار (Time-out)."
+            },
+            {
+                chapter: "Ch25",
+                question: "159. A Client-Server database architecture typically includes:",
+                options: [
+                    "Only clients with no servers",
+                    "Only centralized mainframes with dumb terminals",
+                    "Clients running client software that send requests, servers that provide database functionalities and process requests, and a communication infrastructure",
+                    "Servers that initiate requests to clients"
+                ],
+                correct: 2,
+                explanation: "تتكون معمارية العميل والخادم (Client-Server) من عملاء (Clients) يرسلون الطلبات ويتولون واجهة المستخدم، وخوادم (Servers) تعالج استعلامات قواعد البيانات، وبنية اتصال شبكية."
+            },
+            {
+                chapter: "Ch25",
+                question: "160. How is an SQL query processed in a distributed Client-Server database architecture?",
+                options: [
+                    "The client parses the user query and decomposes it into independent subqueries sent to appropriate server sites; each server processes its subquery and sends results back to the client, which combines them into the final result",
+                    "The server parses the user interface and sends the entire database to the client's RAM",
+                    "The communication software rewrites SQL into Prolog",
+                    "Clients cannot combine subquery results"
+                ],
+                correct: 0,
+                explanation: "يقوم العميل (Client) بتحليل الاستعلام وتقسيمه إلى استعلامات فرعية مستقلة وإرسال كل منها للخادم المختص، ويعالج كل خادم استعلامه ويرسل النتيجة للعميل الذي يدمج النتائج النهائية."
+            },
+
+            // ================= CHAPTER 26 - Module 11 (20 Questions) =================
+            {
+                chapter: "Ch26",
+                question: "161. What model do Active Databases and Triggers follow, and what do its three components represent?",
+                options: [
+                    "Event-Condition-Action (ECA) model: Event is a database modification (INSERT, DELETE, UPDATE), Condition is an optional true/false expression, and Action is a sequence of SQL statements executed automatically",
+                    "Analysis-Redo-Undo model",
+                    "Read-Validate-Write model",
+                    "Select-Project-Join model"
+                ],
+                correct: 0,
+                explanation: "تتبع قواعد البيانات النشطة والمشغلات (Triggers) نموذج الحدث-الشرط-الإجراء (ECA: Event-Condition-Action)، حيث الحدث هو تعديل البيانات، والشرط تعبير منطقي اختياري، والإجراء جمل SQL تُنفذ تلقائياً."
+            },
+            {
+                chapter: "Ch26",
+                question: "162. In SQL triggers, what happens if no Condition is specified in the ECA model, and what does the command `CREATE OR ALTER TRIGGER <name>` do?",
+                options: [
+                    "If no condition is specified, the trigger never executes; CREATE OR ALTER drops the trigger",
+                    "If no condition is specified, the condition is always considered TRUE (trigger always executes for the event); CREATE OR ALTER creates the trigger if it does not exist or alters it if it already exists",
+                    "Absence of condition causes a syntax error",
+                    "CREATE OR ALTER only works on views"
+                ],
+                correct: 1,
+                explanation: "إذا لم يُحدد شرط (Condition) في الـ Trigger، يُعتبر الشرط دائماً متحققاً (True) فيعمل المشغل دائماً عند وقوع الحدث. وأمر `CREATE OR ALTER TRIGGER` ينشئ المشغل إن لم يكن موجوداً أو يعدله إن كان موجوداً."
+            },
+            {
+                chapter: "Ch26",
+                question: "163. What happens when you use an `INSTEAD OF` trigger, and what is it commonly used for?",
+                options: [
+                    "The trigger executes before the event and then the event executes",
+                    "The trigger executes instead of the event (the original event does NOT execute), and it is commonly used for processing modifications on views",
+                    "The trigger executes after the event commits",
+                    "The trigger executes twice for every table"
+                ],
+                correct: 1,
+                explanation: "مشغل `INSTEAD OF` يتم تنفيذه بدلاً من الحدث الأصلي (حيث لا يتم تنفيذ الحدث الأصلي إطلاقاً)، ويُستخدم بشكل شائع لمعالجة التعديلات على العروض (Modifying views)."
+            },
+            {
+                chapter: "Ch26",
+                question: "164. What is the difference between a Row-level trigger and a Statement-level trigger?",
+                options: [
+                    "A row-level trigger (specified using FOR EACH ROW) executes separately for each affected row; a statement-level trigger (the default when FOR EACH ROW is omitted) executes only once for the entire SQL statement",
+                    "A statement-level trigger uses FOR EACH ROW; a row-level trigger executes once per statement",
+                    "Row-level triggers can only be used on DROP TABLE statements",
+                    "There is no difference between them"
+                ],
+                correct: 0,
+                explanation: "المشغل على مستوى الصف (Row-level) يُحدد بعبارة `FOR EACH ROW` ويُنفذ بشكل منفصل لكل صف متأثر، بينما المشغل على مستوى الجملة (Statement-level) هو الافتراضي ويُنفذ مرة واحدة فقط لكامل جملة SQL."
+            },
+            {
+                chapter: "Ch26",
+                question: "165. In active databases, what are the three ways an event/condition can be considered relative to the transaction, and what changes can users make to triggers?",
+                options: [
+                    "Consideration: Immediate (before/after/instead of within same transaction), Deferred (at the end of the transaction), Detached (in a separate transaction); Trigger changes: Activate, Deactivate, Drop",
+                    "Consideration: Serial, Parallel, Interleaved; Trigger changes: Lock, Unlock, Commit",
+                    "Consideration: Local, Global, Federated; Trigger changes: Grant, Revoke",
+                    "Triggers can never be deactivated or dropped"
+                ],
+                correct: 0,
+                explanation: "طرق تقييم الحدث الثلاث هي: الفورية (Immediate داخل نفس المعاملة)، والمؤجلة (Deferred في نهاية المعاملة)، والمنفصلة (Detached في معاملة مستقلة). ويمكن للمستخدم تفعيل (Activate) أو تعطيل (Deactivate) أو حذف (Drop) المشغلات."
+            },
+            {
+                chapter: "Ch26",
+                question: "166. Which of the following is a primary potential application for Active Databases?",
+                options: [
+                    "Automatic notification when certain conditions occur, enforcing complex integrity constraints, and automatic maintenance of derived data (e.g., updating Total_sal)",
+                    "Slowing down database performance intentionally",
+                    "Preventing all updates and deletes permanently",
+                    "Replacing secondary storage disks with magnetic tapes"
+                ],
+                correct: 0,
+                explanation: "التطبيقات الأساسية لقواعد البيانات النشطة هي: الإشعارات التلقائية عند حدوث شروط معينة (Automatic notification)، وفرض قيود التكامل المعقدة، والصيانة التلقائية للبيانات المشتقة (Derived data)."
+            },
+            {
+                chapter: "Ch26",
+                question: "167. Which trigger definition correctly updates `Manager_Count = Manager_Count + 1` in `DEPARTMENT` whenever a new employee with `Job = 'Manager'` is inserted into `EMPLOYEE`?",
+                options: [
+                    "CREATE TRIGGER Update_MNo AFTER INSERT ON EMPLOYEE FOR EACH ROW WHEN (NEW.Job = 'Manager') UPDATE DEPARTMENT SET Manager_Count = Manager_Count + 1 WHERE Dnumber = NEW.Dno;",
+                    "CREATE TRIGGER Update_MNo BEFORE SELECT ON DEPARTMENT WHEN (OLD.Job = 'Manager') DELETE FROM EMPLOYEE;",
+                    "GRANT TRIGGER ON EMPLOYEE TO DEPARTMENT;",
+                    "ALTER TABLE DEPARTMENT ADD TRIGGER Manager_Count;"
+                ],
+                correct: 0,
+                explanation: "يتم تعريف المشغل بعد الإدخال `AFTER INSERT ON EMPLOYEE` لكل صف `FOR EACH ROW` بشرط `WHEN (NEW.Job = 'Manager')` ليقوم بتحديث جدول الأقسام بزيادة العداد."
+            },
+            {
+                chapter: "Ch26",
+                question: "168. In Temporal Databases, what term is used instead of 'point' to describe the minimum granularity of time, and what is the difference between Point events and Duration events?",
+                options: [
+                    "Chronon is the minimum granularity; Point events occur at a single time point (e.g., bank deposit), whereas Duration events are associated with a specific time period having a start time and end time",
+                    "Quantum is the minimum granularity; Point events require a start and end time",
+                    "LSN is the minimum granularity; Duration events have no start time",
+                    "Tuple is the minimum granularity"
+                ],
+                correct: 0,
+                explanation: "يُستخدم مصطلح `Chronon` لوصف أصغر وحدة زمنية في قواعد البيانات الزمنية. وأحداث النقطة (Point events) تقع في لحظة واحدة كالإيداع البنكي، بينما أحداث المدة (Duration events) ترتبط بفترة لها وقت بداية ووقت نهاية."
+            },
+            {
+                chapter: "Ch26",
+                question: "169. In Temporal Databases, what is 'Transaction Time', what is a 'Bitemporal Database', and how is Tuple Versioning implemented in relational databases?",
+                options: [
+                    "Transaction time is when information from a transaction becomes valid in the database; Bitemporal databases deal with two time dimensions (valid time and transaction time); Tuple versioning adds Valid start time and Valid end time attributes to every tuple",
+                    "Transaction time is the CPU clock speed; Bitemporal means two servers",
+                    "Tuple versioning deletes old tuples without keeping start or end times",
+                    "Bitemporal databases only store non-time varying attributes"
+                ],
+                correct: 0,
+                explanation: "وقت المعاملة (Transaction time) هو وقت اعتماد المعلومة في النظام، وقاعدة البيانات ثنائية الزمن (Bitemporal) تتعامل مع بُعدين للزمن، ويتم إصدار الصفوف (Tuple versioning) بإضافة وقت بداية الصلاحية (Valid start time) ووقت نهايتها (Valid end time) لكل صف."
+            },
+            {
+                chapter: "Ch26",
+                question: "170. In Object-Oriented Temporal Databases using Attribute Versioning, what is the difference between a 'Time-varying attribute' and a 'Non-time varying attribute'?",
+                options: [
+                    "A time-varying attribute changes over time (e.g., age or salary); a non-time varying attribute does not change over time (e.g., date of birth)",
+                    "A time-varying attribute never changes (e.g., SSN); a non-time varying attribute changes daily",
+                    "Both attributes change every second",
+                    "Attribute versioning requires relational tables in 1NF"
+                ],
+                correct: 0,
+                explanation: "الخاصية المتغيرة زمنياً (Time-varying attribute) هي التي تتغير قيمتها بمرور الوقت مثل العمر (Age)، بينما الخاصية غير المتغيرة زمنياً (Non-time varying attribute) لا تتغير مثل تاريخ الميلاد (Date of birth)."
+            },
+            {
+                chapter: "Ch26",
+                question: "171. What are the three typical types of queries in Spatial Databases?",
+                options: [
+                    "Range query (objects within a distance from a location), Nearest Neighbor query (object nearest to a location), and Spatial joins or overlays (joining objects based on spatial conditions like intersecting or overlapping)",
+                    "Insert query, Delete query, and Drop query",
+                    "Roll-up query, Drill-down query, and Pivot query",
+                    "Grant query, Revoke query, and Audit query"
+                ],
+                correct: 0,
+                explanation: "الاستعلامات المكانية النموذجية الثلاثة هي: استعلام النطاق (Range query)، واستعلام الجار الأقرب (Nearest Neighbor query)، والربط المكاني أو التراكب (Spatial joins/overlays)."
+            },
+            {
+                chapter: "Ch26",
+                question: "172. What indexing techniques are used for Spatial Databases, and how do R-trees and Quad trees differ?",
+                options: [
+                    "R-trees group objects close in spatial proximity on the same leaf nodes using bounding rectangles; Quad trees divide subspaces into equally sized areas",
+                    "R-trees are used only for text files; Quad trees are used for audio files",
+                    "R-trees use hashing; Quad trees use linear scans",
+                    "Both are identical to static ISAM indexes"
+                ],
+                correct: 0,
+                explanation: "تُستخدم أشجار R-trees لتجميع الكائنات المتقاربة مكانياً في نفس العقد الورقية ضمن مستطيلات محيطة، بينما تقسم أشجار Quad trees الفضاء المكاني إلى مناطق متساوية الحجم."
+            },
+            {
+                chapter: "Ch26",
+                question: "173. In Multimedia Databases, why is querying images (such as bitmap, JPEG, MPEG) by content (e.g., 'find all images containing circles') nontrivial, and what is 'Composite multimedia data'?",
+                options: [
+                    "Because images are not subdivided into components; Composite data is a physical or logical combination of multimedia types (like audio and video) with control information describing how it should be rendered",
+                    "Because JPEG files are stored as plain ASCII text",
+                    "Because multimedia databases cannot store video or audio",
+                    "Composite data only contains unformatted text"
+                ],
+                correct: 0,
+                explanation: "البحث بمحتوى الصور (Images) غير بسيط لأن الصور لا تُقسم تلقائياً إلى مكونات فرعية؛ والبيانات متعددة الوسائط المركبة (Composite multimedia) تدمج عدة أنواع كالصوت والفيديو مع معلومات تحكم لكيفية عرضها."
+            },
+            {
+                chapter: "Ch26",
+                question: "174. In Deductive Databases, what are 'Facts' and 'Rules' analogous to in a relational database, and how does Prolog evaluate rules?",
+                options: [
+                    "Facts are similar to stored relations (without attribute names), and Rules are similar to relational views (virtual relations deduced by the inference engine); Prolog uses backward chaining (top-down application of rules)",
+                    "Facts are views, and Rules are physical disk blocks; Prolog uses bottom-up sorting",
+                    "Facts and Rules are encryption keys",
+                    "Prolog cannot deduce new facts"
+                ],
+                correct: 0,
+                explanation: "في قواعد البيانات الاستنتاجية (Deductive databases)، تشبه الحقائق (Facts) الجداول المخزنة، وتشبه القواعد (Rules) العروض الافتراضية (Views) التي يستنتجها محرك الاستدلال، وتستخدم لغة Prolog التسلسل العكسي (Backward chaining / Top-down)."
+            },
+            {
+                chapter: "Ch26",
+                question: "175. In Prolog/Datalog notation, what is the convention for writing Constants versus Variables?",
+                options: [
+                    "Constants are numeric or lowercase character strings; Variables start with uppercase letters",
+                    "Constants start with uppercase letters; Variables are always numbers",
+                    "Both constants and variables must be written in uppercase",
+                    "Variables are enclosed in double quotes"
+                ],
+                correct: 0,
+                explanation: "في تدوين Prolog/Datalog، تُكتب الثوابت (Constants) كأرقام أو حروف صغيرة (Lowercase)، بينما تبدأ المتغيرات (Variables) دائماً بحرف كبير (Uppercase letter)."
+            },
+            {
+                chapter: "Ch26",
+                question: "176. How do you write the statement 'If tea is hot, everyone likes it' as a Prolog/Datalog rule of the form `head :- body`?",
+                options: [
+                    "hot(tea), likes(X)",
+                    "tea(hot) :- everyone(likes)",
+                    "likes(tea, everyone) :- hot(tea)",
+                    "likes(X, tea) :- hot(tea)"
+                ],
+                correct: 3,
+                explanation: "تُكتب القاعدة بصيغة `head :- body` (حيث `:-` تعني if)، وبما أن المتغير يبدأ بحرف كبير X والثابت بحروف صغيرة tea، تكون الصيغة الصحيحة: `likes(X, tea) :- hot(tea)`."
+            },
+            {
+                chapter: "Ch26",
+                question: "177. What are the characteristics of a formula in 'Clausal Form', and what is a 'Horn Clause'?",
+                options: [
+                    "In Clausal Form, all variables are universally quantified, each clause consists of literals connected by logical ORs only, and clauses are connected by logical ANDs only; a Horn clause is a specialized clause containing NO MORE than one positive literal",
+                    "In Clausal Form, all variables are existentially quantified and connected by XOR; a Horn clause has at least five positive literals",
+                    "Datalog programs cannot use Horn clauses",
+                    "A Horn clause contains only negative numbers"
+                ],
+                correct: 0,
+                explanation: "في الصيغة المقطعية (Clausal form) تكون جميع المتغيرات مكممة كلياً، وترتبط العناصر داخل المقطع بـ OR بينما ترتبط المقاطع ببعضها بـ AND. وجملة هورن (Horn clause) هي حالة خاصة تحتوي على عنصر موجب واحد على الأكثر (No more than one positive literal)."
+            },
+            {
+                chapter: "Ch26",
+                question: "178. What are the two main alternatives for interpreting rules in Deductive Databases?",
+                options: [
+                    "Proof-theoretic (facts and rules are axioms used in theorem proving to construct new facts) and Model-theoretic (assigning truth values over a domain to find a minimal model)",
+                    "Immediate update and Deferred update",
+                    "Discretionary and Mandatory",
+                    "Star schema and Snowflake schema"
+                ],
+                correct: 0,
+                explanation: "الطريقتان الأساسيتان لتفسير القواعد هما: التفسير البرهاني (Proof-theoretic) الذي يعامل الحقائق والقواعد كمسلمات لإثبات النظريات، والتفسير النموذجي (Model-theoretic) الذي يبحث عن النموذج الأدنى (Minimal model)."
+            },
+            {
+                chapter: "Ch26",
+                question: "179. In Proof-theoretic interpretation of Datalog rules, what are 'Ground axioms' and 'Deductive axioms'?",
+                options: [
+                    "Facts are ground axioms (contain no variables), and Rules are deductive axioms (used to construct new facts from existing facts)",
+                    "Rules are ground axioms, and Facts are deductive axioms",
+                    "Both contain only unbound variables",
+                    "Ground axioms are SQL triggers"
+                ],
+                correct: 0,
+                explanation: "الحقائق (Facts) تُسمى مسلمات أرضية (Ground axioms) لأنها لا تحتوي على أي متغيرات، بينما القواعد (Rules) تُسمى مسلمات استنتاجية (Deductive axioms) تُستخدم لبناء حقائق جديدة."
+            },
+            {
+                chapter: "Ch26",
+                question: "180. When is a Datalog program considered 'Safe'?",
+                options: [
+                    "When it generates an infinite set of facts",
+                    "When it generates a finite set of facts",
+                    "When it contains no fact-defined predicates",
+                    "When it is encrypted with RSA"
+                ],
+                correct: 1,
+                explanation: "يُعتبر برنامج Datalog آمناً (Safe) إذا كان يولد مجموعة منتهية ومحدودة من الحقائق (Generates a finite set of facts)."
+            },
+
+            // ================= CHAPTERS 28 & 29 - Module 12 (20 Questions) =================
+            {
+                chapter: "Ch28_29",
+                question: "181. What is Data Mining?",
+                options: [
+                    "A technique to back up databases to magnetic tape",
+                    "A method to compress database files on disk",
+                    "The discovery of new information in terms of patterns or rules from vast amounts of data",
+                    "A process to physically extract minerals from mines"
+                ],
+                correct: 2,
+                explanation: "تنقيب البيانات (Data Mining) هو اكتشاف معلومات جديدة على شكل أنماط (Patterns) أو قواعد (Rules) من كميات هائلة من البيانات."
+            },
+            {
+                chapter: "Ch28_29",
+                question: "182. What are the six phases of the Knowledge Discovery in Databases (KDD) process model, and which of the following is NOT a phase in KDD?",
+                options: [
+                    "Phases: 1. Data selection, 2. Data cleansing, 3. Enrichment, 4. Data transformation/encoding, 5. Data mining, 6. Reporting and displaying discovered knowledge; 'Data decryption' is NOT a KDD phase",
+                    "Data decryption is the first phase of KDD",
+                    "Data cleansing and Data selection are not part of KDD",
+                    "KDD consists only of writing SQL triggers"
+                ],
+                correct: 0,
+                explanation: "مراحل عملية اكتشاف المعرفة (KDD) الست هي: اختيار البيانات (Selection)، تنظيف البيانات (Cleansing)، الإثراء (Enrichment)، التحويل أو الترميز (Transformation)، تنقيب البيانات (Data mining)، وعرض المعرفة المكتشفة. وفك التشفير (Data decryption) ليس مرحلة في KDD."
+            },
+            {
+                chapter: "Ch28_29",
+                question: "183. What are the four main goals of Data Mining and Knowledge Discovery (summarized as PICO)?",
+                options: [
+                    "Parsing, Indexing, Clustering, Ordering",
+                    "Prediction, Identification, Classification, and Optimization",
+                    "Partitioning, Isolation, Concurrency, and Overhead",
+                    "Projection, Intersection, Cartesian product, and Outer join"
+                ],
+                correct: 1,
+                explanation: "الأهداف الأربعة لتنقيب البيانات واكتشاف المعرفة (PICO) هي: التنبؤ (Prediction)، والتعرف/التحديد (Identification)، والتصنيف (Classification)، والتحسين الأمثل للموارد (Optimization)."
+            },
+            {
+                chapter: "Ch28_29",
+                question: "184. In Association Rules (A => B), what do 'Support' and 'Confidence' mean?",
+                options: [
+                    "Support is the percentage of transactions that contain all items in the rule (LHS U RHS); Confidence is the conditional probability that B is true given A is true, computed as support(LHS U RHS) / support(LHS)",
+                    "Support is technical customer service; Confidence is database security level",
+                    "Support is support(LHS) / support(RHS); Confidence is the total number of tables",
+                    "Support and Confidence are always equal to 100%"
+                ],
+                correct: 0,
+                explanation: "الدعم (Support) هو نسبة المعاملات في قاعدة البيانات التي تحتوي على جميع العناصر المذكورة في القاعدة معاً `LHS ∪ RHS`، بينما الثقة (Confidence) هي الاحتمال الشرطي لحدوث B عند حدوث A وتُحسب بالقانون `support(LHS ∪ RHS) / support(LHS)`."
+            },
+            {
+                chapter: "Ch28_29",
+                question: "185. Which two properties are used by the Apriori algorithm to reduce the search space for generating association rules?",
+                options: [
+                    "Atomicity and Durability",
+                    "Downward Closure (a subset of a large/frequent itemset must also be large) and Anti-monotonicity (a superset of a small itemset is also small)",
+                    "Commutativity and Associativity",
+                    "Simple Security and Star property"
+                ],
+                correct: 1,
+                explanation: "تعتمد خوارزمية Apriori لتقليص فضاء البحث على خاصيتين: الإغلاق التنازلي (Downward closure: أي مجموعة جزئية من مجموعة متكررة كبيرة تكون كبيرة أيضاً) ومضاد الرتابة (Anti-monotonicity: أي مجموعة شاملة لمجموعة صغيرة تكون صغيرة أيضاً)."
+            },
+            {
+                chapter: "Ch28_29",
+                question: "186. Compare the Sampling, Frequent-Pattern Tree (FP-tree), and Partition algorithms for association rules:",
+                options: [
+                    "Sampling selects transaction samples that fit in memory; FP-tree compresses the database into a tree structure to avoid candidate generation (using FP-growth); Partition divides the database into non-overlapping memory-fitting subsets and takes the union of local frequent itemsets",
+                    "Sampling deletes old records; FP-tree uses B+-trees for locking; Partition encrypts subsets",
+                    "All three algorithms require scanning the disk 100 times",
+                    "FP-tree only works on audio files"
+                ],
+                correct: 0,
+                explanation: "خوارزمية المعاينة (Sampling) تختار عينة تناسب الذاكرة، وخوارزمية FP-tree تضغط قاعدة البيانات في شجرة لاكتشاف الأنماط دون توليد مرشحين، وخوارزمية التقسيم (Partition) تقسم البيانات لأجزاء غير متداخلة تناسب الذاكرة."
+            },
+            {
+                chapter: "Ch28_29",
+                question: "187. In Data Mining, what is the difference between 'Classification' and 'Clustering'?",
+                options: [
+                    "Classification is Supervised learning (learns a model like a decision tree from pre-classified training data with predetermined classes); Clustering is Unsupervised learning (groups similar records together without predefined classes, e.g., k-Means)",
+                    "Classification is Unsupervised learning; Clustering is Supervised learning",
+                    "Classification uses k-Means without classes; Clustering uses pre-classified training sets",
+                    "Both are Semi-supervised reinforcement algorithms"
+                ],
+                correct: 0,
+                explanation: "التصنيف (Classification) هو تعلم خاضع للإشراف (Supervised learning) لأن الفئات محددة مسبقاً ويستخدم بيانات تدريب لإنتاج شجرة قرار، بينما التجميع (Clustering كـ k-Means) هو تعلم غير خاضع للإشراف (Unsupervised learning) بدون فئات مسبقة."
+            },
+            {
+                chapter: "Ch28_29",
+                question: "188. In Regression Analysis, what type of variables are used, and what does a regression equation estimate?",
+                options: [
+                    "Boolean variables only",
+                    "Text and categorical variables only",
+                    "Numeric variables (estimates a numeric dependent variable Y using a set of numeric independent variables x1, x2, ..., xn)",
+                    "Audio and video variables"
+                ],
+                correct: 2,
+                explanation: "في تحليل الانحدار (Regression Analysis)، تكون جميع المتغيرات المستقلة والمتغير التابع متغيرات رقمية (Numeric variables)."
+            },
+            {
+                chapter: "Ch28_29",
+                question: "189. What is a Neural Network designed to do, and what is Genetic Learning based on?",
+                options: [
+                    "A Neural Network is a set of interconnected nodes with weights designed to imitate the functioning of the human brain; Genetic Learning is based on the theory of evolution (using a fitness function, crossover, mutation, and selection)",
+                    "A Neural Network sorts SQL tables; Genetic Learning is based on hardware architecture",
+                    "A Neural Network is a relational schema; Genetic Learning is based on B-tree splitting",
+                    "Both are encryption algorithms"
+                ],
+                correct: 0,
+                explanation: "صُممت الشبكات العصبية (Neural Networks) لمحاكاة عمل الدماغ البشري، بينما يعتمد التعلم الجيني (Genetic Learning) على نظرية التطور (Theory of evolution) باستخدام دالة اللياقة والتقاطع والطفرة."
+            },
+            {
+                chapter: "Ch28_29",
+                question: "190. What does OLAP stand for, and how did W. H. Inmon characterize a Data Warehouse?",
+                options: [
+                    "OLAP stands for Online Analytical Processing; a Data Warehouse is a 'subject-oriented, integrated, nonvolatile, time-variant collection of data in support of management's decisions'",
+                    "OLAP stands for Offline Application Processing; a Data Warehouse is a 'volatile, transaction-oriented operational database'",
+                    "OLAP stands for Operational Linear Analysis Processing",
+                    "A Data Warehouse is volatile and deletes historical data daily"
+                ],
+                correct: 0,
+                explanation: "يرمز OLAP إلى المعالجة التحليلية الفورية (Online Analytical Processing)، وعرّف Inmon مستودع البيانات بأنه مجموعة بيانات موجهة للموضوع (Subject-oriented)، متكاملة (Integrated)، غير متطايرة (Nonvolatile)، ومتغيرة زمنياً (Time-variant) لدعم القرار."
+            },
+            {
+                chapter: "Ch28_29",
+                question: "191. Which of the following is NOT a characteristic of a Data Warehouse?",
+                options: ["Subject-oriented", "Integrated", "Time-variant", "Volatile"],
+                correct: 3,
+                explanation: "مستودع البيانات يكون غير متطاير (Nonvolatile)، لذا فإن 'متطاير' (Volatile) ليست من خصائصه."
+            },
+            {
+                chapter: "Ch28_29",
+                question: "192. How are Data Warehouses classified based on scope, and which type is targeted to a subset of an organization such as a single department?",
+                options: [
+                    "Classified into Enterprise-wide data warehouses, Virtual data warehouses, and Data marts; a Data Mart is targeted to a subset of an organization such as a department",
+                    "An Enterprise-wide data warehouse is targeted to a single small department",
+                    "A Virtual data warehouse requires decades of physical ETL storage",
+                    "Data marts cannot be used by departments"
+                ],
+                correct: 0,
+                explanation: "تُصنف مستودعات البيانات إلى: مستودعات على مستوى المؤسسة (Enterprise-wide)، ومستودعات افتراضية (Virtual)، ومتاجر البيانات (Data marts) التي تستهدف قسماً محدداً أو مجموعة فرعية من المنظمة."
+            },
+            {
+                chapter: "Ch28_29",
+                question: "193. In a multi-dimensional data warehouse schema, what is the difference between a 'Dimension table' and a 'Fact table'?",
+                options: [
+                    "A Dimension table consists of tuples of attributes of the dimension; a Fact table contains recorded facts with measured/observed variables and pointers (foreign keys) to dimension tables",
+                    "A Dimension table stores only pointers; a Fact table stores only text descriptions",
+                    "Both tables are identical",
+                    "A Fact table is only used in 1NF operational databases"
+                ],
+                correct: 0,
+                explanation: "يتكون جدول الأبعاد (Dimension table) من صفوف تمثل خصائص البُعد، بينما يحتوي جدول الحقائق (Fact table) على القيم المقاسة (البيانات الرقمية) ومؤشرات تشير إلى جداول الأبعاد."
+            },
+            {
+                chapter: "Ch28_29",
+                question: "194. Compare Star Schema, Snowflake Schema, and Fact Constellation in Data Warehouses:",
+                options: [
+                    "Star schema has a fact table with a single unnormalized table for each dimension; Snowflake schema normalizes the dimension tables of a star schema into a hierarchy; Fact constellation is a set of fact tables that share some dimension tables",
+                    "Snowflake schema has a single table for each dimension; Star schema normalizes dimension tables",
+                    "Fact constellation allows only one fact table and zero dimension tables",
+                    "Star schema is a variation of B+-tree"
+                ],
+                correct: 0,
+                explanation: "مخطط النجمة (Star schema) يتكون من جدول حقائق واحد مع جدول واحد لكل بُعد، ومخطط ندفة الثلج (Snowflake schema) يقوم بتطبيع (Normalizing) جداول الأبعاد في هرمية، ومجموعة الحقائق (Fact constellation) تضم عدة جداول حقائق تشترك في بعض جداول الأبعاد."
+            },
+            {
+                chapter: "Ch28_29",
+                question: "195. Which indexing technique used in Data Warehouses constructs a bit vector for each value in a domain and works very well for domains of low cardinality?",
+                options: ["Primary clustering index", "Bitmap indexing", "Extendible hashing", "ISAM"],
+                correct: 1,
+                explanation: "الفهرسة النقطية (Bitmap indexing) تبني متجه بتات (Bit vector) لكل قيمة في المجال، وتعمل بكفاءة عالية جداً مع الأعمدة ذات التعددية المنخفضة (Low cardinality)."
+            },
+            {
+                chapter: "Ch28_29",
+                question: "196. In a Data Warehouse, what do the operations 'Slice and Dice', 'Roll-up', 'Drill-down', and 'Pivot' mean?",
+                options: [
+                    "Slice and dice: performing projection operations on the dimensions; Roll-up: summarizing data with increasing generalization; Drill-down: revealing increasing levels of detail; Pivot: performing cross-tabulation",
+                    "Slice and dice: deleting irrelevant data; Roll-up: revealing fine details; Drill-down: summarizing data",
+                    "Pivot: backing up slices to tape",
+                    "Roll-up: aborting a transaction"
+                ],
+                correct: 0,
+                explanation: "في مستودعات البيانات: التقطيع (Slice and dice) هو إجراء عمليات إسقاط (Projection) على الأبعاد، والتصعيد (Roll-up) يلخص البيانات بتعميم أعلى، والتعمق (Drill-down) يكشف تفاصيل أدق، والمحورية (Pivot) تجري جدولة متقاطعة (Cross-tabulation)."
+            },
+            {
+                chapter: "Ch28_29",
+                question: "197. What does 'Back flushing' mean during the data acquisition/cleaning process of building a Data Warehouse?",
+                options: [
+                    "Deleting the entire data warehouse when an error is found",
+                    "Upgrading the source operational databases with the cleaned data from the warehouse",
+                    "Flushing dirty pages during ARIES recovery",
+                    "Writing uncommitted data to disk"
+                ],
+                correct: 1,
+                explanation: "عملية الضخ العكسي (Back flushing) أثناء بناء مستودع البيانات تعني ترقية وتحديث قواعد البيانات المصدرية بالبيانات التي تم تنظيفها وتنقيحها."
+            },
+            {
+                chapter: "Ch28_29",
+                question: "198. How do Data Warehouses differ from traditional Database Views?",
+                options: [
+                    "Data Warehouses exist as persistent storage (not materialized on demand), are multi-dimensional rather than relational, can be indexed for optimization, and integrate huge volumes of data from multiple databases",
+                    "Data Warehouses are virtual and materialized only on demand, whereas Views are stored permanently across multiple servers",
+                    "Views can be indexed directly in all systems, whereas Data Warehouses cannot be indexed",
+                    "There is no difference; a Data Warehouse is just a single SQL View"
+                ],
+                correct: 0,
+                explanation: "تختلف مستودعات البيانات عن العروض (Views) في أنها تُخزن بشكل دائم (Persistent storage) وليست مجرد عرض يُحسب عند الطلب، كما أنها متعددة الأبعاد، وقابلة للفهرسة، وتجمع بيانات ضخمة من عدة قواعد بيانات."
+            },
+            {
+                chapter: "Ch28_29",
+                question: "199. How do Data Warehouses compare with Traditional Operational (Transactional) Databases?",
+                options: [
+                    "Data Warehouses are optimized for fast read access over historical data (nonvolatile, coarse-grained, incremental refresh) for decision support (OLAP/DSS), whereas Traditional Databases are transactional and balance read/write access with integrity assurance",
+                    "Data Warehouses are optimized for high-frequency row-level UPDATE transactions",
+                    "Traditional Databases do not enforce integrity constraints",
+                    "Data Warehouses only store current-day data and delete historical trends"
+                ],
+                correct: 0,
+                explanation: "مستودعات البيانات مُحسّنة للقراءة السريعة للبيانات التاريخية لدعم اتخاذ القرار (غير متطايرة وتُحدّث دورياً)، بينما قواعد البيانات التقليدية معاملاتية (Transactional) توازن بين القراءة والكتابة وضمان تكامل البيانات."
+            },
+            {
+                chapter: "Ch28_29",
+                question: "200. Which of the following is a recognized difficulty in implementing and managing a Data Warehouse?",
+                options: [
+                    "Lead time is huge (potentially taking years to build), data quality and consistency across heterogeneous sources are major concerns, and administration requires far broader skills than a traditional database",
+                    "Data warehouses are too small to fit on a hard drive",
+                    "Data warehouses do not support multi-user access",
+                    "Data warehouses cannot use client-server architecture"
+                ],
+                correct: 0,
+                explanation: "من أبرز صعوبات تنفيذ مستودعات البيانات: طول وقت البناء (Lead time) الذي قد يستغرق سنوات، وتحديات جودة واتساق البيانات القادمة من مصادر غير متجانسة، والحاجة لمهارات إدارية أوسع بكثير من قواعد البيانات التقليدية."
             }
         ];
+
+        const afterM5Chapters = ['Ch22', 'Ch23', 'Ch24', 'Ch25', 'Ch26', 'Ch28_29'];
 
         let questions = [];
         let userAnswers = []; // لحفظ إجابة المستخدم لكل سؤال (null إذا لم يجب)
         let currentIdx = 0;
         let currentFilter = 'ALL';
-        let currentLimit = 80;
+        let currentLimit = 200;
 
         const questionCounter = document.getElementById('question-counter');
         const chapterBadge = document.getElementById('chapter-badge');
@@ -1203,7 +2595,7 @@
             applyFilterAndLimit(false);
         }
 
-        // اختيار عدد الأسئلة (20, 40, 60, 80)
+        // اختيار عدد الأسئلة (20, 40, 80, 120, 200)
         function setQuestionLimit(limit) {
             currentLimit = limit;
             document.querySelectorAll('.limit-btn').forEach(btn => btn.classList.remove('active'));
@@ -1213,9 +2605,14 @@
 
         // تطبيق الفلتر والعدد المحدد
         function applyFilterAndLimit(shouldShuffle = false) {
-            let pool = (currentFilter === 'ALL') 
-                ? [...allQuestions] 
-                : allQuestions.filter(q => q.chapter === currentFilter);
+            let pool;
+            if (currentFilter === 'ALL') {
+                pool = [...allQuestions];
+            } else if (currentFilter === 'AFTER_M5') {
+                pool = allQuestions.filter(q => afterM5Chapters.includes(q.chapter));
+            } else {
+                pool = allQuestions.filter(q => q.chapter === currentFilter);
+            }
 
             if (shouldShuffle) {
                 for (let i = pool.length - 1; i > 0; i--) {
@@ -1254,7 +2651,7 @@
             }, 0);
         }
 
-      function updateScoreTracker() {
+        function updateScoreTracker() {
             const currentScore = getCurrentScore();
             document.getElementById('score-tracker').innerText = `الصحيحة: ${currentScore}`;
             if (document.getElementById('score-tracker-mobile')) {
@@ -1332,7 +2729,7 @@
             }
         }
 
-       // متغير لحفظ حالة زر الانتقال التلقائي
+        // متغير لحفظ حالة زر الانتقال التلقائي
         let isAutoNext = false;
 
         // دالة تشغيل وإيقاف زر الانتقال التلقائي (Toggle)
@@ -1361,7 +2758,7 @@
             if (isAutoNext && selectedIdx === questions[currentIdx].correct) {
                 setTimeout(() => {
                     nextQuestion();
-                }, 900); // 300 جزء من الثانية (شبه فوري)
+                }, 900);
             }
         }
 
